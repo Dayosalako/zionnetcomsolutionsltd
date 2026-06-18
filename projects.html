@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio of web applications, network infrastructure, and ICT projects by Zion Netcom Solutions Limited.">
+    <title>Projects | Zion Netcom Solutions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #070B14;
+            --bg-secondary: #0D1321;
+            --bg-card: #111827;
+            --bg-elevated: #1A2332;
+            --grid-line: rgba(56, 182, 255, 0.08);
+            --cyan: #38B6FF;
+            --cyan-dim: rgba(56, 182, 255, 0.6);
+            --cyan-glow: rgba(56, 182, 255, 0.25);
+            --text-primary: #E8F4F8;
+            --text-secondary: #8BA3B8;
+            --text-muted: #4A6070;
+            --accent-warm: #FF6B35;
+            --border-subtle: rgba(56, 182, 255, 0.12);
+            --border-glow: rgba(56, 182, 255, 0.3);
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+            --font-sans: 'Inter', system-ui, sans-serif;
+            --font-display: 'Space Grotesk', 'Inter', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .container { width: 92%; max-width: 1280px; margin: 0 auto; position: relative; z-index: 1; }
+        h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height: 1.1; }
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--cyan);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section-label::before { content: '//'; color: var(--text-muted); }
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .btn-primary {
+            background: var(--cyan);
+            color: var(--bg-primary);
+            box-shadow: 0 0 20px var(--cyan-glow), inset 0 0 0 1px rgba(255,255,255,0.2);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 40px var(--cyan-glow), 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--cyan);
+            border: 1px solid var(--cyan);
+            box-shadow: 0 0 10px rgba(56,182,255,0.1);
+        }
+        .btn-outline:hover {
+            background: var(--cyan);
+            color: var(--bg-primary);
+            box-shadow: 0 0 30px var(--cyan-glow);
+        }
+
+        /* TOPBAR */
+        .topbar {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 10px 0;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            position: relative;
+            z-index: 100;
+        }
+        .topbar-inner { display: flex; justify-content: space-between; align-items: center; }
+        .topbar-info { display: flex; gap: 30px; }
+        .topbar-info span { color: var(--text-secondary); display: flex; align-items: center; gap: 8px; }
+        .topbar-info i { color: var(--cyan); font-size: 0.8rem; }
+        .topbar-social a { color: var(--text-muted); margin-left: 16px; transition: color 0.3s; }
+        .topbar-social a:hover { color: var(--cyan); }
+
+        /* HEADER */
+        .header {
+            background: rgba(7, 11, 20, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+        .nav-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            gap: 20px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 42px; height: 42px;
+            border: 2px solid var(--cyan);
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--cyan);
+            position: relative;
+        }
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            border: 1px solid var(--cyan-dim);
+        }
+        .logo-text {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+        .logo-text span { color: var(--cyan); }
+        .logo-sub {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-links a {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+            padding: 4px 0;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; left: 0;
+            width: 0; height: 1px;
+            background: var(--cyan);
+            transition: width 0.3s;
+            box-shadow: 0 0 8px var(--cyan);
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--cyan); }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .header-actions { display: flex; align-items: center; gap: 20px; }
+        .menu-toggle {
+            display: none;
+            background: none; border: none;
+            color: var(--cyan);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* PAGE HERO */
+        .page-hero {
+            padding: 140px 0 100px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-subtle);
+            position: relative;
+        }
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            opacity: 0.5;
+        }
+        .page-hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+        .page-hero h1 .highlight { color: var(--cyan); text-shadow: 0 0 30px var(--cyan-glow); }
+        .page-hero p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        /* FILTERS */
+        .filter-bar {
+            padding: 40px 0;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .filter-btn {
+            padding: 10px 24px;
+            border-radius: 2px;
+            border: 1px solid var(--border-subtle);
+            background: transparent;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            border-color: var(--cyan);
+            color: var(--cyan);
+            background: rgba(56, 182, 255, 0.08);
+        }
+        .filter-count {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-left: auto;
+        }
+
+        /* PROJECTS GRID */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            padding-bottom: 100px;
+        }
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+            cursor: pointer;
+        }
+        .project-card:hover {
+            border-color: var(--border-glow);
+            transform: translateY(-6px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+        }
+        .project-card .project-img {
+            height: 220px;
+            background: var(--bg-elevated);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .project-card .project-img i {
+            font-size: 3.5rem;
+            color: var(--cyan-dim);
+            transition: all 0.3s;
+        }
+        .project-card:hover .project-img i {
+            color: var(--cyan);
+            transform: scale(1.1);
+            text-shadow: 0 0 20px var(--cyan-glow);
+        }
+        .project-card .project-info {
+            padding: 28px;
+        }
+        .project-card .project-id {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .project-card h4 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+        .project-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+        .project-card .project-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+        }
+        .project-card .project-meta .client {
+            color: var(--text-muted);
+        }
+        .project-card .project-meta .client strong {
+            color: var(--text-secondary);
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 2px;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid var(--border-subtle);
+        }
+        .status-badge.live {
+            background: rgba(56, 182, 255, 0.1);
+            color: var(--cyan);
+            border-color: var(--cyan-dim);
+        }
+        .status-badge.dev {
+            background: rgba(255, 107, 53, 0.1);
+            color: var(--accent-warm);
+            border-color: rgba(255, 107, 53, 0.3);
+        }
+        .status-badge.deployed {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22C55E;
+            border-color: rgba(34, 197, 94, 0.3);
+        }
+        .status-badge.ict {
+            background: rgba(168, 85, 247, 0.1);
+            color: #A855F7;
+            border-color: rgba(168, 85, 247, 0.3);
+        }
+
+        /* MODAL */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(7, 11, 20, 0.95);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalIn 0.3s ease;
+        }
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .modal-content::before, .modal-content::after {
+            content: '';
+            position: absolute;
+            width: 16px; height: 16px;
+            border: 2px solid var(--cyan);
+        }
+        .modal-content::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+        .modal-content::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+        .modal-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            background: none; border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+            z-index: 10;
+        }
+        .modal-close:hover { color: var(--cyan); }
+        .modal-header {
+            padding: 40px 40px 20px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .modal-header .modal-id {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        .modal-header h3 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+        .modal-header .modal-client {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--cyan);
+        }
+        .modal-body {
+            padding: 30px 40px 40px;
+        }
+        .modal-body p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+        .modal-body h4 {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--cyan);
+            margin-bottom: 16px;
+        }
+        .modal-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .modal-tag {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            padding: 6px 14px;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            border-radius: 2px;
+        }
+
+        /* CTA */
+        .cta-section {
+            padding: 120px 0;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            text-align: center;
+            position: relative;
+        }
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            opacity: 0.5;
+        }
+        .cta-section h2 {
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            margin-bottom: 20px;
+        }
+        .cta-section p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            font-size: 1.1rem;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            padding: 80px 0 30px;
+            position: relative;
+        }
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            opacity: 0.5;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            max-width: 300px;
+            margin: 20px 0;
+        }
+        .footer h4 {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--cyan);
+            margin-bottom: 24px;
+        }
+        .footer ul { list-style: none; }
+        .footer ul li { margin-bottom: 12px; }
+        .footer ul a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer ul a:hover { color: var(--cyan); padding-left: 4px; }
+        .footer ul a::before {
+            content: '>';
+            font-family: var(--font-mono);
+            color: var(--text-muted);
+            font-size: 0.7rem;
+        }
+        .footer-contact p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .footer-contact i { color: var(--cyan); width: 16px; font-size: 0.85rem; }
+        .footer-bottom {
+            border-top: 1px solid var(--border-subtle);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .data-readout {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .data-readout .indicator {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--cyan);
+            box-shadow: 0 0 8px var(--cyan);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        @media (max-width: 1100px) {
+            .projects-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px; left: -100%;
+                width: 100%; height: calc(100vh - 70px);
+                background: var(--bg-primary);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                transition: left 0.4s ease;
+                border-top: 1px solid var(--border-subtle);
+            }
+            .nav-links.active { left: 0; }
+            .menu-toggle { display: block; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .filter-bar { justify-content: center; }
+            .filter-count { display: none; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .topbar-info span:not(:first-child) { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+    <div class="container topbar-inner">
+        <div class="topbar-info">
+            <span><i class="fas fa-map-marker-alt"></i> Kaduna, Nigeria</span>
+            <span><i class="fas fa-phone"></i> +234 706 758 0599</span>
+            <span><i class="fas fa-envelope"></i> info@zionnetcomsolutionsltd.com.ng</span>
+        </div>
+        <div class="topbar-social">
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="container nav-wrapper">
+        <a href="index.html" class="logo">
+            <img src="zion.jpg" alt="Zion Netcom Solutions" style="height: 48px; width: auto; display: block;">
+            <div>
+                <div class="logo-text">ZION<span>NETCOM</span></div>
+                <div class="logo-sub">Solutions Limited</div>
+            </div>
+        </a>
+        <nav>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Solutions</a></li>
+                <li><a href="projects.html" class="active">Projects</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <a href="contact.html" class="btn btn-primary">Get Quote</a>
+            <button class="menu-toggle" onclick="document.getElementById('nav-links').classList.toggle('active')">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+    <div class="container">
+        <div class="section-label">Project Archive</div>
+        <h1>Infrastructure <span class="highlight">Portfolio</span></h1>
+        <p>Real deployments and active developments across web platforms, enterprise networks, and institutional ICT. Filter by sector to explore our engineering footprint.</p>
+    </div>
+</section>
+
+<!-- FILTERS -->
+<div class="container">
+    <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">All Sectors</button>
+        <button class="filter-btn" data-filter="web">Web Development</button>
+        <button class="filter-btn" data-filter="ict">ICT / Networks</button>
+        <button class="filter-btn" data-filter="future">Future / R&D</button>
+        <span class="filter-count" id="filter-count">Showing 8 projects</span>
+    </div>
+</div>
+
+<!-- PROJECTS GRID -->
+<div class="container">
+    <div class="projects-grid" id="projects-grid">
+        <!-- Projects rendered by JS -->
+    </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <div class="modal-header">
+            <div class="modal-id" id="modal-id">PRJ.001</div>
+            <h3 id="modal-title">Project Title</h3>
+            <div class="modal-client" id="modal-client">Client Name</div>
+        </div>
+        <div class="modal-body">
+            <p id="modal-desc">Description</p>
+            <h4>Technologies</h4>
+            <div class="modal-tags" id="modal-tags"></div>
+        </div>
+    </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="container">
+        <h2>Have a Project in Mind?</h2>
+        <p>From concept to deployment, we engineer solutions that scale. Let's discuss your next infrastructure or software project.</p>
+        <a href="contact.html" class="btn btn-primary">Start a Project <i class="fas fa-arrow-right"></i></a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo" style="margin-bottom: 16px;">
+                    <img src="zion.jpg" alt="Zion Netcom Solutions" style="height: 40px; width: auto; display: block;">
+                    <div>
+                        <div class="logo-text" style="font-size:1.2rem;">ZION<span>NETCOM</span></div>
+                        <div class="logo-sub">Solutions Limited</div>
+                    </div>
+                </div>
+                <p>Engineering reliable digital infrastructure across Nigeria and Africa since 2018.</p>
+                <div class="data-readout" style="margin-top: 16px;">
+                    <span class="indicator"></span>
+                    <span>ALL SYSTEMS OPERATIONAL</span>
+                </div>
+            </div>
+            <div>
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Solutions</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="services.html">Enterprise Networks</a></li>
+                    <li><a href="services.html">Web Development</a></li>
+                    <li><a href="services.html">ICT Deployment</a></li>
+                    <li><a href="services.html">AI Surveillance</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact</h4>
+                <p><i class="fas fa-map-marker-alt"></i> Starcase Office, Benue Plaza, Mohammadu Buhari Way, Kaduna</p>
+                <p><i class="fas fa-phone"></i> +234 706 758 0599</p>
+                <p><i class="fas fa-envelope"></i> info@zionnetcomsolutionsltd.com.ng</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 Zion Netcom Solutions Limited</span>
+            <span>Built with precision in Kaduna, Nigeria</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+const projects = [
+    {
+        id: 'PRJ.001',
+        title: 'Biu Forum',
+        category: 'web',
+        icon: 'fa-comments',
+        desc: 'A comprehensive community platform, social network, and CMS-driven site built on scalable Google infrastructure to foster civic engagement and localized networking across Borno State. Features real-time messaging, event management, and content moderation.',
+        client: 'Biu Community Initiative',
+        status: 'live',
+        statusLabel: 'Live',
+        tags: ['React', 'Node.js', 'Google Cloud', 'MongoDB']
+    },
+    {
+        id: 'PRJ.002',
+        title: 'DND Logistics',
+        category: 'web',
+        icon: 'fa-truck',
+        desc: 'A modern supply chain and freight management web application tailored to streamline logistics tracking, operations, and client booking. Real-time shipment tracking, route optimization, and automated billing integration.',
+        client: 'DND Logistics Ltd.',
+        status: 'dev',
+        statusLabel: 'In Development',
+        tags: ['React', 'Node.js', 'PostgreSQL', 'Maps API']
+    },
+    {
+        id: 'PRJ.003',
+        title: 'Harmony Welfare Group',
+        category: 'web',
+        icon: 'fa-hands-helping',
+        desc: 'An online portal and platform dedicated to community support, resource allocation, and welfare organization management. Donor tracking, beneficiary management, and automated reporting dashboards.',
+        client: 'Harmony Welfare Group',
+        status: 'dev',
+        statusLabel: 'In Development',
+        tags: ['React', 'Firebase', 'TailwindCSS', 'Charts.js']
+    },
+    {
+        id: 'PRJ.004',
+        title: 'SchoolOS',
+        category: 'web',
+        icon: 'fa-graduation-cap',
+        desc: 'An advanced school administration platform featuring automated report cards, result management, and secure parent/guardian portals. Multi-tenant architecture supporting multiple Nigerian schools with role-based access.',
+        client: 'Nigerian Schools (Multi-tenant)',
+        status: 'deployed',
+        statusLabel: 'Deployed',
+        tags: ['React', 'Node.js', 'MongoDB', 'JWT Auth']
+    },
+    {
+        id: 'PRJ.005',
+        title: 'ZionDrive',
+        category: 'web',
+        icon: 'fa-cloud',
+        desc: 'A custom, cloud-based document and file management solution tailored for corporate data security and team collaboration. End-to-end encryption, version control, and granular permission systems.',
+        client: 'Internal Enterprise',
+        status: 'deployed',
+        statusLabel: 'Internal Deploy',
+        tags: ['Node.js', 'AWS S3', 'Docker', 'React']
+    },
+    {
+        id: 'PRJ.006',
+        title: 'NBTE Networks',
+        category: 'ict',
+        icon: 'fa-university',
+        desc: 'Comprehensive management, optimization, and support of the National Board for Technical Education networks. Multi-site WAN connectivity, bandwidth optimization, and 24/7 network operations center support.',
+        client: 'National Board for Technical Education',
+        status: 'ict',
+        statusLabel: 'Active Support',
+        tags: ['MikroTik', 'Fiber', 'VPN', 'Monitoring']
+    },
+    {
+        id: 'PRJ.007',
+        title: 'Federal University Wukari',
+        category: 'ict',
+        icon: 'fa-university',
+        desc: 'Full-scale ICT infrastructure design and deployment for Federal University Wukari. Campus-wide network with redundant backbone, Wi-Fi coverage across all faculties, and centralized authentication.',
+        client: 'Federal University Wukari',
+        status: 'ict',
+        statusLabel: 'Deployed',
+        tags: ['Cisco', 'MikroTik', 'RADIUS', 'Fiber']
+    },
+    {
+        id: 'PRJ.008',
+        title: 'Bauchi State University',
+        category: 'ict',
+        icon: 'fa-university',
+        desc: 'Campus-wide ICT implementation and network modernization for Bauchi State University, Yuli Campus. Complete infrastructure overhaul with modern switching, wireless access points, and network management systems.',
+        client: 'Bauchi State University',
+        status: 'ict',
+        statusLabel: 'Deployed',
+        tags: ['Huawei', 'MikroTik', 'Wi-Fi 6', 'NMS']
+    },
+    {
+        id: 'PRJ.009',
+        title: 'Brainstorm Technical School',
+        category: 'ict',
+        icon: 'fa-school',
+        desc: 'High-speed internet deployment utilizing integrated Starlink and MikroTik hardware configurations. Hybrid connectivity solution providing reliable internet for vocational training and online learning.',
+        client: 'Brainstorm Technical & Vocational School',
+        status: 'ict',
+        statusLabel: 'Deployed',
+        tags: ['Starlink', 'MikroTik', 'Load Balancing', 'QoS']
+    },
+    {
+        id: 'PRJ.010',
+        title: 'AI Surveillance Hub',
+        category: 'future',
+        icon: 'fa-video',
+        desc: 'Planned deployment of AI-powered surveillance infrastructure with facial recognition, anomaly detection, and centralized command center integration. Designed for municipal and industrial security applications.',
+        client: 'Future Deployment',
+        status: 'dev',
+        statusLabel: 'R&D Phase',
+        tags: ['Hikvision AI', 'Deep Learning', 'Edge Computing', '4K']
+    },
+    {
+        id: 'PRJ.011',
+        title: 'Solar ICT Power Grid',
+        category: 'future',
+        icon: 'fa-solar-panel',
+        desc: 'Off-grid solar-powered ICT infrastructure for remote telecom and surveillance sites. 50kW solar array with lithium battery storage, intelligent power management, and remote monitoring capabilities.',
+        client: 'Future Deployment',
+        status: 'dev',
+        statusLabel: 'R&D Phase',
+        tags: ['SolarEdge', 'Victron', 'IoT', 'Remote Monitoring']
+    }
+];
+
+function renderProjects(filter = 'all') {
+    const grid = document.getElementById('projects-grid');
+    const filtered = filter === 'all' ? projects : projects.filter(p => p.category === filter);
+
+    grid.innerHTML = '';
+    filtered.forEach((p, i) => {
+        const card = document.createElement('div');
+        card.className = 'project-card';
+        card.style.animationDelay = `${i * 50}ms`;
+        card.innerHTML = `
+            <div class="project-img"><i class="fas ${p.icon}"></i></div>
+            <div class="project-info">
+                <div class="project-id">
+                    <span>${p.id} // ${p.category.toUpperCase()}</span>
+                    <span class="status-badge ${p.status}">${p.statusLabel}</span>
+                </div>
+                <h4>${p.title}</h4>
+                <p>${p.desc.substring(0, 120)}...</p>
+                <div class="project-meta">
+                    <span class="client">Client: <strong>${p.client}</strong></span>
+                </div>
+            </div>
+        `;
+        card.onclick = () => openModal(p);
+        grid.appendChild(card);
+    });
+
+    document.getElementById('filter-count').textContent = `Showing ${filtered.length} project${filtered.length !== 1 ? 's' : ''}`;
+}
+
+function openModal(p) {
+    document.getElementById('modal-id').textContent = p.id;
+    document.getElementById('modal-title').textContent = p.title;
+    document.getElementById('modal-client').textContent = 'Client: ' + p.client + ' // Status: ' + p.statusLabel;
+    document.getElementById('modal-desc').textContent = p.desc;
+    document.getElementById('modal-tags').innerHTML = p.tags.map(t => `<span class="modal-tag">${t}</span>`).join('');
+    document.getElementById('modal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    document.getElementById('modal').classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+// Filter buttons
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderProjects(btn.getAttribute('data-filter'));
+    });
+});
+
+// Close modal on overlay click
+document.getElementById('modal').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('modal')) closeModal();
+});
+
+// Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+});
+
+// Mobile menu
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        document.getElementById('nav-links').classList.remove('active');
+    });
+});
+
+// Initial render
+renderProjects();
+</script>
+</body>
+</html>

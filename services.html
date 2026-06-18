@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Technology solutions by Zion Netcom — Enterprise networking, web development, ICT deployment, and future capabilities in AI surveillance and solar ICT.">
+    <title>Solutions | Zion Netcom Solutions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #070B14;
+            --bg-secondary: #0D1321;
+            --bg-card: #111827;
+            --bg-elevated: #1A2332;
+            --grid-line: rgba(56, 182, 255, 0.08);
+            --cyan: #38B6FF;
+            --cyan-dim: rgba(56, 182, 255, 0.6);
+            --cyan-glow: rgba(56, 182, 255, 0.25);
+            --text-primary: #E8F4F8;
+            --text-secondary: #8BA3B8;
+            --text-muted: #4A6070;
+            --accent-warm: #FF6B35;
+            --border-subtle: rgba(56, 182, 255, 0.12);
+            --border-glow: rgba(56, 182, 255, 0.3);
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+            --font-sans: 'Inter', system-ui, sans-serif;
+            --font-display: 'Space Grotesk', 'Inter', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .container { width: 92%; max-width: 1280px; margin: 0 auto; position: relative; z-index: 1; }
+        h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height: 1.1; }
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--cyan);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section-label::before { content: '//'; color: var(--text-muted); }
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .btn-primary {
+            background: var(--cyan);
+            color: var(--bg-primary);
+            box-shadow: 0 0 20px var(--cyan-glow), inset 0 0 0 1px rgba(255,255,255,0.2);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 40px var(--cyan-glow), 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--cyan);
+            border: 1px solid var(--cyan);
+            box-shadow: 0 0 10px rgba(56,182,255,0.1);
+        }
+        .btn-outline:hover {
+            background: var(--cyan);
+            color: var(--bg-primary);
+            box-shadow: 0 0 30px var(--cyan-glow);
+        }
+
+        /* TOPBAR */
+        .topbar {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 10px 0;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            position: relative;
+            z-index: 100;
+        }
+        .topbar-inner { display: flex; justify-content: space-between; align-items: center; }
+        .topbar-info { display: flex; gap: 30px; }
+        .topbar-info span { color: var(--text-secondary); display: flex; align-items: center; gap: 8px; }
+        .topbar-info i { color: var(--cyan); font-size: 0.8rem; }
+        .topbar-social a { color: var(--text-muted); margin-left: 16px; transition: color 0.3s; }
+        .topbar-social a:hover { color: var(--cyan); }
+
+        /* HEADER */
+        .header {
+            background: rgba(7, 11, 20, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+        .nav-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            gap: 20px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 42px; height: 42px;
+            border: 2px solid var(--cyan);
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--cyan);
+            position: relative;
+        }
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            border: 1px solid var(--cyan-dim);
+        }
+        .logo-text {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+        .logo-text span { color: var(--cyan); }
+        .logo-sub {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-links a {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+            padding: 4px 0;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; left: 0;
+            width: 0; height: 1px;
+            background: var(--cyan);
+            transition: width 0.3s;
+            box-shadow: 0 0 8px var(--cyan);
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--cyan); }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .header-actions { display: flex; align-items: center; gap: 20px; }
+        .menu-toggle {
+            display: none;
+            background: none; border: none;
+            color: var(--cyan);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* PAGE HERO */
+        .page-hero {
+            padding: 140px 0 100px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-subtle);
+            position: relative;
+            overflow: hidden;
+        }
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            opacity: 0.5;
+        }
+        .page-hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+        .page-hero h1 .highlight { color: var(--cyan); text-shadow: 0 0 30px var(--cyan-glow); }
+        .page-hero p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        /* SERVICE BLUEPRINT SECTION */
+        .service-blueprint {
+            padding: 100px 0;
+            position: relative;
+        }
+        .service-blueprint:nth-child(even) { background: var(--bg-secondary); }
+        .blueprint-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .blueprint-id {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            padding: 6px 14px;
+            border: 1px solid var(--border-subtle);
+            border-radius: 2px;
+        }
+        .blueprint-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            align-items: start;
+        }
+        .blueprint-visual {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            padding: 40px;
+            position: relative;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .blueprint-visual::before, .blueprint-visual::after {
+            content: '';
+            position: absolute;
+            width: 16px; height: 16px;
+            border: 2px solid var(--cyan);
+        }
+        .blueprint-visual::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+        .blueprint-visual::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+        .blueprint-visual .icon-main {
+            font-size: 4rem;
+            color: var(--cyan-dim);
+            margin-bottom: 24px;
+            transition: all 0.3s;
+        }
+        .blueprint-visual:hover .icon-main {
+            color: var(--cyan);
+            text-shadow: 0 0 30px var(--cyan-glow);
+        }
+        .blueprint-visual h3 {
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+        }
+        .blueprint-visual p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+        .blueprint-specs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 30px;
+        }
+        .spec-item {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            padding: 16px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+        }
+        .spec-item .spec-label { color: var(--text-muted); margin-bottom: 4px; }
+        .spec-item .spec-value { color: var(--cyan); font-weight: 600; }
+
+        .blueprint-details h4 {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--cyan);
+            margin-bottom: 20px;
+        }
+        .feature-list {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+        .feature-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        .feature-list li:last-child { border-bottom: none; }
+        .feature-list i {
+            color: var(--cyan);
+            font-size: 0.9rem;
+            margin-top: 3px;
+        }
+        .tech-stack-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .tech-tag {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            padding: 8px 16px;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        .tech-tag:hover {
+            border-color: var(--cyan-dim);
+            color: var(--cyan);
+            background: rgba(56, 182, 255, 0.05);
+        }
+
+        /* CTA */
+        .cta-section {
+            padding: 120px 0;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            text-align: center;
+            position: relative;
+        }
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            opacity: 0.5;
+        }
+        .cta-section h2 {
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            margin-bottom: 20px;
+        }
+        .cta-section p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            font-size: 1.1rem;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            padding: 80px 0 30px;
+            position: relative;
+        }
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            opacity: 0.5;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            max-width: 300px;
+            margin: 20px 0;
+        }
+        .footer h4 {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--cyan);
+            margin-bottom: 24px;
+        }
+        .footer ul { list-style: none; }
+        .footer ul li { margin-bottom: 12px; }
+        .footer ul a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer ul a:hover { color: var(--cyan); padding-left: 4px; }
+        .footer ul a::before {
+            content: '>';
+            font-family: var(--font-mono);
+            color: var(--text-muted);
+            font-size: 0.7rem;
+        }
+        .footer-contact p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .footer-contact i { color: var(--cyan); width: 16px; font-size: 0.85rem; }
+        .footer-bottom {
+            border-top: 1px solid var(--border-subtle);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .data-readout {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .data-readout .indicator {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--cyan);
+            box-shadow: 0 0 8px var(--cyan);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        @media (max-width: 992px) {
+            .nav-links {
+                position: fixed;
+                top: 70px; left: -100%;
+                width: 100%; height: calc(100vh - 70px);
+                background: var(--bg-primary);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                transition: left 0.4s ease;
+                border-top: 1px solid var(--border-subtle);
+            }
+            .nav-links.active { left: 0; }
+            .menu-toggle { display: block; }
+            .blueprint-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+        }
+        @media (max-width: 768px) {
+            .blueprint-specs { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .topbar-info span:not(:first-child) { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+    <div class="container topbar-inner">
+        <div class="topbar-info">
+            <span><i class="fas fa-map-marker-alt"></i> Kaduna, Nigeria</span>
+            <span><i class="fas fa-phone"></i> +234 706 758 0599</span>
+            <span><i class="fas fa-envelope"></i> info@zionnetcomsolutionsltd.com.ng</span>
+        </div>
+        <div class="topbar-social">
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="container nav-wrapper">
+        <a href="index.html" class="logo">
+            <img src="zion.jpg" alt="Zion Netcom Solutions" style="height: 48px; width: auto; display: block;">
+            <div>
+                <div class="logo-text">ZION<span>NETCOM</span></div>
+                <div class="logo-sub">Solutions Limited</div>
+            </div>
+        </a>
+        <nav>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html" class="active">Solutions</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <a href="contact.html" class="btn btn-primary">Get Quote</a>
+            <button class="menu-toggle" onclick="document.getElementById('nav-links').classList.toggle('active')">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+    <div class="container">
+        <div class="section-label">Service Architecture</div>
+        <h1>Technology <span class="highlight">Solutions</span></h1>
+        <p>End-to-end digital infrastructure services — from fiber optic networks and enterprise web systems to next-generation AI surveillance and solar-powered ICT. Engineered for reliability, security, and scale.</p>
+        <a href="#networking" class="btn btn-primary">Explore Blueprints <i class="fas fa-arrow-down"></i></a>
+    </div>
+</section>
+
+<!-- SERVICE 1: NETWORKING -->
+<section class="service-blueprint" id="networking">
+    <div class="container">
+        <div class="blueprint-header">
+            <div>
+                <div class="section-label">Core Infrastructure</div>
+                <h2 class="section-title">Telecommunications & Network</h2>
+            </div>
+            <span class="blueprint-id">SVC.001 // ACTIVE</span>
+        </div>
+        <div class="blueprint-grid">
+            <div class="blueprint-visual">
+                <i class="fas fa-network-wired icon-main"></i>
+                <h3>Enterprise Network Infrastructure</h3>
+                <p>End-to-end FTTH lifecycle management, OSP design, cluster deployment, and enterprise-grade security infrastructure. We build the physical and logical layers that organizations depend on.</p>
+                <div class="blueprint-specs">
+                    <div class="spec-item">
+                        <div class="spec-label">DEPLOYMENT TYPE</div>
+                        <div class="spec-value">FTTH / OSP / LAN</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">HARDWARE</div>
+                        <div class="spec-value">MikroTik / Cisco</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">CONNECTIVITY</div>
+                        <div class="spec-value">Starlink / Fiber</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">COVERAGE</div>
+                        <div class="spec-value">Campus / Community</div>
+                    </div>
+                </div>
+            </div>
+            <div class="blueprint-details">
+                <h4>Capabilities</h4>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle"></i> Fiber-to-the-Home (FTTH) lifecycle management and outside plant design</li>
+                    <li><i class="fas fa-check-circle"></i> Enterprise network security, routing, and switching infrastructure</li>
+                    <li><i class="fas fa-check-circle"></i> Starlink integration for remote and high-density community Wi-Fi</li>
+                    <li><i class="fas fa-check-circle"></i> Structured cabling and cluster deployment for institutional scale</li>
+                    <li><i class="fas fa-check-circle"></i> Network monitoring, failover, and performance optimization</li>
+                </ul>
+                <h4>Technology Stack</h4>
+                <div class="tech-stack-tags">
+                    <span class="tech-tag">MikroTik RouterOS</span>
+                    <span class="tech-tag">Cisco IOS</span>
+                    <span class="tech-tag">Starlink</span>
+                    <span class="tech-tag">Fortinet</span>
+                    <span class="tech-tag">Fiber Optics</span>
+                    <span class="tech-tag">Wi-Fi 6</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICE 2: WEB DEVELOPMENT -->
+<section class="service-blueprint">
+    <div class="container">
+        <div class="blueprint-header">
+            <div>
+                <div class="section-label">Software Engineering</div>
+                <h2 class="section-title">Full-Stack Web & Apps</h2>
+            </div>
+            <span class="blueprint-id">SVC.002 // ACTIVE</span>
+        </div>
+        <div class="blueprint-grid">
+            <div class="blueprint-visual">
+                <i class="fas fa-code icon-main"></i>
+                <h3>Custom Application Development</h3>
+                <p>Modern web applications engineered with React, Vite, Node.js, and TailwindCSS. From community platforms to logistics management systems, we build software that bridges operational gaps.</p>
+                <div class="blueprint-specs">
+                    <div class="spec-item">
+                        <div class="spec-label">FRONTEND</div>
+                        <div class="spec-value">React / Vite</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">BACKEND</div>
+                        <div class="spec-value">Node.js / Express</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">DATABASE</div>
+                        <div class="spec-value">MongoDB / PostgreSQL</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">CLOUD</div>
+                        <div class="spec-value">GCP / AWS</div>
+                    </div>
+                </div>
+            </div>
+            <div class="blueprint-details">
+                <h4>Capabilities</h4>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle"></i> Custom web applications with modern JavaScript stacks</li>
+                    <li><i class="fas fa-check-circle"></i> Cloud integration and database architecture design</li>
+                    <li><i class="fas fa-check-circle"></i> Google Apps Script automation and workflow integration</li>
+                    <li><i class="fas fa-check-circle"></i> RESTful API design and third-party service integration</li>
+                    <li><i class="fas fa-check-circle"></i> Progressive Web App (PWA) development and deployment</li>
+                </ul>
+                <h4>Technology Stack</h4>
+                <div class="tech-stack-tags">
+                    <span class="tech-tag">React</span>
+                    <span class="tech-tag">Node.js</span>
+                    <span class="tech-tag">TailwindCSS</span>
+                    <span class="tech-tag">MongoDB</span>
+                    <span class="tech-tag">Google Cloud</span>
+                    <span class="tech-tag">Docker</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICE 3: ICT & MANAGED -->
+<section class="service-blueprint">
+    <div class="container">
+        <div class="blueprint-header">
+            <div>
+                <div class="section-label">Enterprise ICT</div>
+                <h2 class="section-title">ICT & Managed Solutions</h2>
+            </div>
+            <span class="blueprint-id">SVC.003 // ACTIVE</span>
+        </div>
+        <div class="blueprint-grid">
+            <div class="blueprint-visual">
+                <i class="fas fa-server icon-main"></i>
+                <h3>Institutional ICT Deployment</h3>
+                <p>Large-scale campus-wide ICT implementations, captive portal design, custom hotspot gateways, and user access management systems for universities, schools, and government institutions.</p>
+                <div class="blueprint-specs">
+                    <div class="spec-item">
+                        <div class="spec-label">SCALE</div>
+                        <div class="spec-value">Campus / State</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">ACCESS</div>
+                        <div class="spec-value">RADIUS / LDAP</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">PORTAL</div>
+                        <div class="spec-value">Custom Hotspot</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">MANAGEMENT</div>
+                        <div class="spec-value">Centralized NMS</div>
+                    </div>
+                </div>
+            </div>
+            <div class="blueprint-details">
+                <h4>Capabilities</h4>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle"></i> Campus-wide network design and ICT infrastructure deployment</li>
+                    <li><i class="fas fa-check-circle"></i> Custom captive portal and hotspot gateway development</li>
+                    <li><i class="fas fa-check-circle"></i> User access management with RADIUS and LDAP integration</li>
+                    <li><i class="fas fa-check-circle"></i> Bandwidth management and QoS policy implementation</li>
+                    <li><i class="fas fa-check-circle"></i> Ongoing network support and managed services</li>
+                </ul>
+                <h4>Technology Stack</h4>
+                <div class="tech-stack-tags">
+                    <span class="tech-tag">MikroTik</span>
+                    <span class="tech-tag">FreeRADIUS</span>
+                    <span class="tech-tag">LDAP</span>
+                    <span class="tech-tag">Linux</span>
+                    <span class="tech-tag">SNMP</span>
+                    <span class="tech-tag">VLAN</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICE 4: FUTURE CAPABILITIES -->
+<section class="service-blueprint">
+    <div class="container">
+        <div class="blueprint-header">
+            <div>
+                <div class="section-label">Future Capabilities</div>
+                <h2 class="section-title">AI Surveillance & Solar ICT</h2>
+            </div>
+            <span class="blueprint-id">SVC.004 // ROADMAP</span>
+        </div>
+        <div class="blueprint-grid">
+            <div class="blueprint-visual">
+                <i class="fas fa-brain icon-main"></i>
+                <h3>Intelligent Infrastructure</h3>
+                <p>Next-generation capabilities in AI-powered video analytics, off-grid solar-powered ICT infrastructure, and IoT sensor networks for smart environments and industrial monitoring.</p>
+                <div class="blueprint-specs">
+                    <div class="spec-item">
+                        <div class="spec-label">AI ENGINE</div>
+                        <div class="spec-value">Deep Learning</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">POWER</div>
+                        <div class="spec-value">Solar / Battery</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">SENSORS</div>
+                        <div class="spec-value">LoRaWAN / 4G</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">STATUS</div>
+                        <div class="spec-value">In Development</div>
+                    </div>
+                </div>
+            </div>
+            <div class="blueprint-details">
+                <h4>Planned Capabilities</h4>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle"></i> AI-enhanced CCTV with facial recognition and anomaly detection</li>
+                    <li><i class="fas fa-check-circle"></i> Off-grid solar ICT solutions for remote and harsh environments</li>
+                    <li><i class="fas fa-check-circle"></i> IoT sensor networks for environmental and industrial monitoring</li>
+                    <li><i class="fas fa-check-circle"></i> Smart city integration with centralized command centers</li>
+                    <li><i class="fas fa-check-circle"></i> Predictive maintenance and automated alerting systems</li>
+                </ul>
+                <h4>Technology Stack</h4>
+                <div class="tech-stack-tags">
+                    <span class="tech-tag">Hikvision AI</span>
+                    <span class="tech-tag">SolarEdge</span>
+                    <span class="tech-tag">Victron Energy</span>
+                    <span class="tech-tag">LoRaWAN</span>
+                    <span class="tech-tag">AWS IoT</span>
+                    <span class="tech-tag">Edge Computing</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="container">
+        <h2>Need a Custom Solution?</h2>
+        <p>Every infrastructure challenge is unique. Our engineers design bespoke solutions tailored to your operational requirements, budget, and growth trajectory.</p>
+        <a href="contact.html" class="btn btn-primary">Request Technical Consultation <i class="fas fa-arrow-right"></i></a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo" style="margin-bottom: 16px;">
+                    <img src="zion.jpg" alt="Zion Netcom Solutions" style="height: 40px; width: auto; display: block;">
+                    <div>
+                        <div class="logo-text" style="font-size:1.2rem;">ZION<span>NETCOM</span></div>
+                        <div class="logo-sub">Solutions Limited</div>
+                    </div>
+                </div>
+                <p>Engineering reliable digital infrastructure across Nigeria and Africa since 2018.</p>
+                <div class="data-readout" style="margin-top: 16px;">
+                    <span class="indicator"></span>
+                    <span>ALL SYSTEMS OPERATIONAL</span>
+                </div>
+            </div>
+            <div>
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Solutions</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="services.html">Enterprise Networks</a></li>
+                    <li><a href="services.html">Web Development</a></li>
+                    <li><a href="services.html">ICT Deployment</a></li>
+                    <li><a href="services.html">AI Surveillance</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact</h4>
+                <p><i class="fas fa-map-marker-alt"></i> Starcase Office, Benue Plaza, Mohammadu Buhari Way, Kaduna</p>
+                <p><i class="fas fa-phone"></i> +234 706 758 0599</p>
+                <p><i class="fas fa-envelope"></i> info@zionnetcomsolutionsltd.com.ng</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 Zion Netcom Solutions Limited</span>
+            <span>Built with precision in Kaduna, Nigeria</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        document.getElementById('nav-links').classList.remove('active');
+    });
+});
+</script>
+</body>
+</html>

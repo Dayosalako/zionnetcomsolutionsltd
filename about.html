@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="About Zion Netcom Solutions Limited — Engineering digital infrastructure across Nigeria since 2018.">
+    <title>About | Zion Netcom Solutions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #070B14;
+            --bg-secondary: #0D1321;
+            --bg-card: #111827;
+            --bg-elevated: #1A2332;
+            --grid-line: rgba(56, 182, 255, 0.08);
+            --cyan: #38B6FF;
+            --cyan-dim: rgba(56, 182, 255, 0.6);
+            --cyan-glow: rgba(56, 182, 255, 0.25);
+            --text-primary: #E8F4F8;
+            --text-secondary: #8BA3B8;
+            --text-muted: #4A6070;
+            --accent-warm: #FF6B35;
+            --border-subtle: rgba(56, 182, 255, 0.12);
+            --border-glow: rgba(56, 182, 255, 0.3);
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+            --font-sans: 'Inter', system-ui, sans-serif;
+            --font-display: 'Space Grotesk', 'Inter', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .container { width: 92%; max-width: 1280px; margin: 0 auto; position: relative; z-index: 1; }
+        h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height: 1.1; }
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--cyan);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section-label::before { content: '//'; color: var(--text-muted); }
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .btn-primary {
+            background: var(--cyan);
+            color: var(--bg-primary);
+            box-shadow: 0 0 20px var(--cyan-glow), inset 0 0 0 1px rgba(255,255,255,0.2);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 40px var(--cyan-glow), 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--cyan);
+            border: 1px solid var(--cyan);
+            box-shadow: 0 0 10px rgba(56,182,255,0.1);
+        }
+        .btn-outline:hover {
+            background: var(--cyan);
+            color: var(--bg-primary);
+            box-shadow: 0 0 30px var(--cyan-glow);
+        }
+
+        /* TOPBAR */
+        .topbar {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 10px 0;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            position: relative;
+            z-index: 100;
+        }
+        .topbar-inner { display: flex; justify-content: space-between; align-items: center; }
+        .topbar-info { display: flex; gap: 30px; }
+        .topbar-info span { color: var(--text-secondary); display: flex; align-items: center; gap: 8px; }
+        .topbar-info i { color: var(--cyan); font-size: 0.8rem; }
+        .topbar-social a { color: var(--text-muted); margin-left: 16px; transition: color 0.3s; }
+        .topbar-social a:hover { color: var(--cyan); }
+
+        /* HEADER */
+        .header {
+            background: rgba(7, 11, 20, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+        .nav-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            gap: 20px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 42px; height: 42px;
+            border: 2px solid var(--cyan);
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--cyan);
+            position: relative;
+        }
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            border: 1px solid var(--cyan-dim);
+        }
+        .logo-text {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+        .logo-text span { color: var(--cyan); }
+        .logo-sub {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-links a {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+            padding: 4px 0;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; left: 0;
+            width: 0; height: 1px;
+            background: var(--cyan);
+            transition: width 0.3s;
+            box-shadow: 0 0 8px var(--cyan);
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--cyan); }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .header-actions { display: flex; align-items: center; gap: 20px; }
+        .menu-toggle {
+            display: none;
+            background: none; border: none;
+            color: var(--cyan);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* PAGE HERO */
+        .page-hero {
+            padding: 140px 0 100px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-subtle);
+            position: relative;
+        }
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            opacity: 0.5;
+        }
+        .page-hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+        .page-hero h1 .highlight { color: var(--cyan); text-shadow: 0 0 30px var(--cyan-glow); }
+        .page-hero p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            line-height: 1.7;
+        }
+
+        /* ABOUT CONTENT */
+        .about-section {
+            padding: 100px 0;
+        }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 80px;
+            align-items: start;
+        }
+        .about-visual {
+            position: relative;
+        }
+        .about-visual .schematic-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            padding: 50px;
+            position: relative;
+        }
+        .about-visual .schematic-box::before, .about-visual .schematic-box::after {
+            content: '';
+            position: absolute;
+            width: 20px; height: 20px;
+            border: 2px solid var(--cyan);
+        }
+        .about-visual .schematic-box::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+        .about-visual .schematic-box::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+        .about-visual .schematic-box h3 {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--cyan);
+            margin-bottom: 24px;
+        }
+        .about-visual .schematic-box .data-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-subtle);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+        }
+        .about-visual .schematic-box .data-row:last-child { border-bottom: none; }
+        .about-visual .schematic-box .data-row .label { color: var(--text-muted); }
+        .about-visual .schematic-box .data-row .value { color: var(--cyan); }
+        .about-visual .schematic-box .data-row .value.secondary { color: var(--text-secondary); }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+        .about-text p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .about-text .highlight-text {
+            color: var(--cyan);
+            font-weight: 600;
+        }
+
+        /* TIMELINE */
+        .timeline-section {
+            padding: 100px 0;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: var(--border-subtle);
+            transform: translateX(-50%);
+        }
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 50%;
+            position: relative;
+            margin-bottom: 60px;
+        }
+        .timeline-item:nth-child(even) {
+            justify-content: flex-start;
+            padding-right: 0;
+            padding-left: 50%;
+        }
+        .timeline-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            padding: 30px;
+            max-width: 380px;
+            position: relative;
+            transition: all 0.3s;
+        }
+        .timeline-content:hover {
+            border-color: var(--border-glow);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 12px; height: 12px;
+            background: var(--cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 12px var(--cyan);
+            transform: translateY(-50%);
+        }
+        .timeline-item:nth-child(odd) .timeline-content::before { right: -56px; }
+        .timeline-item:nth-child(even) .timeline-content::before { left: -56px; }
+        .timeline-year {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--cyan);
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+        .timeline-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+        .timeline-content p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* VALUES */
+        .values-section {
+            padding: 100px 0;
+        }
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+        .value-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .value-card:hover {
+            border-color: var(--border-glow);
+            transform: translateY(-4px);
+        }
+        .value-card i {
+            font-size: 2rem;
+            color: var(--cyan-dim);
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+        .value-card:hover i {
+            color: var(--cyan);
+            text-shadow: 0 0 15px var(--cyan-glow);
+        }
+        .value-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+        .value-card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* LEADERSHIP */
+        .leadership-section {
+            padding: 100px 0;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+        }
+        .leadership-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .leader-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .leader-card:hover {
+            border-color: var(--border-glow);
+        }
+        .leader-avatar {
+            width: 80px; height: 80px;
+            border: 2px solid var(--cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-family: var(--font-mono);
+            font-size: 1.8rem;
+            color: var(--cyan);
+            background: var(--bg-elevated);
+        }
+        .leader-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 4px;
+        }
+        .leader-card .role {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--cyan);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px;
+        }
+        .leader-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* CTA */
+        .cta-section {
+            padding: 120px 0;
+            text-align: center;
+            position: relative;
+        }
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            opacity: 0.5;
+        }
+        .cta-section h2 {
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            margin-bottom: 20px;
+        }
+        .cta-section p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            font-size: 1.1rem;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            padding: 80px 0 30px;
+            position: relative;
+        }
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            opacity: 0.5;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            max-width: 300px;
+            margin: 20px 0;
+        }
+        .footer h4 {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--cyan);
+            margin-bottom: 24px;
+        }
+        .footer ul { list-style: none; }
+        .footer ul li { margin-bottom: 12px; }
+        .footer ul a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer ul a:hover { color: var(--cyan); padding-left: 4px; }
+        .footer ul a::before {
+            content: '>';
+            font-family: var(--font-mono);
+            color: var(--text-muted);
+            font-size: 0.7rem;
+        }
+        .footer-contact p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .footer-contact i { color: var(--cyan); width: 16px; font-size: 0.85rem; }
+        .footer-bottom {
+            border-top: 1px solid var(--border-subtle);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .data-readout {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .data-readout .indicator {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--cyan);
+            box-shadow: 0 0 8px var(--cyan);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        @media (max-width: 992px) {
+            .about-grid { grid-template-columns: 1fr; gap: 40px; }
+            .values-grid { grid-template-columns: repeat(2, 1fr); }
+            .timeline::before { left: 20px; }
+            .timeline-item, .timeline-item:nth-child(even) {
+                justify-content: flex-start;
+                padding-left: 50px;
+                padding-right: 0;
+            }
+            .timeline-item:nth-child(odd) .timeline-content::before,
+            .timeline-item:nth-child(even) .timeline-content::before {
+                left: -36px;
+                right: auto;
+            }
+            .leadership-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+            .nav-links {
+                position: fixed;
+                top: 70px; left: -100%;
+                width: 100%; height: calc(100vh - 70px);
+                background: var(--bg-primary);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                transition: left 0.4s ease;
+                border-top: 1px solid var(--border-subtle);
+            }
+            .nav-links.active { left: 0; }
+            .menu-toggle { display: block; }
+        }
+        @media (max-width: 600px) {
+            .values-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .topbar-info span:not(:first-child) { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+    <div class="container topbar-inner">
+        <div class="topbar-info">
+            <span><i class="fas fa-map-marker-alt"></i> Kaduna, Nigeria</span>
+            <span><i class="fas fa-phone"></i> +234 706 758 0599</span>
+            <span><i class="fas fa-envelope"></i> info@zionnetcomsolutionsltd.com.ng</span>
+        </div>
+        <div class="topbar-social">
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="container nav-wrapper">
+        <a href="index.html" class="logo">
+            <img src="zion.jpg" alt="Zion Netcom Solutions" style="height: 48px; width: auto; display: block;">
+            <div>
+                <div class="logo-text">ZION<span>NETCOM</span></div>
+                <div class="logo-sub">Solutions Limited</div>
+            </div>
+        </a>
+        <nav>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Solutions</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <a href="contact.html" class="btn btn-primary">Get Quote</a>
+            <button class="menu-toggle" onclick="document.getElementById('nav-links').classList.toggle('active')">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+    <div class="container">
+        <div class="section-label">Company Profile</div>
+        <h1>About <span class="highlight">Zion Netcom</span></h1>
+        <p>Engineering reliable digital infrastructure across Nigeria and Africa since 2018. We build the networks, software, and systems that power modern institutions.</p>
+    </div>
+</section>
+
+<!-- ABOUT STORY -->
+<section class="about-section">
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-visual">
+                <div class="schematic-box">
+                    <h3>Company Spec Sheet</h3>
+                    <div class="data-row">
+                        <span class="label">ENTITY</span>
+                        <span class="value">Zion Netcom Solutions Ltd.</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="label">REG. NO</span>
+                        <span class="value secondary">RC 1234567</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="label">FOUNDED</span>
+                        <span class="value secondary">2018</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="label">HQ</span>
+                        <span class="value secondary">Kaduna, Nigeria</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="label">SECTORS</span>
+                        <span class="value">ICT / Networking / Software</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="label">EMPLOYEES</span>
+                        <span class="value secondary">15+</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="label">STATUS</span>
+                        <span class="value">OPERATIONAL</span>
+                    </div>
+                </div>
+            </div>
+            <div class="about-text">
+                <h3>Building Nigeria's Digital Infrastructure</h3>
+                <p>
+                    Zion Netcom Solutions Limited was founded in 2018 with a singular mission: to bridge the digital infrastructure gap 
+                    across Nigerian institutions and communities. What began as a small network consultancy in Kaduna has grown into a 
+                    full-service technology company delivering <span class="highlight-text">enterprise networking, custom web applications, 
+                    and large-scale ICT deployments</span>.
+                </p>
+                <p>
+                    Our team combines deep expertise in telecommunications engineering with modern software development practices. 
+                    We have deployed networks for federal universities, technical education boards, and vocational schools — while 
+                    simultaneously building web platforms that serve thousands of users across community, logistics, and education sectors.
+                </p>
+                <p>
+                    Looking ahead, we are actively developing capabilities in <span class="highlight-text">AI-powered surveillance, 
+                    solar-powered ICT infrastructure, and industrial IoT</span> — positioning Zion Netcom at the forefront of 
+                    Africa's next-generation technology landscape.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+    <div class="container">
+        <div class="section-label" style="text-align:center; justify-content:center;">Evolution</div>
+        <h2 class="section-title" style="text-align:center;">Our Timeline</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2018</div>
+                    <h4>Foundation</h4>
+                    <p>Zion Netcom Solutions Limited incorporated in Kaduna, Nigeria. Initial focus on network consulting and small-scale ISP infrastructure.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2019</div>
+                    <h4>First Institutional Contract</h4>
+                    <p>Secured first major ICT deployment contract with a federal educational institution, establishing our campus network expertise.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2020</div>
+                    <h4>Software Division Launch</h4>
+                    <p>Expanded into full-stack web development with the launch of Biu Forum — our first major community platform built on Google Cloud.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2021</div>
+                    <h4>Multi-Campus Expansion</h4>
+                    <p>Deployed campus-wide networks for Federal University Wukari and Bauchi State University, Yuli Campus. Starlink integration capabilities added.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2022</div>
+                    <h4>NBTE Partnership</h4>
+                    <p>Began comprehensive network management and support for the National Board for Technical Education — our largest ongoing institutional contract.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2023-2024</div>
+                    <h4>Product Portfolio Growth</h4>
+                    <p>Launched SchoolOS (school management system), ZionDrive (enterprise file management), and began development of DND Logistics and Harmony Welfare platforms.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2025-2026</div>
+                    <h4>Future Tech Roadmap</h4>
+                    <p>Active R&D in AI surveillance, solar ICT infrastructure, and industrial IoT. Organization Management System and Identification System in development.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- VALUES -->
+<section class="values-section">
+    <div class="container">
+        <div class="section-label" style="text-align:center; justify-content:center;">Operating Principles</div>
+        <h2 class="section-title" style="text-align:center;">Core Values</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <i class="fas fa-cogs"></i>
+                <h4>Engineering Excellence</h4>
+                <p>Every deployment is designed for reliability, scalability, and performance. We don't cut corners on infrastructure.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-shield-alt"></i>
+                <h4>Security First</h4>
+                <p>Security is embedded at every layer — from network architecture to application code. Zero-trust principles guide our work.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-users"></i>
+                <h4>Client Partnership</h4>
+                <p>We work alongside our clients as technical partners, not vendors. Long-term relationships drive better outcomes.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-rocket"></i>
+                <h4>Innovation Focus</h4>
+                <p>We continuously evaluate emerging technologies — from Starlink to AI analytics — to bring cutting-edge solutions to Africa.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- LEADERSHIP -->
+<section class="leadership-section">
+    <div class="container">
+        <div class="section-label" style="text-align:center; justify-content:center;">Leadership</div>
+        <h2 class="section-title" style="text-align:center;">The Team</h2>
+        <div class="leadership-grid">
+            <div class="leader-card">
+                <div class="leader-avatar">DS</div>
+                <h4>Dayo Salako</h4>
+                <div class="role">Founder & CEO</div>
+                <p>Network engineer and software architect with expertise in enterprise infrastructure, full-stack development, and ICT project management across Nigerian institutions.</p>
+            </div>
+            <div class="leader-card">
+                <div class="leader-avatar">TE</div>
+                <h4>Technical Team</h4>
+                <div class="role">Engineering Division</div>
+                <p>A multidisciplinary team of network engineers, software developers, and systems architects delivering end-to-end technology solutions.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="container">
+        <h2>Work With Us</h2>
+        <p>Whether you need a campus network, a custom web application, or a complete ICT overhaul — we're ready to engineer your solution.</p>
+        <a href="contact.html" class="btn btn-primary">Contact Us <i class="fas fa-arrow-right"></i></a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo" style="margin-bottom: 16px;">
+                    <img src="zion.jpg" alt="Zion Netcom Solutions" style="height: 40px; width: auto; display: block;">
+                    <div>
+                        <div class="logo-text" style="font-size:1.2rem;">ZION<span>NETCOM</span></div>
+                        <div class="logo-sub">Solutions Limited</div>
+                    </div>
+                </div>
+                <p>Engineering reliable digital infrastructure across Nigeria and Africa since 2018.</p>
+                <div class="data-readout" style="margin-top: 16px;">
+                    <span class="indicator"></span>
+                    <span>ALL SYSTEMS OPERATIONAL</span>
+                </div>
+            </div>
+            <div>
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Solutions</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="services.html">Enterprise Networks</a></li>
+                    <li><a href="services.html">Web Development</a></li>
+                    <li><a href="services.html">ICT Deployment</a></li>
+                    <li><a href="services.html">AI Surveillance</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact</h4>
+                <p><i class="fas fa-map-marker-alt"></i> Starcase Office, Benue Plaza, Mohammadu Buhari Way, Kaduna</p>
+                <p><i class="fas fa-phone"></i> +234 706 758 0599</p>
+                <p><i class="fas fa-envelope"></i> info@zionnetcomsolutionsltd.com.ng</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 Zion Netcom Solutions Limited</span>
+            <span>Built with precision in Kaduna, Nigeria</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        document.getElementById('nav-links').classList.remove('active');
+    });
+});
+</script>
+</body>
+</html>

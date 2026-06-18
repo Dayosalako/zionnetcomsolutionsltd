@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Zion Netcom Solutions Limited — Request a consultation for enterprise networking, web development, or ICT infrastructure.">
+    <title>Contact | Zion Netcom Solutions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #070B14;
+            --bg-secondary: #0D1321;
+            --bg-card: #111827;
+            --bg-elevated: #1A2332;
+            --grid-line: rgba(56, 182, 255, 0.08);
+            --cyan: #38B6FF;
+            --cyan-dim: rgba(56, 182, 255, 0.6);
+            --cyan-glow: rgba(56, 182, 255, 0.25);
+            --text-primary: #E8F4F8;
+            --text-secondary: #8BA3B8;
+            --text-muted: #4A6070;
+            --accent-warm: #FF6B35;
+            --border-subtle: rgba(56, 182, 255, 0.12);
+            --border-glow: rgba(56, 182, 255, 0.3);
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+            --font-sans: 'Inter', system-ui, sans-serif;
+            --font-display: 'Space Grotesk', 'Inter', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .container { width: 92%; max-width: 1280px; margin: 0 auto; position: relative; z-index: 1; }
+        h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height: 1.1; }
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--cyan);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section-label::before { content: '//'; color: var(--text-muted); }
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .btn-primary {
+            background: var(--cyan);
+            color: var(--bg-primary);
+            box-shadow: 0 0 20px var(--cyan-glow), inset 0 0 0 1px rgba(255,255,255,0.2);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 40px var(--cyan-glow), 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--cyan);
+            border: 1px solid var(--cyan);
+            box-shadow: 0 0 10px rgba(56,182,255,0.1);
+        }
+        .btn-outline:hover {
+            background: var(--cyan);
+            color: var(--bg-primary);
+            box-shadow: 0 0 30px var(--cyan-glow);
+        }
+
+        /* TOPBAR */
+        .topbar {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 10px 0;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            position: relative;
+            z-index: 100;
+        }
+        .topbar-inner { display: flex; justify-content: space-between; align-items: center; }
+        .topbar-info { display: flex; gap: 30px; }
+        .topbar-info span { color: var(--text-secondary); display: flex; align-items: center; gap: 8px; }
+        .topbar-info i { color: var(--cyan); font-size: 0.8rem; }
+        .topbar-social a { color: var(--text-muted); margin-left: 16px; transition: color 0.3s; }
+        .topbar-social a:hover { color: var(--cyan); }
+
+        /* HEADER */
+        .header {
+            background: rgba(7, 11, 20, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+        .nav-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            gap: 20px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 42px; height: 42px;
+            border: 2px solid var(--cyan);
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--cyan);
+            position: relative;
+        }
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            border: 1px solid var(--cyan-dim);
+        }
+        .logo-text {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+        .logo-text span { color: var(--cyan); }
+        .logo-sub {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-links a {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+            padding: 4px 0;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; left: 0;
+            width: 0; height: 1px;
+            background: var(--cyan);
+            transition: width 0.3s;
+            box-shadow: 0 0 8px var(--cyan);
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--cyan); }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .header-actions { display: flex; align-items: center; gap: 20px; }
+        .menu-toggle {
+            display: none;
+            background: none; border: none;
+            color: var(--cyan);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* PAGE HERO */
+        .page-hero {
+            padding: 140px 0 100px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-subtle);
+            position: relative;
+        }
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            opacity: 0.5;
+        }
+        .page-hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+        .page-hero h1 .highlight { color: var(--cyan); text-shadow: 0 0 30px var(--cyan-glow); }
+        .page-hero p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            line-height: 1.7;
+        }
+
+        /* CONTACT GRID */
+        .contact-section {
+            padding: 100px 0;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 60px;
+        }
+
+        /* FORM */
+        .form-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            padding: 50px;
+            position: relative;
+        }
+        .form-panel::before, .form-panel::after {
+            content: '';
+            position: absolute;
+            width: 16px; height: 16px;
+            border: 2px solid var(--cyan);
+        }
+        .form-panel::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+        .form-panel::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+        .form-panel h3 {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--cyan);
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 24px;
+        }
+        .form-group label {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-primary);
+            padding: 14px 16px;
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            outline: none;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--cyan);
+            box-shadow: 0 0 15px rgba(56, 182, 255, 0.1);
+        }
+        .form-group textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+        .form-group select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%234A6070' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+        }
+        .form-group select option {
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+        .form-submit {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* CONTACT INFO */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        .info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            padding: 35px;
+            transition: all 0.3s;
+        }
+        .info-card:hover {
+            border-color: var(--border-glow);
+        }
+        .info-card .info-icon {
+            width: 50px; height: 50px;
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--cyan);
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        .info-card:hover .info-icon {
+            border-color: var(--cyan);
+            box-shadow: 0 0 15px var(--cyan-glow);
+        }
+        .info-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+        .info-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .info-card a {
+            color: var(--cyan);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .info-card a:hover { color: var(--text-primary); }
+
+        /* MAP SECTION */
+        .map-section {
+            padding: 80px 0 100px;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+        }
+        .map-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            height: 400px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .map-container::before, .map-container::after {
+            content: '';
+            position: absolute;
+            width: 20px; height: 20px;
+            border: 2px solid var(--cyan);
+        }
+        .map-container::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+        .map-container::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+        .map-placeholder {
+            text-align: center;
+            color: var(--text-muted);
+        }
+        .map-placeholder i {
+            font-size: 3rem;
+            color: var(--cyan-dim);
+            margin-bottom: 16px;
+        }
+        .map-placeholder p {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+        }
+        .map-coords {
+            position: absolute;
+            bottom: 20px; left: 20px;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        /* FOOTER */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            padding: 80px 0 30px;
+            position: relative;
+        }
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            opacity: 0.5;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            max-width: 300px;
+            margin: 20px 0;
+        }
+        .footer h4 {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--cyan);
+            margin-bottom: 24px;
+        }
+        .footer ul { list-style: none; }
+        .footer ul li { margin-bottom: 12px; }
+        .footer ul a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer ul a:hover { color: var(--cyan); padding-left: 4px; }
+        .footer ul a::before {
+            content: '>';
+            font-family: var(--font-mono);
+            color: var(--text-muted);
+            font-size: 0.7rem;
+        }
+        .footer-contact p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .footer-contact i { color: var(--cyan); width: 16px; font-size: 0.85rem; }
+        .footer-bottom {
+            border-top: 1px solid var(--border-subtle);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .data-readout {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .data-readout .indicator {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--cyan);
+            box-shadow: 0 0 8px var(--cyan);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        @media (max-width: 992px) {
+            .contact-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+            .nav-links {
+                position: fixed;
+                top: 70px; left: -100%;
+                width: 100%; height: calc(100vh - 70px);
+                background: var(--bg-primary);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                transition: left 0.4s ease;
+                border-top: 1px solid var(--border-subtle);
+            }
+            .nav-links.active { left: 0; }
+            .menu-toggle { display: block; }
+        }
+        @media (max-width: 600px) {
+            .footer-grid { grid-template-columns: 1fr; }
+            .form-panel { padding: 30px; }
+            .topbar-info span:not(:first-child) { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+    <div class="container topbar-inner">
+        <div class="topbar-info">
+            <span><i class="fas fa-map-marker-alt"></i> Kaduna, Nigeria</span>
+            <span><i class="fas fa-phone"></i> +234 706 758 0599</span>
+            <span><i class="fas fa-envelope"></i> info@zionnetcomsolutionsltd.com.ng</span>
+        </div>
+        <div class="topbar-social">
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="container nav-wrapper">
+        <a href="index.html" class="logo">
+            <img src="zion.jpg" alt="Zion Netcom Solutions" style="height: 48px; width: auto; display: block;">
+            <div>
+                <div class="logo-text">ZION<span>NETCOM</span></div>
+                <div class="logo-sub">Solutions Limited</div>
+            </div>
+        </a>
+        <nav>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Solutions</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <a href="contact.html" class="btn btn-primary">Get Quote</a>
+            <button class="menu-toggle" onclick="document.getElementById('nav-links').classList.toggle('active')">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+    <div class="container">
+        <div class="section-label">Communications</div>
+        <h1>Contact <span class="highlight">Zion Netcom</span></h1>
+        <p>Ready to start your next infrastructure or software project? Reach out for a technical consultation, quote request, or partnership inquiry.</p>
+    </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section class="contact-section">
+    <div class="container">
+        <div class="contact-grid">
+            <!-- FORM -->
+            <div class="form-panel">
+                <h3>Submit Inquiry // FORM.001</h3>
+                <form id="contact-form" onsubmit="handleSubmit(event)">
+                    <!-- Honeypot field for spam protection -->
+                    <div style="display: none;">
+                        <input type="text" name="website" id="website" tabindex="-1" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+234 ...">
+                    </div>
+                    <div class="form-group">
+                        <label for="inquiry">Inquiry Type *</label>
+                        <select id="inquiry" name="inquiry" required>
+                            <option value="">Select inquiry type</option>
+                            <option value="network">Enterprise Networking / ICT</option>
+                            <option value="web">Web Development / Software</option>
+                            <option value="surveillance">AI Surveillance / Security</option>
+                            <option value="solar">Solar ICT / Power Solutions</option>
+                            <option value="consultation">General Consultation</option>
+                            <option value="partnership">Partnership / Collaboration</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Project Details *</label>
+                        <textarea id="message" name="message" required placeholder="Describe your project requirements, timeline, and budget..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary form-submit" id="submit-btn">
+                        Transmit Inquiry <i class="fas fa-paper-plane"></i>
+                    </button>
+                    <div id="form-status" style="margin-top: 16px; font-family: var(--font-mono); font-size: 0.8rem; text-align: center;"></div>
+                </form>
+            </div>
+
+            <!-- INFO CARDS -->
+            <div class="contact-info">
+                <div class="info-card">
+                    <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <h4>Headquarters</h4>
+                    <p>
+                        Starcase Office<br>
+                        Benue Plaza<br>
+                        Mohammadu Buhari Way<br>
+                        Kaduna, Kaduna State<br>
+                        Nigeria
+                    </p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon"><i class="fas fa-phone"></i></div>
+                    <h4>Direct Line</h4>
+                    <p>
+                        <a href="tel:+2347067580599">+234 706 758 0599</a><br>
+                        <span style="color: var(--text-muted); font-size: 0.8rem;">Mon-Fri, 08:00-18:00 WAT</span>
+                    </p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                    <h4>Email</h4>
+                    <p>
+                        <a href="mailto:info@zionnetcomsolutionsltd.com.ng">info@zionnetcomsolutionsltd.com.ng</a><br>
+                        <span style="color: var(--text-muted); font-size: 0.8rem;">Response within 24 hours</span>
+                    </p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon"><i class="fas fa-share-alt"></i></div>
+                    <h4>Social</h4>
+                    <p>
+                        <a href="#">LinkedIn</a> // 
+                        <a href="#">Twitter</a> // 
+                        <a href="#">Instagram</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MAP -->
+<section class="map-section">
+    <div class="container">
+        <div class="section-label" style="margin-bottom: 30px;">Location Data</div>
+        <div class="map-container">
+            <div class="map-placeholder">
+                <i class="fas fa-map-marked-alt"></i>
+                <p>KADUNA, NIGERIA // 10.5105°N, 7.4165°E</p>
+            </div>
+            <div class="map-coords">
+                LAT: 10.5105°N | LNG: 7.4165°E | ELEV: 600m
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo" style="margin-bottom: 16px;">
+                    <img src="zion.jpg" alt="Zion Netcom Solutions" style="height: 40px; width: auto; display: block;">
+                    <div>
+                        <div class="logo-text" style="font-size:1.2rem;">ZION<span>NETCOM</span></div>
+                        <div class="logo-sub">Solutions Limited</div>
+                    </div>
+                </div>
+                <p>Engineering reliable digital infrastructure across Nigeria and Africa since 2018.</p>
+                <div class="data-readout" style="margin-top: 16px;">
+                    <span class="indicator"></span>
+                    <span>ALL SYSTEMS OPERATIONAL</span>
+                </div>
+            </div>
+            <div>
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Solutions</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="services.html">Enterprise Networks</a></li>
+                    <li><a href="services.html">Web Development</a></li>
+                    <li><a href="services.html">ICT Deployment</a></li>
+                    <li><a href="services.html">AI Surveillance</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact</h4>
+                <p><i class="fas fa-map-marker-alt"></i> Starcase Office, Benue Plaza, Mohammadu Buhari Way, Kaduna</p>
+                <p><i class="fas fa-phone"></i> +234 706 758 0599</p>
+                <p><i class="fas fa-envelope"></i> info@zionnetcomsolutionsltd.com.ng</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 Zion Netcom Solutions Limited</span>
+            <span>Built with precision in Kaduna, Nigeria</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+// ===== GOOGLE APPS SCRIPT CONFIGURATION =====
+// Replace this URL with your deployed Google Apps Script Web App URL
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbzL67R_2gYydcp-hZmGPDyj_WEonvLNEihUtnD-k6pD34kxURk2xCJBH7Axt2gpZ0qwsg/exec';
+
+function handleSubmit(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const btn = document.getElementById('submit-btn');
+    const statusDiv = document.getElementById('form-status');
+    const originalText = btn.innerHTML;
+
+    // Honeypot check - if filled, it's spam
+    if (form.website.value) {
+        console.log('Spam detected');
+        return;
+    }
+
+    // Collect form data
+    const formData = {
+        name: form.name.value.trim(),
+        email: form.email.value.trim(),
+        phone: form.phone.value.trim(),
+        inquiry: form.inquiry.value,
+        message: form.message.value.trim(),
+        timestamp: new Date().toISOString(),
+        source: window.location.href
+    };
+
+    // Validate required fields
+    if (!formData.name || !formData.email || !formData.inquiry || !formData.message) {
+        statusDiv.innerHTML = '<span style="color: var(--accent-warm);">ERROR: Please fill all required fields</span>';
+        return;
+    }
+
+    // Loading state
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> TRANSMITTING...';
+    btn.disabled = true;
+    statusDiv.innerHTML = '<span style="color: var(--cyan-dim);">Connecting to server...</span>';
+
+    // Send to Google Apps Script
+    fetch(GAS_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            btn.innerHTML = '<i class="fas fa-check"></i> INQUIRY RECEIVED';
+            btn.style.background = '#22C55E';
+            btn.style.boxShadow = '0 0 20px rgba(34, 197, 94, 0.3)';
+            statusDiv.innerHTML = '<span style="color: #22C55E;">SUCCESS: Inquiry logged. We will respond within 24 hours.</span>';
+            form.reset();
+
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = '';
+                btn.style.boxShadow = '';
+                btn.disabled = false;
+                statusDiv.innerHTML = '';
+            }, 5000);
+        } else {
+            throw new Error(data.message || 'Server error');
+        }
+    })
+    .catch(error => {
+        console.error('Form submission error:', error);
+        btn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> RETRY';
+        btn.style.background = 'var(--accent-warm)';
+        statusDiv.innerHTML = '<span style="color: var(--accent-warm);">ERROR: ' + error.message + '. Please try again or email us directly.</span>';
+        btn.disabled = false;
+    });
+}
+
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        document.getElementById('nav-links').classList.remove('active');
+    });
+});
+</script>
+</body>
+</html>
