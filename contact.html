@@ -554,7 +554,7 @@
 </div>
 
 <!-- HEADER -->
-<header class="header">
+<<header class="header">
     <div class="container nav-wrapper">
         <a href="index.html" class="logo">
             <img src="zion.jpg" alt="Zion Netcom Solutions" style="height: 48px; width: auto; display: block;">
@@ -597,11 +597,14 @@
             <!-- FORM -->
             <div class="form-panel">
                 <h3>Submit Inquiry // FORM.001</h3>
-                <form id="contact-form" onsubmit="handleSubmit(event)">
+                <form id="contact-form" action="https://formspree.io/f/mjgdqypy" method="POST">
                     <!-- Honeypot field for spam protection -->
-                    <div style="display: none;">
-                        <input type="text" name="website" id="website" tabindex="-1" autocomplete="off">
-                    </div>
+                    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+                    <!-- Redirect after submission -->
+                    <input type="hidden" name="_next" value="https://zionnetcomsolutionsltd.com.ng/contact.html?submitted=true">
+                    <!-- Subject line -->
+                    <input type="hidden" name="_subject" value="New inquiry from Zion Netcom website">
+                    
                     <div class="form-group">
                         <label for="name">Full Name *</label>
                         <input type="text" id="name" name="name" required placeholder="Enter your full name">
@@ -697,7 +700,7 @@
 </section>
 
 <!-- FOOTER -->
-<footer class="footer">
+<<footer class="footer">
     <div class="container">
         <div class="footer-grid">
             <div class="footer-brand">
@@ -748,63 +751,37 @@
 </footer>
 
 <script>
-// ===== GOOGLE APPS SCRIPT CONFIGURATION =====
-// Replace this URL with your deployed Google Apps Script Web App URL
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbzL67R_2gYydcp-hZmGPDyj_WEonvLNEihUtnD-k6pD34kxURk2xCJBH7Axt2gpZ0qwsg/exec';
+// ===== FORMSPREE FORM HANDLER =====
+const form = document.getElementById('contact-form');
+const btn = document.getElementById('submit-btn');
+const statusDiv = document.getElementById('form-status');
 
-function handleSubmit(e) {
+form.addEventListener('submit', function(e) {
     e.preventDefault();
-
-    const form = e.target;
-    const btn = document.getElementById('submit-btn');
-    const statusDiv = document.getElementById('form-status');
+    
     const originalText = btn.innerHTML;
-
-    // Honeypot check - if filled, it's spam
-    if (form.website.value) {
-        console.log('Spam detected');
-        return;
-    }
-
-    // Collect form data
-    const formData = {
-        name: form.name.value.trim(),
-        email: form.email.value.trim(),
-        phone: form.phone.value.trim(),
-        inquiry: form.inquiry.value,
-        message: form.message.value.trim(),
-        timestamp: new Date().toISOString(),
-        source: window.location.href
-    };
-
-    // Validate required fields
-    if (!formData.name || !formData.email || !formData.inquiry || !formData.message) {
-        statusDiv.innerHTML = '<span style="color: var(--accent-warm);">ERROR: Please fill all required fields</span>';
-        return;
-    }
-
+    const formData = new FormData(form);
+    
     // Loading state
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> TRANSMITTING...';
     btn.disabled = true;
-    statusDiv.innerHTML = '<span style="color: var(--cyan-dim);">Connecting to server...</span>';
-
-    // Send to Google Apps Script
-    fetch(GAS_URL, {
+    statusDiv.innerHTML = '<span style="color: var(--cyan-dim);">Connecting to Formspree...</span>';
+    
+    fetch(form.action, {
         method: 'POST',
+        body: formData,
         headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
+            'Accept': 'application/json'
+        }
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
+    .then(response => {
+        if (response.ok) {
             btn.innerHTML = '<i class="fas fa-check"></i> INQUIRY RECEIVED';
             btn.style.background = '#22C55E';
             btn.style.boxShadow = '0 0 20px rgba(34, 197, 94, 0.3)';
-            statusDiv.innerHTML = '<span style="color: #22C55E;">SUCCESS: Inquiry logged. We will respond within 24 hours.</span>';
+            statusDiv.innerHTML = '<span style="color: #22C55E;">SUCCESS: Inquiry sent. We will respond within 24 hours.</span>';
             form.reset();
-
+            
             setTimeout(() => {
                 btn.innerHTML = originalText;
                 btn.style.background = '';
@@ -813,7 +790,9 @@ function handleSubmit(e) {
                 statusDiv.innerHTML = '';
             }, 5000);
         } else {
-            throw new Error(data.message || 'Server error');
+            return response.json().then(data => {
+                throw new Error(data.error || 'Form submission failed');
+            });
         }
     })
     .catch(error => {
@@ -823,6 +802,13 @@ function handleSubmit(e) {
         statusDiv.innerHTML = '<span style="color: var(--accent-warm);">ERROR: ' + error.message + '. Please try again or email us directly.</span>';
         btn.disabled = false;
     });
+});
+
+// Check for submission success from redirect
+if (window.location.search.includes('submitted=true')) {
+    statusDiv.innerHTML = '<span style="color: #22C55E;">SUCCESS: Your inquiry was received. We will respond within 24 hours.</span>';
+    // Clean URL
+    window.history.replaceState({}, document.title, window.location.pathname);
 }
 
 document.querySelectorAll('.nav-links a').forEach(link => {
