@@ -410,14 +410,28 @@
             background: var(--bg-secondary);
             border-top: 1px solid var(--border-subtle);
         }
+        .map-views {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .map-view-label {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--cyan);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .map-view-label::before { content: '//'; color: var(--text-muted); }
         .map-container {
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
-            height: 400px;
+            height: 420px;
             position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             overflow: hidden;
         }
         .map-container::before, .map-container::after {
@@ -425,28 +439,39 @@
             position: absolute;
             width: 20px; height: 20px;
             border: 2px solid var(--cyan);
+            z-index: 2;
+            pointer-events: none;
         }
         .map-container::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
         .map-container::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
-        .map-placeholder {
-            text-align: center;
-            color: var(--text-muted);
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+            filter: invert(92%) hue-rotate(180deg);
         }
-        .map-placeholder i {
-            font-size: 3rem;
-            color: var(--cyan-dim);
-            margin-bottom: 16px;
-        }
-        .map-placeholder p {
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
+        body.light-mode .map-container iframe {
+            filter: none;
         }
         .map-coords {
             position: absolute;
-            bottom: 20px; left: 20px;
+            bottom: 10px; left: 12px;
             font-family: var(--font-mono);
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: var(--text-muted);
+            background: rgba(7,11,20,0.75);
+            padding: 4px 8px;
+            border-radius: 3px;
+            z-index: 3;
+            pointer-events: none;
+        }
+        body.light-mode .map-coords {
+            background: rgba(255,255,255,0.82);
+        }
+        @media (max-width: 768px) {
+            .map-views { grid-template-columns: 1fr; }
+            .map-container { height: 300px; }
         }
 
         /* FOOTER */
@@ -788,20 +813,41 @@
 <section class="map-section">
     <div class="container">
         <div class="section-label" style="margin-bottom: 30px;">Location Data</div>
-        <div class="map-container">
-            <div class="map-placeholder">
-                <i class="fas fa-map-marked-alt"></i>
-                <p>KADUNA, NIGERIA // 10.5105°N, 7.4165°E</p>
+        <div class="map-views">
+            <!-- Satellite / Map view -->
+            <div>
+                <div class="map-view-label">Map View — Benue Plaza, Kaduna</div>
+                <div class="map-container">
+                    <iframe
+                        title="Zion Netcom Solutions Office Map"
+                        src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d246.63085648966497!2d7.433620743603609!3d10.530044002399374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTDCsDMxJzQ4LjIiTiA3wrAyNicwMS42IkU!5e1!3m2!1sen!2sng!4v1750000000000!5m2!1sen!2sng"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                    <div class="map-coords">LAT: 10.530042°N &nbsp;|&nbsp; LNG: 7.433794°E</div>
+                </div>
             </div>
-            <div class="map-coords">
-                LAT: 10.5105°N | LNG: 7.4165°E | ELEV: 600m
+            <!-- Street View — office frontage -->
+            <div>
+                <div class="map-view-label">Street View — Office Frontage</div>
+                <div class="map-container">
+                    <iframe
+                        title="Zion Netcom Solutions Office Street View"
+                        src="https://www.google.com/maps/embed?pb=!4v1750000000001!6m8!1m7!1sF-YkV6XFjskvGiMVFpM_iA!2m2!1d7.433794!2d10.530042!3f180!4f0!5f0.7820865974627469"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                    <div class="map-coords">Mohammadu Buhari Way, Kaduna</div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
 <!-- FOOTER -->
-<<footer class="footer">
+<footer class="footer">
     <div class="container">
         <div class="footer-grid">
             <div class="footer-brand">
