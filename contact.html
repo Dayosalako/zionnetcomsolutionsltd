@@ -529,7 +529,7 @@
             font-size: 0.7rem;
         }
         .footer-contact p {
-            color: var(--text-secondary);
+            color: var(--text-primary);
             font-size: 0.9rem;
             margin-bottom: 8px;
             display: flex;
@@ -537,6 +537,12 @@
             gap: 10px;
         }
         .footer-contact i { color: var(--cyan); width: 16px; font-size: 0.85rem; }
+        .footer-contact a {
+            color: var(--cyan);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-contact a:hover { color: var(--text-primary); }
         .footer-bottom {
             border-top: 1px solid var(--border-subtle);
             padding-top: 30px;
@@ -572,7 +578,7 @@
         /* ===== RESPONSIVE — TABLET LANDSCAPE (1100px) ===== */
         @media (max-width: 1100px) {
             .footer-grid > * { min-width: 0; }
-        .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
         }
 
         /* ===== RESPONSIVE — TABLET PORTRAIT (992px) ===== */
@@ -595,18 +601,16 @@
             .nav-links.active { left: 0; }
             .menu-toggle { display: block; }
             .header-actions .btn { padding: 10px 18px; font-size: 0.75rem; }
-/* Page-specific tablet overrides below */
             .contact-grid { grid-template-columns: 1fr; }
         }
 
         /* ===== RESPONSIVE — MOBILE (768px) ===== */
         @media (max-width: 768px) {
             .container { width: 95%; }
-
-.nav-wrapper { padding: 12px 0; }
+            .nav-wrapper { padding: 12px 0; }
             .page-hero { padding: 100px 0 60px; }
             .footer-grid > * { min-width: 0; }
-        .footer-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
             .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
         }
 
@@ -620,7 +624,7 @@
             .form-panel { padding: 24px; }
             .section-title { font-size: clamp(1.7rem, 7vw, 2.4rem); }
             .footer-grid > * { min-width: 0; }
-        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 24px; }
             .btn { padding: 12px 20px; font-size: 0.78rem; }
         }
 
@@ -688,7 +692,7 @@
     <div class="container nav-wrapper">
         <a href="index.html" class="logo">
             <img src="zion.jpg" alt="Zion Netcom Solutions" style="height: 48px; width: auto; display: block;">
-            </a>
+        </a>
         <nav>
             <ul class="nav-links" id="nav-links">
                 <li><a href="index.html">Home</a></li>
@@ -828,7 +832,21 @@
                     <div class="map-coords">LAT: 10.530042°N &nbsp;|&nbsp; LNG: 7.433794°E</div>
                 </div>
             </div>
+            <!-- Street View — office frontage -->
+            <div>
+                <div class="map-view-label">Street View — Office Frontage</div>
+                <div class="map-container">
+                    <iframe
+                        title="Zion Netcom Solutions Office Street View"
+                        src="https://www.google.com/maps/embed?pb=!4v1750000000001!6m8!1m7!1sF-YkV6XFjskvGiMVFpM_iA!2m2!1d7.433794!2d10.530042!3f180!4f0!5f0.7820865974627469"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                    <div class="map-coords">Mohammadu Buhari Way, Kaduna</div>
+                </div>
             </div>
+        </div>
     </div>
 </section>
 
@@ -839,7 +857,7 @@
             <div class="footer-brand">
                 <div class="logo" style="margin-bottom: 16px;">
                     <img src="zion.jpg" alt="Zion Netcom Solutions" style="height: 40px; width: auto; display: block;">
-                    </div>
+                </div>
                 <p>Engineering reliable digital infrastructure across Nigeria and Africa since 2018.</p>
                 <div class="data-readout" style="margin-top: 16px;">
                     <span class="indicator"></span>
@@ -866,10 +884,10 @@
                 </ul>
             </div>
             <div class="footer-contact">
-               <h4>Contact</h4>
-<p><i class="fas fa-map-marker-alt"></i> Starcase Office, Benue Plaza, Mohammadu Buhari Way, Kaduna</p>
-<p><i class="fas fa-phone"></i> <a href="tel:+2347067580599">+234 706 758 0599</a></p>
-<p><i class="fas fa-envelope"></i> <a href="mailto:info@zionnetcomsolutionsltd.com.ng">info@zionnetcomsolutionsltd.com.ng</a></p>
+                <h4>Contact</h4>
+                <p><i class="fas fa-map-marker-alt"></i> Starcase Office, Benue Plaza, Mohammadu Buhari Way, Kaduna</p>
+                <p><i class="fas fa-phone"></i> <a href="tel:+2347067580599">+234 706 758 0599</a></p>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:info@zionnetcomsolutionsltd.com.ng">info@zionnetcomsolutionsltd.com.ng</a></p>
             </div>
         </div>
         <div class="footer-bottom">
@@ -971,36 +989,35 @@ document.addEventListener('click', (e) => {
     }
 });
 
-    // ===== DARK / LIGHT MODE TOGGLE =====
-    const themeToggle = document.getElementById('theme-toggle');
-    const themeIcon = document.getElementById('theme-icon');
-    const savedTheme = localStorage.getItem('zn-theme');
+// ===== DARK / LIGHT MODE TOGGLE =====
+const themeToggle = document.getElementById('theme-toggle');
+const themeIcon = document.getElementById('theme-icon');
+const savedTheme = localStorage.getItem('zn-theme');
 
-    function applyTheme(mode) {
-        if (mode === 'light') {
-            document.body.classList.add('light-mode');
-            themeIcon.className = 'fas fa-moon';
-            themeToggle.setAttribute('aria-label', 'Switch to dark mode');
-        } else {
-            document.body.classList.remove('light-mode');
-            themeIcon.className = 'fas fa-sun';
-            themeToggle.setAttribute('aria-label', 'Switch to light mode');
-        }
-        localStorage.setItem('zn-theme', mode);
+function applyTheme(mode) {
+    if (mode === 'light') {
+        document.body.classList.add('light-mode');
+        themeIcon.className = 'fas fa-moon';
+        themeToggle.setAttribute('aria-label', 'Switch to dark mode');
+    } else {
+        document.body.classList.remove('light-mode');
+        themeIcon.className = 'fas fa-sun';
+        themeToggle.setAttribute('aria-label', 'Switch to light mode');
     }
+    localStorage.setItem('zn-theme', mode);
+}
 
-    // Apply saved preference on load
-    if (savedTheme) {
-        applyTheme(savedTheme);
-    }
+// Apply saved preference on load
+if (savedTheme) {
+    applyTheme(savedTheme);
+}
 
-    if (themeToggle) {
-        themeToggle.addEventListener('click', () => {
-            const isLight = document.body.classList.contains('light-mode');
-            applyTheme(isLight ? 'dark' : 'light');
-        });
-    }
-
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        const isLight = document.body.classList.contains('light-mode');
+        applyTheme(isLight ? 'dark' : 'light');
+    });
+}
 </script>
 </body>
 </html>
