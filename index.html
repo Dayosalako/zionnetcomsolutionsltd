@@ -57,16 +57,8 @@
             pointer-events: none;
             z-index: 0;
         }
-.topbar-info a {
-    color: inherit;
-    text-decoration: none;
-}
 
-.topbar-info a:hover {
-    text-decoration: underline; /* optional */
-}
-        
-        .container {
+.container {
             width: 92%;
             max-width: 1280px;
             margin: 0 auto;
@@ -153,23 +145,32 @@
         }
 
         /* ===== TOPBAR ===== */
-        .topbar {
-            background: var(--bg-secondary);
-            border-bottom: 1px solid var(--border-subtle);
-            padding: 10px 0;
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            position: relative;
-            z-index: 100;
-        }
-        .topbar-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; }
-        .topbar-info { display: flex; gap: 30px; }
-        .topbar-info span { color: var(--text-secondary); display: flex; align-items: center; gap: 8px; }
-        .topbar-info i { color: var(--cyan); font-size: 0.8rem; }
-        .topbar-social a { color: var(--text-muted); margin-left: 16px; transition: color 0.3s; }
+        .topbar { background: var(--bg-secondary); border-bottom: 1px solid var(--border-subtle); padding: 9px 0; font-family: var(--font-mono); font-size: 0.73rem; position: relative; z-index: 100; }
+        .topbar-inner { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+        .topbar-info { display: flex; align-items: center; gap: 20px; flex-wrap: nowrap; overflow: hidden; }
+        .tb-item { display: flex; align-items: center; gap: 6px; color: var(--text-secondary); text-decoration: none; white-space: nowrap; transition: color 0.2s; flex-shrink: 0; }
+        .tb-item i { color: var(--cyan); font-size: 0.78rem; flex-shrink: 0; }
+        .tb-item:hover { color: var(--cyan); }
+        .topbar-right { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+        .topbar-social { display: flex; align-items: center; gap: 12px; }
+        .topbar-social a { color: var(--text-muted); font-size: 0.85rem; transition: color 0.3s; }
         .topbar-social a:hover { color: var(--cyan); }
+        .theme-toggle { background: none; border: 1px solid var(--border-subtle); border-radius: 20px; color: var(--text-secondary); font-size: 0.78rem; cursor: pointer; padding: 4px 10px; display: flex; align-items: center; gap: 5px; transition: all 0.2s; white-space: nowrap; }
+        .theme-toggle:hover { border-color: var(--cyan); color: var(--cyan); }
+        body.light-mode { --bg-primary: #F5F7FA; --bg-secondary: #EAEEF3; --bg-card: #FFFFFF; --bg-elevated: #E2E8F0; --grid-line: rgba(0,90,160,0.06); --grid-major: rgba(0,90,160,0.12); --cyan: #0077CC; --cyan-dim: rgba(0,119,204,0.6); --cyan-glow: rgba(0,119,204,0.18); --text-primary: #0F1E2E; --text-secondary: #3D5A73; --text-muted: #7A94A8; --accent-warm: #D95F1A; --border-subtle: rgba(0,119,204,0.15); --border-glow: rgba(0,119,204,0.35); }
+        body.light-mode .header { background: rgba(234,238,243,0.92) !important; }
+        body.light-mode .nav-links a { color: var(--text-primary); }
+        body.light-mode .nav-links { background: var(--bg-primary); }
+        body.light-mode .service-card, body.light-mode .project-card, body.light-mode .tech-item, body.light-mode .stat-item, body.light-mode .value-card, body.light-mode .info-card, body.light-mode .form-panel, body.light-mode .timeline-content, body.light-mode .blueprint-card { background: var(--bg-card); border-color: var(--border-subtle); }
+        body.light-mode .hero, body.light-mode .page-hero { background: linear-gradient(135deg,#EBF2FA 0%,#F5F7FA 50%,#E8EFF7 100%) !important; }
+        body.light-mode .footer { background: var(--bg-secondary); border-top-color: var(--border-subtle); }
+        body.light-mode .stats-strip, body.light-mode .tech-stack { background: var(--bg-secondary); }
+        body.light-mode .nav-overlay { background: rgba(180,200,220,0.7); }
+        body.light-mode .menu-toggle { color: var(--text-primary); border-color: var(--border-subtle); }
+        @media (max-width: 768px) { .topbar { padding: 7px 0; } .tb-phone .tb-text, .tb-email { display: none; } .topbar-info { gap: 14px; } }
+        @media (max-width: 480px) { .tb-location .tb-text { display: none; } .topbar-info { gap: 10px; } .theme-toggle span { display: none; } }
 
-        /* ===== HEADER ===== */
+/* ===== HEADER ===== */
         .header {
             background: rgba(7, 11, 20, 0.85);
             backdrop-filter: blur(20px);
@@ -629,6 +630,7 @@
             background: linear-gradient(90deg, transparent, var(--cyan), transparent);
             opacity: 0.5;
         }
+        .footer-grid > * { min-width: 0; }
         .footer-grid {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr 1.5fr;
@@ -748,14 +750,14 @@
             .stat-item:not(:last-child)::after { display: none; }
             .projects-grid { grid-template-columns: repeat(2, 1fr); }
             .tech-grid { grid-template-columns: repeat(3, 1fr); }
-            .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+            .footer-grid > * { min-width: 0; }
+        .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
         }
 
         /* ===== TABLET PORTRAIT (992px) ===== */
         @media (max-width: 992px) {
             .container { width: 94%; }
-            .topbar-info span:nth-child(n+3) { display: none; }
-            .nav-links {
+.nav-links {
                 position: fixed;
                 top: 0; left: -100%;
                 width: 100%; height: 100vh;
@@ -782,11 +784,8 @@
             .container { width: 95%; }
 
             /* Topbar */
-            .topbar { padding: 8px 0; }
-            .topbar-info span:not(:first-child) { display: none; }
-            .topbar-social a { margin-left: 10px; }
 
-            /* Header */
+/* Header */
             .nav-wrapper { padding: 12px 0; }
             .menu-toggle { display: block; }
             .header-actions .btn { padding: 9px 16px; font-size: 0.72rem; }
@@ -823,7 +822,8 @@
 
             /* Footer */
             .footer { padding: 60px 0 24px; }
-            .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+            .footer-grid > * { min-width: 0; }
+        .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
             .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
         }
 
@@ -832,10 +832,8 @@
             .container { width: 96%; }
 
             /* Topbar — icon only */
-            .topbar-info span { gap: 4px; font-size: 0.7rem; }
-            .topbar-social a { margin-left: 8px; font-size: 0.9rem; }
 
-            /* Header */
+/* Header */
             .logo-text { font-size: 1.1rem; }
             .logo-sub { display: none; }
             .header-actions .btn { padding: 8px 14px; font-size: 0.7rem; }
@@ -861,7 +859,8 @@
             .projects-showcase { padding: 60px 0; }
 
             /* Footer */
-            .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+            .footer-grid > * { min-width: 0; }
+        .footer-grid { grid-template-columns: 1fr; gap: 28px; }
             .footer-brand p { max-width: 100%; }
 
             /* Buttons */
@@ -878,30 +877,57 @@
             .service-card { padding: 18px; }
             .tech-grid { grid-template-columns: repeat(2, 1fr); }
         }
+
+        /* ===== MOBILE NAV OVERLAY BACKDROP ===== */
+        .nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(7, 11, 20, 0.7);
+            z-index: 9997;
+            backdrop-filter: blur(2px);
+        }
+        .nav-overlay.active { display: block; }
+
+        .menu-toggle {
+            min-width: 44px;
+            min-height: 44px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            color: var(--cyan);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0 10px;
+            transition: all 0.2s;
+        }
+        .menu-toggle:hover { border-color: var(--cyan); background: rgba(56,182,255,0.08); }
     </style>
 </head>
 <body>
 
+<div class="nav-overlay" id="nav-overlay"></div>
 <!-- TOPBAR -->
 <div class="topbar">
     <div class="container topbar-inner">
         <div class="topbar-info">
-            <span><i class="fas fa-map-marker-alt"></i> Kaduna, Nigeria</span>
-            <a href="tel:+2347067580599"><i class="fas fa-phone"></i> +234 706 758 0599</a>
-            <a href="mailto:info@zionnetcomsolutionsltd.com.ng"><i class="fas fa-envelope"></i> info@zionnetcomsolutionsltd.com.ng</a>
+            <span class="tb-item tb-location"><i class="fas fa-map-marker-alt"></i><span class="tb-text"> Kaduna, Nigeria</span></span>
+            <a href="tel:+2347067580599" class="tb-item tb-phone"><i class="fas fa-phone"></i><span class="tb-text"> +234 706 758 0599</span></a>
+            <a href="mailto:info@zionnetcomsolutionsltd.com.ng" class="tb-item tb-email"><i class="fas fa-envelope"></i><span class="tb-text tb-email-text"> info@zionnetcomsolutionsltd.com.ng</span></a>
         </div>
-        <div class="topbar-social">
-    <!-- Fixed: Added https:// to prevent broken relative routing -->
-    <a href="https://www.linkedin.com/company/zion-netcom-solutions-limited?_l=en_US" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-linkedin"></i>
-    </a>
-    <a href="https://www.youtube.com/@zionnetcomsolutionsltd" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-youtube"></i>
-    </a>
-    <a href="https://www.instagram.com/zionnetcomsolutionsltd/" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-instagram"></i>
-    </a>
-</div>
+        <div class="topbar-right">
+            <div class="topbar-social">
+                <a href="https://www.linkedin.com/company/zion-netcom-solutions-limited?_l=en_US" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.youtube.com/@zionnetcomsolutionsltd" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.instagram.com/zionnetcomsolutionsltd/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode">
+                <i class="fas fa-sun" id="theme-icon"></i>
+            </button>
+        </div>
     </div>
 </div>
 
@@ -922,8 +948,8 @@
         </nav>
         <div class="header-actions">
             <a href="contact.html" class="btn btn-primary">Get Quote</a>
-            <button class="menu-toggle" onclick="document.getElementById('nav-links').classList.toggle('active')">
-                <i class="fas fa-bars"></i>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars" id="menu-icon"></i>
             </button>
         </div>
     </div>
@@ -1255,11 +1281,66 @@ const counterObserver = new IntersectionObserver((entries) => {
 counters.forEach(c => counterObserver.observe(c));
 
 // ===== MOBILE MENU =====
+const menuToggle = document.getElementById('menu-toggle');
+const menuIcon = document.getElementById('menu-icon');
+const navLinks = document.getElementById('nav-links');
+
+if (menuToggle) {
+    menuToggle.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('active');
+        menuIcon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+}
+
 document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
-        document.getElementById('nav-links').classList.remove('active');
+        navLinks.classList.remove('active');
+        if (menuIcon) menuIcon.className = 'fas fa-bars';
+        document.body.style.overflow = '';
     });
 });
+
+// Close menu on outside click
+document.addEventListener('click', (e) => {
+    if (navLinks && navLinks.classList.contains('active') &&
+        !navLinks.contains(e.target) && e.target !== menuToggle && !menuToggle.contains(e.target)) {
+        navLinks.classList.remove('active');
+        if (menuIcon) menuIcon.className = 'fas fa-bars';
+        document.body.style.overflow = '';
+    }
+});
+
+    // ===== DARK / LIGHT MODE TOGGLE =====
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const savedTheme = localStorage.getItem('zn-theme');
+
+    function applyTheme(mode) {
+        if (mode === 'light') {
+            document.body.classList.add('light-mode');
+            themeIcon.className = 'fas fa-moon';
+            themeToggle.setAttribute('aria-label', 'Switch to dark mode');
+        } else {
+            document.body.classList.remove('light-mode');
+            themeIcon.className = 'fas fa-sun';
+            themeToggle.setAttribute('aria-label', 'Switch to light mode');
+        }
+        localStorage.setItem('zn-theme', mode);
+    }
+
+    // Apply saved preference on load
+    if (savedTheme) {
+        applyTheme(savedTheme);
+    }
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const isLight = document.body.classList.contains('light-mode');
+            applyTheme(isLight ? 'dark' : 'light');
+        });
+    }
+
 </script>
 </body>
 </html>
