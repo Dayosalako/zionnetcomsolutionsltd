@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Make a secure payment to Zion Netcom Solutions Limited via Paystack — cards, bank transfer, USSD, and mobile money accepted.">
+    <title>Make a Payment | Zion Netcom Solutions</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #070B14;
+            --bg-secondary: #0D1321;
+            --bg-card: #111827;
+            --bg-elevated: #1A2332;
+            --grid-line: rgba(56, 182, 255, 0.08);
+            --cyan: #38B6FF;
+            --cyan-dim: rgba(56, 182, 255, 0.6);
+            --cyan-glow: rgba(56, 182, 255, 0.25);
+            --text-primary: #E8F4F8;
+            --text-secondary: #8BA3B8;
+            --text-muted: #4A6070;
+            --accent-warm: #FF6B35;
+            --border-subtle: rgba(56, 182, 255, 0.12);
+            --border-glow: rgba(56, 182, 255, 0.3);
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+            --font-sans: 'Inter', system-ui, sans-serif;
+            --font-display: 'Space Grotesk', 'Inter', sans-serif;
+        }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .container { width: 92%; max-width: 1280px; margin: 0 auto; position: relative; z-index: 1; }
+        h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height: 1.1; }
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--cyan);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section-label::before { content: '//'; color: var(--text-muted); }
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .btn-primary {
+            background: var(--cyan);
+            color: var(--bg-primary);
+            box-shadow: 0 0 20px var(--cyan-glow), inset 0 0 0 1px rgba(255,255,255,0.2);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 40px var(--cyan-glow), 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--cyan);
+            border: 1px solid var(--cyan);
+            box-shadow: 0 0 10px rgba(56,182,255,0.1);
+        }
+        .btn-outline:hover {
+            background: var(--cyan);
+            color: var(--bg-primary);
+            box-shadow: 0 0 30px var(--cyan-glow);
+        }
+
+        /* TOPBAR */
+
+/* HEADER */
+        /* ===== TOPBAR ===== */
+        .topbar { background: var(--bg-secondary); border-bottom: 1px solid var(--border-subtle); padding: 9px 0; font-family: var(--font-mono); font-size: 0.73rem; position: relative; z-index: 100; }
+        .topbar-inner { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+        .topbar-info { display: flex; align-items: center; gap: 20px; flex-wrap: nowrap; overflow: hidden; }
+        .tb-item { display: flex; align-items: center; gap: 6px; color: var(--text-secondary); text-decoration: none; white-space: nowrap; transition: color 0.2s; flex-shrink: 0; }
+        .tb-item i { color: var(--cyan); font-size: 0.78rem; flex-shrink: 0; }
+        .tb-item:hover { color: var(--cyan); }
+        .topbar-right { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+        .topbar-social { display: flex; align-items: center; gap: 12px; }
+        .topbar-social a { color: var(--text-muted); font-size: 0.85rem; transition: color 0.3s; }
+        .topbar-social a:hover { color: var(--cyan); }
+        .theme-toggle { background: none; border: 1px solid var(--border-subtle); border-radius: 20px; color: var(--text-secondary); font-size: 0.78rem; cursor: pointer; padding: 4px 10px; display: flex; align-items: center; gap: 5px; transition: all 0.2s; white-space: nowrap; }
+        .theme-toggle:hover { border-color: var(--cyan); color: var(--cyan); }
+
+        /* ===== LIGHT MODE ===== */
+        body.light-mode { --bg-primary: #F5F7FA; --bg-secondary: #EAEEF3; --bg-card: #FFFFFF; --bg-elevated: #E2E8F0; --grid-line: rgba(0, 90, 160, 0.06); --grid-major: rgba(0, 90, 160, 0.12); --cyan: #0077CC; --cyan-dim: rgba(0, 119, 204, 0.6); --cyan-glow: rgba(0, 119, 204, 0.18); --text-primary: #0F1E2E; --text-secondary: #3D5A73; --text-muted: #7A94A8; --accent-warm: #D95F1A; --border-subtle: rgba(0, 119, 204, 0.15); --border-glow: rgba(0, 119, 204, 0.35); }
+        body.light-mode .header { background: rgba(234, 238, 243, 0.92) !important; }
+        body.light-mode .nav-links a { color: var(--text-primary); }
+        body.light-mode .nav-links { background: var(--bg-primary); }
+        body.light-mode .service-card, body.light-mode .project-card, body.light-mode .tech-item,
+        body.light-mode .stat-item, body.light-mode .value-card, body.light-mode .info-card,
+        body.light-mode .form-panel, body.light-mode .timeline-content, body.light-mode .blueprint-card
+            { background: var(--bg-card); border-color: var(--border-subtle); }
+        body.light-mode .hero, body.light-mode .page-hero { background: linear-gradient(135deg, #EBF2FA 0%, #F5F7FA 50%, #E8EFF7 100%) !important; }
+        body.light-mode .footer { background: var(--bg-secondary); border-top-color: var(--border-subtle); }
+        body.light-mode .stats-strip, body.light-mode .tech-stack { background: var(--bg-secondary); }
+        body.light-mode .nav-overlay { background: rgba(180, 200, 220, 0.7); }
+        body.light-mode .menu-toggle { color: var(--text-primary); border-color: var(--border-subtle); }
+        body.light-mode .logo-text, body.light-mode .logo-sub { color: var(--text-primary) !important; }
+
+        /* ===== TOPBAR RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .topbar { padding: 7px 0; }
+            .tb-phone .tb-text, .tb-email { display: none; }
+            .topbar-info { gap: 14px; }
+        }
+        @media (max-width: 480px) {
+            .tb-location .tb-text { display: none; }
+            .topbar-info { gap: 10px; }
+            .theme-toggle span { display: none; }
+        }
+
+
+        .header {
+            background: rgba(7, 11, 20, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+        }
+        .nav-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            gap: 20px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 42px; height: 42px;
+            border: 2px solid var(--cyan);
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--cyan);
+            position: relative;
+        }
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            border: 1px solid var(--cyan-dim);
+        }
+        .logo-text {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+        .logo-text span { color: var(--cyan); }
+        .logo-sub {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-links a {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+            padding: 4px 0;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; left: 0;
+            width: 0; height: 1px;
+            background: var(--cyan);
+            transition: width 0.3s;
+            box-shadow: 0 0 8px var(--cyan);
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--cyan); }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .header-actions { display: flex; align-items: center; gap: 20px; }
+        .menu-toggle {
+            display: none;
+            background: none; border: none;
+            color: var(--cyan);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* PAGE HERO */
+        .page-hero {
+            padding: 140px 0 100px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-subtle);
+            position: relative;
+            overflow: hidden;
+        }
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            opacity: 0.5;
+        }
+        .page-hero h1 {
+            font-size: clamp(2rem, 6vw, 4rem);
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+        .page-hero h1 .highlight { color: var(--cyan); text-shadow: 0 0 30px var(--cyan-glow); }
+        .page-hero p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        /* SERVICE BLUEPRINT SECTION */
+        .service-blueprint {
+            padding: 100px 0;
+            position: relative;
+        }
+        .service-blueprint:nth-child(even) { background: var(--bg-secondary); }
+        .blueprint-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .blueprint-id {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            padding: 6px 14px;
+            border: 1px solid var(--border-subtle);
+            border-radius: 2px;
+        }
+        .blueprint-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            align-items: start;
+        }
+        .blueprint-visual {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            padding: 40px;
+            position: relative;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .blueprint-visual::before, .blueprint-visual::after {
+            content: '';
+            position: absolute;
+            width: 16px; height: 16px;
+            border: 2px solid var(--cyan);
+        }
+        .blueprint-visual::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+        .blueprint-visual::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+        .blueprint-visual .icon-main {
+            font-size: 4rem;
+            color: var(--cyan-dim);
+            margin-bottom: 24px;
+            transition: all 0.3s;
+        }
+        .blueprint-visual:hover .icon-main {
+            color: var(--cyan);
+            text-shadow: 0 0 30px var(--cyan-glow);
+        }
+        .blueprint-visual h3 {
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+        }
+        .blueprint-visual p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+        .blueprint-specs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 30px;
+        }
+        .spec-item {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            padding: 16px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+        }
+        .spec-item .spec-label { color: var(--text-muted); margin-bottom: 4px; }
+        .spec-item .spec-value { color: var(--cyan); font-weight: 600; }
+
+        .blueprint-details h4 {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--cyan);
+            margin-bottom: 20px;
+        }
+        .feature-list {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+        .feature-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        .feature-list li:last-child { border-bottom: none; }
+        .feature-list i {
+            color: var(--cyan);
+            font-size: 0.9rem;
+            margin-top: 3px;
+        }
+        .tech-stack-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .tech-tag {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            padding: 8px 16px;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        .tech-tag:hover {
+            border-color: var(--cyan-dim);
+            color: var(--cyan);
+            background: rgba(56, 182, 255, 0.05);
+        }
+
+        /* CTA */
+        .cta-section {
+            padding: 120px 0;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            text-align: center;
+            position: relative;
+        }
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            opacity: 0.5;
+        }
+        .cta-section h2 {
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            margin-bottom: 20px;
+        }
+        .cta-section p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            font-size: 1.1rem;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            padding: 80px 0 30px;
+            position: relative;
+        }
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            opacity: 0.5;
+        }
+        .footer-grid > * { min-width: 0; }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            max-width: 300px;
+            margin: 20px 0;
+        }
+        .footer h4 {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--cyan);
+            margin-bottom: 24px;
+        }
+        .footer ul { list-style: none; }
+        .footer ul li { margin-bottom: 12px; }
+        .footer ul a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer ul a:hover { color: var(--cyan); padding-left: 4px; }
+        .footer ul a::before {
+            content: '>';
+            font-family: var(--font-mono);
+            color: var(--text-muted);
+            font-size: 0.7rem;
+        }
+        .footer-contact p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .footer-contact i { color: var(--cyan); width: 16px; font-size: 0.85rem; }
+        .footer-bottom {
+            border-top: 1px solid var(--border-subtle);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .data-readout {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .data-readout .indicator {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--cyan);
+            box-shadow: 0 0 8px var(--cyan);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* ===== RESPONSIVE — TABLET LANDSCAPE (1100px) ===== */
+        @media (max-width: 1100px) {
+            .footer-grid > * { min-width: 0; }
+        .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+        }
+
+        /* ===== RESPONSIVE — TABLET PORTRAIT (992px) ===== */
+        @media (max-width: 992px) {
+            .container { width: 94%; }
+            .nav-links {
+                position: fixed;
+                top: 0; left: -100%;
+                width: 100%; height: 100vh;
+                background: var(--bg-primary);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                transition: left 0.4s ease;
+                border-top: 1px solid var(--border-subtle);
+                z-index: 9998;
+                padding-top: 80px;
+            }
+            .nav-links.active { left: 0; }
+            .menu-toggle { display: block; }
+            .header-actions .btn { padding: 10px 18px; font-size: 0.75rem; }
+/* Page-specific tablet overrides below */
+            .blueprint-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ===== RESPONSIVE — MOBILE (768px) ===== */
+        @media (max-width: 768px) {
+            .container { width: 95%; }
+
+.nav-wrapper { padding: 12px 0; }
+            .logo-sub { display: none; }
+            .page-hero { padding: 100px 0 60px; }
+            .blueprint-specs { grid-template-columns: 1fr; }
+            .footer-grid > * { min-width: 0; }
+        .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+        }
+
+        /* ===== RESPONSIVE — SMALL MOBILE (480px) ===== */
+        @media (max-width: 480px) {
+            .container { width: 96%; }
+            .logo-text { font-size: 1.1rem; }
+            .logo-sub { display: none; }
+            .page-hero { padding: 80px 0 44px; }
+            .header-actions .btn { padding: 8px 14px; font-size: 0.7rem; }
+            .section-title { font-size: clamp(1.7rem, 7vw, 2.4rem); }
+            .footer-grid > * { min-width: 0; }
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+            .btn { padding: 12px 20px; font-size: 0.78rem; }
+        }
+
+        @media (max-width: 360px) {
+            .section-title { font-size: clamp(1.5rem, 8vw, 2rem); }
+            .logo-text { font-size: 1rem; }
+        }
+
+        /* ===== MOBILE NAV OVERLAY BACKDROP ===== */
+        .nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(7, 11, 20, 0.7);
+            z-index: 9997;
+            backdrop-filter: blur(2px);
+        }
+        .nav-overlay.active { display: block; }
+
+        .menu-toggle {
+            min-width: 44px;
+            min-height: 44px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            color: var(--cyan);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0 10px;
+            transition: all 0.2s;
+        }
+        .menu-toggle:hover { border-color: var(--cyan); background: rgba(56,182,255,0.08); }
+
+        /* ===== PAYMENT GATEWAY PAGE ===== */
+        .payment-section {
+            padding: 140px 0 100px;
+            position: relative;
+        }
+        .payment-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            opacity: 0.5;
+        }
+        .payment-intro {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+        .payment-intro h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+        .payment-intro h1 .highlight { color: var(--cyan); text-shadow: 0 0 30px var(--cyan-glow); }
+        .payment-intro p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        .secure-badge-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 14px;
+            margin-top: 22px;
+            flex-wrap: wrap;
+        }
+        .secure-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            border: 1px solid var(--border-subtle);
+            padding: 7px 14px;
+            border-radius: 20px;
+        }
+        .secure-badge i { color: var(--cyan); }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 50px;
+            max-width: 1100px;
+            margin: 0 auto;
+            align-items: start;
+        }
+
+        /* PAYMENT FORM PANEL */
+        .payment-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            padding: 46px;
+            position: relative;
+        }
+        .payment-panel::before, .payment-panel::after {
+            content: '';
+            position: absolute;
+            width: 16px; height: 16px;
+            border: 2px solid var(--cyan);
+        }
+        .payment-panel::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+        .payment-panel::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+        .payment-panel h3 {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--cyan);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .payment-panel h3::before { content: '//'; color: var(--text-muted); }
+
+        .purpose-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .purpose-option {
+            position: relative;
+        }
+        .purpose-option input {
+            position: absolute;
+            opacity: 0;
+            width: 100%; height: 100%;
+            cursor: pointer;
+            margin: 0;
+        }
+        .purpose-option label {
+            display: block;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            padding: 14px 16px;
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+        .purpose-option input:checked + label {
+            border-color: var(--cyan);
+            color: var(--text-primary);
+            background: rgba(56, 182, 255, 0.07);
+            box-shadow: 0 0 15px rgba(56, 182, 255, 0.1);
+        }
+        .purpose-option input:focus-visible + label { outline: 2px solid var(--cyan); outline-offset: 2px; }
+
+        /* ===== BEAUTIFUL FLOATING-LABEL FIELDS ===== */
+        .field {
+            position: relative;
+            margin-bottom: 26px;
+        }
+        .field-icon {
+            position: absolute;
+            left: 18px; top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .field input,
+        .field textarea {
+            width: 100%;
+            background: var(--bg-elevated);
+            border: 1.5px solid var(--border-subtle);
+            border-radius: 10px;
+            color: var(--text-primary);
+            padding: 23px 18px 9px 46px;
+            font-family: var(--font-sans);
+            font-size: 0.96rem;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        }
+        .field input::placeholder,
+        .field textarea::placeholder { color: transparent; }
+        .field label {
+            position: absolute;
+            left: 46px; top: 50%;
+            transform: translateY(-50%);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            pointer-events: none;
+            transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .field label .optional-tag {
+            text-transform: none;
+            letter-spacing: 0;
+            color: var(--text-muted);
+            font-family: var(--font-sans);
+            opacity: 0.8;
+        }
+        .field input:focus,
+        .field input:not(:placeholder-shown) {
+            padding-top: 27px;
+            padding-bottom: 7px;
+        }
+        .field input:focus ~ label,
+        .field input:not(:placeholder-shown) ~ label {
+            top: 15px;
+            transform: translateY(0);
+            font-size: 0.65rem;
+            color: var(--cyan);
+            letter-spacing: 1.4px;
+        }
+        .field input:focus {
+            border-color: var(--cyan);
+            background: var(--bg-card);
+            box-shadow: 0 0 0 4px rgba(56, 182, 255, 0.08), 0 0 24px rgba(56, 182, 255, 0.12);
+        }
+        .field input:focus ~ .field-icon,
+        .field input:not(:placeholder-shown) ~ .field-icon {
+            color: var(--cyan);
+        }
+        .field-hint {
+            margin-top: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            padding-left: 4px;
+        }
+
+        .amount-input-wrap {
+            position: relative;
+        }
+        .amount-input-wrap .currency-prefix {
+            position: absolute;
+            left: 18px; top: 50%;
+            transform: translateY(-50%);
+            color: var(--cyan);
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.15rem;
+            pointer-events: none;
+            z-index: 2;
+            transition: color 0.3s ease;
+        }
+        .amount-input-wrap input {
+            width: 100%;
+            background: var(--bg-elevated);
+            border: 1.5px solid var(--border-subtle);
+            border-radius: 10px;
+            color: var(--text-primary);
+            padding: 18px 18px 18px 46px !important;
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 600;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        }
+        .amount-input-wrap input:focus {
+            border-color: var(--cyan);
+            background: var(--bg-card);
+            box-shadow: 0 0 0 4px rgba(56, 182, 255, 0.08), 0 0 24px rgba(56, 182, 255, 0.12);
+        }
+        .amount-input-wrap input:focus ~ .currency-prefix { color: var(--cyan); }
+        .amount-label {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+        .quick-amounts {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .quick-amount-btn {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 7px 14px;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+        .quick-amount-btn:hover, .quick-amount-btn.active {
+            border-color: var(--cyan);
+            color: var(--cyan);
+            box-shadow: 0 0 12px rgba(56,182,255,0.12);
+        }
+
+        .pay-btn {
+            width: 100%;
+            justify-content: center;
+            font-size: 0.9rem;
+            padding: 16px 32px;
+            margin-top: 10px;
+        }
+        .pay-btn:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .form-error {
+            display: none;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: #FF6B6B;
+            margin-top: -10px;
+            margin-bottom: 18px;
+            padding: 10px 14px;
+            border: 1px solid rgba(255,107,107,0.3);
+            background: rgba(255,107,107,0.07);
+        }
+        .form-error.active { display: block; }
+
+        /* SIDE PANEL: TRUST / METHODS */
+        .trust-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            padding: 35px;
+            margin-bottom: 24px;
+        }
+        .trust-card h4 {
+            font-size: 1rem;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .trust-card h4 i { color: var(--cyan); }
+        .trust-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .trust-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            line-height: 1.6;
+        }
+        .trust-list li i {
+            color: var(--cyan);
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+        .pay-methods-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+        .pay-method-chip {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            border: 1px solid var(--border-subtle);
+            padding: 6px 12px;
+            border-radius: 4px;
+        }
+        .powered-by {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 22px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-subtle);
+        }
+        .powered-by strong { color: var(--text-secondary); }
+
+        .summary-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            padding: 28px 30px;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            padding: 10px 0;
+            border-bottom: 1px dashed var(--border-subtle);
+        }
+        .summary-row:last-child { border-bottom: none; }
+        .summary-row .label { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+        .summary-row .value { color: var(--text-primary); font-weight: 600; }
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border-glow);
+        }
+        .summary-total .label { font-family: var(--font-display); font-size: 1rem; color: var(--text-primary); }
+        .summary-total .value { font-family: var(--font-display); font-size: 1.5rem; color: var(--cyan); text-shadow: 0 0 20px var(--cyan-glow); }
+
+        /* SUCCESS / STATUS MODAL */
+        .pay-status-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(7,11,20,0.88);
+            backdrop-filter: blur(6px);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .pay-status-overlay.active { display: flex; }
+        .pay-status-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            max-width: 420px;
+            width: 100%;
+            padding: 46px 38px;
+            text-align: center;
+            position: relative;
+        }
+        .pay-status-card::before, .pay-status-card::after {
+            content: '';
+            position: absolute;
+            width: 16px; height: 16px;
+            border: 2px solid var(--cyan);
+        }
+        .pay-status-card::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+        .pay-status-card::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+        .pay-status-icon {
+            width: 70px; height: 70px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 22px;
+            font-size: 1.8rem;
+        }
+        .pay-status-icon.success { background: rgba(56,182,255,0.12); color: var(--cyan); box-shadow: 0 0 30px var(--cyan-glow); }
+        .pay-status-icon.error { background: rgba(255,107,107,0.12); color: #FF6B6B; box-shadow: 0 0 30px rgba(255,107,107,0.2); }
+        .pay-status-card h3 { font-size: 1.3rem; margin-bottom: 12px; }
+        .pay-status-card p { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin-bottom: 26px; }
+        .pay-status-ref {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            padding: 10px 14px;
+            margin-bottom: 26px;
+            word-break: break-all;
+        }
+
+        @media (max-width: 900px) {
+            .payment-grid { grid-template-columns: 1fr; gap: 36px; }
+        }
+        @media (max-width: 600px) {
+            .payment-section { padding: 110px 0 70px; }
+            .payment-panel { padding: 30px 22px; }
+            .purpose-grid { grid-template-columns: 1fr; }
+        }
+    
+        @media (max-width: 640px) { .header-actions .btn-outline { display: none; } }
+</style>
+</head>
+<body>
+
+<div class="nav-overlay" id="nav-overlay"></div>
+<!-- TOPBAR -->
+<div class="topbar">
+    <div class="container topbar-inner">
+        <div class="topbar-info">
+            <span class="tb-item tb-location"><i class="fas fa-map-marker-alt"></i><span class="tb-text"> Kaduna, Nigeria</span></span>
+            <a href="tel:+2347067580599" class="tb-item tb-phone"><i class="fas fa-phone"></i><span class="tb-text"> +234 706 758 0599</span></a>
+            <a href="mailto:info@zionnetcomsolutionsltd.com.ng" class="tb-item tb-email"><i class="fas fa-envelope"></i><span class="tb-text tb-email-text"> info@zionnetcomsolutionsltd.com.ng</span></a>
+        </div>
+        <div class="topbar-right">
+            <div class="topbar-social">
+                <a href="https://www.linkedin.com/company/zion-netcom-solutions-limited?_l=en_US" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.youtube.com/@zionnetcomsolutionsltd" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.instagram.com/zionnetcomsolutionsltd/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode">
+                <i class="fas fa-sun" id="theme-icon"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="container nav-wrapper">
+        <a href="index.html" class="logo">
+            <img src="zion.jpg" alt="Zion Netcom Solutions" style="height: 48px; width: auto; display: block;">
+            </a>
+        <nav>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Solutions</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="payment.html" class="active">Make Payment</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <a href="payment.html" class="btn btn-primary">Make Payment</a>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars" id="menu-icon"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- PAYMENT SECTION -->
+<section class="payment-section">
+    <div class="container">
+        <div class="payment-intro">
+            <span class="section-label" style="justify-content:center;">Secure Checkout</span>
+            <h1>Make a <span class="highlight">Payment</span></h1>
+            <p>Pay securely for invoices, deposits, subscriptions, or project milestones. All transactions are processed and encrypted by Paystack — Zion Netcom never sees or stores your card details.</p>
+            <div class="secure-badge-row">
+                <span class="secure-badge"><i class="fas fa-lock"></i> 256-bit SSL Encrypted</span>
+                <span class="secure-badge"><i class="fas fa-shield-halved"></i> PCI-DSS Compliant</span>
+                <span class="secure-badge"><i class="fas fa-circle-check"></i> Verified by Paystack</span>
+            </div>
+        </div>
+
+        <div class="payment-grid">
+            <!-- PAYMENT FORM -->
+            <div class="payment-panel">
+                <h3>Payment Details</h3>
+                <form id="payment-form" autocomplete="on">
+                    <div class="form-group">
+                        <label for="pay-purpose-select">What's this payment for?</label>
+                        <div class="purpose-grid">
+                            <div class="purpose-option">
+                                <input type="radio" name="purpose" id="purpose-invoice" value="Invoice Payment" checked>
+                                <label for="purpose-invoice"><i class="fas fa-file-invoice" style="margin-right:8px;color:var(--cyan);"></i>Invoice Payment</label>
+                            </div>
+                            <div class="purpose-option">
+                                <input type="radio" name="purpose" id="purpose-deposit" value="Project Deposit">
+                                <label for="purpose-deposit"><i class="fas fa-hand-holding-dollar" style="margin-right:8px;color:var(--cyan);"></i>Project Deposit</label>
+                            </div>
+                            <div class="purpose-option">
+                                <input type="radio" name="purpose" id="purpose-subscription" value="Subscription / SaaS">
+                                <label for="purpose-subscription"><i class="fas fa-rotate" style="margin-right:8px;color:var(--cyan);"></i>Subscription / SaaS</label>
+                            </div>
+                            <div class="purpose-option">
+                                <input type="radio" name="purpose" id="purpose-other" value="Other">
+                                <label for="purpose-other"><i class="fas fa-ellipsis" style="margin-right:8px;color:var(--cyan);"></i>Other</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <i class="fas fa-user field-icon"></i>
+                        <input type="text" id="pay-name" name="name" placeholder=" " autocomplete="name" required>
+                        <label for="pay-name">Full Name</label>
+                    </div>
+
+                    <div class="field">
+                        <i class="fas fa-envelope field-icon"></i>
+                        <input type="email" id="pay-email" name="email" placeholder=" " autocomplete="email" required>
+                        <label for="pay-email">Email Address</label>
+                    </div>
+
+                    <div class="field">
+                        <i class="fas fa-phone field-icon"></i>
+                        <input type="tel" id="pay-phone" name="phone" placeholder=" " autocomplete="tel" required>
+                        <label for="pay-phone">Phone Number</label>
+                    </div>
+
+                    <div class="field">
+                        <i class="fas fa-hashtag field-icon"></i>
+                        <input type="text" id="pay-reference" name="reference_note" placeholder=" ">
+                        <label for="pay-reference">Reference Number <span class="optional-tag">(optional)</span></label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="amount-label" for="pay-amount">Amount (NGN)</label>
+                        <div class="amount-input-wrap">
+                            <span class="currency-prefix">₦</span>
+                            <input type="number" id="pay-amount" name="amount" min="100" step="1" placeholder="0.00" required>
+                        </div>
+                        <div class="quick-amounts">
+                            <button type="button" class="quick-amount-btn" data-amount="10000">₦10,000</button>
+                            <button type="button" class="quick-amount-btn" data-amount="50000">₦50,000</button>
+                            <button type="button" class="quick-amount-btn" data-amount="100000">₦100,000</button>
+                            <button type="button" class="quick-amount-btn" data-amount="500000">₦500,000</button>
+                        </div>
+                    </div>
+
+                    <div class="form-error" id="form-error-msg">Please complete all required fields correctly before proceeding.</div>
+
+                    <button type="submit" class="btn btn-primary pay-btn" id="pay-submit-btn">
+                        <i class="fas fa-lock"></i> Pay Securely Now
+                    </button>
+                </form>
+            </div>
+
+            <!-- TRUST / SUMMARY SIDEBAR -->
+            <div>
+                <div class="summary-card" style="margin-bottom:24px;">
+                    <div class="summary-row">
+                        <span class="label">Recipient</span>
+                        <span class="value">Zion Netcom Solutions Ltd</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="label">Currency</span>
+                        <span class="value">NGN (₦)</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="label">Gateway</span>
+                        <span class="value">Paystack</span>
+                    </div>
+                    <div class="summary-total">
+                        <span class="label">Total Due</span>
+                        <span class="value" id="summary-amount">₦0.00</span>
+                    </div>
+                </div>
+
+                <div class="trust-card">
+                    <h4><i class="fas fa-shield-halved"></i> Why pay here is safe</h4>
+                    <ul class="trust-list">
+                        <li><i class="fas fa-check"></i> Your card and bank details are encrypted and handled entirely by Paystack — Zion Netcom never has access to them.</li>
+                        <li><i class="fas fa-check"></i> Every transaction is verified server-side before it's marked as successful.</li>
+                        <li><i class="fas fa-check"></i> You'll receive an automatic email receipt immediately after a successful payment.</li>
+                        <li><i class="fas fa-check"></i> Licensed and regulated by the Central Bank of Nigeria (CBN).</li>
+                    </ul>
+                    <div class="pay-methods-row">
+                        <span class="pay-method-chip"><i class="fas fa-credit-card"></i> Card</span>
+                        <span class="pay-method-chip"><i class="fas fa-building-columns"></i> Bank Transfer</span>
+                        <span class="pay-method-chip"><i class="fas fa-mobile-screen"></i> USSD</span>
+                        <span class="pay-method-chip"><i class="fas fa-wallet"></i> Mobile Money</span>
+                        <span class="pay-method-chip"><i class="fas fa-qrcode"></i> QR</span>
+                    </div>
+                    <div class="powered-by">
+                        <i class="fas fa-lock"></i> Secured & processed by <strong>Paystack</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- STATUS OVERLAY -->
+<div class="pay-status-overlay" id="pay-status-overlay">
+    <div class="pay-status-card">
+        <div class="pay-status-icon success" id="pay-status-icon">
+            <i class="fas fa-check"></i>
+        </div>
+        <h3 id="pay-status-title">Payment Successful</h3>
+        <p id="pay-status-message">Thank you — your payment has been received and a receipt has been sent to your email.</p>
+        <div class="pay-status-ref" id="pay-status-ref"></div>
+        <button class="btn btn-primary" id="pay-status-close" style="width:100%; justify-content:center;">Done</button>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo" style="margin-bottom: 16px;">
+                    <img src="zion.jpg" alt="Zion Netcom Solutions" style="height: 40px; width: auto; display: block;">
+                    <div>
+                        <div class="logo-text" style="font-size:1.2rem;">ZION<span>NETCOM</span></div>
+                        <div class="logo-sub">Solutions Limited</div>
+                    </div>
+                </div>
+                <p>Engineering reliable digital infrastructure across Nigeria and Africa since 2018.</p>
+                <div class="data-readout" style="margin-top: 16px;">
+                    <span class="indicator"></span>
+                    <span>ALL SYSTEMS OPERATIONAL</span>
+                </div>
+            </div>
+            <div>
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Solutions</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="services.html">Enterprise Networks</a></li>
+                    <li><a href="services.html">Web Development</a></li>
+                    <li><a href="services.html">ICT Deployment</a></li>
+                    <li><a href="services.html">AI Surveillance</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact</h4>
+                <p><i class="fas fa-map-marker-alt"></i> Starcase Office, Benue Plaza, Mohammadu Buhari Way, Kaduna</p>
+                <p><i class="fas fa-phone"></i> +234 706 758 0599</p>
+                <p><i class="fas fa-envelope"></i> info@zionnetcomsolutionsltd.com.ng</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 Zion Netcom Solutions Limited</span>
+            <span>Built with precision in Kaduna, Nigeria</span>
+        </div>
+    </div>
+</footer>
+
+<script src="https://js.paystack.co/v2/inline.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+// ===== MOBILE MENU =====
+const menuToggle = document.getElementById('menu-toggle');
+const menuIcon = document.getElementById('menu-icon');
+const navLinks = document.getElementById('nav-links');
+
+if (menuToggle) {
+    menuToggle.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('active');
+        menuIcon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+}
+
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        if (menuIcon) menuIcon.className = 'fas fa-bars';
+        document.body.style.overflow = '';
+        if (typeof navOverlay !== 'undefined' && navOverlay) navOverlay.classList.remove('active');
+    });
+});
+
+document.addEventListener('click', (e) => {
+    if (navLinks && navLinks.classList.contains('active') &&
+        !navLinks.contains(e.target) && e.target !== menuToggle && !menuToggle.contains(e.target)) {
+        navLinks.classList.remove('active');
+        if (menuIcon) menuIcon.className = 'fas fa-bars';
+        document.body.style.overflow = '';
+    }
+});
+
+// ===== DARK / LIGHT MODE TOGGLE =====
+const themeToggle = document.getElementById('theme-toggle');
+const themeIcon = document.getElementById('theme-icon');
+const savedTheme = localStorage.getItem('zn-theme');
+
+function applyTheme(mode) {
+    if (mode === 'light') {
+        document.body.classList.add('light-mode');
+        themeIcon.className = 'fas fa-moon';
+        themeToggle.setAttribute('aria-label', 'Switch to dark mode');
+    } else {
+        document.body.classList.remove('light-mode');
+        themeIcon.className = 'fas fa-sun';
+        themeToggle.setAttribute('aria-label', 'Switch to light mode');
+    }
+    localStorage.setItem('zn-theme', mode);
+}
+
+if (savedTheme) { applyTheme(savedTheme); }
+
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        const isLight = document.body.classList.contains('light-mode');
+        applyTheme(isLight ? 'dark' : 'light');
+    });
+}
+
+// ===== PAYSTACK PAYMENT LOGIC =====
+const PAYSTACK_PUBLIC_KEY = 'pk_live_d6e5f81fb3ff1e1daedd1f84c3792c6c7739a6bd';
+
+// ===== EMAILJS CONFIG (auto receipt emails — no backend required) =====
+// 1. Create a free account at https://www.emailjs.com
+// 2. Add an Email Service (Gmail recommended, connect zionnetcomsolutionsltd@gmail.com)
+// 3. Create TWO email templates (see setup notes provided separately) and paste their IDs below
+// 4. Replace YOUR_PUBLIC_KEY, YOUR_SERVICE_ID, and the two template IDs with your real values
+const EMAILJS_PUBLIC_KEY = '1_LA5L9fCfqUWjhgR';
+const EMAILJS_SERVICE_ID = 'service_g0eaqhf';
+const EMAILJS_TEMPLATE_CUSTOMER = 'template_fpud6vc';
+const EMAILJS_TEMPLATE_ADMIN = 'template_agjabqd';
+const BUSINESS_EMAIL = 'zionnetcomsolutionsltd@gmail.com';
+
+if (window.emailjs && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+}
+
+function sendReceiptEmails({ name, email, phone, purpose, refNote, amountNaira, reference, dateStr }) {
+    if (!window.emailjs || EMAILJS_PUBLIC_KEY === 'YOUR_PUBLIC_KEY') {
+        console.warn('EmailJS is not configured yet — receipt emails were not sent. See setup notes.');
+        return;
+    }
+
+    const formattedAmount = formatNaira(amountNaira);
+    const sharedParams = {
+        customer_name: name,
+        customer_email: email,
+        customer_phone: phone,
+        payment_purpose: purpose,
+        reference_note: refNote || 'N/A',
+        transaction_ref: reference,
+        amount: formattedAmount,
+        payment_date: dateStr,
+        business_email: BUSINESS_EMAIL
+    };
+
+    // Receipt to the customer
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_CUSTOMER, {
+        ...sharedParams,
+        to_email: email
+    }).catch(err => console.error('Customer receipt email failed:', err));
+
+    // Notification copy to the business inbox
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ADMIN, {
+        ...sharedParams,
+        to_email: BUSINESS_EMAIL
+    }).catch(err => console.error('Admin notification email failed:', err));
+}
+
+const payForm = document.getElementById('payment-form');
+const amountInput = document.getElementById('pay-amount');
+const summaryAmount = document.getElementById('summary-amount');
+const quickBtns = document.querySelectorAll('.quick-amount-btn');
+const formError = document.getElementById('form-error-msg');
+const payBtn = document.getElementById('pay-submit-btn');
+
+const statusOverlay = document.getElementById('pay-status-overlay');
+const statusIcon = document.getElementById('pay-status-icon');
+const statusTitle = document.getElementById('pay-status-title');
+const statusMessage = document.getElementById('pay-status-message');
+const statusRef = document.getElementById('pay-status-ref');
+const statusClose = document.getElementById('pay-status-close');
+
+function formatNaira(value) {
+    const num = parseFloat(value) || 0;
+    return '₦' + num.toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function updateSummary() {
+    summaryAmount.textContent = formatNaira(amountInput.value);
+}
+amountInput.addEventListener('input', () => {
+    quickBtns.forEach(b => b.classList.remove('active'));
+    updateSummary();
+});
+
+quickBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        quickBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        amountInput.value = btn.dataset.amount;
+        updateSummary();
+    });
+});
+
+function showStatus({ success, title, message, reference }) {
+    statusIcon.className = 'pay-status-icon ' + (success ? 'success' : 'error');
+    statusIcon.innerHTML = success ? '<i class="fas fa-check"></i>' : '<i class="fas fa-xmark"></i>';
+    statusTitle.textContent = title;
+    statusMessage.textContent = message;
+    statusRef.textContent = reference ? ('Reference: ' + reference) : '';
+    statusRef.style.display = reference ? 'block' : 'none';
+    statusOverlay.classList.add('active');
+}
+statusClose.addEventListener('click', () => statusOverlay.classList.remove('active'));
+
+payForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    formError.classList.remove('active');
+
+    const name = document.getElementById('pay-name').value.trim();
+    const email = document.getElementById('pay-email').value.trim();
+    const phone = document.getElementById('pay-phone').value.trim();
+    const refNote = document.getElementById('pay-reference').value.trim();
+    const purpose = document.querySelector('input[name="purpose"]:checked').value;
+    const amountNaira = parseFloat(amountInput.value);
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!name || !email || !phone || !amountNaira || amountNaira < 100 || !emailPattern.test(email)) {
+        formError.textContent = 'Please complete all required fields with a valid email and an amount of at least ₦100.';
+        formError.classList.add('active');
+        return;
+    }
+
+    const txRef = 'ZN-' + Date.now() + '-' + Math.floor(Math.random() * 10000);
+
+    payBtn.disabled = true;
+    payBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+    const handler = PaystackPop.setup({
+        key: PAYSTACK_PUBLIC_KEY,
+        email: email,
+        amount: Math.round(amountNaira * 100), // kobo
+        currency: 'NGN',
+        ref: txRef,
+        metadata: {
+            custom_fields: [
+                { display_name: 'Full Name', variable_name: 'full_name', value: name },
+                { display_name: 'Phone Number', variable_name: 'phone_number', value: phone },
+                { display_name: 'Payment Purpose', variable_name: 'purpose', value: purpose },
+                { display_name: 'Reference Note', variable_name: 'reference_note', value: refNote || 'N/A' }
+            ]
+        },
+        callback: function (response) {
+            payBtn.disabled = false;
+            payBtn.innerHTML = '<i class="fas fa-lock"></i> Pay Securely Now';
+            showStatus({
+                success: true,
+                title: 'Payment Successful',
+                message: 'Thank you, ' + name.split(' ')[0] + '. Your payment has been received. A confirmation receipt will be sent to ' + email + '.',
+                reference: response.reference
+            });
+            sendReceiptEmails({
+                name, email, phone, purpose, refNote,
+                amountNaira,
+                reference: response.reference,
+                dateStr: new Date().toLocaleString('en-NG', { dateStyle: 'long', timeStyle: 'short' })
+            });
+            payForm.reset();
+            quickBtns.forEach(b => b.classList.remove('active'));
+            updateSummary();
+        },
+        onClose: function () {
+            payBtn.disabled = false;
+            payBtn.innerHTML = '<i class="fas fa-lock"></i> Pay Securely Now';
+            showStatus({
+                success: false,
+                title: 'Payment Cancelled',
+                message: 'Your payment window was closed before it could be completed. No charge was made. You can try again whenever you\'re ready.',
+                reference: txRef
+            });
+        }
+    });
+
+    handler.openIframe();
+});
+</script>
+</body>
+</html>
