@@ -727,7 +727,9 @@
             transition: all 0.2s;
         }
         .menu-toggle:hover { border-color: var(--cyan); background: rgba(56,182,255,0.08); }
-    </style>
+    
+        @media (max-width: 640px) { .header-actions .btn-outline { display: none; } }
+</style>
 </head>
 <body>
 
@@ -766,10 +768,12 @@
                 <li><a href="projects.html">Projects</a></li>
                 <li><a href="about.html" class="active">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
+<li><a href="payment.html">Make Payment</a></li>
             </ul>
         </nav>
         <div class="header-actions">
             <a href="contact.html" class="btn btn-primary">Get Quote</a>
+            <a href="payment.html" class="btn btn-outline" style="margin-left:10px;">Make Payment</a>
             <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">
                 <i class="fas fa-bars" id="menu-icon"></i>
             </button>
@@ -992,6 +996,7 @@
                     <li><a href="projects.html">Projects</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="contact.html">Contact</a></li>
+<li><a href="payment.html">Make Payment</a></li>
                 </ul>
             </div>
             <div>
