@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Insights, updates, and tech expertise from Zion Netcom Solutions Limited — Nigeria's enterprise ICT and software company.">
+    <title>Blog | Zion Netcom Solutions</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* ===== PASTE YOUR FULL SHARED CSS HERE ===== */
+        /* (Copy everything between <style> and </style> from services.html) */
+
+        /* ===== BLOG PAGE STYLES ===== */
+        .blog-hero {
+            padding: 160px 0 90px;
+            text-align: center;
+            position: relative;
+        }
+        .blog-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            opacity: 0.3;
+        }
+        .blog-hero h1 { font-size: clamp(2.4rem, 6vw, 4rem); margin-bottom: 18px; letter-spacing: -1px; }
+        .blog-hero h1 .highlight { color: var(--cyan); text-shadow: 0 0 30px var(--cyan-glow); }
+        .blog-hero p { color: var(--text-secondary); font-size: 1.05rem; max-width: 600px; margin: 0 auto 32px; line-height: 1.7; }
+        .blog-hero-badges { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+        .topic-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase;
+            letter-spacing: 1.5px; color: var(--text-muted);
+            border: 1px solid var(--border-subtle); padding: 7px 14px; border-radius: 20px;
+            cursor: pointer; transition: all 0.25s;
+        }
+        .topic-badge:hover, .topic-badge.active {
+            border-color: var(--cyan); color: var(--cyan);
+            background: rgba(56,182,255,0.07);
+        }
+        .topic-badge i { font-size: 0.75rem; }
+
+        .blog-section { padding: 80px 0 120px; }
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            margin-bottom: 60px;
+        }
+
+        /* POST CARD */
+        .post-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            display: flex; flex-direction: column;
+            transition: border-color 0.3s, transform 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .post-card:hover { border-color: var(--border-glow); transform: translateY(-4px); }
+        .post-card-thumb {
+            height: 160px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 3.5rem;
+            background: var(--bg-elevated);
+            border-bottom: 1px solid var(--border-subtle);
+            position: relative;
+            overflow: hidden;
+        }
+        .post-card-thumb::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(56,182,255,0.08) 0%, transparent 70%);
+        }
+        .post-card-body { padding: 24px 26px 28px; flex: 1; display: flex; flex-direction: column; }
+        .post-topic-tag {
+            display: inline-flex; align-items: center; gap: 7px;
+            font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase;
+            letter-spacing: 1.5px; color: var(--cyan);
+            margin-bottom: 14px;
+        }
+        .post-card h3 {
+            font-size: 1.08rem; line-height: 1.45; margin-bottom: 12px;
+            color: var(--text-primary);
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+        }
+        .post-card p {
+            font-size: 0.86rem; color: var(--text-secondary); line-height: 1.65;
+            flex: 1; margin-bottom: 20px;
+            display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+        }
+        .post-card-footer {
+            display: flex; justify-content: space-between; align-items: center;
+            padding-top: 16px; border-top: 1px solid var(--border-subtle);
+        }
+        .post-date { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); }
+        .post-read-more {
+            font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase;
+            letter-spacing: 1px; color: var(--cyan);
+            display: flex; align-items: center; gap: 6px;
+            transition: gap 0.2s;
+        }
+        .post-card:hover .post-read-more { gap: 10px; }
+
+        /* FEATURED (first post) */
+        .post-card.featured {
+            grid-column: 1 / -1;
+            flex-direction: row;
+            border-color: var(--border-glow);
+        }
+        .post-card.featured .post-card-thumb {
+            width: 320px; height: auto; min-height: 220px;
+            flex-shrink: 0; border-bottom: none;
+            border-right: 1px solid var(--border-subtle);
+            font-size: 5rem;
+        }
+        .post-card.featured h3 { font-size: 1.4rem; -webkit-line-clamp: 3; }
+        .post-card.featured p { -webkit-line-clamp: 4; }
+
+        /* LOADING / EMPTY */
+        .blog-status {
+            grid-column: 1 / -1; text-align: center;
+            padding: 80px 20px; color: var(--text-secondary);
+        }
+        .blog-status i { font-size: 2rem; margin-bottom: 16px; display: block; color: var(--text-muted); }
+        .blog-status.loading i { color: var(--cyan); animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* PAGINATION */
+        .blog-pagination { display: flex; justify-content: center; gap: 10px; }
+        .page-btn {
+            font-family: var(--font-mono); font-size: 0.78rem;
+            background: var(--bg-card); border: 1px solid var(--border-subtle);
+            color: var(--text-secondary); padding: 10px 18px; cursor: pointer;
+            transition: all 0.25s;
+        }
+        .page-btn:hover, .page-btn.active { border-color: var(--cyan); color: var(--cyan); box-shadow: 0 0 15px rgba(56,182,255,0.1); }
+        .page-btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        @media (max-width: 900px) {
+            .blog-grid { grid-template-columns: repeat(2, 1fr); }
+            .post-card.featured { flex-direction: column; }
+            .post-card.featured .post-card-thumb { width: 100%; border-right: none; border-bottom: 1px solid var(--border-subtle); }
+        }
+        @media (max-width: 600px) {
+            .blog-grid { grid-template-columns: 1fr; }
+            .blog-hero { padding: 130px 0 70px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="nav-overlay" id="nav-overlay"></div>
+<div class="topbar">
+    <div class="container topbar-inner">
+        <div class="topbar-info">
+            <span class="tb-item tb-location"><i class="fas fa-map-marker-alt"></i><span class="tb-text"> Kaduna, Nigeria</span></span>
+            <a href="tel:+2347067580599" class="tb-item tb-phone"><i class="fas fa-phone"></i><span class="tb-text"> +234 706 758 0599</span></a>
+            <a href="mailto:info@zionnetcomsolutionsltd.com.ng" class="tb-item tb-email"><i class="fas fa-envelope"></i><span class="tb-text tb-email-text"> info@zionnetcomsolutionsltd.com.ng</span></a>
+        </div>
+        <div class="topbar-right">
+            <div class="topbar-social">
+                <a href="https://www.linkedin.com/company/zion-netcom-solutions-limited?_l=en_US" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.youtube.com/@zionnetcomsolutionsltd" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.instagram.com/zionnetcomsolutionsltd/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+            </div>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode"><i class="fas fa-sun" id="theme-icon"></i></button>
+        </div>
+    </div>
+</div>
+
+<header class="header">
+    <div class="container nav-wrapper">
+        <a href="index.html" class="logo">
+            <img src="zion.jpg" alt="Zion Netcom Solutions" style="height:48px;width:auto;display:block;">
+        </a>
+        <nav>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Solutions</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+                <li><a href="payment.html">Make Payment</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <a href="payment.html" class="btn btn-primary">Make Payment</a>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation"><i class="fas fa-bars" id="menu-icon"></i></button>
+        </div>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="blog-hero">
+    <div class="container">
+        <span class="section-label" style="justify-content:center;">Zion Netcom Blog</span>
+        <h1>Tech <span class="highlight">Insights</span></h1>
+        <p>Expert perspectives on ICT in Nigeria, web development, IoT, and what's shaping the future of tech across Africa.</p>
+        <div class="blog-hero-badges">
+            <button class="topic-badge active" data-topic="all"><i class="fas fa-border-all"></i> All Topics</button>
+            <button class="topic-badge" data-topic="Tech & ICT News in Nigeria"><i class="fas fa-satellite-dish"></i> ICT Nigeria</button>
+            <button class="topic-badge" data-topic="Web & Software Development Tips"><i class="fas fa-code"></i> Web Dev</button>
+            <button class="topic-badge" data-topic="IoT & Networking Insights"><i class="fas fa-network-wired"></i> IoT & Networks</button>
+            <button class="topic-badge" data-topic="Zion Netcom Projects & Updates"><i class="fas fa-building"></i> Our Projects</button>
+        </div>
+    </div>
+</section>
+
+<!-- BLOG GRID -->
+<section class="blog-section">
+    <div class="container">
+        <div class="blog-grid" id="blog-grid">
+            <div class="blog-status loading">
+                <i class="fas fa-circle-notch"></i>
+                <p>Loading latest posts…</p>
+            </div>
+        </div>
+        <div class="blog-pagination" id="blog-pagination"></div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo" style="margin-bottom:16px;">
+                    <img src="zion.jpg" alt="Zion Netcom Solutions" style="height:40px;width:auto;display:block;">
+                    <div>
+                        <div class="logo-text" style="font-size:1.2rem;">ZION<span>NETCOM</span></div>
+                        <div class="logo-sub">Solutions Limited</div>
+                    </div>
+                </div>
+                <p>Engineering reliable digital infrastructure across Nigeria and Africa since 2018.</p>
+                <div class="data-readout" style="margin-top:16px;"><span class="indicator"></span><span>ALL SYSTEMS OPERATIONAL</span></div>
+            </div>
+            <div>
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Solutions</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="services.html">Enterprise Networks</a></li>
+                    <li><a href="services.html">Web Development</a></li>
+                    <li><a href="services.html">ICT Deployment</a></li>
+                    <li><a href="services.html">AI Surveillance</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact</h4>
+                <p><i class="fas fa-map-marker-alt"></i> Starcase Office, Benue Plaza, Mohammadu Buhari Way, Kaduna</p>
+                <p><i class="fas fa-phone"></i> +234 706 758 0599</p>
+                <p><i class="fas fa-envelope"></i> info@zionnetcomsolutionsltd.com.ng</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 Zion Netcom Solutions Limited</span>
+            <span>Built with precision in Kaduna, Nigeria</span>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+// ===== CONFIG — paste your values here =====
+const SUPABASE_URL = 'https://qzloankwskebbralmvqw.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF6bG9hbmt3c2tlYmJyYWxtdnF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcwMTkyMjgsImV4cCI6MjEwMjU5NTIyOH0.s8lftAO67o_SRS6S734kiByY-aA4AvMQ3uI_WrOHGLw';
+const POSTS_PER_PAGE = 9;
+
+// ===== INIT =====
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+let currentTopic = 'all';
+let currentPage = 1;
+let totalCount = 0;
+
+// ===== THEME =====
+const themeToggle = document.getElementById('theme-toggle');
+const themeIcon = document.getElementById('theme-icon');
+const savedTheme = localStorage.getItem('zn-theme');
+function applyTheme(mode) {
+    document.body.classList.toggle('light-mode', mode === 'light');
+    themeIcon.className = mode === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+    localStorage.setItem('zn-theme', mode);
+}
+if (savedTheme) applyTheme(savedTheme);
+themeToggle?.addEventListener('click', () => {
+    applyTheme(document.body.classList.contains('light-mode') ? 'dark' : 'light');
+});
+
+// ===== MOBILE MENU =====
+const menuToggle = document.getElementById('menu-toggle');
+const menuIcon = document.getElementById('menu-icon');
+const navLinks = document.getElementById('nav-links');
+menuToggle?.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('active');
+    menuIcon.className = open ? 'fas fa-times' : 'fas fa-bars';
+    document.body.style.overflow = open ? 'hidden' : '';
+});
+
+// ===== TOPIC FILTERS =====
+document.querySelectorAll('.topic-badge').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.topic-badge').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentTopic = btn.dataset.topic;
+        currentPage = 1;
+        loadPosts();
+    });
+});
+
+// ===== LOAD POSTS =====
+async function loadPosts() {
+    const grid = document.getElementById('blog-grid');
+    grid.innerHTML = '<div class="blog-status loading"><i class="fas fa-circle-notch"></i><p>Loading posts…</p></div>';
+
+    let query = db.from('blog_posts')
+        .select('id, title, slug, excerpt, topic, cover_emoji, published_at', { count: 'exact' })
+        .eq('status', 'published')
+        .order('published_at', { ascending: false })
+        .range((currentPage - 1) * POSTS_PER_PAGE, currentPage * POSTS_PER_PAGE - 1);
+
+    if (currentTopic !== 'all') {
+        query = query.eq('topic', currentTopic);
+    }
+
+    const { data: posts, error, count } = await query;
+
+    if (error || !posts) {
+        grid.innerHTML = '<div class="blog-status"><i class="fas fa-triangle-exclamation"></i><p>Could not load posts. Please try again later.</p></div>';
+        return;
+    }
+
+    totalCount = count || 0;
+
+    if (posts.length === 0) {
+        grid.innerHTML = '<div class="blog-status"><i class="fas fa-pen-to-square"></i><p>No posts yet — check back soon!</p></div>';
+        renderPagination();
+        return;
+    }
+
+    grid.innerHTML = posts.map((post, i) => renderCard(post, i === 0 && currentPage === 1)).join('');
+    renderPagination();
+}
+
+function formatDate(iso) {
+    if (!iso) return '';
+    return new Date(iso).toLocaleDateString('en-NG', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+function topicIcon(topic) {
+    if (!topic) return 'fa-rss';
+    if (topic.includes('ICT') || topic.includes('News')) return 'fa-satellite-dish';
+    if (topic.includes('Web') || topic.includes('Software')) return 'fa-code';
+    if (topic.includes('IoT') || topic.includes('Network')) return 'fa-network-wired';
+    if (topic.includes('Zion') || topic.includes('Projects')) return 'fa-building';
+    return 'fa-rss';
+}
+
+function renderCard(post, featured) {
+    return `
+    <a class="post-card${featured ? ' featured' : ''}" href="post.html?slug=${encodeURIComponent(post.slug)}">
+        <div class="post-card-thumb">${post.cover_emoji || '🖥️'}</div>
+        <div class="post-card-body">
+            <span class="post-topic-tag"><i class="fas ${topicIcon(post.topic)}"></i>${post.topic || 'Technology'}</span>
+            <h3>${post.title}</h3>
+            <p>${post.excerpt || ''}</p>
+            <div class="post-card-footer">
+                <span class="post-date"><i class="fas fa-calendar-days" style="margin-right:6px;"></i>${formatDate(post.published_at)}</span>
+                <span class="post-read-more">Read post <i class="fas fa-arrow-right"></i></span>
+            </div>
+        </div>
+    </a>`;
+}
+
+function renderPagination() {
+    const totalPages = Math.ceil(totalCount / POSTS_PER_PAGE);
+    const pag = document.getElementById('blog-pagination');
+    if (totalPages <= 1) { pag.innerHTML = ''; return; }
+    let html = `<button class="page-btn" onclick="goPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}><i class="fas fa-chevron-left"></i></button>`;
+    for (let i = 1; i <= totalPages; i++) {
+        html += `<button class="page-btn${i === currentPage ? ' active' : ''}" onclick="goPage(${i})">${i}</button>`;
+    }
+    html += `<button class="page-btn" onclick="goPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}><i class="fas fa-chevron-right"></i></button>`;
+    pag.innerHTML = html;
+}
+
+function goPage(n) {
+    currentPage = n;
+    loadPosts();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ===== START =====
+loadPosts();
+</script>
+</body>
+</html>

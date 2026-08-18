@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Blog Admin | Zion Netcom Solutions</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* ===== PASTE YOUR FULL SHARED CSS HERE ===== */
+        /* (Copy everything between <style> and </style> from services.html) */
+
+        /* ===== BLOG ADMIN STYLES ===== */
+        /* LOGIN */
+        .login-screen {
+            min-height: 100vh; display: flex; align-items: center;
+            justify-content: center; padding: 20px; background: var(--bg-primary);
+        }
+        .login-card {
+            background: var(--bg-card); border: 1px solid var(--border-subtle);
+            padding: 50px 44px; max-width: 420px; width: 100%; position: relative;
+        }
+        .login-card::before, .login-card::after {
+            content: ''; position: absolute; width: 16px; height: 16px; border: 2px solid var(--cyan);
+        }
+        .login-card::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+        .login-card::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+        .login-card h2 { text-align: center; font-size: 1.5rem; margin-bottom: 6px; }
+        .login-card .sub { text-align: center; color: var(--text-secondary); font-size: 0.88rem; margin-bottom: 34px; }
+        .login-icon { text-align: center; font-size: 2.5rem; margin-bottom: 20px; }
+        .login-error { display: none; font-family: var(--font-mono); font-size: 0.78rem; color: #FF6B6B; padding: 10px 14px; border: 1px solid rgba(255,107,107,0.3); background: rgba(255,107,107,0.07); margin-bottom: 18px; }
+        .login-error.active { display: block; }
+        .login-btn { width: 100%; justify-content: center; }
+
+        /* DASHBOARD */
+        .admin-layout { display: none; min-height: 100vh; flex-direction: column; }
+        .admin-topbar {
+            background: var(--bg-secondary); border-bottom: 1px solid var(--border-subtle);
+            padding: 16px 0; position: sticky; top: 0; z-index: 100;
+        }
+        .admin-topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+        .admin-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .admin-brand img { height: 34px; }
+        .admin-brand-label { font-family: var(--font-mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--cyan); }
+        .admin-topbar-right { display: flex; align-items: center; gap: 14px; }
+        .admin-email { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-muted); }
+        .logout-btn { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; background: transparent; border: 1px solid var(--border-subtle); color: var(--text-secondary); padding: 9px 16px; cursor: pointer; transition: all 0.25s; display: inline-flex; align-items: center; gap: 8px; }
+        .logout-btn:hover { border-color: #FF6B6B; color: #FF6B6B; }
+
+        .admin-main { flex: 1; padding: 44px 0 100px; }
+        .admin-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 36px; flex-wrap: wrap; gap: 16px; }
+        .admin-header h1 { font-size: 1.8rem; }
+
+        /* TABS */
+        .admin-tabs { display: flex; gap: 4px; margin-bottom: 30px; border-bottom: 1px solid var(--border-subtle); }
+        .admin-tab {
+            font-family: var(--font-mono); font-size: 0.78rem; text-transform: uppercase;
+            letter-spacing: 1px; padding: 12px 20px; cursor: pointer; background: transparent;
+            border: none; color: var(--text-muted); border-bottom: 2px solid transparent;
+            transition: all 0.25s; margin-bottom: -1px;
+        }
+        .admin-tab.active { color: var(--cyan); border-bottom-color: var(--cyan); }
+        .admin-tab .tab-count {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 20px; height: 20px; border-radius: 50%; background: rgba(56,182,255,0.15);
+            color: var(--cyan); font-size: 0.65rem; margin-left: 8px;
+        }
+
+        /* POSTS TABLE */
+        .posts-table-wrap { background: var(--bg-card); border: 1px solid var(--border-subtle); overflow-x: auto; }
+        table.posts-table { width: 100%; border-collapse: collapse; min-width: 800px; }
+        .posts-table thead th { text-align: left; font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); padding: 14px 18px; border-bottom: 1px solid var(--border-subtle); background: var(--bg-elevated); white-space: nowrap; }
+        .posts-table tbody td { padding: 16px 18px; border-bottom: 1px solid var(--border-subtle); font-size: 0.86rem; color: var(--text-secondary); vertical-align: middle; }
+        .posts-table tbody tr:last-child td { border-bottom: none; }
+        .posts-table tbody tr:hover { background: rgba(56,182,255,0.025); }
+        .td-title { color: var(--text-primary); font-weight: 600; max-width: 320px; }
+        .td-title .post-excerpt-preview { font-size: 0.78rem; color: var(--text-muted); font-weight: 400; margin-top: 4px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+        .td-emoji { font-size: 1.5rem; text-align: center; }
+        .status-pill { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1px; padding: 4px 10px; border-radius: 20px; }
+        .status-pill.draft { color: #F0A500; background: rgba(240,165,0,0.1); border: 1px solid rgba(240,165,0,0.3); }
+        .status-pill.draft::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #F0A500; }
+        .status-pill.published { color: var(--cyan); background: rgba(56,182,255,0.1); border: 1px solid rgba(56,182,255,0.3); }
+        .status-pill.published::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 6px var(--cyan); }
+        .topic-tag-small { font-family: var(--font-mono); font-size: 0.68rem; padding: 4px 8px; border: 1px solid var(--border-subtle); color: var(--text-muted); white-space: nowrap; }
+        .action-btns { display: flex; gap: 8px; white-space: nowrap; }
+        .action-btn { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; padding: 8px 14px; border: 1px solid var(--border-subtle); background: transparent; color: var(--text-secondary); cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; }
+        .action-btn.publish { border-color: rgba(56,182,255,0.4); color: var(--cyan); }
+        .action-btn.publish:hover { background: var(--cyan); color: var(--bg-primary); }
+        .action-btn.unpublish:hover { border-color: #F0A500; color: #F0A500; }
+        .action-btn.edit:hover { border-color: var(--cyan); color: var(--cyan); }
+        .action-btn.delete:hover { border-color: #FF6B6B; color: #FF6B6B; }
+        .posts-empty { text-align: center; padding: 60px 20px; color: var(--text-secondary); }
+        .posts-empty i { font-size: 2rem; color: var(--text-muted); margin-bottom: 14px; display: block; }
+        .posts-loading { text-align: center; padding: 60px 20px; }
+        .posts-loading i { font-size: 2rem; color: var(--cyan); animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* EDIT MODAL */
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(7,11,20,0.9); backdrop-filter: blur(6px); z-index: 9999; align-items: flex-start; justify-content: center; padding: 40px 20px; overflow-y: auto; }
+        .modal-overlay.active { display: flex; }
+        .modal-card { background: var(--bg-card); border: 1px solid var(--border-glow); max-width: 740px; width: 100%; padding: 40px; position: relative; margin: auto; }
+        .modal-card::before, .modal-card::after { content: ''; position: absolute; width: 14px; height: 14px; border: 2px solid var(--cyan); }
+        .modal-card::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+        .modal-card::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+        .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+        .modal-header h3 { font-size: 1.2rem; }
+        .modal-close { background: none; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; transition: color 0.2s; }
+        .modal-close:hover { color: #FF6B6B; }
+        .modal-field { margin-bottom: 22px; }
+        .modal-field label { display: block; font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 8px; }
+        .modal-field input, .modal-field select, .modal-field textarea {
+            width: 100%; background: var(--bg-elevated); border: 1px solid var(--border-subtle);
+            color: var(--text-primary); padding: 12px 14px; font-family: var(--font-sans);
+            font-size: 0.9rem; outline: none; transition: border-color 0.3s;
+        }
+        .modal-field input:focus, .modal-field select:focus, .modal-field textarea:focus { border-color: var(--cyan); }
+        .modal-field textarea { min-height: 260px; resize: vertical; font-size: 0.88rem; line-height: 1.7; }
+        .modal-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 8px; }
+        .modal-save { font-family: var(--font-mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; padding: 12px 24px; background: var(--cyan); color: var(--bg-primary); border: none; cursor: pointer; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; transition: all 0.25s; }
+        .modal-save:hover { box-shadow: 0 0 24px var(--cyan-glow); }
+        .modal-cancel { font-family: var(--font-mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; padding: 12px 20px; background: transparent; color: var(--text-secondary); border: 1px solid var(--border-subtle); cursor: pointer; transition: all 0.25s; }
+        .modal-cancel:hover { border-color: var(--text-secondary); }
+
+        /* TOAST */
+        .toast { position: fixed; bottom: 30px; right: 30px; z-index: 99999; background: var(--bg-card); border: 1px solid var(--border-glow); padding: 14px 22px; font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-primary); display: none; align-items: center; gap: 10px; box-shadow: 0 8px 40px rgba(0,0,0,0.4); }
+        .toast.active { display: flex; }
+        .toast i { color: var(--cyan); }
+        .toast.error i { color: #FF6B6B; }
+
+        /* STATS ROW */
+        .admin-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 36px; }
+        .admin-stat { background: var(--bg-card); border: 1px solid var(--border-subtle); padding: 22px 20px; }
+        .admin-stat .label { font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 8px; }
+        .admin-stat .value { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--text-primary); }
+        .admin-stat.highlight .value { color: var(--cyan); }
+
+        @media (max-width: 700px) {
+            .admin-stats { grid-template-columns: repeat(2, 1fr); }
+            .modal-card { padding: 28px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div class="login-screen" id="login-screen">
+    <div class="login-card">
+        <div class="login-icon">🔐</div>
+        <h2>Blog Admin</h2>
+        <p class="sub">Zion Netcom Solutions — secure access only</p>
+        <div class="login-error" id="login-error"></div>
+        <div class="modal-field">
+            <label>Email</label>
+            <input type="email" id="login-email" placeholder="your@email.com" autocomplete="email">
+        </div>
+        <div class="modal-field">
+            <label>Password</label>
+            <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password">
+        </div>
+        <button class="btn btn-primary login-btn" id="login-btn" onclick="doLogin()">
+            <i class="fas fa-right-to-bracket"></i> Sign In
+        </button>
+    </div>
+</div>
+
+<!-- ADMIN DASHBOARD -->
+<div class="admin-layout" id="admin-layout">
+
+    <div class="admin-topbar">
+        <div class="container admin-topbar-inner">
+            <a href="index.html" class="admin-brand">
+                <img src="zion.jpg" alt="Zion Netcom">
+                <span class="admin-brand-label">// Blog Admin</span>
+            </a>
+            <div class="admin-topbar-right">
+                <span class="admin-email" id="admin-email-display"></span>
+                <a href="blog.html" target="_blank" class="logout-btn" style="text-decoration:none;"><i class="fas fa-eye"></i> View Blog</a>
+                <button class="logout-btn" onclick="doLogout()"><i class="fas fa-right-from-bracket"></i> Sign Out</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="admin-main">
+        <div class="container">
+
+            <div class="admin-header">
+                <div>
+                    <span class="section-label">Content Management</span>
+                    <h1>Blog Dashboard</h1>
+                </div>
+            </div>
+
+            <!-- STATS -->
+            <div class="admin-stats">
+                <div class="admin-stat highlight">
+                    <div class="label">Total Posts</div>
+                    <div class="value" id="stat-total">—</div>
+                </div>
+                <div class="admin-stat">
+                    <div class="label">Published</div>
+                    <div class="value" id="stat-published">—</div>
+                </div>
+                <div class="admin-stat">
+                    <div class="label">Drafts</div>
+                    <div class="value" id="stat-drafts">—</div>
+                </div>
+                <div class="admin-stat">
+                    <div class="label">This Month</div>
+                    <div class="value" id="stat-month">—</div>
+                </div>
+            </div>
+
+            <!-- TABS -->
+            <div class="admin-tabs">
+                <button class="admin-tab active" data-filter="all" onclick="switchTab(this, 'all')">All Posts <span class="tab-count" id="count-all">0</span></button>
+                <button class="admin-tab" data-filter="draft" onclick="switchTab(this, 'draft')">Drafts <span class="tab-count" id="count-draft">0</span></button>
+                <button class="admin-tab" data-filter="published" onclick="switchTab(this, 'published')">Published <span class="tab-count" id="count-published">0</span></button>
+            </div>
+
+            <!-- TABLE -->
+            <div class="posts-table-wrap">
+                <table class="posts-table">
+                    <thead>
+                        <tr>
+                            <th style="width:40px;"></th>
+                            <th>Title</th>
+                            <th>Topic</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="posts-tbody">
+                        <tr><td colspan="6"><div class="posts-loading"><i class="fas fa-circle-notch"></i></div></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal-overlay" id="edit-modal">
+    <div class="modal-card">
+        <div class="modal-header">
+            <h3>Edit Post</h3>
+            <button class="modal-close" onclick="closeModal()"><i class="fas fa-xmark"></i></button>
+        </div>
+        <input type="hidden" id="edit-id">
+        <div class="modal-field">
+            <label>Title</label>
+            <input type="text" id="edit-title">
+        </div>
+        <div class="modal-field">
+            <label>Slug (URL-friendly, lowercase, hyphens only)</label>
+            <input type="text" id="edit-slug">
+        </div>
+        <div class="modal-field">
+            <label>Excerpt (1 sentence, shown on blog listing)</label>
+            <input type="text" id="edit-excerpt">
+        </div>
+        <div class="modal-field">
+            <label>Topic</label>
+            <select id="edit-topic">
+                <option>Tech & ICT News in Nigeria</option>
+                <option>Web & Software Development Tips</option>
+                <option>IoT & Networking Insights</option>
+                <option>Zion Netcom Projects & Updates</option>
+            </select>
+        </div>
+        <div class="modal-field">
+            <label>Cover Emoji</label>
+            <input type="text" id="edit-emoji" style="width:80px;">
+        </div>
+        <div class="modal-field">
+            <label>Content (plain paragraphs, double line break between sections)</label>
+            <textarea id="edit-content"></textarea>
+        </div>
+        <div class="modal-actions">
+            <button class="modal-cancel" onclick="closeModal()">Cancel</button>
+            <button class="modal-save" onclick="savePost()"><i class="fas fa-floppy-disk"></i> Save Changes</button>
+        </div>
+    </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toast-msg"></span></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const SUPABASE_URL = 'https://qzloankwskebbralmvqw.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF6bG9hbmt3c2tlYmJyYWxtdnF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcwMTkyMjgsImV4cCI6MjEwMjU5NTIyOH0.s8lftAO67o_SRS6S734kiByY-aA4AvMQ3uI_WrOHGLw';
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+let currentFilter = 'all';
+let allPosts = [];
+
+// ===== AUTH =====
+async function checkSession() {
+    const { data: { session } } = await db.auth.getSession();
+    if (session) showAdmin(session.user.email);
+}
+
+async function doLogin() {
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+    const btn = document.getElementById('login-btn');
+    const errEl = document.getElementById('login-error');
+    errEl.classList.remove('active');
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in…';
+    btn.disabled = true;
+
+    const { data, error } = await db.auth.signInWithPassword({ email, password });
+    if (error) {
+        errEl.textContent = 'Invalid email or password. Please try again.';
+        errEl.classList.add('active');
+        btn.innerHTML = '<i class="fas fa-right-to-bracket"></i> Sign In';
+        btn.disabled = false;
+    } else {
+        showAdmin(data.user.email);
+    }
+}
+
+async function doLogout() {
+    await db.auth.signOut();
+    document.getElementById('admin-layout').style.display = 'none';
+    document.getElementById('login-screen').style.display = 'flex';
+}
+
+function showAdmin(email) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('admin-layout').style.display = 'flex';
+    document.getElementById('admin-email-display').textContent = email;
+    loadAllPosts();
+}
+
+// Enter key on password
+document.getElementById('login-password')?.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+// ===== DATA =====
+async function loadAllPosts() {
+    const tbody = document.getElementById('posts-tbody');
+    tbody.innerHTML = '<tr><td colspan="6"><div class="posts-loading"><i class="fas fa-circle-notch"></i></div></td></tr>';
+
+    const { data, error } = await db.from('blog_posts')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+    if (error || !data) {
+        tbody.innerHTML = '<tr><td colspan="6"><div class="posts-empty"><i class="fas fa-triangle-exclamation"></i><p>Failed to load posts.</p></div></td></tr>';
+        return;
+    }
+
+    allPosts = data;
+    updateStats();
+    renderTable();
+}
+
+function updateStats() {
+    const published = allPosts.filter(p => p.status === 'published');
+    const drafts = allPosts.filter(p => p.status === 'draft');
+    const thisMonth = allPosts.filter(p => {
+        const d = new Date(p.created_at);
+        const now = new Date();
+        return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+    });
+    document.getElementById('stat-total').textContent = allPosts.length;
+    document.getElementById('stat-published').textContent = published.length;
+    document.getElementById('stat-drafts').textContent = drafts.length;
+    document.getElementById('stat-month').textContent = thisMonth.length;
+    document.getElementById('count-all').textContent = allPosts.length;
+    document.getElementById('count-draft').textContent = drafts.length;
+    document.getElementById('count-published').textContent = published.length;
+}
+
+function switchTab(btn, filter) {
+    document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = filter;
+    renderTable();
+}
+
+function renderTable() {
+    const filtered = currentFilter === 'all' ? allPosts : allPosts.filter(p => p.status === currentFilter);
+    const tbody = document.getElementById('posts-tbody');
+    if (!filtered.length) {
+        tbody.innerHTML = `<tr><td colspan="6"><div class="posts-empty"><i class="fas fa-pen-to-square"></i><p>No ${currentFilter === 'all' ? '' : currentFilter + ' '}posts yet.</p></div></td></tr>`;
+        return;
+    }
+    tbody.innerHTML = filtered.map(post => `
+        <tr>
+            <td class="td-emoji">${post.cover_emoji || '🖥️'}</td>
+            <td class="td-title">
+                ${post.title}
+                <div class="post-excerpt-preview">${post.excerpt || ''}</div>
+            </td>
+            <td><span class="topic-tag-small">${(post.topic || '').split(' ').slice(0,3).join(' ')}</span></td>
+            <td><span class="status-pill ${post.status}">${post.status}</span></td>
+            <td style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted);">${formatDate(post.created_at)}</td>
+            <td>
+                <div class="action-btns">
+                    <button class="action-btn edit" onclick="openEdit('${post.id}')"><i class="fas fa-pen"></i> Edit</button>
+                    ${post.status === 'draft'
+                        ? `<button class="action-btn publish" onclick="publishPost('${post.id}')"><i class="fas fa-upload"></i> Publish</button>`
+                        : `<button class="action-btn unpublish" onclick="unpublishPost('${post.id}')"><i class="fas fa-eye-slash"></i> Unpublish</button>`
+                    }
+                    <button class="action-btn delete" onclick="deletePost('${post.id}')"><i class="fas fa-trash"></i></button>
+                </div>
+            </td>
+        </tr>
+    `).join('');
+}
+
+function formatDate(iso) {
+    if (!iso) return '—';
+    return new Date(iso).toLocaleDateString('en-NG', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+// ===== ACTIONS =====
+async function publishPost(id) {
+    const { error } = await db.from('blog_posts').update({ status: 'published', published_at: new Date().toISOString() }).eq('id', id);
+    if (!error) { showToast('Post published!'); loadAllPosts(); } else showToast('Error publishing post', true);
+}
+
+async function unpublishPost(id) {
+    const { error } = await db.from('blog_posts').update({ status: 'draft', published_at: null }).eq('id', id);
+    if (!error) { showToast('Post moved back to drafts.'); loadAllPosts(); } else showToast('Error unpublishing', true);
+}
+
+async function deletePost(id) {
+    if (!confirm('Delete this post permanently? This cannot be undone.')) return;
+    const { error } = await db.from('blog_posts').delete().eq('id', id);
+    if (!error) { showToast('Post deleted.'); loadAllPosts(); } else showToast('Error deleting post', true);
+}
+
+// ===== EDIT MODAL =====
+function openEdit(id) {
+    const post = allPosts.find(p => p.id === id);
+    if (!post) return;
+    document.getElementById('edit-id').value = post.id;
+    document.getElementById('edit-title').value = post.title;
+    document.getElementById('edit-slug').value = post.slug;
+    document.getElementById('edit-excerpt').value = post.excerpt || '';
+    document.getElementById('edit-topic').value = post.topic || '';
+    document.getElementById('edit-emoji').value = post.cover_emoji || '🖥️';
+    document.getElementById('edit-content').value = post.content;
+    document.getElementById('edit-modal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    document.getElementById('edit-modal').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+async function savePost() {
+    const id = document.getElementById('edit-id').value;
+    const updates = {
+        title: document.getElementById('edit-title').value.trim(),
+        slug: document.getElementById('edit-slug').value.trim(),
+        excerpt: document.getElementById('edit-excerpt').value.trim(),
+        topic: document.getElementById('edit-topic').value,
+        cover_emoji: document.getElementById('edit-emoji').value.trim(),
+        content: document.getElementById('edit-content').value.trim(),
+    };
+    if (!updates.title || !updates.slug || !updates.content) {
+        showToast('Title, slug, and content are required.', true); return;
+    }
+    const { error } = await db.from('blog_posts').update(updates).eq('id', id);
+    if (!error) { showToast('Changes saved!'); closeModal(); loadAllPosts(); }
+    else showToast('Error saving: ' + error.message, true);
+}
+
+// Close modal on overlay click
+document.getElementById('edit-modal').addEventListener('click', e => {
+    if (e.target === document.getElementById('edit-modal')) closeModal();
+});
+
+// ===== TOAST =====
+function showToast(msg, isError = false) {
+    const toast = document.getElementById('toast');
+    document.getElementById('toast-msg').textContent = msg;
+    toast.querySelector('i').className = isError ? 'fas fa-circle-exclamation' : 'fas fa-circle-check';
+    toast.className = 'toast active' + (isError ? ' error' : '');
+    setTimeout(() => toast.classList.remove('active'), 3500);
+}
+
+// ===== INIT =====
+checkSession();
+</script>
+</body>
+</html>

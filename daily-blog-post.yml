@@ -1,0 +1,131 @@
+# =====================================================================
+# ZION NETCOM — DAILY BLOG POST AUTO-GENERATOR
+# =====================================================================
+# This workflow runs every day at 7:00 AM (West Africa Time / UTC+1).
+# It calls the Claude AI API to write a fresh blog post on one of your
+# four topics, then saves it as a DRAFT in your Supabase database.
+# You then log into blog-admin.html to review, edit, and publish it.
+#
+# SETUP — add these 4 secrets in GitHub:
+# Go to your repo → Settings → Secrets and variables → Actions → New repository secret
+#
+#   ANTHROPIC_API_KEY      → Your Claude API key (get from console.anthropic.com)
+#   SUPABASE_URL           → Your Supabase project URL (Project Settings → API)
+#   SUPABASE_SERVICE_KEY   → Your Supabase service_role key (Project Settings → API)
+#   NOTIFY_EMAIL           → zionnetcomsolutionsltd@gmail.com (to receive draft alerts)
+# =====================================================================
+
+name: Daily Blog Post Generator
+
+on:
+  schedule:
+    # 6:00 AM UTC = 7:00 AM WAT (West Africa Time, UTC+1)
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    # Also lets you trigger it manually from the GitHub Actions tab
+
+jobs:
+  generate-blog-post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Generate blog post with Claude AI
+        id: generate
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          # Pick a topic based on day of week (cycles through your 4 topics)
+          DAY=$(date +%u)  # 1=Mon ... 7=Sun
+          case $((DAY % 4)) in
+            1) TOPIC="Tech & ICT News in Nigeria" ;;
+            2) TOPIC="Web & Software Development Tips" ;;
+            3) TOPIC="IoT & Networking Insights" ;;
+            0) TOPIC="Zion Netcom Projects & Updates" ;;
+          esac
+          
+          TODAY=$(date '+%B %d, %Y')
+          echo "Generating post on topic: $TOPIC for $TODAY"
+
+          # Call Claude API to write the blog post
+          RESPONSE=$(curl -s https://api.anthropic.com/v1/messages \
+            -H "x-api-key: $ANTHROPIC_API_KEY" \
+            -H "anthropic-version: 2023-06-01" \
+            -H "content-type: application/json" \
+            -d "{
+              \"model\": \"claude-sonnet-4-6\",
+              \"max_tokens\": 2000,
+              \"messages\": [{
+                \"role\": \"user\",
+                \"content\": \"You are a professional tech writer for Zion Netcom Solutions Limited, a Nigerian ICT and software company based in Kaduna. Write an engaging, informative blog post for today ($TODAY) on this topic: \\\"$TOPIC\\\".\\n\\nRules:\\n- Write for a Nigerian professional audience\\n- Length: 600-900 words\\n- Tone: professional but approachable, authoritative\\n- Where relevant, tie content to the Nigerian tech ecosystem, Kaduna, or Zion Netcom's expertise (enterprise networks, web development, IoT, AI surveillance, SaaS)\\n- Do NOT write fiction or opinion-only pieces — ground content in real trends or practical tips\\n- Output ONLY valid JSON (no markdown, no preamble) with exactly these fields: {\\\"title\\\": \\\"...\\\", \\\"slug\\\": \\\"...\\\", \\\"excerpt\\\": \\\"one sentence summary...\\\", \\\"content\\\": \\\"full post in plain paragraphs separated by \\\\n\\\\n...\\\", \\\"topic\\\": \\\"$TOPIC\\\", \\\"cover_emoji\\\": \\\"single relevant emoji\\\"}\\n- The slug must be lowercase, hyphen-separated, max 60 chars, no special characters\\n- excerpt must be under 160 characters\"
+              }]
+            }")
+
+          echo "Raw API response received"
+          
+          # Extract the text content from Claude's response
+          POST_JSON=$(echo "$RESPONSE" | python3 -c "
+          import sys, json
+          data = json.load(sys.stdin)
+          text = data['content'][0]['text']
+          # Strip any accidental markdown fences
+          text = text.strip()
+          if text.startswith('\`\`\`'):
+              text = text.split('\n', 1)[1]
+              text = text.rsplit('\`\`\`', 1)[0]
+          print(text.strip())
+          ")
+
+          echo "POST_JSON<<EOF" >> $GITHUB_OUTPUT
+          echo "$POST_JSON" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+          # Validate it parses as JSON
+          echo "$POST_JSON" | python3 -c "import sys, json; json.load(sys.stdin); print('JSON valid')"
+
+      - name: Save draft to Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          POST_JSON='${{ steps.generate.outputs.POST_JSON }}'
+          
+          # Insert into Supabase as a draft (status = 'draft')
+          RESULT=$(curl -s -o /tmp/supabase_response.json -w "%{http_code}" \
+            -X POST \
+            "$SUPABASE_URL/rest/v1/blog_posts" \
+            -H "apikey: $SUPABASE_SERVICE_KEY" \
+            -H "Authorization: Bearer $SUPABASE_SERVICE_KEY" \
+            -H "Content-Type: application/json" \
+            -H "Prefer: return=minimal" \
+            -d "$POST_JSON")
+          
+          echo "Supabase HTTP status: $RESULT"
+          cat /tmp/supabase_response.json
+          
+          if [ "$RESULT" -eq 201 ]; then
+            echo "✅ Draft saved to Supabase successfully"
+          else
+            echo "❌ Supabase insert failed with status $RESULT"
+            exit 1
+          fi
+
+      - name: Send draft ready notification email
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          # Extract title from the generated post for the notification
+          POST_JSON='${{ steps.generate.outputs.POST_JSON }}'
+          TITLE=$(echo "$POST_JSON" | python3 -c "import sys, json; d=json.load(sys.stdin); print(d['title'])")
+          TOPIC=$(echo "$POST_JSON" | python3 -c "import sys, json; d=json.load(sys.stdin); print(d['topic'])")
+          
+          echo "New draft ready: '$TITLE' (Topic: $TOPIC)"
+          echo "📬 Log into your blog admin panel to review and publish:"
+          echo "   https://zionnetcomsolutionsltd.com.ng/blog-admin.html"
+          
+          # Note: For email notification, you can add a step here that calls
+          # EmailJS via curl, or simply check GitHub Actions run summary daily.
+          # The Supabase admin dashboard will also show the new draft row.

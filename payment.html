@@ -1103,7 +1103,8 @@
                 <li><a href="projects.html">Projects</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
-                <li><a href="payment.html" class="active">Make Payment</a></li>
+                <li><a href="blog.html">Blog</a></li>
+<li><a href="payment.html" class="active">Make Payment</a></li>
             </ul>
         </nav>
         <div class="header-actions">
@@ -1313,6 +1314,7 @@
 
 <script src="https://js.paystack.co/v2/inline.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
 // ===== MOBILE MENU =====
 const menuToggle = document.getElementById('menu-toggle');
@@ -1388,6 +1390,40 @@ const BUSINESS_EMAIL = 'zionnetcomsolutionsltd@gmail.com';
 
 if (window.emailjs && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
     emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+}
+
+// ===== SUPABASE CONFIG (logs every payment for the dashboard) =====
+// 1. Run database/payments-table-setup.sql in your Supabase project's SQL Editor
+// 2. Go to Project Settings → API in Supabase and copy your Project URL + anon public key
+// 3. Paste both below
+const SUPABASE_URL = 'https://qzloankwskebbralmvqw.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF6bG9hbmt3c2tlYmJyYWxtdnF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcwMTkyMjgsImV4cCI6MjEwMjU5NTIyOH0.s8lftAO67o_SRS6S734kiByY-aA4AvMQ3uI_WrOHGLw';
+
+let supabaseClient = null;
+if (window.supabase && SUPABASE_URL !== 'https://qzloankwskebbralmvqw.supabase.co') {
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+}
+
+async function logPaymentToSupabase({ name, email, phone, purpose, refNote, amountNaira, reference }) {
+    if (!supabaseClient) {
+        console.warn('Supabase is not configured yet — this payment was not logged to the dashboard. See setup notes.');
+        return;
+    }
+    try {
+        const { error } = await supabaseClient.from('payments').insert([{
+            full_name: name,
+            email: email,
+            phone: phone,
+            purpose: purpose,
+            reference_note: refNote || null,
+            amount: amountNaira,
+            transaction_ref: reference,
+            status: 'success'
+        }]);
+        if (error) console.error('Supabase log error:', error);
+    } catch (err) {
+        console.error('Supabase log failed:', err);
+    }
 }
 
 function sendReceiptEmails({ name, email, phone, purpose, refNote, amountNaira, reference, dateStr }) {
@@ -1521,6 +1557,11 @@ payForm.addEventListener('submit', function (e) {
                 amountNaira,
                 reference: response.reference,
                 dateStr: new Date().toLocaleString('en-NG', { dateStyle: 'long', timeStyle: 'short' })
+            });
+            logPaymentToSupabase({
+                name, email, phone, purpose, refNote,
+                amountNaira,
+                reference: response.reference
             });
             payForm.reset();
             quickBtns.forEach(b => b.classList.remove('active'));
