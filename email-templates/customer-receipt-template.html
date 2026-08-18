@@ -1,0 +1,140 @@
+<!--
+  ZION NETCOM — CUSTOMER RECEIPT EMAIL TEMPLATE
+  =================================================
+  HOW TO USE:
+  1. Go to your EmailJS dashboard → Email Templates → Create New Template
+  2. Switch the editor to "Code View" / HTML mode (not the visual drag-builder)
+  3. Delete whatever default content is there and paste this entire file in
+  4. Set the template "Subject" field to:
+       Receipt — Your Payment to Zion Netcom Solutions ({{transaction_ref}})
+  5. Set "To Email" field to:  {{to_email}}
+  6. Set "From Name" to:  Zion Netcom Solutions
+  7. Save, copy the Template ID, and paste it into EMAILJS_TEMPLATE_CUSTOMER in payment.html
+-->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#070B14; padding:40px 0; font-family:'Segoe UI', Helvetica, Arial, sans-serif;">
+  <tr>
+    <td align="center">
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px; width:100%; background-color:#111827; border:1px solid rgba(56,182,255,0.18); border-radius:10px; overflow:hidden;">
+
+        <!-- TOP ACCENT LINE -->
+        <tr>
+          <td style="height:4px; background:linear-gradient(90deg,#070B14,#38B6FF,#070B14); font-size:0;">&nbsp;</td>
+        </tr>
+
+        <!-- HEADER / LOGO -->
+        <tr>
+          <td style="padding:36px 40px 24px; text-align:center; background-color:#0D1321; border-bottom:1px solid rgba(56,182,255,0.14);">
+            <img src="https://zionnetcomsolutionsltd.com.ng/zion.jpg" alt="Zion Netcom Solutions" width="56" height="56" style="display:block; margin:0 auto 14px; border-radius:6px;">
+            <div style="font-family:'Courier New', monospace; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:#38B6FF;">Zion Netcom Solutions Ltd</div>
+          </td>
+        </tr>
+
+        <!-- PAID STAMP -->
+        <tr>
+          <td style="padding:36px 40px 0; text-align:center;">
+            <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto;">
+              <tr>
+                <td style="width:64px; height:64px; border-radius:50%; background-color:rgba(56,182,255,0.12); border:2px solid #38B6FF; text-align:center; vertical-align:middle; font-size:28px; color:#38B6FF; font-weight:bold;">&#10003;</td>
+              </tr>
+            </table>
+            <h1 style="margin:20px 0 8px; font-family:'Trebuchet MS', Helvetica, sans-serif; font-size:24px; color:#E8F4F8; font-weight:700;">Payment Received</h1>
+            <p style="margin:0 0 4px; font-size:14px; color:#8BA3B8; line-height:1.6;">Hi {{customer_name}}, thank you for your payment. This email confirms your transaction was successful.</p>
+          </td>
+        </tr>
+
+        <!-- AMOUNT BLOCK -->
+        <tr>
+          <td style="padding:28px 40px 0;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#1A2332; border:1px solid rgba(56,182,255,0.18); border-radius:8px;">
+              <tr>
+                <td style="padding:26px 28px; text-align:center;">
+                  <div style="font-family:'Courier New', monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:#4A6070; margin-bottom:8px;">Amount Paid</div>
+                  <div style="font-family:'Trebuchet MS', Helvetica, sans-serif; font-size:34px; font-weight:700; color:#38B6FF;">{{amount}}</div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- RECEIPT DETAILS -->
+        <tr>
+          <td style="padding:28px 40px 8px;">
+            <div style="font-family:'Courier New', monospace; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:#38B6FF; margin-bottom:14px;">// Receipt Details</div>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="padding:11px 0; border-bottom:1px dashed rgba(56,182,255,0.14); font-size:13px; color:#4A6070; font-family:'Courier New', monospace; text-transform:uppercase; letter-spacing:0.5px;">Transaction Ref</td>
+                <td style="padding:11px 0; border-bottom:1px dashed rgba(56,182,255,0.14); font-size:13px; color:#E8F4F8; text-align:right; font-weight:600;">{{transaction_ref}}</td>
+              </tr>
+              <tr>
+                <td style="padding:11px 0; border-bottom:1px dashed rgba(56,182,255,0.14); font-size:13px; color:#4A6070; font-family:'Courier New', monospace; text-transform:uppercase; letter-spacing:0.5px;">Date</td>
+                <td style="padding:11px 0; border-bottom:1px dashed rgba(56,182,255,0.14); font-size:13px; color:#E8F4F8; text-align:right; font-weight:600;">{{payment_date}}</td>
+              </tr>
+              <tr>
+                <td style="padding:11px 0; border-bottom:1px dashed rgba(56,182,255,0.14); font-size:13px; color:#4A6070; font-family:'Courier New', monospace; text-transform:uppercase; letter-spacing:0.5px;">Purpose</td>
+                <td style="padding:11px 0; border-bottom:1px dashed rgba(56,182,255,0.14); font-size:13px; color:#E8F4F8; text-align:right; font-weight:600;">{{payment_purpose}}</td>
+              </tr>
+              <tr>
+                <td style="padding:11px 0; border-bottom:1px dashed rgba(56,182,255,0.14); font-size:13px; color:#4A6070; font-family:'Courier New', monospace; text-transform:uppercase; letter-spacing:0.5px;">Reference Note</td>
+                <td style="padding:11px 0; border-bottom:1px dashed rgba(56,182,255,0.14); font-size:13px; color:#E8F4F8; text-align:right; font-weight:600;">{{reference_note}}</td>
+              </tr>
+              <tr>
+                <td style="padding:11px 0; font-size:13px; color:#4A6070; font-family:'Courier New', monospace; text-transform:uppercase; letter-spacing:0.5px;">Payment Method</td>
+                <td style="padding:11px 0; font-size:13px; color:#E8F4F8; text-align:right; font-weight:600;">Paystack</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- BILLED TO -->
+        <tr>
+          <td style="padding:8px 40px 0;">
+            <div style="font-family:'Courier New', monospace; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:#38B6FF; margin-bottom:14px;">// Billed To</div>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="padding:6px 0; font-size:13px; color:#8BA3B8;">{{customer_name}}</td>
+              </tr>
+              <tr>
+                <td style="padding:6px 0; font-size:13px; color:#8BA3B8;">{{customer_email}}</td>
+              </tr>
+              <tr>
+                <td style="padding:6px 0 0; font-size:13px; color:#8BA3B8;">{{customer_phone}}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- DIVIDER -->
+        <tr>
+          <td style="padding:32px 40px 0;">
+            <div style="height:1px; background-color:rgba(56,182,255,0.14);"></div>
+          </td>
+        </tr>
+
+        <!-- NOTE -->
+        <tr>
+          <td style="padding:24px 40px 0;">
+            <p style="margin:0; font-size:12.5px; color:#4A6070; line-height:1.7;">This receipt confirms a successful payment processed securely via Paystack. Your card and bank details were never seen or stored by Zion Netcom Solutions. Please keep this email for your records. If you did not authorize this payment, contact us immediately.</p>
+          </td>
+        </tr>
+
+        <!-- CTA -->
+        <tr>
+          <td style="padding:28px 40px 8px; text-align:center;">
+            <a href="https://zionnetcomsolutionsltd.com.ng/contact.html" style="display:inline-block; padding:13px 30px; background-color:#38B6FF; color:#070B14; text-decoration:none; font-family:'Courier New', monospace; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; border-radius:4px;">Contact Support</a>
+          </td>
+        </tr>
+
+        <!-- FOOTER -->
+        <tr>
+          <td style="padding:32px 40px 36px; text-align:center; border-top:1px solid rgba(56,182,255,0.14); margin-top:20px;">
+            <div style="font-family:'Trebuchet MS', Helvetica, sans-serif; font-size:14px; font-weight:700; color:#E8F4F8; margin-bottom:6px;">Zion Netcom Solutions Limited</div>
+            <p style="margin:0 0 4px; font-size:12px; color:#4A6070;">Starcase Office, Benue Plaza, Mohammadu Buhari Way, Kaduna, Nigeria</p>
+            <p style="margin:0 0 14px; font-size:12px; color:#4A6070;">+234 706 758 0599 &nbsp;&middot;&nbsp; info@zionnetcomsolutionsltd.com.ng</p>
+            <p style="margin:0; font-size:11px; color:#374B5C;">&copy; 2026 Zion Netcom Solutions Limited. This is an automated receipt — please do not reply directly to this email.</p>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>

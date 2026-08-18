@@ -1,0 +1,109 @@
+<!--
+  ZION NETCOM — INTERNAL ADMIN NOTIFICATION EMAIL TEMPLATE
+  =================================================
+  HOW TO USE:
+  1. Go to your EmailJS dashboard → Email Templates → Create New Template
+  2. Switch the editor to "Code View" / HTML mode (not the visual drag-builder)
+  3. Delete whatever default content is there and paste this entire file in
+  4. Set the template "Subject" field to:
+       💰 New Payment Received — {{amount}} from {{customer_name}}
+  5. Set "To Email" field to:  {{to_email}}
+  6. Set "From Name" to:  Zion Netcom Payments
+  7. Save, copy the Template ID, and paste it into EMAILJS_TEMPLATE_ADMIN in payment.html
+
+  Note: {{to_email}} will resolve to zionnetcomsolutionsltd@gmail.com automatically
+  because that value is passed in from payment.html's sendReceiptEmails() function.
+-->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#070B14; padding:40px 0; font-family:'Segoe UI', Helvetica, Arial, sans-serif;">
+  <tr>
+    <td align="center">
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px; width:100%; background-color:#111827; border:1px solid rgba(56,182,255,0.18); border-radius:10px; overflow:hidden;">
+
+        <!-- TOP ACCENT LINE -->
+        <tr>
+          <td style="height:4px; background:linear-gradient(90deg,#070B14,#FF6B35,#070B14); font-size:0;">&nbsp;</td>
+        </tr>
+
+        <!-- HEADER -->
+        <tr>
+          <td style="padding:30px 40px 22px; text-align:center; background-color:#0D1321; border-bottom:1px solid rgba(56,182,255,0.14);">
+            <img src="https://zionnetcomsolutionsltd.com.ng/zion.jpg" alt="Zion Netcom Solutions" width="48" height="48" style="display:block; margin:0 auto 12px; border-radius:6px;">
+            <div style="font-family:'Courier New', monospace; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:#38B6FF;">Internal Payment Alert</div>
+          </td>
+        </tr>
+
+        <!-- ALERT BANNER -->
+        <tr>
+          <td style="padding:28px 40px 0; text-align:center;">
+            <span style="display:inline-block; padding:6px 16px; background-color:rgba(255,107,53,0.12); border:1px solid rgba(255,107,53,0.4); border-radius:20px; font-family:'Courier New', monospace; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:#FF6B35; font-weight:700;">&#9889; New Payment Received</span>
+            <h1 style="margin:18px 0 0; font-family:'Trebuchet MS', Helvetica, sans-serif; font-size:30px; color:#38B6FF; font-weight:700;">{{amount}}</h1>
+            <p style="margin:6px 0 0; font-size:13px; color:#8BA3B8;">from {{customer_name}}</p>
+          </td>
+        </tr>
+
+        <!-- TRANSACTION DETAILS -->
+        <tr>
+          <td style="padding:30px 40px 8px;">
+            <div style="font-family:'Courier New', monospace; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:#38B6FF; margin-bottom:14px;">// Transaction</div>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="padding:11px 0; border-bottom:1px dashed rgba(56,182,255,0.14); font-size:13px; color:#4A6070; font-family:'Courier New', monospace; text-transform:uppercase; letter-spacing:0.5px;">Reference</td>
+                <td style="padding:11px 0; border-bottom:1px dashed rgba(56,182,255,0.14); font-size:13px; color:#E8F4F8; text-align:right; font-weight:600;">{{transaction_ref}}</td>
+              </tr>
+              <tr>
+                <td style="padding:11px 0; border-bottom:1px dashed rgba(56,182,255,0.14); font-size:13px; color:#4A6070; font-family:'Courier New', monospace; text-transform:uppercase; letter-spacing:0.5px;">Date / Time</td>
+                <td style="padding:11px 0; border-bottom:1px dashed rgba(56,182,255,0.14); font-size:13px; color:#E8F4F8; text-align:right; font-weight:600;">{{payment_date}}</td>
+              </tr>
+              <tr>
+                <td style="padding:11px 0; border-bottom:1px dashed rgba(56,182,255,0.14); font-size:13px; color:#4A6070; font-family:'Courier New', monospace; text-transform:uppercase; letter-spacing:0.5px;">Purpose</td>
+                <td style="padding:11px 0; border-bottom:1px dashed rgba(56,182,255,0.14); font-size:13px; color:#E8F4F8; text-align:right; font-weight:600;">{{payment_purpose}}</td>
+              </tr>
+              <tr>
+                <td style="padding:11px 0; font-size:13px; color:#4A6070; font-family:'Courier New', monospace; text-transform:uppercase; letter-spacing:0.5px;">Reference Note</td>
+                <td style="padding:11px 0; font-size:13px; color:#E8F4F8; text-align:right; font-weight:600;">{{reference_note}}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- CUSTOMER DETAILS -->
+        <tr>
+          <td style="padding:8px 40px 0;">
+            <div style="font-family:'Courier New', monospace; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:#38B6FF; margin-bottom:14px;">// Customer</div>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#1A2332; border:1px solid rgba(56,182,255,0.14); border-radius:8px;">
+              <tr>
+                <td style="padding:18px 20px;">
+                  <p style="margin:0 0 6px; font-size:14px; color:#E8F4F8; font-weight:600;">{{customer_name}}</p>
+                  <p style="margin:0 0 4px; font-size:13px; color:#8BA3B8;"><a href="mailto:{{customer_email}}" style="color:#38B6FF; text-decoration:none;">{{customer_email}}</a></p>
+                  <p style="margin:0; font-size:13px; color:#8BA3B8;">{{customer_phone}}</p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- ACTION NOTE -->
+        <tr>
+          <td style="padding:26px 40px 0;">
+            <p style="margin:0; font-size:12.5px; color:#4A6070; line-height:1.7;">A receipt has already been sent automatically to the customer. Verify this transaction in your Paystack dashboard before fulfilling any related service, invoice, or deliverable.</p>
+          </td>
+        </tr>
+
+        <!-- CTA -->
+        <tr>
+          <td style="padding:26px 40px 8px; text-align:center;">
+            <a href="https://dashboard.paystack.com/#/transactions" style="display:inline-block; padding:13px 30px; background-color:#38B6FF; color:#070B14; text-decoration:none; font-family:'Courier New', monospace; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; border-radius:4px;">View in Paystack</a>
+          </td>
+        </tr>
+
+        <!-- FOOTER -->
+        <tr>
+          <td style="padding:30px 40px 32px; text-align:center; border-top:1px solid rgba(56,182,255,0.14); margin-top:18px;">
+            <p style="margin:0; font-size:11px; color:#374B5C;">Automated internal alert from the Zion Netcom Solutions payment gateway.</p>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
