@@ -467,7 +467,8 @@ function renderProducts(list) {
         const condBadge2 = !p.hot ? '' : `<span class="product-badge badge-new" style="left:auto;right:12px;top:auto;bottom:12px;">${cond.text}</span>`;
         return `<div class="product-card ${!p.inStock ? 'sold-out' : ''}" data-brand="${p.brand}" data-condition="${p.condition}" data-price="${p.price}">
             <div class="product-img">
-                <i class="fas fa-laptop"></i>
+                ${p.image ? '<img src="' + p.image + '" alt="' + p.name + '" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">' : ''}
+                <i class="fas fa-laptop" ${p.image ? 'style="display:none"' : ''}></i>
                 ${badge}
                 ${stockDot}
                 ${soldOverlay}
@@ -608,8 +609,33 @@ if (savedTheme) applyTheme(savedTheme);
 if (themeToggle) themeToggle.addEventListener('click', () => { applyTheme(document.body.classList.contains('light-mode') ? 'dark' : 'light'); });
 
 // ── INIT ──
-renderProducts(products);
-document.getElementById('results-count').textContent = products.length + ' products found';
+// Load from localStorage (admin-managed) or fall back to defaults
+function getActiveProducts() {
+    const saved = localStorage.getItem('zn-store-products');
+    return saved ? JSON.parse(saved) : products;
+}
+
+let activeProducts = getActiveProducts();
+renderProducts(activeProducts);
+document.getElementById('results-count').textContent = activeProducts.length + ' products found';
+
+// Patch filterProducts to use activeProducts
+const _filterProducts = filterProducts;
+filterProducts = function() {
+    const q = document.getElementById('search-input').value.toLowerCase();
+    const brand = document.getElementById('brand-filter').value;
+    const priceRange = document.getElementById('price-filter').value;
+    let [minP, maxP] = priceRange ? priceRange.split('-').map(Number) : [0, Infinity];
+
+    const filtered = activeProducts.filter(p => {
+        const matchSearch = !q || p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q) || p.specs.some(s => s.toLowerCase().includes(q));
+        const matchBrand = !brand || p.brand === brand;
+        const matchCond = !activeCondition || p.condition === activeCondition;
+        const matchPrice = p.price >= minP && p.price <= maxP;
+        return matchSearch && matchBrand && matchCond && matchPrice;
+    });
+    renderProducts(filtered);
+};
 </script>
 </body>
 </html>
