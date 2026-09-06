@@ -1,1409 +1,1164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel | Zion Netcom Solutions</title>
-    <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        :root {
-            --bg-primary: #070B14;
-            --bg-secondary: #0D1321;
-            --bg-card: #111827;
-            --bg-elevated: #1A2332;
-            --grid-line: rgba(56, 182, 255, 0.08);
-            --cyan: #38B6FF;
-            --cyan-dim: rgba(56, 182, 255, 0.6);
-            --cyan-glow: rgba(56, 182, 255, 0.25);
-            --text-primary: #E8F4F8;
-            --text-secondary: #8BA3B8;
-            --text-muted: #4A6070;
-            --accent-warm: #FF6B35;
-            --accent-green: #22c55e;
-            --accent-red: #ef4444;
-            --accent-yellow: #f59e0b;
-            --border-subtle: rgba(56, 182, 255, 0.12);
-            --border-glow: rgba(56, 182, 255, 0.3);
-            --font-mono: 'JetBrains Mono', monospace;
-            --font-sans: 'Inter', system-ui, sans-serif;
-            --font-display: 'Space Grotesk', 'Inter', sans-serif;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; overflow-x: hidden; }
-        body {
-            font-family: var(--font-sans);
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image:
-                linear-gradient(var(--grid-line) 1px, transparent 1px),
-                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-            background-size: 40px 40px;
-            pointer-events: none;
-            z-index: 0;
-        }
-        .container { width: 92%; max-width: 1280px; margin: 0 auto; position: relative; z-index: 1; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel | Zion Netcom Solutions</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root {
+  --bg: #070B14; --bg2: #0D1321; --card: #111827; --elevated: #1A2332;
+  --cyan: #38B6FF; --cyan-dim: rgba(56,182,255,0.6); --cyan-glow: rgba(56,182,255,0.25);
+  --text: #E8F4F8; --text2: #8BA3B8; --muted: #4A6070;
+  --green: #22c55e; --red: #ef4444; --yellow: #f59e0b;
+  --border: rgba(56,182,255,0.12); --border-hi: rgba(56,182,255,0.3);
+  --mono: 'JetBrains Mono',monospace; --sans: 'Inter',system-ui,sans-serif; --display: 'Space Grotesk','Inter',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(56,182,255,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(56,182,255,0.06) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+.wrap{width:92%;max-width:1280px;margin:0 auto;position:relative;z-index:1;}
 
-        /* TOPBAR */
-        .topbar { background: var(--bg-secondary); border-bottom: 1px solid var(--border-subtle); padding: 9px 0; font-family: var(--font-mono); font-size: 0.73rem; position: relative; z-index: 100; }
-        .topbar-inner { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-        .topbar-info { display: flex; align-items: center; gap: 20px; }
-        .tb-item { display: flex; align-items: center; gap: 6px; color: var(--text-secondary); text-decoration: none; white-space: nowrap; transition: color 0.2s; }
-        .tb-item i { color: var(--cyan); font-size: 0.78rem; }
-        .topbar-right { display: flex; align-items: center; gap: 14px; }
-        .topbar-social { display: flex; align-items: center; gap: 12px; }
-        .topbar-social a { color: var(--text-muted); font-size: 0.85rem; transition: color 0.3s; }
-        .topbar-social a:hover { color: var(--cyan); }
-        .theme-toggle { background: none; border: 1px solid var(--border-subtle); border-radius: 20px; color: var(--text-secondary); font-size: 0.78rem; cursor: pointer; padding: 4px 10px; display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
-        .theme-toggle:hover { border-color: var(--cyan); color: var(--cyan); }
+/* TOPBAR */
+.topbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:9px 0;font-family:var(--mono);font-size:0.73rem;position:relative;z-index:100;}
+.topbar-inner{display:flex;justify-content:space-between;align-items:center;}
+.tb-info{display:flex;align-items:center;gap:20px;}
+.tb-item{display:flex;align-items:center;gap:6px;color:var(--text2);text-decoration:none;white-space:nowrap;}
+.tb-item i{color:var(--cyan);font-size:0.78rem;}
+.tb-right{display:flex;align-items:center;gap:14px;}
+.tb-social{display:flex;align-items:center;gap:12px;}
+.tb-social a{color:var(--muted);font-size:0.85rem;transition:color 0.2s;}
+.tb-social a:hover{color:var(--cyan);}
+.theme-btn{background:none;border:1px solid var(--border);border-radius:20px;color:var(--text2);font-size:0.78rem;cursor:pointer;padding:4px 10px;display:flex;align-items:center;gap:5px;transition:all 0.2s;}
+.theme-btn:hover{border-color:var(--cyan);color:var(--cyan);}
 
-        /* HEADER */
-        .header { background: rgba(7,11,20,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-subtle); position: sticky; top: 0; z-index: 9999; }
-        .nav-wrapper { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; gap: 20px; }
-        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-        .logo img { height: 48px; width: auto; display: block; }
-        .logo-text { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; color: var(--text-primary); }
-        .logo-text span { color: var(--cyan); }
-        .logo-sub { font-family: var(--font-mono); font-size: 0.62rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-top: 1px; }
-        .nav-links { display: flex; list-style: none; gap: 8px; }
-        .nav-links a { font-family: var(--font-mono); font-size: 0.8rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; padding: 8px 14px; border-radius: 4px; transition: all 0.2s; text-transform: uppercase; letter-spacing: 1px; }
-        .nav-links a:hover, .nav-links a.active { color: var(--cyan); background: rgba(56,182,255,0.08); }
-        .header-actions { display: flex; align-items: center; gap: 12px; }
-        .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 32px; border-radius: 4px; font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; text-decoration: none; cursor: pointer; transition: all 0.3s ease; border: none; }
-        .btn-primary { background: var(--cyan); color: var(--bg-primary); box-shadow: 0 0 20px var(--cyan-glow); }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 40px var(--cyan-glow); }
-        .btn-outline { background: transparent; color: var(--cyan); border: 1px solid var(--cyan); }
-        .btn-outline:hover { background: var(--cyan); color: var(--bg-primary); }
-        .btn-sm { padding: 8px 16px; font-size: 0.75rem; }
-        .menu-toggle { display: none; background: none; border: 1px solid var(--border-subtle); color: var(--text-primary); padding: 8px 12px; cursor: pointer; border-radius: 4px; font-size: 1rem; }
+/* HEADER */
+.header{background:rgba(7,11,20,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:9999;}
+.nav-wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:16px;}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo img{height:44px;width:auto;}
+.logo-name{font-family:var(--display);font-size:1.3rem;font-weight:700;color:var(--text);}
+.logo-name span{color:var(--cyan);}
+.logo-sub{font-family:var(--mono);font-size:0.6rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;}
+nav ul{display:flex;list-style:none;gap:4px;}
+nav ul a{font-family:var(--mono);font-size:0.75rem;font-weight:500;color:var(--text2);text-decoration:none;padding:7px 12px;border-radius:4px;transition:all 0.2s;text-transform:uppercase;letter-spacing:1px;display:block;}
+nav ul a:hover,nav ul a.active{color:var(--cyan);background:rgba(56,182,255,0.08);}
+.nav-actions{display:flex;align-items:center;gap:10px;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:4px;font-family:var(--mono);font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;text-decoration:none;cursor:pointer;transition:all 0.25s;border:none;}
+.btn-primary{background:var(--cyan);color:var(--bg);box-shadow:0 0 20px var(--cyan-glow);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 36px var(--cyan-glow);}
+.btn-outline{background:transparent;color:var(--cyan);border:1px solid var(--cyan);}
+.btn-outline:hover{background:var(--cyan);color:var(--bg);}
+.btn-sm{padding:7px 14px;font-size:0.72rem;}
+.btn-danger{background:transparent;color:var(--red);border:1px solid rgba(239,68,68,0.4);}
+.btn-danger:hover{background:var(--red);color:#fff;}
+.menu-btn{display:none;background:none;border:1px solid var(--border);color:var(--text);padding:7px 11px;cursor:pointer;border-radius:4px;font-size:0.95rem;}
 
-        @media (max-width: 768px) {
-            .nav-links { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--bg-primary); flex-direction: column; justify-content: center; align-items: center; z-index: 9998; gap: 24px; }
-            .nav-links.active { display: flex; }
-            .nav-links a { font-size: 1.1rem; padding: 12px 28px; }
-            .menu-toggle { display: flex; }
-            .header-actions .btn { display: none; }
-        }
+/* LIGHT MODE */
+body.light{--bg:#F5F7FA;--bg2:#EAEEF3;--card:#FFF;--elevated:#E2E8F0;--cyan:#0077CC;--cyan-dim:rgba(0,119,204,0.6);--cyan-glow:rgba(0,119,204,0.18);--text:#0F1E2E;--text2:#3D5A73;--muted:#7A94A8;--border:rgba(0,119,204,0.15);--border-hi:rgba(0,119,204,0.35);}
+body.light .header{background:rgba(234,238,243,0.92)!important;}
+body.light nav ul,.light nav ul{background:var(--bg);}
+body.light nav ul a{color:var(--text);}
+body.light .card,.light .tab-btn,body.light input,body.light textarea,body.light select{background:var(--card);border-color:var(--border);color:var(--text);}
+body.light .footer{background:var(--bg2);}
+body.light .menu-btn{color:var(--text);border-color:var(--border);}
 
-        /* LIGHT MODE */
-        body.light-mode { --bg-primary: #F5F7FA; --bg-secondary: #EAEEF3; --bg-card: #FFFFFF; --bg-elevated: #E2E8F0; --grid-line: rgba(0,90,160,0.06); --cyan: #0077CC; --cyan-dim: rgba(0,119,204,0.6); --cyan-glow: rgba(0,119,204,0.18); --text-primary: #0F1E2E; --text-secondary: #3D5A73; --text-muted: #7A94A8; --border-subtle: rgba(0,119,204,0.15); --border-glow: rgba(0,119,204,0.35); }
-        body.light-mode .header { background: rgba(234,238,243,0.92) !important; }
-        body.light-mode .nav-links a { color: var(--text-primary); }
-        body.light-mode .nav-links { background: var(--bg-primary); }
-        body.light-mode .admin-card, body.light-mode .tab-btn, body.light-mode input, body.light-mode textarea, body.light-mode select { background: var(--bg-card); border-color: var(--border-subtle); color: var(--text-primary); }
-        body.light-mode .footer { background: var(--bg-secondary); border-top-color: var(--border-subtle); }
-        body.light-mode .menu-toggle { color: var(--text-primary); border-color: var(--border-subtle); }
+/* HERO */
+.page-hero{background:linear-gradient(135deg,#070B14 0%,#0D1321 60%,#111827 100%);padding:52px 0 36px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
+.page-hero::after{content:'';position:absolute;top:-100px;right:-100px;width:420px;height:420px;background:radial-gradient(circle,var(--cyan-glow) 0%,transparent 70%);pointer-events:none;}
+.hero-tag{font-family:var(--mono);font-size:0.7rem;color:var(--cyan);letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.hero-tag::before{content:'//';color:var(--muted);}
+.page-hero h1{font-size:clamp(1.8rem,4vw,2.8rem);background:linear-gradient(135deg,var(--text) 0%,var(--cyan) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px;}
+.page-hero p{color:var(--text2);font-size:0.95rem;max-width:520px;}
 
-        /* PAGE HERO */
-        .page-hero { background: linear-gradient(135deg, #070B14 0%, #0D1321 50%, #111827 100%); padding: 60px 0 40px; border-bottom: 1px solid var(--border-subtle); position: relative; overflow: hidden; }
-        .page-hero::after { content: ''; position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; background: radial-gradient(circle, var(--cyan-glow) 0%, transparent 70%); pointer-events: none; }
-        .page-hero-badge { font-family: var(--font-mono); font-size: 0.7rem; color: var(--cyan); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-        .page-hero-badge::before { content: '//'; color: var(--text-muted); }
-        .page-hero h1 { font-size: clamp(2rem, 5vw, 3rem); background: linear-gradient(135deg, var(--text-primary) 0%, var(--cyan) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 12px; }
-        .page-hero p { color: var(--text-secondary); font-size: 1rem; max-width: 560px; }
+/* TABS */
+.admin-body{padding:36px 0 80px;}
+.tab-nav{display:flex;gap:0;margin-bottom:28px;border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.tab-btn{font-family:var(--mono);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;padding:10px 18px;background:transparent;color:var(--muted);border:none;border-bottom:2px solid transparent;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:7px;white-space:nowrap;margin-bottom:-1px;flex-shrink:0;}
+.tab-btn:hover{color:var(--cyan);}
+.tab-btn.active{color:var(--cyan);border-bottom-color:var(--cyan);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
 
-        /* ADMIN LAYOUT */
-        .admin-wrap { padding: 40px 0 80px; }
-        .tab-nav { display: flex; gap: 6px; margin-bottom: 32px; flex-wrap: wrap; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0; }
-        .tab-btn { font-family: var(--font-mono); font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; padding: 10px 20px; background: transparent; color: var(--text-muted); border: none; border-bottom: 2px solid transparent; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 8px; margin-bottom: -1px; }
-        .tab-btn:hover { color: var(--cyan); }
-        .tab-btn.active { color: var(--cyan); border-bottom-color: var(--cyan); }
-        .tab-panel { display: none; }
-        .tab-panel.active { display: block; }
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:20px;}
+.card h3{font-family:var(--display);font-size:0.95rem;margin-bottom:18px;color:var(--text);display:flex;align-items:center;gap:9px;}
+.card h3 i{color:var(--cyan);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+@media(max-width:768px){.grid2,.grid3{grid-template-columns:1fr;}}
 
-        /* CARDS */
-        .admin-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 28px; margin-bottom: 24px; position: relative; }
-        .admin-card h3 { font-family: var(--font-display); font-size: 1rem; margin-bottom: 20px; color: var(--text-primary); display: flex; align-items: center; gap: 10px; }
-        .admin-card h3 i { color: var(--cyan); }
-        .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-        .card-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
-        @media (max-width: 768px) { .card-grid, .card-grid-3 { grid-template-columns: 1fr; } }
+/* FORMS */
+.fg{margin-bottom:14px;}
+.fg label{display:block;font-family:var(--mono);font-size:0.68rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--cyan);margin-bottom:5px;}
+.fg input,.fg textarea,.fg select{width:100%;padding:9px 13px;background:var(--elevated);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:var(--sans);font-size:0.88rem;transition:border-color 0.2s;outline:none;}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(56,182,255,0.1);}
+.fg textarea{resize:vertical;min-height:76px;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+@media(max-width:600px){.row2,.row3{grid-template-columns:1fr;}}
+select option{background:var(--card);}
 
-        /* FORMS */
-        .form-group { margin-bottom: 16px; }
-        .form-group label { display: block; font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--cyan); margin-bottom: 6px; }
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%; padding: 10px 14px; background: var(--bg-elevated); border: 1px solid var(--border-subtle);
-            border-radius: 4px; color: var(--text-primary); font-family: var(--font-sans); font-size: 0.9rem;
-            transition: border-color 0.2s; outline: none;
-        }
-        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(56,182,255,0.1); }
-        .form-group textarea { resize: vertical; min-height: 80px; }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-        .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
-        @media (max-width: 600px) { .form-row, .form-row-3 { grid-template-columns: 1fr; } }
-        select option { background: var(--bg-card); }
+/* INVOICE ITEMS TABLE */
+.items-tbl{width:100%;border-collapse:collapse;margin-bottom:10px;}
+.items-tbl th{font-family:var(--mono);font-size:0.67rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--cyan);padding:7px 8px;text-align:left;border-bottom:1px solid var(--border);}
+.items-tbl td{padding:6px 4px;vertical-align:middle;}
+.items-tbl input{padding:6px 8px;background:var(--elevated);border:1px solid var(--border);border-radius:4px;color:var(--text);font-size:0.82rem;width:100%;}
+.items-tbl input:focus{border-color:var(--cyan);outline:none;}
+.del-row{background:none;border:1px solid rgba(239,68,68,0.3);color:var(--red);width:26px;height:26px;border-radius:4px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.72rem;transition:all 0.2s;}
+.del-row:hover{background:var(--red);color:#fff;}
+.add-line{font-family:var(--mono);font-size:0.72rem;background:none;border:1px dashed var(--border-hi);color:var(--cyan);padding:6px 14px;border-radius:4px;cursor:pointer;transition:all 0.2s;letter-spacing:1px;margin-top:4px;}
+.add-line:hover{background:rgba(56,182,255,0.08);}
 
-        /* LINE ITEMS TABLE */
-        .items-table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
-        .items-table th { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--cyan); padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border-subtle); }
-        .items-table td { padding: 8px 6px; vertical-align: middle; }
-        .items-table input { padding: 7px 10px; background: var(--bg-elevated); border: 1px solid var(--border-subtle); border-radius: 4px; color: var(--text-primary); font-size: 0.85rem; width: 100%; }
-        .items-table input:focus { border-color: var(--cyan); outline: none; }
-        .remove-row { background: none; border: 1px solid rgba(239,68,68,0.3); color: var(--accent-red); width: 28px; height: 28px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; transition: all 0.2s; }
-        .remove-row:hover { background: var(--accent-red); color: white; }
-        .add-row-btn { font-family: var(--font-mono); font-size: 0.75rem; background: none; border: 1px dashed var(--border-glow); color: var(--cyan); padding: 7px 16px; border-radius: 4px; cursor: pointer; transition: all 0.2s; letter-spacing: 1px; }
-        .add-row-btn:hover { background: rgba(56,182,255,0.08); }
+/* TOTALS */
+.totals-box{background:var(--elevated);border:1px solid var(--border);border-radius:6px;padding:14px 18px;margin-top:14px;}
+.tot-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;font-size:0.87rem;}
+.tot-row.grand{border-top:1px solid var(--border-hi);margin-top:7px;padding-top:10px;font-family:var(--display);font-size:1.05rem;font-weight:700;color:var(--cyan);}
+.tot-label{color:var(--text2);}
 
-        /* TOTALS */
-        .totals-box { background: var(--bg-elevated); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 16px 20px; margin-top: 16px; }
-        .totals-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; font-size: 0.9rem; }
-        .totals-row.grand { border-top: 1px solid var(--border-glow); margin-top: 8px; padding-top: 12px; font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--cyan); }
-        .totals-label { color: var(--text-secondary); }
+/* ACTIONS */
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;}
 
-        /* ACTION BUTTONS */
-        .action-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+/* PREVIEW */
+.preview-box{background:#fff;border-radius:6px;overflow:hidden;box-shadow:0 0 32px rgba(0,0,0,0.4);}
+.preview-box iframe{width:100%;min-height:580px;border:none;background:#fff;display:block;}
 
-        /* PREVIEW PANE */
-        .preview-wrap { background: white; border-radius: 8px; padding: 0; overflow: hidden; box-shadow: 0 0 40px rgba(0,0,0,0.4); }
-        #doc-preview { width: 100%; min-height: 600px; border: none; background: white; display: block; }
+/* TABLES */
+.data-tbl{width:100%;border-collapse:collapse;}
+.data-tbl th{font-family:var(--mono);font-size:0.67rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--cyan);padding:9px 12px;text-align:left;border-bottom:1px solid var(--border);}
+.data-tbl td{padding:9px 12px;font-size:0.85rem;border-bottom:1px solid rgba(56,182,255,0.06);color:var(--text2);vertical-align:middle;}
+.data-tbl tr:hover td{background:rgba(56,182,255,0.04);}
+.badge{display:inline-block;padding:3px 9px;border-radius:20px;font-family:var(--mono);font-size:0.62rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;}
+.bg{background:rgba(34,197,94,0.15);color:var(--green);}
+.br{background:rgba(239,68,68,0.15);color:var(--red);}
+.by{background:rgba(245,158,11,0.15);color:var(--yellow);}
+.bb{background:rgba(56,182,255,0.15);color:var(--cyan);}
+.empty{text-align:center;padding:40px 20px;color:var(--muted);}
+.empty i{font-size:2.2rem;margin-bottom:10px;display:block;opacity:0.35;}
 
-        /* EXPENSE TRACKER */
-        .expense-table { width: 100%; border-collapse: collapse; }
-        .expense-table th { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--cyan); padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border-subtle); }
-        .expense-table td { padding: 10px 14px; font-size: 0.88rem; border-bottom: 1px solid rgba(56,182,255,0.06); color: var(--text-secondary); vertical-align: middle; }
-        .expense-table tr:hover td { background: rgba(56,182,255,0.04); }
-        .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-family: var(--font-mono); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
-        .badge-green { background: rgba(34,197,94,0.15); color: var(--accent-green); }
-        .badge-red { background: rgba(239,68,68,0.15); color: var(--accent-red); }
-        .badge-yellow { background: rgba(245,158,11,0.15); color: var(--accent-yellow); }
-        .badge-blue { background: rgba(56,182,255,0.15); color: var(--cyan); }
-        .empty-state { text-align: center; padding: 48px 20px; color: var(--text-muted); }
-        .empty-state i { font-size: 2.5rem; margin-bottom: 12px; display: block; opacity: 0.4; }
+/* STAT MINI */
+.stat-sm{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:16px 18px;}
+.stat-val{font-family:var(--display);font-size:1.5rem;font-weight:700;color:var(--cyan);margin-bottom:3px;}
+.stat-lbl{font-family:var(--mono);font-size:0.65rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);}
 
-        /* NOTES */
-        .notes-area { width: 100%; min-height: 300px; background: var(--bg-elevated); border: 1px solid var(--border-subtle); border-radius: 6px; color: var(--text-primary); font-family: var(--font-sans); font-size: 0.92rem; padding: 16px; resize: vertical; line-height: 1.8; outline: none; }
-        .notes-area:focus { border-color: var(--cyan); }
-        .notes-list { display: flex; flex-direction: column; gap: 12px; }
-        .note-item { background: var(--bg-elevated); border-left: 3px solid var(--cyan); border-radius: 0 6px 6px 0; padding: 14px 18px; position: relative; }
-        .note-item-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; }
-        .note-item-body { font-size: 0.85rem; color: var(--text-secondary); }
-        .note-item-meta { font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted); margin-top: 8px; }
-        .note-delete { position: absolute; top: 12px; right: 12px; background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.8rem; transition: color 0.2s; }
-        .note-delete:hover { color: var(--accent-red); }
+/* NOTES */
+.note-item{background:var(--elevated);border-left:3px solid var(--cyan);border-radius:0 6px 6px 0;padding:13px 16px;position:relative;margin-bottom:10px;}
+.note-title{font-weight:600;font-size:0.92rem;margin-bottom:3px;}
+.note-body{font-size:0.83rem;color:var(--text2);}
+.note-meta{font-family:var(--mono);font-size:0.65rem;color:var(--muted);margin-top:6px;}
+.note-del{position:absolute;top:10px;right:10px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:0.78rem;transition:color 0.2s;}
+.note-del:hover{color:var(--red);}
 
-        /* STAT CARDS */
-        .stat-mini { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 18px 20px; }
-        .stat-mini-val { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; color: var(--cyan); margin-bottom: 4px; }
-        .stat-mini-label { font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); }
+/* ROW ACTIONS */
+.row-actions{display:flex;gap:5px;}
+.icon-btn{background:none;border:1px solid var(--border);color:var(--text2);width:28px;height:28px;border-radius:4px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.72rem;transition:all 0.2s;}
+.icon-btn:hover{border-color:var(--cyan);color:var(--cyan);}
+.icon-btn.danger:hover{border-color:var(--red);color:var(--red);}
+.icon-btn.success:hover{border-color:var(--green);color:var(--green);}
 
-        /* CLIENTS */
-        .client-table { width: 100%; border-collapse: collapse; }
-        .client-table th { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--cyan); padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border-subtle); }
-        .client-table td { padding: 10px 14px; font-size: 0.88rem; border-bottom: 1px solid rgba(56,182,255,0.06); color: var(--text-secondary); }
-        .client-table tr:hover td { background: rgba(56,182,255,0.04); }
+/* TOAST */
+.toast{position:fixed;bottom:22px;right:22px;background:var(--card);border:1px solid var(--border-hi);border-radius:8px;padding:12px 18px;font-size:0.85rem;color:var(--text);z-index:999999;transform:translateY(60px);opacity:0;transition:all 0.3s;pointer-events:none;max-width:280px;}
+.toast.show{transform:translateY(0);opacity:1;}
 
-        /* FOOTER */
-        .footer { background: var(--bg-secondary); border-top: 1px solid var(--border-subtle); padding: 60px 0 30px; margin-top: 80px; position: relative; z-index: 1; }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px; margin-bottom: 40px; }
-        .footer-brand p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7; margin-bottom: 16px; }
-        .footer h4 { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--cyan); margin-bottom: 16px; }
-        .footer ul { list-style: none; }
-        .footer ul li { margin-bottom: 8px; }
-        .footer ul li a { color: var(--text-secondary); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
-        .footer ul li a:hover { color: var(--cyan); }
-        .footer-contact p { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 10px; }
-        .footer-contact i { color: var(--cyan); margin-top: 3px; flex-shrink: 0; }
-        .footer-bottom { border-top: 1px solid var(--border-subtle); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; }
-        .footer-bottom span { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); }
-        .data-readout { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); }
-        .indicator { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-green); animation: pulse 2s infinite; }
-        @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
-        @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
-        @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } .footer-bottom { flex-direction: column; gap: 8px; text-align: center; } }
-
-        /* PRINT STYLES */
-        @media print {
-            body::before, .topbar, .header, .tab-nav, .action-row, .footer, .page-hero { display: none !important; }
-            .admin-wrap { padding: 0; }
-            .tab-panel { display: block !important; }
-            .tab-panel:not(.print-target) { display: none !important; }
-            .admin-card { border: none; padding: 0; }
-        }
-    </style>
+/* FOOTER */
+.footer{background:var(--bg2);border-top:1px solid var(--border);padding:52px 0 28px;position:relative;z-index:1;}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:36px;margin-bottom:36px;}
+.foot-brand p{color:var(--text2);font-size:0.88rem;line-height:1.7;margin-bottom:14px;}
+.footer h4{font-family:var(--mono);font-size:0.72rem;text-transform:uppercase;letter-spacing:2px;color:var(--cyan);margin-bottom:14px;}
+.footer ul{list-style:none;}
+.footer ul li{margin-bottom:7px;}
+.footer ul li a{color:var(--text2);text-decoration:none;font-size:0.85rem;transition:color 0.2s;}
+.footer ul li a:hover{color:var(--cyan);}
+.foot-contact p{color:var(--text2);font-size:0.83rem;margin-bottom:7px;display:flex;align-items:flex-start;gap:9px;}
+.foot-contact i{color:var(--cyan);margin-top:3px;flex-shrink:0;}
+.foot-bottom{border-top:1px solid var(--border);padding-top:20px;display:flex;justify-content:space-between;align-items:center;}
+.foot-bottom span{font-family:var(--mono);font-size:0.7rem;color:var(--muted);}
+.indicator{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+.readout{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:0.68rem;color:var(--muted);}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+@media(max-width:768px){.foot-grid{grid-template-columns:1fr 1fr;}.menu-btn{display:flex;}nav ul{display:none;position:fixed;inset:0;background:var(--bg);flex-direction:column;justify-content:center;align-items:center;z-index:9998;gap:20px;}nav ul.open{display:flex;}nav ul a{font-size:1rem;padding:10px 24px;}.nav-actions .btn{display:none;}}
+@media(max-width:480px){.foot-grid{grid-template-columns:1fr;}.foot-bottom{flex-direction:column;gap:7px;}}
+</style>
 </head>
 <body>
 
-<!-- TOPBAR -->
 <div class="topbar">
-    <div class="container topbar-inner">
-        <div class="topbar-info">
-            <a href="tel:+2347067580599" class="tb-item"><i class="fas fa-phone"></i><span> +234 706 758 0599</span></a>
-            <a href="mailto:zionnetcomsolutionsltd@gmail.com" class="tb-item"><i class="fas fa-envelope"></i><span> zionnetcomsolutionsltd@gmail.com</span></a>
-        </div>
-        <div class="topbar-right">
-            <div class="topbar-social">
-                <a href="https://www.linkedin.com/company/zion-netcom-solutions-limited" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="https://www.youtube.com/@zionnetcomsolutionsltd" target="_blank"><i class="fab fa-youtube"></i></a>
-                <a href="https://www.instagram.com/zionnetcomsolutionsltd/" target="_blank"><i class="fab fa-instagram"></i></a>
-            </div>
-            <button class="theme-toggle" id="theme-toggle"><i class="fas fa-sun" id="theme-icon"></i></button>
-        </div>
+  <div class="wrap topbar-inner">
+    <div class="tb-info">
+      <a href="tel:+2347067580599" class="tb-item"><i class="fas fa-phone"></i> +234 706 758 0599</a>
+      <a href="mailto:zionnetcomsolutionsltd@gmail.com" class="tb-item"><i class="fas fa-envelope"></i> zionnetcomsolutionsltd@gmail.com</a>
     </div>
+    <div class="tb-right">
+      <div class="tb-social">
+        <a href="https://www.linkedin.com/company/zion-netcom-solutions-limited" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.youtube.com/@zionnetcomsolutionsltd" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.instagram.com/zionnetcomsolutionsltd/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </div>
+      <button class="theme-btn" id="themeBtn"><i class="fas fa-sun" id="themeIcon"></i></button>
+    </div>
+  </div>
 </div>
 
-<!-- HEADER -->
 <header class="header">
-    <div class="container nav-wrapper">
-        <a href="index.html" class="logo">
-            <img src="zion.jpg" alt="Zion Netcom Solutions">
-            <div>
-                <div class="logo-text">ZION<span>NETCOM</span></div>
-                <div class="logo-sub">Solutions Limited</div>
-            </div>
-        </a>
-        <nav>
-            <ul class="nav-links" id="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="services.html">Solutions</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="payment.html">Make Payment</a></li>
-                <li><a href="store.html">Store</a></li>
-            </ul>
-        </nav>
-        <div class="header-actions">
-            <a href="contact.html" class="btn btn-primary btn-sm">Get Quote</a>
-            <button class="menu-toggle" id="menu-toggle"><i class="fas fa-bars" id="menu-icon"></i></button>
-        </div>
+  <div class="wrap nav-wrap">
+    <a href="index.html" class="logo">
+      <img src="zion.jpg" alt="Zion Netcom">
+      <div><div class="logo-name">ZION<span>NETCOM</span></div><div class="logo-sub">Solutions Limited</div></div>
+    </a>
+    <nav>
+      <ul id="navMenu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Solutions</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="payment.html">Make Payment</a></li>
+        <li><a href="store.html">Store</a></li>
+      </ul>
+    </nav>
+    <div class="nav-actions">
+      <a href="contact.html" class="btn btn-primary btn-sm">Get Quote</a>
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars" id="menuIcon"></i></button>
     </div>
+  </div>
 </header>
 
-<!-- PAGE HERO -->
 <section class="page-hero">
-    <div class="container">
-        <div class="page-hero-badge">Admin Panel</div>
-        <h1>Business Dashboard</h1>
-        <p>Generate invoices, receipts, track expenses, manage clients, and keep operational notes — all in one place.</p>
-    </div>
+  <div class="wrap">
+    <div class="hero-tag">Admin Panel</div>
+    <h1>Business Dashboard</h1>
+    <p>Generate invoices, receipts, track expenses, manage clients, notes — and control your store.</p>
+  </div>
 </section>
 
-<!-- ADMIN PANEL -->
-<div class="admin-wrap">
-    <div class="container">
+<div class="admin-body">
+  <div class="wrap">
 
-        <!-- TAB NAV -->
-        <div class="tab-nav">
-            <button class="tab-btn active" onclick="switchTab('invoice')"><i class="fas fa-file-invoice"></i> Invoice</button>
-            <button class="tab-btn" onclick="switchTab('receipt')"><i class="fas fa-receipt"></i> Receipt</button>
-            <button class="tab-btn" onclick="switchTab('expenses')"><i class="fas fa-chart-line"></i> Expenses</button>
-            <button class="tab-btn" onclick="switchTab('clients')"><i class="fas fa-users"></i> Clients</button>
-            <button class="tab-btn" onclick="switchTab('notes')"><i class="fas fa-sticky-note"></i> Notes</button>
-            <button class="tab-btn" onclick="switchTab('overview')"><i class="fas fa-tachometer-alt"></i> Overview</button>
-            <button class="tab-btn" onclick="switchTab('store')"><i class="fas fa-store"></i> Store Manager</button>
-        </div>
-
-        <!-- ══ INVOICE TAB ══ -->
-        <div class="tab-panel active" id="tab-invoice">
-            <div class="card-grid">
-                <!-- Left: Form -->
-                <div>
-                    <div class="admin-card">
-                        <h3><i class="fas fa-building"></i> Company Details</h3>
-                        <div class="form-group">
-                            <label>Company Name</label>
-                            <input type="text" id="inv-company" value="Zion Netcom Solutions Limited">
-                        </div>
-                        <div class="form-group">
-                            <label>Address</label>
-                            <input type="text" id="inv-address" value="No 32 Benue Plaza, Waff Road, Kaduna">
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Phone</label>
-                                <input type="text" id="inv-phone" value="+234 706 758 0599">
-                            </div>
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="text" id="inv-email" value="zionnetcomsolutionsltd@gmail.com">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="admin-card">
-                        <h3><i class="fas fa-user"></i> Client Details</h3>
-                        <div class="form-group">
-                            <label>Client Name</label>
-                            <input type="text" id="inv-client-name" placeholder="e.g. MTN Nigeria">
-                        </div>
-                        <div class="form-group">
-                            <label>Client Address</label>
-                            <input type="text" id="inv-client-addr" placeholder="Client address">
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Client Phone</label>
-                                <input type="text" id="inv-client-phone" placeholder="+234...">
-                            </div>
-                            <div class="form-group">
-                                <label>Client Email</label>
-                                <input type="text" id="inv-client-email" placeholder="client@email.com">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="admin-card">
-                        <h3><i class="fas fa-calendar"></i> Invoice Info</h3>
-                        <div class="form-row-3">
-                            <div class="form-group">
-                                <label>Invoice No.</label>
-                                <input type="text" id="inv-number" placeholder="ZN-001">
-                            </div>
-                            <div class="form-group">
-                                <label>Date</label>
-                                <input type="date" id="inv-date">
-                            </div>
-                            <div class="form-group">
-                                <label>Due Date</label>
-                                <input type="date" id="inv-due">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Currency</label>
-                                <select id="inv-currency">
-                                    <option value="₦">₦ Nigerian Naira</option>
-                                    <option value="$">$ US Dollar</option>
-                                    <option value="€">€ Euro</option>
-                                    <option value="£">£ British Pound</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>VAT %</label>
-                                <input type="number" id="inv-vat" value="0" min="0" max="100">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="admin-card">
-                        <h3><i class="fas fa-list"></i> Line Items</h3>
-                        <table class="items-table">
-                            <thead>
-                                <tr>
-                                    <th style="width:40%">Description</th>
-                                    <th style="width:12%">Qty</th>
-                                    <th style="width:22%">Unit Price</th>
-                                    <th style="width:20%">Total</th>
-                                    <th style="width:6%"></th>
-                                </tr>
-                            </thead>
-                            <tbody id="inv-items">
-                                <tr>
-                                    <td><input type="text" placeholder="Service / Product" oninput="calcInvoice()"></td>
-                                    <td><input type="number" value="1" min="1" oninput="calcInvoice()"></td>
-                                    <td><input type="number" value="0" min="0" oninput="calcInvoice()"></td>
-                                    <td><input type="text" value="0.00" readonly style="color:var(--cyan);font-weight:600;"></td>
-                                    <td><button class="remove-row" onclick="removeRow(this)"><i class="fas fa-times"></i></button></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <button class="add-row-btn" onclick="addInvRow()"><i class="fas fa-plus"></i> Add Line</button>
-
-                        <div class="totals-box">
-                            <div class="totals-row"><span class="totals-label">Subtotal</span><span id="inv-subtotal">₦0.00</span></div>
-                            <div class="totals-row"><span class="totals-label">VAT (<span id="vat-pct">0</span>%)</span><span id="inv-vat-amt">₦0.00</span></div>
-                            <div class="totals-row grand"><span>TOTAL</span><span id="inv-total">₦0.00</span></div>
-                        </div>
-                    </div>
-
-                    <div class="admin-card">
-                        <h3><i class="fas fa-comment-alt"></i> Notes & Terms</h3>
-                        <div class="form-group">
-                            <label>Notes to Client</label>
-                            <textarea id="inv-notes" placeholder="e.g. Payment is due within 14 days. Thank you for your business."></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Bank Details (optional)</label>
-                            <textarea id="inv-bank" placeholder="Bank: &#10;Account Name: &#10;Account No:"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="action-row">
-                        <button class="btn btn-primary btn-sm" onclick="generateInvoice()"><i class="fas fa-eye"></i> Preview Invoice</button>
-                        <button class="btn btn-outline btn-sm" onclick="printDoc()"><i class="fas fa-print"></i> Print / Save PDF</button>
-                        <button class="btn btn-outline btn-sm" onclick="clearInvoice()"><i class="fas fa-trash"></i> Clear</button>
-                    </div>
-                </div>
-
-                <!-- Right: Preview -->
-                <div>
-                    <div class="admin-card" style="padding:0; overflow:hidden;">
-                        <div style="padding:14px 20px; border-bottom:1px solid var(--border-subtle); font-family:var(--font-mono); font-size:0.72rem; color:var(--cyan); letter-spacing:2px; text-transform:uppercase;">
-                            <i class="fas fa-eye"></i> &nbsp;Live Preview
-                        </div>
-                        <div class="preview-wrap">
-                            <iframe id="doc-preview" title="Invoice Preview"></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ══ RECEIPT TAB ══ -->
-        <div class="tab-panel" id="tab-receipt">
-            <div class="card-grid">
-                <div>
-                    <div class="admin-card">
-                        <h3><i class="fas fa-store"></i> Issuer Details</h3>
-                        <div class="form-group"><label>Company</label><input type="text" id="rec-company" value="Zion Netcom Solutions Limited"></div>
-                        <div class="form-group"><label>Address</label><input type="text" id="rec-address" value="No 32 Benue Plaza, Waff Road, Kaduna"></div>
-                        <div class="form-row">
-                            <div class="form-group"><label>Phone</label><input type="text" id="rec-phone" value="+234 706 758 0599"></div>
-                            <div class="form-group"><label>Email</label><input type="text" id="rec-email" value="zionnetcomsolutionsltd@gmail.com"></div>
-                        </div>
-                    </div>
-                    <div class="admin-card">
-                        <h3><i class="fas fa-user-check"></i> Customer & Payment</h3>
-                        <div class="form-row">
-                            <div class="form-group"><label>Customer Name</label><input type="text" id="rec-customer" placeholder="Customer Name"></div>
-                            <div class="form-group"><label>Receipt No.</label><input type="text" id="rec-number" placeholder="RCT-001"></div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group"><label>Date</label><input type="date" id="rec-date"></div>
-                            <div class="form-group"><label>Payment Method</label>
-                                <select id="rec-method">
-                                    <option>Bank Transfer</option>
-                                    <option>Cash</option>
-                                    <option>POS</option>
-                                    <option>Opay</option>
-                                    <option>Palmpay</option>
-                                    <option>Cheque</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group"><label>Reference / Transaction ID</label><input type="text" id="rec-ref" placeholder="TXN123456"></div>
-                    </div>
-                    <div class="admin-card">
-                        <h3><i class="fas fa-list"></i> Items Paid For</h3>
-                        <table class="items-table">
-                            <thead><tr><th style="width:45%">Description</th><th style="width:12%">Qty</th><th style="width:22%">Price</th><th style="width:21%">Total</th></tr></thead>
-                            <tbody id="rec-items">
-                                <tr>
-                                    <td><input type="text" placeholder="Item / Service" oninput="calcReceipt()"></td>
-                                    <td><input type="number" value="1" min="1" oninput="calcReceipt()"></td>
-                                    <td><input type="number" value="0" min="0" oninput="calcReceipt()"></td>
-                                    <td><input type="text" value="0.00" readonly style="color:var(--cyan);font-weight:600;"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <button class="add-row-btn" onclick="addRecRow()"><i class="fas fa-plus"></i> Add Line</button>
-                        <div class="totals-box" style="margin-top:12px;">
-                            <div class="totals-row grand"><span>AMOUNT RECEIVED</span><span id="rec-total">₦0.00</span></div>
-                        </div>
-                    </div>
-                    <div class="admin-card">
-                        <div class="form-group"><label>Additional Note</label><textarea id="rec-note" placeholder="Thank you for your payment!"></textarea></div>
-                    </div>
-                    <div class="action-row">
-                        <button class="btn btn-primary btn-sm" onclick="generateReceipt()"><i class="fas fa-eye"></i> Preview Receipt</button>
-                        <button class="btn btn-outline btn-sm" onclick="printDoc()"><i class="fas fa-print"></i> Print / Save PDF</button>
-                    </div>
-                </div>
-                <div>
-                    <div class="admin-card" style="padding:0; overflow:hidden;">
-                        <div style="padding:14px 20px; border-bottom:1px solid var(--border-subtle); font-family:var(--font-mono); font-size:0.72rem; color:var(--cyan); letter-spacing:2px; text-transform:uppercase;">
-                            <i class="fas fa-eye"></i> &nbsp;Live Preview
-                        </div>
-                        <div class="preview-wrap">
-                            <iframe id="doc-preview-rec" title="Receipt Preview"></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ══ EXPENSES TAB ══ -->
-        <div class="tab-panel" id="tab-expenses">
-            <div class="admin-card">
-                <h3><i class="fas fa-plus-circle"></i> Log Expense</h3>
-                <div class="form-row-3">
-                    <div class="form-group"><label>Date</label><input type="date" id="exp-date"></div>
-                    <div class="form-group"><label>Category</label>
-                        <select id="exp-cat">
-                            <option>Transport</option>
-                            <option>Materials</option>
-                            <option>Labour</option>
-                            <option>Tools & Equipment</option>
-                            <option>Software</option>
-                            <option>Marketing</option>
-                            <option>Utilities</option>
-                            <option>Salaries</option>
-                            <option>Miscellaneous</option>
-                        </select>
-                    </div>
-                    <div class="form-group"><label>Amount (₦)</label><input type="number" id="exp-amount" placeholder="0.00" min="0"></div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group"><label>Description</label><input type="text" id="exp-desc" placeholder="What was this expense for?"></div>
-                    <div class="form-group"><label>Status</label>
-                        <select id="exp-status">
-                            <option value="paid">Paid</option>
-                            <option value="pending">Pending</option>
-                            <option value="reimbursed">Reimbursed</option>
-                        </select>
-                    </div>
-                </div>
-                <button class="btn btn-primary btn-sm" onclick="addExpense()"><i class="fas fa-plus"></i> Add Expense</button>
-            </div>
-
-            <div class="admin-card">
-                <h3><i class="fas fa-chart-bar"></i> Expense Log</h3>
-                <div class="card-grid-3" style="margin-bottom:24px;">
-                    <div class="stat-mini"><div class="stat-mini-val" id="exp-total-val">₦0</div><div class="stat-mini-label">Total Spent</div></div>
-                    <div class="stat-mini"><div class="stat-mini-val" id="exp-count-val">0</div><div class="stat-mini-label">Entries</div></div>
-                    <div class="stat-mini"><div class="stat-mini-val" id="exp-month-val">₦0</div><div class="stat-mini-label">This Month</div></div>
-                </div>
-                <div style="overflow-x:auto;">
-                    <table class="expense-table">
-                        <thead><tr><th>Date</th><th>Category</th><th>Description</th><th>Amount</th><th>Status</th><th></th></tr></thead>
-                        <tbody id="exp-tbody">
-                            <tr><td colspan="6"><div class="empty-state"><i class="fas fa-receipt"></i>No expenses logged yet</div></td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- ══ CLIENTS TAB ══ -->
-        <div class="tab-panel" id="tab-clients">
-            <div class="admin-card">
-                <h3><i class="fas fa-user-plus"></i> Add Client</h3>
-                <div class="form-row">
-                    <div class="form-group"><label>Client / Company Name</label><input type="text" id="cl-name" placeholder="Company or person name"></div>
-                    <div class="form-group"><label>Contact Person</label><input type="text" id="cl-contact" placeholder="Contact person"></div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group"><label>Phone</label><input type="text" id="cl-phone" placeholder="+234..."></div>
-                    <div class="form-group"><label>Email</label><input type="text" id="cl-email" placeholder="email@example.com"></div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group"><label>Address</label><input type="text" id="cl-address" placeholder="Client address"></div>
-                    <div class="form-group"><label>Service Type</label>
-                        <select id="cl-service">
-                            <option>Fiber Optic / FTTH</option>
-                            <option>Network Infrastructure</option>
-                            <option>IoT / Smart Systems</option>
-                            <option>Web Development</option>
-                            <option>Branding / Marketing</option>
-                            <option>Telecoms Engineering</option>
-                            <option>Consulting</option>
-                            <option>Laptop / Hardware</option>
-                            <option>Other</option>
-                        </select>
-                    </div>
-                </div>
-                <button class="btn btn-primary btn-sm" onclick="addClient()"><i class="fas fa-plus"></i> Save Client</button>
-            </div>
-            <div class="admin-card">
-                <h3><i class="fas fa-users"></i> Client Directory</h3>
-                <div style="overflow-x:auto;">
-                    <table class="client-table">
-                        <thead><tr><th>#</th><th>Name</th><th>Contact</th><th>Phone</th><th>Email</th><th>Service</th><th></th></tr></thead>
-                        <tbody id="cl-tbody">
-                            <tr><td colspan="7"><div class="empty-state"><i class="fas fa-users"></i>No clients added yet</div></td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- ══ NOTES TAB ══ -->
-        <div class="tab-panel" id="tab-notes">
-            <div class="admin-card">
-                <h3><i class="fas fa-edit"></i> New Note / Memo</h3>
-                <div class="form-group"><label>Title</label><input type="text" id="note-title" placeholder="Note title or subject"></div>
-                <div class="form-group"><label>Content</label><textarea class="notes-area" id="note-body" placeholder="Write your memo, task, or note here..."></textarea></div>
-                <div class="action-row">
-                    <button class="btn btn-primary btn-sm" onclick="saveNote()"><i class="fas fa-save"></i> Save Note</button>
-                    <button class="btn btn-outline btn-sm" onclick="clearNote()"><i class="fas fa-trash"></i> Clear</button>
-                </div>
-            </div>
-            <div class="admin-card">
-                <h3><i class="fas fa-sticky-note"></i> Saved Notes</h3>
-                <div class="notes-list" id="notes-list">
-                    <div class="empty-state"><i class="fas fa-sticky-note"></i>No notes saved yet</div>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- ══ STORE MANAGER TAB ══ -->
-        <div class="tab-panel" id="tab-store">
-
-            <!-- Summary stats -->
-            <div class="card-grid-3" style="margin-bottom:24px;">
-                <div class="stat-mini"><div class="stat-mini-val" id="st-total">0</div><div class="stat-mini-label">Total Products</div></div>
-                <div class="stat-mini"><div class="stat-mini-val" id="st-instock">0</div><div class="stat-mini-label">In Stock</div></div>
-                <div class="stat-mini"><div class="stat-mini-val" id="st-soldout">0</div><div class="stat-mini-label">Sold Out</div></div>
-            </div>
-
-            <!-- Add / Edit Product Form -->
-            <div class="admin-card" id="product-form-card">
-                <h3 id="product-form-title"><i class="fas fa-plus-circle"></i> Add New Product</h3>
-                <input type="hidden" id="edit-product-id" value="">
-                <div class="form-row">
-                    <div class="form-group"><label>Brand</label>
-                        <select id="p-brand">
-                            <option>HP</option><option>Dell</option><option>Lenovo</option>
-                            <option>Apple</option><option>Asus</option><option>Acer</option>
-                            <option>Microsoft</option><option>Samsung</option><option>Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group"><label>Condition</label>
-                        <select id="p-condition">
-                            <option value="new">Brand New</option>
-                            <option value="uk-used">UK Used</option>
-                            <option value="refurb">Refurbished</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group"><label>Product Name</label>
-                    <input type="text" id="p-name" placeholder="e.g. HP EliteBook 840 G5">
-                </div>
-                <div class="form-row">
-                    <div class="form-group"><label>Price (₦)</label>
-                        <input type="number" id="p-price" placeholder="185000" min="0">
-                    </div>
-                    <div class="form-group"><label>Old / Crossed Price (₦) — optional</label>
-                        <input type="number" id="p-old-price" placeholder="Leave blank if none" min="0">
-                    </div>
-                </div>
-
-                <div class="form-group"><label>Specifications (one per line)</label>
-                    <textarea id="p-specs" placeholder="Intel Core i5-8th Gen&#10;8GB RAM · 256GB SSD&#10;14&quot; FHD Display&#10;Windows 11 Pro"></textarea>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group"><label>Stock Status</label>
-                        <select id="p-stock">
-                            <option value="true">In Stock</option>
-                            <option value="false">Sold Out</option>
-                        </select>
-                    </div>
-                    <div class="form-group"><label>Mark as Hot / Featured?</label>
-                        <select id="p-hot">
-                            <option value="false">No</option>
-                            <option value="true">Yes — Show Hot Badge</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group"><label>Product Image URL — optional</label>
-                    <input type="text" id="p-image" placeholder="https://... or leave blank for default laptop icon">
-                </div>
-
-                <div class="action-row">
-                    <button class="btn btn-primary btn-sm" onclick="saveProduct()"><i class="fas fa-save"></i> <span id="save-btn-label">Save Product</span></button>
-                    <button class="btn btn-outline btn-sm" onclick="cancelEdit()"><i class="fas fa-times"></i> Cancel</button>
-                    <button class="btn btn-outline btn-sm" style="margin-left:auto;" onclick="resetToDefaults()"><i class="fas fa-undo"></i> Reset to Defaults</button>
-                </div>
-            </div>
-
-            <!-- Product List -->
-            <div class="admin-card">
-                <h3><i class="fas fa-list"></i> Product Inventory</h3>
-                <div style="overflow-x:auto;">
-                    <table class="expense-table" id="store-product-table">
-                        <thead>
-                            <tr>
-                                <th style="width:5%">#</th>
-                                <th style="width:22%">Product</th>
-                                <th style="width:10%">Brand</th>
-                                <th style="width:10%">Condition</th>
-                                <th style="width:13%">Price</th>
-                                <th style="width:8%">Stock</th>
-                                <th style="width:8%">Hot</th>
-                                <th style="width:14%">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="store-product-tbody">
-                            <tr><td colspan="8"><div class="empty-state"><i class="fas fa-box-open"></i>No products yet</div></td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- ══ OVERVIEW TAB ══ -->
-        <div class="tab-panel" id="tab-overview">
-            <div class="card-grid-3" style="margin-bottom:24px;">
-                <div class="stat-mini"><div class="stat-mini-val" id="ov-clients">0</div><div class="stat-mini-label">Clients Saved</div></div>
-                <div class="stat-mini"><div class="stat-mini-val" id="ov-expenses">₦0</div><div class="stat-mini-label">Total Expenses</div></div>
-                <div class="stat-mini"><div class="stat-mini-val" id="ov-notes">0</div><div class="stat-mini-label">Notes Saved</div></div>
-            </div>
-            <div class="admin-card">
-                <h3><i class="fas fa-info-circle"></i> Quick Info</h3>
-                <p style="color:var(--text-secondary); font-size:0.9rem; line-height:1.8;">
-                    Welcome to your private admin dashboard, Dayo. Use the tabs above to:<br><br>
-                    <strong style="color:var(--cyan);">Invoice</strong> — Generate and print professional invoices for clients.<br>
-                    <strong style="color:var(--cyan);">Receipt</strong> — Issue payment receipts with transaction references.<br>
-                    <strong style="color:var(--cyan);">Expenses</strong> — Log and track all business expenses.<br>
-                    <strong style="color:var(--cyan);">Clients</strong> — Maintain a directory of your clients.<br>
-                    <strong style="color:var(--cyan);">Notes</strong> — Save memos, tasks, and operational notes.<br><br>
-                    All data is saved in your browser's local storage — it stays on your device only.
-                </p>
-            </div>
-        </div>
-
+    <!-- TAB NAV -->
+    <div class="tab-nav">
+      <button class="tab-btn active" data-tab="invoice"><i class="fas fa-file-invoice"></i> Invoice</button>
+      <button class="tab-btn" data-tab="receipt"><i class="fas fa-receipt"></i> Receipt</button>
+      <button class="tab-btn" data-tab="expenses"><i class="fas fa-chart-line"></i> Expenses</button>
+      <button class="tab-btn" data-tab="clients"><i class="fas fa-users"></i> Clients</button>
+      <button class="tab-btn" data-tab="notes"><i class="fas fa-sticky-note"></i> Notes</button>
+      <button class="tab-btn" data-tab="store"><i class="fas fa-store"></i> Store Manager</button>
+      <button class="tab-btn" data-tab="overview"><i class="fas fa-tachometer-alt"></i> Overview</button>
     </div>
+
+    <!-- ══ INVOICE ══ -->
+    <div class="tab-panel active" id="tab-invoice">
+      <div class="grid2">
+        <div>
+          <div class="card">
+            <h3><i class="fas fa-building"></i> Company Details</h3>
+            <div class="fg"><label>Company</label><input id="iv-co" value="Zion Netcom Solutions Limited"></div>
+            <div class="fg"><label>Address</label><input id="iv-addr" value="No 32 Benue Plaza, Waff Road, Kaduna"></div>
+            <div class="row2">
+              <div class="fg"><label>Phone</label><input id="iv-phone" value="+234 706 758 0599"></div>
+              <div class="fg"><label>Email</label><input id="iv-email" value="zionnetcomsolutionsltd@gmail.com"></div>
+            </div>
+          </div>
+          <div class="card">
+            <h3><i class="fas fa-user"></i> Client Details</h3>
+            <div class="fg"><label>Client Name</label><input id="iv-cn" placeholder="Client name or company"></div>
+            <div class="fg"><label>Client Address</label><input id="iv-ca" placeholder="Client address"></div>
+            <div class="row2">
+              <div class="fg"><label>Client Phone</label><input id="iv-cp" placeholder="+234..."></div>
+              <div class="fg"><label>Client Email</label><input id="iv-ce" placeholder="client@email.com"></div>
+            </div>
+          </div>
+          <div class="card">
+            <h3><i class="fas fa-calendar"></i> Invoice Info</h3>
+            <div class="row3">
+              <div class="fg"><label>Invoice No.</label><input id="iv-num" placeholder="ZN-001"></div>
+              <div class="fg"><label>Date</label><input type="date" id="iv-date"></div>
+              <div class="fg"><label>Due Date</label><input type="date" id="iv-due"></div>
+            </div>
+            <div class="row2">
+              <div class="fg"><label>Currency</label>
+                <select id="iv-cur"><option value="₦">₦ Naira</option><option value="$">$ USD</option><option value="€">€ EUR</option><option value="£">£ GBP</option></select>
+              </div>
+              <div class="fg"><label>VAT %</label><input type="number" id="iv-vat" value="0" min="0" max="100"></div>
+            </div>
+          </div>
+          <div class="card">
+            <h3><i class="fas fa-list"></i> Line Items</h3>
+            <table class="items-tbl">
+              <thead><tr><th style="width:40%">Description</th><th style="width:12%">Qty</th><th style="width:22%">Unit Price</th><th style="width:20%">Total</th><th style="width:6%"></th></tr></thead>
+              <tbody id="iv-rows">
+                <tr>
+                  <td><input type="text" placeholder="Service or item"></td>
+                  <td><input type="number" value="1" min="1"></td>
+                  <td><input type="number" value="0" min="0"></td>
+                  <td><input type="text" value="0.00" readonly style="color:var(--cyan);font-weight:600;"></td>
+                  <td><button class="del-row" onclick="delRow(this)"><i class="fas fa-times"></i></button></td>
+                </tr>
+              </tbody>
+            </table>
+            <button class="add-line" onclick="addInvRow()"><i class="fas fa-plus"></i> Add Line</button>
+            <div class="totals-box">
+              <div class="tot-row"><span class="tot-label">Subtotal</span><span id="iv-sub">₦0.00</span></div>
+              <div class="tot-row"><span class="tot-label">VAT (<span id="iv-vat-pct">0</span>%)</span><span id="iv-vat-amt">₦0.00</span></div>
+              <div class="tot-row grand"><span>TOTAL DUE</span><span id="iv-total">₦0.00</span></div>
+            </div>
+          </div>
+          <div class="card">
+            <h3><i class="fas fa-comment-alt"></i> Notes & Bank Details</h3>
+            <div class="fg"><label>Notes to Client</label><textarea id="iv-notes" placeholder="e.g. Payment due within 14 days. Thank you for your business."></textarea></div>
+            <div class="fg"><label>Bank Details (optional)</label><textarea id="iv-bank" placeholder="Bank Name:&#10;Account Name:&#10;Account Number:"></textarea></div>
+          </div>
+          <div class="actions">
+            <button class="btn btn-primary btn-sm" onclick="genInvoice()"><i class="fas fa-eye"></i> Preview</button>
+            <button class="btn btn-outline btn-sm" onclick="printDoc('iv')"><i class="fas fa-print"></i> Print / PDF</button>
+            <button class="btn btn-outline btn-sm" onclick="clearInvoice()"><i class="fas fa-trash"></i> Clear</button>
+          </div>
+        </div>
+        <div>
+          <div class="card" style="padding:0;overflow:hidden;">
+            <div style="padding:12px 18px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:0.68rem;color:var(--cyan);letter-spacing:2px;text-transform:uppercase;"><i class="fas fa-eye"></i> &nbsp;Preview</div>
+            <div class="preview-box"><iframe id="iv-frame" title="Invoice Preview"></iframe></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ RECEIPT ══ -->
+    <div class="tab-panel" id="tab-receipt">
+      <div class="grid2">
+        <div>
+          <div class="card">
+            <h3><i class="fas fa-store"></i> Issuer</h3>
+            <div class="fg"><label>Company</label><input id="rc-co" value="Zion Netcom Solutions Limited"></div>
+            <div class="fg"><label>Address</label><input id="rc-addr" value="No 32 Benue Plaza, Waff Road, Kaduna"></div>
+            <div class="row2">
+              <div class="fg"><label>Phone</label><input id="rc-phone" value="+234 706 758 0599"></div>
+              <div class="fg"><label>Email</label><input id="rc-email" value="zionnetcomsolutionsltd@gmail.com"></div>
+            </div>
+          </div>
+          <div class="card">
+            <h3><i class="fas fa-user-check"></i> Customer & Payment</h3>
+            <div class="row2">
+              <div class="fg"><label>Customer Name</label><input id="rc-name" placeholder="Customer name"></div>
+              <div class="fg"><label>Receipt No.</label><input id="rc-num" placeholder="RCT-001"></div>
+            </div>
+            <div class="row2">
+              <div class="fg"><label>Date</label><input type="date" id="rc-date"></div>
+              <div class="fg"><label>Payment Method</label>
+                <select id="rc-method"><option>Bank Transfer</option><option>Cash</option><option>POS</option><option>Opay</option><option>Palmpay</option><option>Cheque</option></select>
+              </div>
+            </div>
+            <div class="fg"><label>Reference / Transaction ID</label><input id="rc-ref" placeholder="TXN123456"></div>
+          </div>
+          <div class="card">
+            <h3><i class="fas fa-list"></i> Items</h3>
+            <table class="items-tbl">
+              <thead><tr><th style="width:44%">Description</th><th style="width:12%">Qty</th><th style="width:22%">Price</th><th style="width:22%">Total</th></tr></thead>
+              <tbody id="rc-rows">
+                <tr>
+                  <td><input type="text" placeholder="Item or service"></td>
+                  <td><input type="number" value="1" min="1"></td>
+                  <td><input type="number" value="0" min="0"></td>
+                  <td><input type="text" value="0.00" readonly style="color:var(--cyan);font-weight:600;"></td>
+                </tr>
+              </tbody>
+            </table>
+            <button class="add-line" onclick="addRecRow()"><i class="fas fa-plus"></i> Add Line</button>
+            <div class="totals-box" style="margin-top:10px;">
+              <div class="tot-row grand"><span>AMOUNT RECEIVED</span><span id="rc-total">₦0.00</span></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="fg"><label>Additional Note</label><textarea id="rc-note" placeholder="Thank you for your payment!"></textarea></div>
+          </div>
+          <div class="actions">
+            <button class="btn btn-primary btn-sm" onclick="genReceipt()"><i class="fas fa-eye"></i> Preview</button>
+            <button class="btn btn-outline btn-sm" onclick="printDoc('rc')"><i class="fas fa-print"></i> Print / PDF</button>
+          </div>
+        </div>
+        <div>
+          <div class="card" style="padding:0;overflow:hidden;">
+            <div style="padding:12px 18px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:0.68rem;color:var(--cyan);letter-spacing:2px;text-transform:uppercase;"><i class="fas fa-eye"></i> &nbsp;Preview</div>
+            <div class="preview-box"><iframe id="rc-frame" title="Receipt Preview"></iframe></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ EXPENSES ══ -->
+    <div class="tab-panel" id="tab-expenses">
+      <div class="card">
+        <h3><i class="fas fa-plus-circle"></i> Log Expense</h3>
+        <div class="row3">
+          <div class="fg"><label>Date</label><input type="date" id="ex-date"></div>
+          <div class="fg"><label>Category</label>
+            <select id="ex-cat"><option>Transport</option><option>Materials</option><option>Labour</option><option>Tools & Equipment</option><option>Software</option><option>Marketing</option><option>Utilities</option><option>Salaries</option><option>Miscellaneous</option></select>
+          </div>
+          <div class="fg"><label>Amount (₦)</label><input type="number" id="ex-amt" placeholder="0.00" min="0"></div>
+        </div>
+        <div class="row2">
+          <div class="fg"><label>Description</label><input id="ex-desc" placeholder="What was this for?"></div>
+          <div class="fg"><label>Status</label>
+            <select id="ex-status"><option value="paid">Paid</option><option value="pending">Pending</option><option value="reimbursed">Reimbursed</option></select>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="addExpense()"><i class="fas fa-plus"></i> Add Expense</button>
+      </div>
+      <div class="card">
+        <h3><i class="fas fa-chart-bar"></i> Expense Log</h3>
+        <div class="grid3" style="margin-bottom:20px;">
+          <div class="stat-sm"><div class="stat-val" id="ex-total-v">₦0</div><div class="stat-lbl">Total Spent</div></div>
+          <div class="stat-sm"><div class="stat-val" id="ex-count-v">0</div><div class="stat-lbl">Entries</div></div>
+          <div class="stat-sm"><div class="stat-val" id="ex-month-v">₦0</div><div class="stat-lbl">This Month</div></div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="data-tbl">
+            <thead><tr><th>Date</th><th>Category</th><th>Description</th><th>Amount</th><th>Status</th><th></th></tr></thead>
+            <tbody id="ex-body"><tr><td colspan="6"><div class="empty"><i class="fas fa-receipt"></i>No expenses yet</div></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ CLIENTS ══ -->
+    <div class="tab-panel" id="tab-clients">
+      <div class="card">
+        <h3><i class="fas fa-user-plus"></i> Add Client</h3>
+        <div class="row2">
+          <div class="fg"><label>Client / Company Name</label><input id="cl-name" placeholder="Company or person name"></div>
+          <div class="fg"><label>Contact Person</label><input id="cl-contact" placeholder="Contact person"></div>
+        </div>
+        <div class="row2">
+          <div class="fg"><label>Phone</label><input id="cl-phone" placeholder="+234..."></div>
+          <div class="fg"><label>Email</label><input id="cl-email" placeholder="email@example.com"></div>
+        </div>
+        <div class="row2">
+          <div class="fg"><label>Address</label><input id="cl-addr" placeholder="Client address"></div>
+          <div class="fg"><label>Service Type</label>
+            <select id="cl-svc"><option>Fiber Optic / FTTH</option><option>Network Infrastructure</option><option>IoT / Smart Systems</option><option>Web Development</option><option>Branding / Marketing</option><option>Telecoms Engineering</option><option>Consulting</option><option>Laptop / Hardware</option><option>Other</option></select>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="addClient()"><i class="fas fa-plus"></i> Save Client</button>
+      </div>
+      <div class="card">
+        <h3><i class="fas fa-users"></i> Client Directory</h3>
+        <div style="overflow-x:auto;">
+          <table class="data-tbl">
+            <thead><tr><th>#</th><th>Name</th><th>Contact</th><th>Phone</th><th>Email</th><th>Service</th><th></th></tr></thead>
+            <tbody id="cl-body"><tr><td colspan="7"><div class="empty"><i class="fas fa-users"></i>No clients yet</div></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ NOTES ══ -->
+    <div class="tab-panel" id="tab-notes">
+      <div class="card">
+        <h3><i class="fas fa-edit"></i> New Note / Memo</h3>
+        <div class="fg"><label>Title</label><input id="nt-title" placeholder="Note title or subject"></div>
+        <div class="fg"><label>Content</label><textarea id="nt-body" style="min-height:160px;" placeholder="Write your memo, task, or note..."></textarea></div>
+        <div class="actions">
+          <button class="btn btn-primary btn-sm" onclick="saveNote()"><i class="fas fa-save"></i> Save Note</button>
+          <button class="btn btn-outline btn-sm" onclick="clearNote()"><i class="fas fa-trash"></i> Clear</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3><i class="fas fa-sticky-note"></i> Saved Notes</h3>
+        <div id="notes-list"><div class="empty"><i class="fas fa-sticky-note"></i>No notes yet</div></div>
+      </div>
+    </div>
+
+    <!-- ══ STORE MANAGER ══ -->
+    <div class="tab-panel" id="tab-store">
+      <div class="grid3" style="margin-bottom:20px;">
+        <div class="stat-sm"><div class="stat-val" id="st-total">0</div><div class="stat-lbl">Total Products</div></div>
+        <div class="stat-sm"><div class="stat-val" id="st-instock">0</div><div class="stat-lbl">In Stock</div></div>
+        <div class="stat-sm"><div class="stat-val" id="st-soldout">0</div><div class="stat-lbl">Sold Out</div></div>
+      </div>
+      <div class="card" id="prod-form-card">
+        <h3 id="prod-form-title"><i class="fas fa-plus-circle"></i> Add New Product</h3>
+        <input type="hidden" id="p-edit-id">
+        <div class="row2">
+          <div class="fg"><label>Brand</label>
+            <select id="p-brand"><option>HP</option><option>Dell</option><option>Lenovo</option><option>Apple</option><option>Asus</option><option>Acer</option><option>Microsoft</option><option>Samsung</option><option>Other</option></select>
+          </div>
+          <div class="fg"><label>Condition</label>
+            <select id="p-cond"><option value="new">Brand New</option><option value="uk-used">UK Used</option><option value="refurb">Refurbished</option></select>
+          </div>
+        </div>
+        <div class="fg"><label>Product Name</label><input id="p-name" placeholder="e.g. HP EliteBook 840 G5"></div>
+        <div class="row2">
+          <div class="fg"><label>Selling Price (₦)</label><input type="number" id="p-price" placeholder="185000" min="0"></div>
+          <div class="fg"><label>Crossed / Old Price (₦) — optional</label><input type="number" id="p-oldprice" placeholder="Leave blank if none" min="0"></div>
+        </div>
+        <div class="fg"><label>Specifications — one per line</label>
+          <textarea id="p-specs" style="min-height:100px;" placeholder="Intel Core i5-8th Gen&#10;8GB RAM · 256GB SSD&#10;14&quot; FHD Display&#10;Windows 11 Pro"></textarea>
+        </div>
+        <div class="row2">
+          <div class="fg"><label>Stock Status</label>
+            <select id="p-stock"><option value="true">In Stock</option><option value="false">Sold Out</option></select>
+          </div>
+          <div class="fg"><label>Mark as Hot / Featured?</label>
+            <select id="p-hot"><option value="false">No</option><option value="true">Yes — Show Hot Badge</option></select>
+          </div>
+        </div>
+        <div class="fg"><label>Product Image URL — optional</label><input id="p-img" placeholder="https://... or leave blank for default icon"></div>
+        <div class="actions">
+          <button class="btn btn-primary btn-sm" onclick="saveProduct()"><i class="fas fa-save"></i> <span id="p-save-lbl">Save Product</span></button>
+          <button class="btn btn-outline btn-sm" onclick="cancelProdEdit()"><i class="fas fa-times"></i> Cancel</button>
+          <button class="btn btn-outline btn-sm" style="margin-left:auto;" onclick="resetStoreDefaults()"><i class="fas fa-undo"></i> Reset to Defaults</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3><i class="fas fa-list"></i> Product Inventory</h3>
+        <div style="overflow-x:auto;">
+          <table class="data-tbl" id="prod-tbl">
+            <thead><tr><th>#</th><th>Product</th><th>Brand</th><th>Condition</th><th>Price</th><th>Stock</th><th>Hot</th><th>Actions</th></tr></thead>
+            <tbody id="prod-body"><tr><td colspan="8"><div class="empty"><i class="fas fa-box-open"></i>No products yet</div></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ OVERVIEW ══ -->
+    <div class="tab-panel" id="tab-overview">
+      <div class="grid3" style="margin-bottom:20px;">
+        <div class="stat-sm"><div class="stat-val" id="ov-clients">0</div><div class="stat-lbl">Clients Saved</div></div>
+        <div class="stat-sm"><div class="stat-val" id="ov-expenses">₦0</div><div class="stat-lbl">Total Expenses</div></div>
+        <div class="stat-sm"><div class="stat-val" id="ov-notes">0</div><div class="stat-lbl">Notes Saved</div></div>
+      </div>
+      <div class="card">
+        <h3><i class="fas fa-info-circle"></i> Quick Reference</h3>
+        <p style="color:var(--text2);font-size:0.9rem;line-height:2;">
+          <strong style="color:var(--cyan);">Invoice</strong> — Generate and print professional invoices.<br>
+          <strong style="color:var(--cyan);">Receipt</strong> — Issue payment receipts with transaction reference.<br>
+          <strong style="color:var(--cyan);">Expenses</strong> — Log and track all business expenses.<br>
+          <strong style="color:var(--cyan);">Clients</strong> — Maintain a directory of all clients.<br>
+          <strong style="color:var(--cyan);">Notes</strong> — Save memos, tasks, and operational notes.<br>
+          <strong style="color:var(--cyan);">Store Manager</strong> — Add, edit, delete products on the store page.<br><br>
+          All data saves to this browser only (localStorage). No server required.
+        </p>
+      </div>
+    </div>
+
+  </div>
 </div>
 
-<!-- FOOTER -->
 <footer class="footer">
-    <div class="container">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <div class="logo" style="margin-bottom:16px;">
-                    <img src="zion.jpg" alt="Zion Netcom" style="height:40px; width:auto;">
-                    <div><div class="logo-text">ZION<span>NETCOM</span></div><div class="logo-sub">Solutions Limited</div></div>
-                </div>
-                <p>Engineering reliable digital infrastructure across Nigeria and Africa.</p>
-                <div class="data-readout" style="margin-top:16px;"><span class="indicator"></span><span>ALL SYSTEMS OPERATIONAL</span></div>
-            </div>
-            <div><h4>Navigation</h4><ul>
-                <li><a href="index.html">Home</a></li><li><a href="services.html">Solutions</a></li>
-                <li><a href="projects.html">Projects</a></li><li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li><li><a href="blog.html">Blog</a></li>
-                <li><a href="payment.html">Make Payment</a></li><li><a href="store.html">Store</a></li>
-            </ul></div>
-            <div><h4>Services</h4><ul>
-                <li><a href="services.html">Fiber Optic / FTTH</a></li><li><a href="services.html">Network Infrastructure</a></li>
-                <li><a href="services.html">IoT Systems</a></li><li><a href="services.html">Web Development</a></li>
-            </ul></div>
-            <div class="footer-contact"><h4>Contact</h4>
-                <p><i class="fas fa-map-marker-alt"></i> No 32 Benue Plaza, Waff Road, Kaduna</p>
-                <p><i class="fas fa-phone"></i> +234 706 758 0599</p>
-                <p><i class="fas fa-envelope"></i> zionnetcomsolutionsltd@gmail.com</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <span>© 2026 Zion Netcom Solutions Limited</span>
-            <span>Built with precision in Kaduna, Nigeria</span>
-        </div>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo" style="margin-bottom:14px;"><img src="zion.jpg" alt="Zion Netcom" style="height:38px;width:auto;"><div><div class="logo-name">ZION<span>NETCOM</span></div><div class="logo-sub">Solutions Limited</div></div></div>
+        <p>Engineering reliable digital infrastructure across Nigeria and Africa.</p>
+        <div class="readout" style="margin-top:14px;"><span class="indicator"></span><span>ALL SYSTEMS OPERATIONAL</span></div>
+      </div>
+      <div><h4>Navigation</h4><ul>
+        <li><a href="index.html">Home</a></li><li><a href="services.html">Solutions</a></li>
+        <li><a href="projects.html">Projects</a></li><li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li><li><a href="blog.html">Blog</a></li>
+        <li><a href="payment.html">Make Payment</a></li><li><a href="store.html">Store</a></li>
+      </ul></div>
+      <div><h4>Services</h4><ul>
+        <li><a href="services.html">Fiber Optic / FTTH</a></li><li><a href="services.html">Network Infrastructure</a></li>
+        <li><a href="services.html">IoT Systems</a></li><li><a href="services.html">Web Development</a></li>
+      </ul></div>
+      <div class="foot-contact"><h4>Contact</h4>
+        <p><i class="fas fa-map-marker-alt"></i> No 32 Benue Plaza, Waff Road, Kaduna</p>
+        <p><i class="fas fa-phone"></i> +234 706 758 0599</p>
+        <p><i class="fas fa-envelope"></i> zionnetcomsolutionsltd@gmail.com</p>
+      </div>
     </div>
+    <div class="foot-bottom">
+      <span>© 2026 Zion Netcom Solutions Limited</span>
+      <span>Built with precision in Kaduna, Nigeria</span>
+    </div>
+  </div>
 </footer>
 
+<div class="toast" id="toast"><i class="fas fa-check-circle" style="color:var(--green);margin-right:7px;"></i><span id="toast-msg"></span></div>
+
 <script>
-// ── TABS ──
-function switchTab(name) {
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+// ═══════════════════════════════════════════
+// TABS
+// ═══════════════════════════════════════════
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const name = this.dataset.tab;
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    this.classList.add('active');
     document.getElementById('tab-' + name).classList.add('active');
-    event.currentTarget.classList.add('active');
-    if (name === 'overview') updateOverview();
-}
-
-// ── MOBILE MENU ──
-const menuToggle = document.getElementById('menu-toggle');
-const menuIcon = document.getElementById('menu-icon');
-const navLinks = document.getElementById('nav-links');
-if (menuToggle) {
-    menuToggle.addEventListener('click', () => {
-        const isOpen = navLinks.classList.toggle('active');
-        menuIcon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
-    });
-}
-
-// ── THEME ──
-const themeToggle = document.getElementById('theme-toggle');
-const themeIcon = document.getElementById('theme-icon');
-function applyTheme(mode) {
-    if (mode === 'light') { document.body.classList.add('light-mode'); themeIcon.className = 'fas fa-moon'; }
-    else { document.body.classList.remove('light-mode'); themeIcon.className = 'fas fa-sun'; }
-    localStorage.setItem('zn-theme', mode);
-}
-const savedTheme = localStorage.getItem('zn-theme');
-if (savedTheme) applyTheme(savedTheme);
-if (themeToggle) themeToggle.addEventListener('click', () => {
-    applyTheme(document.body.classList.contains('light-mode') ? 'dark' : 'light');
+    if (name === 'overview') renderOverview();
+    if (name === 'store') renderProdTable();
+  });
 });
 
-// ── INIT DATES ──
-const today = new Date().toISOString().split('T')[0];
-const due = new Date(Date.now() + 14*86400000).toISOString().split('T')[0];
-document.getElementById('inv-date').value = today;
-document.getElementById('inv-due').value = due;
-document.getElementById('rec-date').value = today;
-document.getElementById('exp-date').value = today;
+// ═══════════════════════════════════════════
+// MOBILE MENU & THEME
+// ═══════════════════════════════════════════
+const menuBtn = document.getElementById('menuBtn');
+const menuIcon = document.getElementById('menuIcon');
+const navMenu = document.getElementById('navMenu');
+menuBtn.addEventListener('click', () => {
+  const open = navMenu.classList.toggle('open');
+  menuIcon.className = open ? 'fas fa-times' : 'fas fa-bars';
+});
+navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  navMenu.classList.remove('open'); menuIcon.className = 'fas fa-bars';
+}));
 
-// Auto invoice number
-const invCount = (parseInt(localStorage.getItem('zn-inv-count') || '0') + 1).toString().padStart(3, '0');
-document.getElementById('inv-number').value = 'ZN-INV-' + invCount;
-const recCount = (parseInt(localStorage.getItem('zn-rec-count') || '0') + 1).toString().padStart(3, '0');
-document.getElementById('rec-number').value = 'ZN-RCT-' + recCount;
-
-// ── INVOICE CALC ──
-function calcInvoice() {
-    const rows = document.querySelectorAll('#inv-items tr');
-    let sub = 0;
-    rows.forEach(r => {
-        const inputs = r.querySelectorAll('input');
-        const qty = parseFloat(inputs[1]?.value) || 0;
-        const price = parseFloat(inputs[2]?.value) || 0;
-        const total = qty * price;
-        if (inputs[3]) inputs[3].value = total.toFixed(2);
-        sub += total;
-    });
-    const vatPct = parseFloat(document.getElementById('inv-vat').value) || 0;
-    const vatAmt = sub * vatPct / 100;
-    const cur = document.getElementById('inv-currency').value;
-    document.getElementById('inv-subtotal').textContent = cur + sub.toLocaleString('en-NG', {minimumFractionDigits:2});
-    document.getElementById('inv-vat-amt').textContent = cur + vatAmt.toLocaleString('en-NG', {minimumFractionDigits:2});
-    document.getElementById('inv-total').textContent = cur + (sub + vatAmt).toLocaleString('en-NG', {minimumFractionDigits:2});
-    document.getElementById('vat-pct').textContent = vatPct;
+const themeBtn = document.getElementById('themeBtn');
+const themeIcon = document.getElementById('themeIcon');
+function applyTheme(t) {
+  document.body.classList.toggle('light', t === 'light');
+  themeIcon.className = t === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+  localStorage.setItem('zn-theme', t);
 }
-document.getElementById('inv-vat').addEventListener('input', calcInvoice);
-document.getElementById('inv-currency').addEventListener('change', calcInvoice);
+const saved = localStorage.getItem('zn-theme');
+if (saved) applyTheme(saved);
+themeBtn.addEventListener('click', () => applyTheme(document.body.classList.contains('light') ? 'dark' : 'light'));
+
+// ═══════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════
+function toast(msg, ok = true) {
+  const t = document.getElementById('toast');
+  const ic = t.querySelector('i');
+  ic.style.color = ok ? 'var(--green)' : 'var(--yellow)';
+  ic.className = ok ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ═══════════════════════════════════════════
+// INIT DATES & AUTO NUMBERS
+// ═══════════════════════════════════════════
+const today = new Date().toISOString().split('T')[0];
+const due14 = new Date(Date.now() + 14*86400000).toISOString().split('T')[0];
+document.getElementById('iv-date').value = today;
+document.getElementById('iv-due').value = due14;
+document.getElementById('rc-date').value = today;
+document.getElementById('ex-date').value = today;
+const iNum = String(parseInt(localStorage.getItem('zn-inv-n') || '0') + 1).padStart(3,'0');
+document.getElementById('iv-num').value = 'ZN-INV-' + iNum;
+const rNum = String(parseInt(localStorage.getItem('zn-rec-n') || '0') + 1).padStart(3,'0');
+document.getElementById('rc-num').value = 'ZN-RCT-' + rNum;
+
+// ═══════════════════════════════════════════
+// INVOICE
+// ═══════════════════════════════════════════
+function calcInv() {
+  const rows = document.querySelectorAll('#iv-rows tr');
+  let sub = 0;
+  rows.forEach(r => {
+    const inp = r.querySelectorAll('input');
+    const qty = parseFloat(inp[1]?.value) || 0;
+    const pr  = parseFloat(inp[2]?.value) || 0;
+    const tot = qty * pr;
+    if (inp[3]) inp[3].value = tot.toFixed(2);
+    sub += tot;
+  });
+  const vat = parseFloat(document.getElementById('iv-vat').value) || 0;
+  const vatA = sub * vat / 100;
+  const cur = document.getElementById('iv-cur').value;
+  const fmt = n => cur + n.toLocaleString('en-NG', {minimumFractionDigits:2});
+  document.getElementById('iv-sub').textContent = fmt(sub);
+  document.getElementById('iv-vat-amt').textContent = fmt(vatA);
+  document.getElementById('iv-total').textContent = fmt(sub + vatA);
+  document.getElementById('iv-vat-pct').textContent = vat;
+}
+document.getElementById('iv-rows').addEventListener('input', calcInv);
+document.getElementById('iv-vat').addEventListener('input', calcInv);
+document.getElementById('iv-cur').addEventListener('change', calcInv);
 
 function addInvRow() {
-    const tbody = document.getElementById('inv-items');
-    const tr = document.createElement('tr');
-    tr.innerHTML = `<td><input type="text" placeholder="Description" oninput="calcInvoice()"></td>
-        <td><input type="number" value="1" min="1" oninput="calcInvoice()"></td>
-        <td><input type="number" value="0" min="0" oninput="calcInvoice()"></td>
-        <td><input type="text" value="0.00" readonly style="color:var(--cyan);font-weight:600;"></td>
-        <td><button class="remove-row" onclick="removeRow(this)"><i class="fas fa-times"></i></button></td>`;
-    tbody.appendChild(tr);
+  const tb = document.getElementById('iv-rows');
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td><input type="text" placeholder="Description"></td>
+    <td><input type="number" value="1" min="1"></td>
+    <td><input type="number" value="0" min="0"></td>
+    <td><input type="text" value="0.00" readonly style="color:var(--cyan);font-weight:600;"></td>
+    <td><button class="del-row" onclick="delRow(this)"><i class="fas fa-times"></i></button></td>`;
+  tb.appendChild(tr);
 }
-
-function removeRow(btn) {
-    btn.closest('tr').remove();
-    calcInvoice();
-}
-
 function addRecRow() {
-    const tbody = document.getElementById('rec-items');
-    const tr = document.createElement('tr');
-    tr.innerHTML = `<td><input type="text" placeholder="Item / Service" oninput="calcReceipt()"></td>
-        <td><input type="number" value="1" min="1" oninput="calcReceipt()"></td>
-        <td><input type="number" value="0" min="0" oninput="calcReceipt()"></td>
-        <td><input type="text" value="0.00" readonly style="color:var(--cyan);font-weight:600;"></td>`;
-    tbody.appendChild(tr);
+  const tb = document.getElementById('rc-rows');
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td><input type="text" placeholder="Item or service"></td>
+    <td><input type="number" value="1" min="1"></td>
+    <td><input type="number" value="0" min="0"></td>
+    <td><input type="text" value="0.00" readonly style="color:var(--cyan);font-weight:600;"></td>`;
+  tb.appendChild(tr);
+}
+function delRow(btn) { btn.closest('tr').remove(); calcInv(); }
+
+document.getElementById('rc-rows').addEventListener('input', calcRec);
+function calcRec() {
+  const rows = document.querySelectorAll('#rc-rows tr');
+  let tot = 0;
+  rows.forEach(r => {
+    const inp = r.querySelectorAll('input');
+    const t = (parseFloat(inp[1]?.value)||0) * (parseFloat(inp[2]?.value)||0);
+    if (inp[3]) inp[3].value = t.toFixed(2);
+    tot += t;
+  });
+  document.getElementById('rc-total').textContent = '₦' + tot.toLocaleString('en-NG',{minimumFractionDigits:2});
 }
 
-function calcReceipt() {
-    const rows = document.querySelectorAll('#rec-items tr');
-    let total = 0;
-    rows.forEach(r => {
-        const inputs = r.querySelectorAll('input');
-        const qty = parseFloat(inputs[1]?.value) || 0;
-        const price = parseFloat(inputs[2]?.value) || 0;
-        const t = qty * price;
-        if (inputs[3]) inputs[3].value = t.toFixed(2);
-        total += t;
-    });
-    document.getElementById('rec-total').textContent = '₦' + total.toLocaleString('en-NG', {minimumFractionDigits:2});
+// ── logo & signature helpers ──
+function getLogoTag(h='52px') {
+  return `<img src="zion.jpg" alt="Zion Netcom" style="height:${h};width:auto;display:block;" onerror="this.style.display='none'">`;
+}
+function getSigTag() {
+  return `<img src="signature.png" alt="Authorised Signature" style="height:48px;width:auto;display:block;margin-bottom:4px;" onerror="this.style.display='none'">`;
 }
 
-// ── GENERATE INVOICE ──
-function generateInvoice() {
-    const cur = document.getElementById('inv-currency').value;
-    const rows = document.querySelectorAll('#inv-items tr');
-    let itemRows = '';
-    let sub = 0;
-    rows.forEach(r => {
-        const inputs = r.querySelectorAll('input');
-        const desc = inputs[0]?.value || '';
-        const qty = parseFloat(inputs[1]?.value) || 0;
-        const price = parseFloat(inputs[2]?.value) || 0;
-        const total = qty * price;
-        sub += total;
-        itemRows += `<tr><td>${desc}</td><td style="text-align:center">${qty}</td>
-            <td style="text-align:right">${cur}${price.toLocaleString('en-NG',{minimumFractionDigits:2})}</td>
-            <td style="text-align:right">${cur}${total.toLocaleString('en-NG',{minimumFractionDigits:2})}</td></tr>`;
-    });
-    const vatPct = parseFloat(document.getElementById('inv-vat').value) || 0;
-    const vatAmt = sub * vatPct / 100;
-    const grandTotal = sub + vatAmt;
+let _ivDoc = '', _rcDoc = '';
+function genInvoice() {
+  const cur = document.getElementById('iv-cur').value;
+  const rows = document.querySelectorAll('#iv-rows tr');
+  let rows_html = '', sub = 0;
+  rows.forEach(r => {
+    const inp = r.querySelectorAll('input');
+    const desc = inp[0]?.value||'';
+    const qty  = parseFloat(inp[1]?.value)||0;
+    const pr   = parseFloat(inp[2]?.value)||0;
+    const tot  = qty*pr; sub += tot;
+    rows_html += `<tr><td>${desc}</td><td style="text-align:center">${qty}</td>
+      <td style="text-align:right">${cur}${pr.toLocaleString('en-NG',{minimumFractionDigits:2})}</td>
+      <td style="text-align:right">${cur}${tot.toLocaleString('en-NG',{minimumFractionDigits:2})}</td></tr>`;
+  });
+  const vat = parseFloat(document.getElementById('iv-vat').value)||0;
+  const vatA = sub*vat/100;
+  const grand = sub+vatA;
+  const logo = getLogoTag('52px');
+  const sig  = getSigTag();
 
-    const html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
-    <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; color: #1a1a2e; font-size: 13px; padding: 40px; background: white; }
-        .header-bar { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:40px; padding-bottom:24px; border-bottom:3px solid #38B6FF; }
-        .company-name { font-size:22px; font-weight:800; color:#1a1a2e; letter-spacing:-0.5px; }
-        .company-name span { color:#38B6FF; }
-        .company-info { font-size:11.5px; color:#555; margin-top:8px; line-height:1.8; }
-        .inv-label { font-size:32px; font-weight:800; color:#38B6FF; letter-spacing:-1px; text-align:right; }
-        .inv-meta { font-size:11px; color:#888; margin-top:6px; text-align:right; line-height:2; }
-        .inv-meta strong { color:#1a1a2e; }
-        .parties { display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-bottom:32px; }
-        .party-label { font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:#38B6FF; margin-bottom:8px; }
-        .party-name { font-size:15px; font-weight:700; color:#1a1a2e; margin-bottom:4px; }
-        .party-info { font-size:11.5px; color:#555; line-height:1.8; }
-        table { width:100%; border-collapse:collapse; margin-bottom:24px; }
-        thead th { background:#38B6FF; color:white; padding:10px 14px; text-align:left; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
-        tbody tr:nth-child(even) { background:#f5f9ff; }
-        tbody td { padding:10px 14px; border-bottom:1px solid #e8eef5; font-size:12.5px; }
-        .totals { margin-left:auto; width:280px; }
-        .totals-row { display:flex; justify-content:space-between; padding:6px 0; font-size:12.5px; color:#555; }
-        .totals-row.grand { font-size:16px; font-weight:800; color:#38B6FF; border-top:2px solid #38B6FF; margin-top:8px; padding-top:10px; }
-        .notes-section { margin-top:32px; padding:16px; background:#f5f9ff; border-left:4px solid #38B6FF; border-radius:0 6px 6px 0; font-size:12px; color:#555; line-height:1.8; }
-        .bank-section { margin-top:16px; padding:14px; border:1px solid #dde8f5; border-radius:6px; font-size:12px; color:#555; line-height:1.8; }
-        .footer-note { margin-top:32px; text-align:center; font-size:11px; color:#aaa; padding-top:16px; border-top:1px solid #eee; }
-        .status-badge { display:inline-block; background:#38B6FF; color:white; padding:4px 14px; border-radius:20px; font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; }
-    </style></head><body>
-    <div class="header-bar">
-        <div>
-            <div class="company-name">ZION<span>NETCOM</span></div>
-            <div style="font-size:10px;color:#888;letter-spacing:2px;text-transform:uppercase;margin-top:2px;">Solutions Limited</div>
-            <div class="company-info">
-                ${document.getElementById('inv-address').value}<br>
-                ${document.getElementById('inv-phone').value} | ${document.getElementById('inv-email').value}
-            </div>
-        </div>
-        <div>
-            <div class="inv-label">INVOICE</div>
-            <div class="inv-meta">
-                No: <strong>${document.getElementById('inv-number').value}</strong><br>
-                Date: <strong>${document.getElementById('inv-date').value}</strong><br>
-                Due: <strong>${document.getElementById('inv-due').value}</strong><br>
-                <span class="status-badge">UNPAID</span>
-            </div>
-        </div>
+  _ivDoc = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Segoe UI',Arial,sans-serif;color:#1a1a2e;font-size:13px;padding:44px;background:#fff;}
+    /* HEADER */
+    .hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;padding-bottom:18px;border-bottom:3px solid #38B6FF;}
+    .brand{display:flex;align-items:center;gap:14px;}
+    .co-text .co-name{font-size:22px;font-weight:800;letter-spacing:-0.5px;}
+    .co-text .co-name span{color:#38B6FF;}
+    .co-text .co-sub{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:#aaa;margin-top:2px;}
+    .co-text .co-info{font-size:11px;color:#666;margin-top:8px;line-height:1.9;}
+    .inv-right{text-align:right;}
+    .inv-lbl{font-size:34px;font-weight:900;color:#38B6FF;letter-spacing:-1.5px;}
+    .inv-meta{font-size:11px;color:#888;margin-top:6px;line-height:2.2;}
+    .inv-meta strong{color:#1a1a2e;}
+    .status-pill{display:inline-block;background:#38B6FF;color:#fff;padding:3px 14px;border-radius:20px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
+    /* PARTIES */
+    .parties{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:28px;padding:18px;background:#f5f9ff;border-radius:6px;}
+    .p-lbl{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#38B6FF;margin-bottom:7px;}
+    .p-name{font-size:14px;font-weight:700;color:#1a1a2e;margin-bottom:4px;}
+    .p-info{font-size:11px;color:#555;line-height:1.9;}
+    /* TABLE */
+    table{width:100%;border-collapse:collapse;margin-bottom:20px;}
+    thead th{background:#1a1a2e;color:#fff;padding:10px 13px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+    thead th:first-child{border-left:4px solid #38B6FF;}
+    tbody tr:nth-child(even){background:#f8fbff;}
+    tbody td{padding:10px 13px;border-bottom:1px solid #e8eef5;font-size:12px;}
+    /* TOTALS */
+    .totals-wrap{display:flex;justify-content:flex-end;margin-bottom:28px;}
+    .totals{width:270px;}
+    .tr{display:flex;justify-content:space-between;padding:5px 0;font-size:12px;color:#555;}
+    .tr.g{font-size:16px;font-weight:800;color:#fff;background:#38B6FF;padding:10px 14px;border-radius:5px;margin-top:8px;}
+    /* NOTES / BANK */
+    .notes{margin-bottom:14px;padding:14px;background:#f5f9ff;border-left:4px solid #38B6FF;border-radius:0 5px 5px 0;font-size:12px;color:#555;line-height:1.9;}
+    .bank{padding:13px;border:1px solid #d8e8f5;border-radius:5px;font-size:12px;color:#555;line-height:1.9;margin-bottom:20px;}
+    /* SIGNATURE */
+    .sig-section{display:flex;justify-content:flex-end;margin-top:28px;}
+    .sig-box{text-align:center;min-width:180px;}
+    .sig-line{border-top:1px solid #1a1a2e;padding-top:6px;margin-top:4px;font-size:10px;color:#555;font-weight:600;letter-spacing:1px;}
+    /* FOOTER */
+    .doc-foot{margin-top:28px;text-align:center;font-size:10.5px;color:#aaa;padding-top:14px;border-top:1px solid #eee;}
+    @media print{body{padding:24px;}@page{margin:10mm;}}
+  </style></head><body>
+
+  <div class="hdr">
+    <div class="brand">
+      ${logo}
+      <div class="co-text">
+        <div class="co-name">ZION<span>NETCOM</span></div>
+        <div class="co-sub">Solutions Limited</div>
+        <div class="co-info">${document.getElementById('iv-addr').value}<br>${document.getElementById('iv-phone').value}<br>${document.getElementById('iv-email').value}</div>
+      </div>
     </div>
-    <div class="parties">
-        <div>
-            <div class="party-label">Billed From</div>
-            <div class="party-name">${document.getElementById('inv-company').value}</div>
-            <div class="party-info">${document.getElementById('inv-address').value}<br>${document.getElementById('inv-phone').value}<br>${document.getElementById('inv-email').value}</div>
-        </div>
-        <div>
-            <div class="party-label">Billed To</div>
-            <div class="party-name">${document.getElementById('inv-client-name').value || '—'}</div>
-            <div class="party-info">${document.getElementById('inv-client-addr').value || ''}<br>${document.getElementById('inv-client-phone').value || ''}<br>${document.getElementById('inv-client-email').value || ''}</div>
-        </div>
+    <div class="inv-right">
+      <div class="inv-lbl">INVOICE</div>
+      <div class="inv-meta">
+        No:&nbsp; <strong>${document.getElementById('iv-num').value}</strong><br>
+        Date:&nbsp; <strong>${document.getElementById('iv-date').value}</strong><br>
+        Due:&nbsp; <strong>${document.getElementById('iv-due').value}</strong><br>
+        <span class="status-pill">UNPAID</span>
+      </div>
     </div>
-    <table><thead><tr><th>Description</th><th>Qty</th><th style="text-align:right">Unit Price</th><th style="text-align:right">Total</th></tr></thead>
-    <tbody>${itemRows}</tbody></table>
+  </div>
+
+  <div class="parties">
+    <div>
+      <div class="p-lbl">Billed From</div>
+      <div class="p-name">${document.getElementById('iv-co').value}</div>
+      <div class="p-info">${document.getElementById('iv-addr').value}<br>${document.getElementById('iv-phone').value}<br>${document.getElementById('iv-email').value}</div>
+    </div>
+    <div>
+      <div class="p-lbl">Billed To</div>
+      <div class="p-name">${document.getElementById('iv-cn').value||'—'}</div>
+      <div class="p-info">${document.getElementById('iv-ca').value||''}<br>${document.getElementById('iv-cp').value||''}<br>${document.getElementById('iv-ce').value||''}</div>
+    </div>
+  </div>
+
+  <table>
+    <thead><tr><th>Description</th><th style="text-align:center">Qty</th><th style="text-align:right">Unit Price</th><th style="text-align:right">Total</th></tr></thead>
+    <tbody>${rows_html}</tbody>
+  </table>
+
+  <div class="totals-wrap">
     <div class="totals">
-        <div class="totals-row"><span>Subtotal</span><span>${cur}${sub.toLocaleString('en-NG',{minimumFractionDigits:2})}</span></div>
-        <div class="totals-row"><span>VAT (${vatPct}%)</span><span>${cur}${vatAmt.toLocaleString('en-NG',{minimumFractionDigits:2})}</span></div>
-        <div class="totals-row grand"><span>TOTAL DUE</span><span>${cur}${grandTotal.toLocaleString('en-NG',{minimumFractionDigits:2})}</span></div>
+      <div class="tr"><span>Subtotal</span><span>${cur}${sub.toLocaleString('en-NG',{minimumFractionDigits:2})}</span></div>
+      <div class="tr"><span>VAT (${vat}%)</span><span>${cur}${vatA.toLocaleString('en-NG',{minimumFractionDigits:2})}</span></div>
+      <div class="tr g"><span>TOTAL DUE</span><span>${cur}${grand.toLocaleString('en-NG',{minimumFractionDigits:2})}</span></div>
     </div>
-    ${document.getElementById('inv-notes').value ? `<div class="notes-section"><strong>Notes:</strong><br>${document.getElementById('inv-notes').value.replace(/\n/g,'<br>')}</div>` : ''}
-    ${document.getElementById('inv-bank').value ? `<div class="bank-section"><strong>Payment Details:</strong><br>${document.getElementById('inv-bank').value.replace(/\n/g,'<br>')}</div>` : ''}
-    <div class="footer-note">Thank you for your business — Zion Netcom Solutions Limited</div>
-    </body></html>`;
+  </div>
 
-    const iframe = document.getElementById('doc-preview');
-    iframe.srcdoc = html;
-    localStorage.setItem('zn-current-doc', html);
-    const n = parseInt(localStorage.getItem('zn-inv-count') || '0') + 1;
-    localStorage.setItem('zn-inv-count', n);
-}
+  ${document.getElementById('iv-notes').value ? `<div class="notes"><strong>Notes:</strong><br>${document.getElementById('iv-notes').value.replace(/\n/g,'<br>')}</div>` : ''}
+  ${document.getElementById('iv-bank').value  ? `<div class="bank"><strong>Payment Details:</strong><br>${document.getElementById('iv-bank').value.replace(/\n/g,'<br>')}</div>` : ''}
 
-// ── GENERATE RECEIPT ──
-function generateReceipt() {
-    const rows = document.querySelectorAll('#rec-items tr');
-    let itemRows = '';
-    let total = 0;
-    rows.forEach(r => {
-        const inputs = r.querySelectorAll('input');
-        const desc = inputs[0]?.value || '';
-        const qty = parseFloat(inputs[1]?.value) || 0;
-        const price = parseFloat(inputs[2]?.value) || 0;
-        const t = qty * price;
-        total += t;
-        itemRows += `<tr><td>${desc}</td><td style="text-align:center">${qty}</td>
-            <td style="text-align:right">₦${price.toLocaleString('en-NG',{minimumFractionDigits:2})}</td>
-            <td style="text-align:right">₦${t.toLocaleString('en-NG',{minimumFractionDigits:2})}</td></tr>`;
-    });
-
-    const html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
-    <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; color:#1a1a2e; font-size:13px; background:white; }
-        .receipt-wrap { max-width:480px; margin:0 auto; padding:32px; border:2px solid #38B6FF; border-radius:8px; }
-        .rec-header { text-align:center; padding-bottom:20px; border-bottom:2px dashed #38B6FF; margin-bottom:20px; }
-        .rec-company { font-size:20px; font-weight:800; color:#1a1a2e; }
-        .rec-company span { color:#38B6FF; }
-        .rec-sub { font-size:10px; letter-spacing:2px; color:#888; text-transform:uppercase; margin-top:2px; }
-        .rec-address { font-size:11px; color:#666; margin-top:8px; line-height:1.6; }
-        .rec-title { font-size:28px; font-weight:900; letter-spacing:3px; text-transform:uppercase; color:#38B6FF; margin-top:16px; }
-        .meta-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:20px; }
-        .meta-item label { font-size:9px; color:#aaa; text-transform:uppercase; letter-spacing:2px; display:block; }
-        .meta-item span { font-size:13px; font-weight:700; color:#1a1a2e; }
-        table { width:100%; border-collapse:collapse; margin-bottom:16px; }
-        thead th { background:#38B6FF; color:white; padding:8px 10px; font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; text-align:left; }
-        tbody td { padding:8px 10px; border-bottom:1px solid #eee; font-size:12px; }
-        .total-row { display:flex; justify-content:space-between; align-items:center; background:#38B6FF; color:white; padding:12px 10px; border-radius:6px; font-size:16px; font-weight:800; letter-spacing:1px; }
-        .note-area { margin-top:16px; text-align:center; font-size:11.5px; color:#666; padding-top:16px; border-top:2px dashed #38B6FF; }
-        .stamp { display:inline-block; border:3px solid #22c55e; color:#22c55e; font-size:18px; font-weight:900; letter-spacing:3px; padding:4px 16px; border-radius:4px; transform:rotate(-5deg); margin-top:12px; }
-    </style></head><body>
-    <div class="receipt-wrap">
-        <div class="rec-header">
-            <div class="rec-company">ZION<span>NETCOM</span></div>
-            <div class="rec-sub">Solutions Limited</div>
-            <div class="rec-address">${document.getElementById('rec-address').value}<br>${document.getElementById('rec-phone').value} | ${document.getElementById('rec-email').value}</div>
-            <div class="rec-title">RECEIPT</div>
-        </div>
-        <div class="meta-grid">
-            <div class="meta-item"><label>Receipt No.</label><span>${document.getElementById('rec-number').value}</span></div>
-            <div class="meta-item"><label>Date</label><span>${document.getElementById('rec-date').value}</span></div>
-            <div class="meta-item"><label>Customer</label><span>${document.getElementById('rec-customer').value || '—'}</span></div>
-            <div class="meta-item"><label>Payment Via</label><span>${document.getElementById('rec-method').value}</span></div>
-            <div class="meta-item" style="grid-column:1/-1"><label>Transaction Ref.</label><span>${document.getElementById('rec-ref').value || 'N/A'}</span></div>
-        </div>
-        <table><thead><tr><th>Item</th><th>Qty</th><th style="text-align:right">Price</th><th style="text-align:right">Total</th></tr></thead>
-        <tbody>${itemRows}</tbody></table>
-        <div class="total-row"><span>AMOUNT RECEIVED</span><span>₦${total.toLocaleString('en-NG',{minimumFractionDigits:2})}</span></div>
-        <div class="note-area">
-            ${document.getElementById('rec-note').value || 'Thank you for your payment!'}<br>
-            <div class="stamp">PAID</div>
-        </div>
+  <div class="sig-section">
+    <div class="sig-box">
+      ${sig}
+      <div class="sig-line">Authorised Signatory</div>
+      <div style="font-size:10px;color:#888;margin-top:3px;">Zion Netcom Solutions Limited</div>
     </div>
-    </body></html>`;
+  </div>
 
-    const iframe = document.getElementById('doc-preview-rec');
-    iframe.srcdoc = html;
-    localStorage.setItem('zn-current-doc', html);
-    const n = parseInt(localStorage.getItem('zn-rec-count') || '0') + 1;
-    localStorage.setItem('zn-rec-count', n);
+  <div class="doc-foot">This invoice was generated by Zion Netcom Solutions Limited &nbsp;|&nbsp; No 32 Benue Plaza, Waff Road, Kaduna &nbsp;|&nbsp; zionnetcomsolutionsltd@gmail.com</div>
+  </body></html>`;
+
+  document.getElementById('iv-frame').srcdoc = _ivDoc;
+  localStorage.setItem('zn-inv-n', parseInt(localStorage.getItem('zn-inv-n')||'0')+1);
 }
 
-function printDoc() {
-    const doc = localStorage.getItem('zn-current-doc');
-    if (!doc) { alert('Please preview first.'); return; }
-    const w = window.open('', '_blank');
-    w.document.write(doc);
-    w.document.close();
-    setTimeout(() => w.print(), 600);
+function genReceipt() {
+  const rows = document.querySelectorAll('#rc-rows tr');
+  let rows_html = '', tot = 0;
+  rows.forEach(r => {
+    const inp = r.querySelectorAll('input');
+    const desc=inp[0]?.value||''; const qty=parseFloat(inp[1]?.value)||0; const pr=parseFloat(inp[2]?.value)||0; const t=qty*pr; tot+=t;
+    rows_html += `<tr><td>${desc}</td><td style="text-align:center">${qty}</td>
+      <td style="text-align:right">₦${pr.toLocaleString('en-NG',{minimumFractionDigits:2})}</td>
+      <td style="text-align:right">₦${t.toLocaleString('en-NG',{minimumFractionDigits:2})}</td></tr>`;
+  });
+  const logo = getLogoTag('44px');
+  const sig  = getSigTag();
+
+  _rcDoc = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Segoe UI',Arial,sans-serif;color:#1a1a2e;font-size:13px;background:#fff;}
+    .page{max-width:480px;margin:28px auto;padding:28px;border:2px solid #38B6FF;border-radius:8px;}
+    /* HEADER */
+    .hdr{text-align:center;padding-bottom:16px;border-bottom:2px dashed #38B6FF;margin-bottom:16px;}
+    .logo-row{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:8px;}
+    .co{font-size:20px;font-weight:800;}.co span{color:#38B6FF;}
+    .co-sub{font-size:9px;letter-spacing:2px;color:#aaa;text-transform:uppercase;}
+    .addr{font-size:10px;color:#777;margin-top:6px;line-height:1.7;}
+    .rec-title{font-size:28px;font-weight:900;letter-spacing:4px;text-transform:uppercase;color:#38B6FF;margin-top:12px;}
+    /* META */
+    .meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;padding:12px;background:#f5f9ff;border-radius:6px;}
+    .mi label{font-size:9px;color:#aaa;text-transform:uppercase;letter-spacing:2px;display:block;margin-bottom:2px;}
+    .mi span{font-size:12px;font-weight:700;color:#1a1a2e;}
+    .mi.full{grid-column:1/-1;}
+    /* TABLE */
+    table{width:100%;border-collapse:collapse;margin-bottom:14px;}
+    thead th{background:#1a1a2e;color:#fff;padding:8px 10px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-align:left;}
+    thead th:first-child{border-left:3px solid #38B6FF;}
+    tbody td{padding:8px 10px;border-bottom:1px solid #eee;font-size:11.5px;}
+    tbody tr:nth-child(even){background:#f8fbff;}
+    /* TOTAL */
+    .total-bar{display:flex;justify-content:space-between;align-items:center;background:#38B6FF;color:#fff;padding:11px 10px;border-radius:5px;font-size:15px;font-weight:800;letter-spacing:1px;margin-bottom:16px;}
+    /* SIGNATURE */
+    .sig-row{display:flex;justify-content:space-between;align-items:flex-end;margin-top:16px;padding-top:14px;border-top:2px dashed #38B6FF;}
+    .sig-note{font-size:11px;color:#666;max-width:52%;}
+    .sig-box{text-align:center;}
+    .sig-line{border-top:1px solid #1a1a2e;padding-top:5px;font-size:10px;color:#555;font-weight:600;letter-spacing:1px;margin-top:4px;}
+    /* STAMP */
+    .stamp-wrap{text-align:center;margin:10px 0 6px;}
+    .stamp{display:inline-block;border:3px solid #22c55e;color:#22c55e;font-size:18px;font-weight:900;letter-spacing:4px;padding:4px 16px;border-radius:3px;transform:rotate(-7deg);}
+    @media print{body{padding:0;}@page{margin:5mm;}}
+  </style></head><body>
+  <div class="page">
+    <div class="hdr">
+      <div class="logo-row">
+        ${logo}
+        <div>
+          <div class="co">ZION<span>NETCOM</span></div>
+          <div class="co-sub">Solutions Limited</div>
+        </div>
+      </div>
+      <div class="addr">${document.getElementById('rc-addr').value}<br>${document.getElementById('rc-phone').value} &nbsp;|&nbsp; ${document.getElementById('rc-email').value}</div>
+      <div class="rec-title">RECEIPT</div>
+    </div>
+
+    <div class="meta">
+      <div class="mi"><label>Receipt No.</label><span>${document.getElementById('rc-num').value}</span></div>
+      <div class="mi"><label>Date</label><span>${document.getElementById('rc-date').value}</span></div>
+      <div class="mi"><label>Customer</label><span>${document.getElementById('rc-name').value||'—'}</span></div>
+      <div class="mi"><label>Payment Via</label><span>${document.getElementById('rc-method').value}</span></div>
+      <div class="mi full"><label>Transaction Ref.</label><span>${document.getElementById('rc-ref').value||'N/A'}</span></div>
+    </div>
+
+    <table>
+      <thead><tr><th>Item / Service</th><th style="text-align:center">Qty</th><th style="text-align:right">Price</th><th style="text-align:right">Total</th></tr></thead>
+      <tbody>${rows_html}</tbody>
+    </table>
+
+    <div class="total-bar"><span>AMOUNT RECEIVED</span><span>₦${tot.toLocaleString('en-NG',{minimumFractionDigits:2})}</span></div>
+
+    <div class="stamp-wrap"><div class="stamp">PAID</div></div>
+
+    <div class="sig-row">
+      <div class="sig-note">${document.getElementById('rc-note').value||'Thank you for your payment. We appreciate your business.'}</div>
+      <div class="sig-box">
+        ${sig}
+        <div class="sig-line">Authorised Signatory</div>
+      </div>
+    </div>
+  </div>
+  </body></html>`;
+
+  document.getElementById('rc-frame').srcdoc = _rcDoc;
+  localStorage.setItem('zn-rec-n', parseInt(localStorage.getItem('zn-rec-n')||'0')+1);
 }
 
+function printDoc(which) {
+  const doc = which === 'iv' ? _ivDoc : _rcDoc;
+  if (!doc) { toast('Please preview first.', false); return; }
+  const w = window.open('','_blank');
+  w.document.write(doc); w.document.close();
+  setTimeout(() => w.print(), 600);
+}
 function clearInvoice() {
-    document.querySelectorAll('#tab-invoice input[type="text"]:not([readonly]), #tab-invoice input[type="number"]')
-        .forEach(i => { if (!['inv-company','inv-address','inv-phone','inv-email'].includes(i.id)) i.value = ''; });
+  ['iv-cn','iv-ca','iv-cp','iv-ce','iv-notes','iv-bank'].forEach(id => document.getElementById(id).value = '');
 }
 
-// ── EXPENSES ──
-let expenses = JSON.parse(localStorage.getItem('zn-expenses') || '[]');
+// ═══════════════════════════════════════════
+// EXPENSES
+// ═══════════════════════════════════════════
+let expenses = JSON.parse(localStorage.getItem('zn-expenses')||'[]');
 function addExpense() {
-    const e = {
-        id: Date.now(),
-        date: document.getElementById('exp-date').value,
-        cat: document.getElementById('exp-cat').value,
-        desc: document.getElementById('exp-desc').value,
-        amount: parseFloat(document.getElementById('exp-amount').value) || 0,
-        status: document.getElementById('exp-status').value
-    };
-    if (!e.desc) { alert('Please enter a description.'); return; }
-    expenses.push(e);
-    localStorage.setItem('zn-expenses', JSON.stringify(expenses));
-    renderExpenses();
-    document.getElementById('exp-desc').value = '';
-    document.getElementById('exp-amount').value = '';
+  const desc = document.getElementById('ex-desc').value.trim();
+  if (!desc) { toast('Please enter a description.', false); return; }
+  expenses.push({ id:Date.now(), date:document.getElementById('ex-date').value, cat:document.getElementById('ex-cat').value, desc, amount:parseFloat(document.getElementById('ex-amt').value)||0, status:document.getElementById('ex-status').value });
+  localStorage.setItem('zn-expenses', JSON.stringify(expenses));
+  document.getElementById('ex-desc').value = '';
+  document.getElementById('ex-amt').value = '';
+  renderExpenses();
+  toast('Expense logged.');
 }
-function deleteExpense(id) {
-    expenses = expenses.filter(e => e.id !== id);
-    localStorage.setItem('zn-expenses', JSON.stringify(expenses));
-    renderExpenses();
-}
+function delExpense(id) { expenses = expenses.filter(e=>e.id!==id); localStorage.setItem('zn-expenses',JSON.stringify(expenses)); renderExpenses(); }
 function renderExpenses() {
-    const tbody = document.getElementById('exp-tbody');
-    if (!expenses.length) { tbody.innerHTML = '<tr><td colspan="6"><div class="empty-state"><i class="fas fa-receipt"></i>No expenses logged yet</div></td></tr>'; }
-    else {
-        const now = new Date(); const thisMonth = now.getMonth() + '-' + now.getFullYear();
-        let monthTotal = 0;
-        tbody.innerHTML = expenses.map(e => {
-            const d = new Date(e.date);
-            if ((d.getMonth() + '-' + d.getFullYear()) === thisMonth) monthTotal += e.amount;
-            const badge = e.status === 'paid' ? 'badge-green' : e.status === 'pending' ? 'badge-yellow' : 'badge-blue';
-            return `<tr><td>${e.date}</td><td>${e.cat}</td><td>${e.desc}</td>
-                <td style="color:var(--accent-red);font-weight:600;">₦${e.amount.toLocaleString('en-NG',{minimumFractionDigits:2})}</td>
-                <td><span class="badge ${badge}">${e.status}</span></td>
-                <td><button class="remove-row" onclick="deleteExpense(${e.id})"><i class="fas fa-times"></i></button></td></tr>`;
-        }).join('');
-        const total = expenses.reduce((s,e) => s+e.amount, 0);
-        document.getElementById('exp-total-val').textContent = '₦' + total.toLocaleString('en-NG',{minimumFractionDigits:0});
-        document.getElementById('exp-count-val').textContent = expenses.length;
-        document.getElementById('exp-month-val').textContent = '₦' + monthTotal.toLocaleString('en-NG',{minimumFractionDigits:0});
-    }
+  const tbody = document.getElementById('ex-body');
+  if (!expenses.length) { tbody.innerHTML='<tr><td colspan="6"><div class="empty"><i class="fas fa-receipt"></i>No expenses yet</div></td></tr>'; return; }
+  const now = new Date(); const mo = now.getMonth()+'-'+now.getFullYear(); let moT=0;
+  tbody.innerHTML = expenses.map(e => {
+    const d = new Date(e.date); if((d.getMonth()+'-'+d.getFullYear())===mo) moT+=e.amount;
+    const bCls = e.status==='paid'?'bg':e.status==='pending'?'by':'bb';
+    return `<tr><td>${e.date}</td><td>${e.cat}</td><td>${e.desc}</td><td style="color:var(--red);font-weight:600;">₦${e.amount.toLocaleString('en-NG',{minimumFractionDigits:2})}</td><td><span class="badge ${bCls}">${e.status}</span></td><td><button class="icon-btn danger" onclick="delExpense(${e.id})"><i class="fas fa-trash"></i></button></td></tr>`;
+  }).join('');
+  const tot = expenses.reduce((s,e)=>s+e.amount,0);
+  document.getElementById('ex-total-v').textContent = '₦'+tot.toLocaleString('en-NG',{minimumFractionDigits:0});
+  document.getElementById('ex-count-v').textContent = expenses.length;
+  document.getElementById('ex-month-v').textContent = '₦'+moT.toLocaleString('en-NG',{minimumFractionDigits:0});
 }
 renderExpenses();
 
-// ── CLIENTS ──
-let clients = JSON.parse(localStorage.getItem('zn-clients') || '[]');
+// ═══════════════════════════════════════════
+// CLIENTS
+// ═══════════════════════════════════════════
+let clients = JSON.parse(localStorage.getItem('zn-clients')||'[]');
 function addClient() {
-    const c = {
-        id: Date.now(),
-        name: document.getElementById('cl-name').value,
-        contact: document.getElementById('cl-contact').value,
-        phone: document.getElementById('cl-phone').value,
-        email: document.getElementById('cl-email').value,
-        address: document.getElementById('cl-address').value,
-        service: document.getElementById('cl-service').value
-    };
-    if (!c.name) { alert('Client name is required.'); return; }
-    clients.push(c);
-    localStorage.setItem('zn-clients', JSON.stringify(clients));
-    renderClients();
-    ['cl-name','cl-contact','cl-phone','cl-email','cl-address'].forEach(id => document.getElementById(id).value = '');
+  const name = document.getElementById('cl-name').value.trim();
+  if (!name) { toast('Client name is required.', false); return; }
+  clients.push({ id:Date.now(), name, contact:document.getElementById('cl-contact').value, phone:document.getElementById('cl-phone').value, email:document.getElementById('cl-email').value, addr:document.getElementById('cl-addr').value, svc:document.getElementById('cl-svc').value });
+  localStorage.setItem('zn-clients', JSON.stringify(clients));
+  ['cl-name','cl-contact','cl-phone','cl-email','cl-addr'].forEach(id=>document.getElementById(id).value='');
+  renderClients(); toast('Client saved.');
 }
-function deleteClient(id) {
-    clients = clients.filter(c => c.id !== id);
-    localStorage.setItem('zn-clients', JSON.stringify(clients));
-    renderClients();
-}
+function delClient(id) { clients=clients.filter(c=>c.id!==id); localStorage.setItem('zn-clients',JSON.stringify(clients)); renderClients(); }
 function renderClients() {
-    const tbody = document.getElementById('cl-tbody');
-    if (!clients.length) { tbody.innerHTML = '<tr><td colspan="7"><div class="empty-state"><i class="fas fa-users"></i>No clients added yet</div></td></tr>'; return; }
-    tbody.innerHTML = clients.map((c,i) => `<tr>
-        <td style="color:var(--cyan);font-family:var(--font-mono);">${i+1}</td>
-        <td style="font-weight:600;color:var(--text-primary);">${c.name}</td>
-        <td>${c.contact}</td><td>${c.phone}</td><td>${c.email}</td>
-        <td><span class="badge badge-blue">${c.service}</span></td>
-        <td><button class="remove-row" onclick="deleteClient(${c.id})"><i class="fas fa-times"></i></button></td>
-    </tr>`).join('');
+  const tbody=document.getElementById('cl-body');
+  if (!clients.length) { tbody.innerHTML='<tr><td colspan="7"><div class="empty"><i class="fas fa-users"></i>No clients yet</div></td></tr>'; return; }
+  tbody.innerHTML=clients.map((c,i)=>`<tr><td style="color:var(--cyan);font-family:var(--mono);font-size:0.78rem;">${i+1}</td><td style="font-weight:600;color:var(--text);">${c.name}</td><td>${c.contact}</td><td>${c.phone}</td><td>${c.email}</td><td><span class="badge bb">${c.svc}</span></td><td><button class="icon-btn danger" onclick="delClient(${c.id})"><i class="fas fa-trash"></i></button></td></tr>`).join('');
 }
 renderClients();
 
-// ── NOTES ──
-let notes = JSON.parse(localStorage.getItem('zn-notes') || '[]');
+// ═══════════════════════════════════════════
+// NOTES
+// ═══════════════════════════════════════════
+let notes = JSON.parse(localStorage.getItem('zn-notes')||'[]');
 function saveNote() {
-    const title = document.getElementById('note-title').value;
-    const body = document.getElementById('note-body').value;
-    if (!title || !body) { alert('Please fill in both title and content.'); return; }
-    notes.unshift({ id: Date.now(), title, body, date: new Date().toLocaleString() });
-    localStorage.setItem('zn-notes', JSON.stringify(notes));
-    renderNotes();
-    clearNote();
+  const title=document.getElementById('nt-title').value.trim();
+  const body=document.getElementById('nt-body').value.trim();
+  if (!title||!body) { toast('Fill in both title and content.', false); return; }
+  notes.unshift({ id:Date.now(), title, body, date:new Date().toLocaleString() });
+  localStorage.setItem('zn-notes', JSON.stringify(notes));
+  clearNote(); renderNotes(); toast('Note saved.');
 }
-function deleteNote(id) {
-    notes = notes.filter(n => n.id !== id);
-    localStorage.setItem('zn-notes', JSON.stringify(notes));
-    renderNotes();
-}
-function clearNote() {
-    document.getElementById('note-title').value = '';
-    document.getElementById('note-body').value = '';
-}
+function delNote(id) { notes=notes.filter(n=>n.id!==id); localStorage.setItem('zn-notes',JSON.stringify(notes)); renderNotes(); }
+function clearNote() { document.getElementById('nt-title').value=''; document.getElementById('nt-body').value=''; }
 function renderNotes() {
-    const list = document.getElementById('notes-list');
-    if (!notes.length) { list.innerHTML = '<div class="empty-state"><i class="fas fa-sticky-note"></i>No notes saved yet</div>'; return; }
-    list.innerHTML = notes.map(n => `<div class="note-item">
-        <div class="note-item-title">${n.title}</div>
-        <div class="note-item-body">${n.body.replace(/\n/g,'<br>')}</div>
-        <div class="note-item-meta">${n.date}</div>
-        <button class="note-delete" onclick="deleteNote(${n.id})"><i class="fas fa-times"></i></button>
-    </div>`).join('');
+  const list=document.getElementById('notes-list');
+  if (!notes.length) { list.innerHTML='<div class="empty"><i class="fas fa-sticky-note"></i>No notes yet</div>'; return; }
+  list.innerHTML=notes.map(n=>`<div class="note-item"><div class="note-title">${n.title}</div><div class="note-body">${n.body.replace(/\n/g,'<br>')}</div><div class="note-meta">${n.date}</div><button class="note-del" onclick="delNote(${n.id})"><i class="fas fa-times"></i></button></div>`).join('');
 }
 renderNotes();
 
-function updateOverview() {
-    const total = expenses.reduce((s,e) => s+e.amount, 0);
-    document.getElementById('ov-clients').textContent = clients.length;
-    document.getElementById('ov-expenses').textContent = '₦' + total.toLocaleString('en-NG',{minimumFractionDigits:0});
-    document.getElementById('ov-notes').textContent = notes.length;
+// ═══════════════════════════════════════════
+// OVERVIEW
+// ═══════════════════════════════════════════
+function renderOverview() {
+  const tot=expenses.reduce((s,e)=>s+e.amount,0);
+  document.getElementById('ov-clients').textContent=clients.length;
+  document.getElementById('ov-expenses').textContent='₦'+tot.toLocaleString('en-NG',{minimumFractionDigits:0});
+  document.getElementById('ov-notes').textContent=notes.length;
 }
 
-// ══════════════════════════════════════════
+// ═══════════════════════════════════════════
 // STORE MANAGER
-// ══════════════════════════════════════════
-
-const DEFAULT_PRODUCTS = [
-    { id: 1, brand: 'HP', name: 'HP EliteBook 840 G5', condition: 'uk-used', price: 185000, oldPrice: 220000, specs: ['Intel Core i5-8th Gen','8GB RAM · 256GB SSD','14" FHD Display','Windows 11 Pro'], inStock: true, hot: false, image: '' },
-    { id: 2, brand: 'Dell', name: 'Dell Latitude 5490', condition: 'uk-used', price: 175000, oldPrice: null, specs: ['Intel Core i7-8th Gen','16GB RAM · 512GB SSD','14" FHD Display','Windows 11 Pro'], inStock: true, hot: true, image: '' },
-    { id: 3, brand: 'Lenovo', name: 'Lenovo ThinkPad T480s', condition: 'uk-used', price: 195000, oldPrice: 240000, specs: ['Intel Core i7-8th Gen','16GB RAM · 512GB SSD','14" IPS Display','Windows 11 Pro'], inStock: true, hot: false, image: '' },
-    { id: 4, brand: 'HP', name: 'HP ProBook 450 G7', condition: 'new', price: 310000, oldPrice: null, specs: ['Intel Core i5-10th Gen','8GB RAM · 256GB SSD','15.6" FHD Display','Windows 11 Home'], inStock: true, hot: false, image: '' },
-    { id: 5, brand: 'Dell', name: 'Dell Inspiron 15 3520', condition: 'new', price: 285000, oldPrice: null, specs: ['Intel Core i5-12th Gen','8GB RAM · 512GB SSD','15.6" FHD Display','Windows 11 Home'], inStock: true, hot: true, image: '' },
-    { id: 6, brand: 'Lenovo', name: 'Lenovo IdeaPad 3 Gen 7', condition: 'new', price: 255000, oldPrice: null, specs: ['AMD Ryzen 5 5500U','8GB RAM · 512GB SSD','15.6" FHD Display','Windows 11 Home'], inStock: false, hot: false, image: '' },
-    { id: 7, brand: 'Apple', name: 'MacBook Air M1 (2020)', condition: 'uk-used', price: 520000, oldPrice: 600000, specs: ['Apple M1 Chip','8GB Unified RAM · 256GB SSD','13.3" Retina Display','macOS Sonoma'], inStock: true, hot: true, image: '' },
-    { id: 8, brand: 'Asus', name: 'Asus VivoBook 15 X1502', condition: 'new', price: 270000, oldPrice: null, specs: ['Intel Core i5-12th Gen','8GB RAM · 512GB SSD','15.6" OLED Display','Windows 11 Home'], inStock: true, hot: false, image: '' },
-    { id: 9, brand: 'HP', name: 'HP EliteBook 850 G6', condition: 'refurb', price: 145000, oldPrice: 180000, specs: ['Intel Core i7-8th Gen','16GB RAM · 256GB SSD','15.6" FHD Display','Windows 11 Pro'], inStock: true, hot: false, image: '' },
-    { id: 10, brand: 'Dell', name: 'Dell XPS 13 9310', condition: 'uk-used', price: 490000, oldPrice: 560000, specs: ['Intel Core i7-11th Gen','16GB RAM · 512GB SSD','13.4" OLED Touch','Windows 11 Pro'], inStock: true, hot: true, image: '' },
-    { id: 11, brand: 'Microsoft', name: 'Surface Pro 9', condition: 'uk-used', price: 580000, oldPrice: null, specs: ['Intel Core i5-12th Gen','8GB RAM · 256GB SSD','13" PixelSense Touch','Windows 11 Pro'], inStock: false, hot: false, image: '' },
-    { id: 12, brand: 'Lenovo', name: 'ThinkPad X1 Carbon Gen 9', condition: 'uk-used', price: 420000, oldPrice: 495000, specs: ['Intel Core i7-11th Gen','16GB RAM · 512GB SSD','14" IPS Anti-Glare','Windows 11 Pro'], inStock: true, hot: false, image: '' },
+// ═══════════════════════════════════════════
+const DEFAULTS = [
+  {id:1,brand:'HP',name:'HP EliteBook 840 G5',condition:'uk-used',price:185000,oldPrice:220000,specs:['Intel Core i5-8th Gen','8GB RAM · 256GB SSD','14" FHD Display','Windows 11 Pro'],inStock:true,hot:false,image:''},
+  {id:2,brand:'Dell',name:'Dell Latitude 5490',condition:'uk-used',price:175000,oldPrice:null,specs:['Intel Core i7-8th Gen','16GB RAM · 512GB SSD','14" FHD Display','Windows 11 Pro'],inStock:true,hot:true,image:''},
+  {id:3,brand:'Lenovo',name:'Lenovo ThinkPad T480s',condition:'uk-used',price:195000,oldPrice:240000,specs:['Intel Core i7-8th Gen','16GB RAM · 512GB SSD','14" IPS Display','Windows 11 Pro'],inStock:true,hot:false,image:''},
+  {id:4,brand:'HP',name:'HP ProBook 450 G7',condition:'new',price:310000,oldPrice:null,specs:['Intel Core i5-10th Gen','8GB RAM · 256GB SSD','15.6" FHD Display','Windows 11 Home'],inStock:true,hot:false,image:''},
+  {id:5,brand:'Dell',name:'Dell Inspiron 15 3520',condition:'new',price:285000,oldPrice:null,specs:['Intel Core i5-12th Gen','8GB RAM · 512GB SSD','15.6" FHD Display','Windows 11 Home'],inStock:true,hot:true,image:''},
+  {id:6,brand:'Lenovo',name:'Lenovo IdeaPad 3 Gen 7',condition:'new',price:255000,oldPrice:null,specs:['AMD Ryzen 5 5500U','8GB RAM · 512GB SSD','15.6" FHD Display','Windows 11 Home'],inStock:false,hot:false,image:''},
+  {id:7,brand:'Apple',name:'MacBook Air M1 (2020)',condition:'uk-used',price:520000,oldPrice:600000,specs:['Apple M1 Chip','8GB Unified RAM · 256GB SSD','13.3" Retina Display','macOS Sonoma'],inStock:true,hot:true,image:''},
+  {id:8,brand:'Asus',name:'Asus VivoBook 15 X1502',condition:'new',price:270000,oldPrice:null,specs:['Intel Core i5-12th Gen','8GB RAM · 512GB SSD','15.6" OLED Display','Windows 11 Home'],inStock:true,hot:false,image:''},
+  {id:9,brand:'HP',name:'HP EliteBook 850 G6',condition:'refurb',price:145000,oldPrice:180000,specs:['Intel Core i7-8th Gen','16GB RAM · 256GB SSD','15.6" FHD Display','Windows 11 Pro'],inStock:true,hot:false,image:''},
+  {id:10,brand:'Dell',name:'Dell XPS 13 9310',condition:'uk-used',price:490000,oldPrice:560000,specs:['Intel Core i7-11th Gen','16GB RAM · 512GB SSD','13.4" OLED Touch','Windows 11 Pro'],inStock:true,hot:true,image:''},
+  {id:11,brand:'Microsoft',name:'Surface Pro 9',condition:'uk-used',price:580000,oldPrice:null,specs:['Intel Core i5-12th Gen','8GB RAM · 256GB SSD','13" PixelSense Touch','Windows 11 Pro'],inStock:false,hot:false,image:''},
+  {id:12,brand:'Lenovo',name:'ThinkPad X1 Carbon Gen 9',condition:'uk-used',price:420000,oldPrice:495000,specs:['Intel Core i7-11th Gen','16GB RAM · 512GB SSD','14" IPS Anti-Glare','Windows 11 Pro'],inStock:true,hot:false,image:''},
 ];
 
-function loadStoreProducts() {
-    const saved = localStorage.getItem('zn-store-products');
-    return saved ? JSON.parse(saved) : DEFAULT_PRODUCTS;
-}
+function getProds() { const s=localStorage.getItem('zn-store-products'); return s?JSON.parse(s):DEFAULTS; }
+function saveProds(p) { localStorage.setItem('zn-store-products',JSON.stringify(p)); }
 
-function saveStoreProducts(products) {
-    localStorage.setItem('zn-store-products', JSON.stringify(products));
-}
-
-function renderStoreTable() {
-    const products = loadStoreProducts();
-    const tbody = document.getElementById('store-product-tbody');
-    if (!tbody) return;
-
-    // Update stats
-    const inStock = products.filter(p => p.inStock).length;
-    document.getElementById('st-total').textContent = products.length;
-    document.getElementById('st-instock').textContent = inStock;
-    document.getElementById('st-soldout').textContent = products.length - inStock;
-
-    if (!products.length) {
-        tbody.innerHTML = '<tr><td colspan="8"><div class="empty-state"><i class="fas fa-box-open"></i>No products yet. Add your first product above.</div></td></tr>';
-        return;
-    }
-
-    const condLabel = { new: 'New', 'uk-used': 'UK Used', refurb: 'Refurb' };
-
-    tbody.innerHTML = products.map((p, i) => `<tr>
-        <td style="color:var(--cyan);font-family:var(--font-mono);font-size:0.8rem;">${i + 1}</td>
-        <td style="font-weight:600;color:var(--text-primary);">${p.name}</td>
-        <td>${p.brand}</td>
-        <td><span class="badge badge-blue">${condLabel[p.condition] || p.condition}</span></td>
-        <td style="color:var(--cyan);font-weight:600;">₦${Number(p.price).toLocaleString('en-NG')}${p.oldPrice ? '<br><span style="color:var(--text-muted);font-size:0.75rem;text-decoration:line-through;">₦' + Number(p.oldPrice).toLocaleString('en-NG') + '</span>' : ''}</td>
-        <td><span class="badge ${p.inStock ? 'badge-green' : 'badge-red'}">${p.inStock ? 'In Stock' : 'Sold Out'}</span></td>
-        <td><span class="badge ${p.hot ? 'badge-yellow' : ''} " style="${!p.hot ? 'color:var(--text-muted);' : ''}">${p.hot ? '🔥 Yes' : 'No'}</span></td>
-        <td>
-            <div style="display:flex;gap:6px;">
-                <button class="btn btn-outline btn-sm" style="padding:5px 10px;font-size:0.7rem;" onclick="editProduct(${p.id})"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-outline btn-sm" style="padding:5px 10px;font-size:0.7rem;border-color:var(--accent-${p.inStock ? 'red' : 'green'});color:var(--accent-${p.inStock ? 'red' : 'green'});" onclick="toggleStock(${p.id})" title="${p.inStock ? 'Mark Sold Out' : 'Mark In Stock'}">
-                    <i class="fas fa-${p.inStock ? 'times' : 'check'}"></i>
-                </button>
-                <button class="remove-row" onclick="deleteProduct(${p.id})"><i class="fas fa-trash"></i></button>
-            </div>
-        </td>
-    </tr>`).join('');
+function renderProdTable() {
+  const prods = getProds();
+  const tbody = document.getElementById('prod-body');
+  const inSt = prods.filter(p=>p.inStock).length;
+  document.getElementById('st-total').textContent = prods.length;
+  document.getElementById('st-instock').textContent = inSt;
+  document.getElementById('st-soldout').textContent = prods.length - inSt;
+  if (!prods.length) { tbody.innerHTML='<tr><td colspan="8"><div class="empty"><i class="fas fa-box-open"></i>No products. Add one above.</div></td></tr>'; return; }
+  const cL = {new:'New','uk-used':'UK Used',refurb:'Refurb'};
+  tbody.innerHTML = prods.map((p,i)=>`<tr>
+    <td style="color:var(--cyan);font-family:var(--mono);font-size:0.78rem;">${i+1}</td>
+    <td style="font-weight:600;color:var(--text);font-size:0.85rem;">${p.name}</td>
+    <td>${p.brand}</td>
+    <td><span class="badge bb">${cL[p.condition]||p.condition}</span></td>
+    <td style="color:var(--cyan);font-weight:600;font-size:0.85rem;">₦${Number(p.price).toLocaleString('en-NG')}${p.oldPrice?'<br><span style="color:var(--muted);font-size:0.72rem;text-decoration:line-through;">₦'+Number(p.oldPrice).toLocaleString('en-NG')+'</span>':''}</td>
+    <td><span class="badge ${p.inStock?'bg':'br'}">${p.inStock?'In Stock':'Sold Out'}</span></td>
+    <td style="text-align:center;">${p.hot?'🔥':'—'}</td>
+    <td>
+      <div class="row-actions">
+        <button class="icon-btn" onclick="editProd(${p.id})" title="Edit"><i class="fas fa-edit"></i></button>
+        <button class="icon-btn ${p.inStock?'danger':'success'}" onclick="toggleStock(${p.id})" title="${p.inStock?'Mark Sold Out':'Mark In Stock'}"><i class="fas fa-${p.inStock?'ban':'check'}"></i></button>
+        <button class="icon-btn danger" onclick="deleteProd(${p.id})" title="Delete"><i class="fas fa-trash"></i></button>
+      </div>
+    </td>
+  </tr>`).join('');
 }
 
 function saveProduct() {
-    const products = loadStoreProducts();
-    const editId = document.getElementById('edit-product-id').value;
-    const specsRaw = document.getElementById('p-specs').value;
-    const specs = specsRaw.split('
-').map(s => s.trim()).filter(Boolean);
-    const oldPriceVal = parseFloat(document.getElementById('p-old-price').value);
-
-    const productData = {
-        brand: document.getElementById('p-brand').value,
-        name: document.getElementById('p-name').value.trim(),
-        condition: document.getElementById('p-condition').value,
-        price: parseFloat(document.getElementById('p-price').value) || 0,
-        oldPrice: isNaN(oldPriceVal) || !document.getElementById('p-old-price').value ? null : oldPriceVal,
-        specs: specs,
-        inStock: document.getElementById('p-stock').value === 'true',
-        hot: document.getElementById('p-hot').value === 'true',
-        image: document.getElementById('p-image').value.trim(),
-    };
-
-    if (!productData.name) { alert('Product name is required.'); return; }
-    if (!productData.price) { alert('Price is required.'); return; }
-
-    if (editId) {
-        const idx = products.findIndex(p => p.id == editId);
-        if (idx > -1) { products[idx] = { ...products[idx], ...productData }; }
-    } else {
-        productData.id = Date.now();
-        products.push(productData);
-    }
-
-    saveStoreProducts(products);
-    renderStoreTable();
-    cancelEdit();
-
-    const msg = editId ? 'Product updated successfully.' : 'Product added to store.';
-    showAdminToast(msg);
+  const prods = getProds();
+  const editId = document.getElementById('p-edit-id').value;
+  const name = document.getElementById('p-name').value.trim();
+  const price = parseFloat(document.getElementById('p-price').value);
+  if (!name) { toast('Product name is required.', false); return; }
+  if (!price) { toast('Price is required.', false); return; }
+  const oldPV = document.getElementById('p-oldprice').value;
+  const data = {
+    brand: document.getElementById('p-brand').value,
+    name,
+    condition: document.getElementById('p-cond').value,
+    price,
+    oldPrice: oldPV ? parseFloat(oldPV) : null,
+    specs: document.getElementById('p-specs').value.split('\n').map(s=>s.trim()).filter(Boolean),
+    inStock: document.getElementById('p-stock').value === 'true',
+    hot: document.getElementById('p-hot').value === 'true',
+    image: document.getElementById('p-img').value.trim(),
+  };
+  if (editId) {
+    const idx = prods.findIndex(p=>p.id==editId);
+    if (idx>-1) prods[idx] = {...prods[idx],...data};
+    toast('Product updated.');
+  } else {
+    data.id = Date.now();
+    prods.push(data);
+    toast('Product added to store.');
+  }
+  saveProds(prods);
+  renderProdTable();
+  cancelProdEdit();
 }
 
-function editProduct(id) {
-    const products = loadStoreProducts();
-    const p = products.find(prod => prod.id == id);
-    if (!p) return;
-
-    document.getElementById('edit-product-id').value = p.id;
-    document.getElementById('p-brand').value = p.brand;
-    document.getElementById('p-condition').value = p.condition;
-    document.getElementById('p-name').value = p.name;
-    document.getElementById('p-price').value = p.price;
-    document.getElementById('p-old-price').value = p.oldPrice || '';
-    document.getElementById('p-specs').value = p.specs.join('
-');
-    document.getElementById('p-stock').value = String(p.inStock);
-    document.getElementById('p-hot').value = String(p.hot);
-    document.getElementById('p-image').value = p.image || '';
-
-    document.getElementById('product-form-title').innerHTML = '<i class="fas fa-edit"></i> Edit Product: ' + p.name;
-    document.getElementById('save-btn-label').textContent = 'Update Product';
-    document.getElementById('product-form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+function editProd(id) {
+  const prods = getProds();
+  const p = prods.find(x=>x.id==id);
+  if (!p) return;
+  document.getElementById('p-edit-id').value = p.id;
+  document.getElementById('p-brand').value = p.brand;
+  document.getElementById('p-cond').value = p.condition;
+  document.getElementById('p-name').value = p.name;
+  document.getElementById('p-price').value = p.price;
+  document.getElementById('p-oldprice').value = p.oldPrice||'';
+  document.getElementById('p-specs').value = p.specs.join('\n');
+  document.getElementById('p-stock').value = String(p.inStock);
+  document.getElementById('p-hot').value = String(p.hot);
+  document.getElementById('p-img').value = p.image||'';
+  document.getElementById('prod-form-title').innerHTML = '<i class="fas fa-edit"></i> Editing: '+p.name;
+  document.getElementById('p-save-lbl').textContent = 'Update Product';
+  document.getElementById('prod-form-card').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-function cancelEdit() {
-    document.getElementById('edit-product-id').value = '';
-    document.getElementById('p-name').value = '';
-    document.getElementById('p-price').value = '';
-    document.getElementById('p-old-price').value = '';
-    document.getElementById('p-specs').value = '';
-    document.getElementById('p-stock').value = 'true';
-    document.getElementById('p-hot').value = 'false';
-    document.getElementById('p-image').value = '';
-    document.getElementById('p-brand').value = 'HP';
-    document.getElementById('p-condition').value = 'new';
-    document.getElementById('product-form-title').innerHTML = '<i class="fas fa-plus-circle"></i> Add New Product';
-    document.getElementById('save-btn-label').textContent = 'Save Product';
+function cancelProdEdit() {
+  document.getElementById('p-edit-id').value='';
+  document.getElementById('p-name').value='';
+  document.getElementById('p-price').value='';
+  document.getElementById('p-oldprice').value='';
+  document.getElementById('p-specs').value='';
+  document.getElementById('p-stock').value='true';
+  document.getElementById('p-hot').value='false';
+  document.getElementById('p-img').value='';
+  document.getElementById('p-brand').value='HP';
+  document.getElementById('p-cond').value='new';
+  document.getElementById('prod-form-title').innerHTML='<i class="fas fa-plus-circle"></i> Add New Product';
+  document.getElementById('p-save-lbl').textContent='Save Product';
 }
 
-function deleteProduct(id) {
-    if (!confirm('Delete this product from the store?')) return;
-    let products = loadStoreProducts();
-    products = products.filter(p => p.id != id);
-    saveStoreProducts(products);
-    renderStoreTable();
-    showAdminToast('Product deleted.');
+function deleteProd(id) {
+  if (!confirm('Delete this product from the store?')) return;
+  let prods=getProds(); prods=prods.filter(p=>p.id!=id); saveProds(prods); renderProdTable(); toast('Product deleted.');
 }
 
 function toggleStock(id) {
-    const products = loadStoreProducts();
-    const idx = products.findIndex(p => p.id == id);
-    if (idx > -1) {
-        products[idx].inStock = !products[idx].inStock;
-        saveStoreProducts(products);
-        renderStoreTable();
-        showAdminToast(products[idx].inStock ? 'Marked as In Stock.' : 'Marked as Sold Out.');
-    }
+  const prods=getProds(); const idx=prods.findIndex(p=>p.id==id);
+  if (idx>-1) { prods[idx].inStock=!prods[idx].inStock; saveProds(prods); renderProdTable(); toast(prods[idx].inStock?'Marked In Stock.':'Marked Sold Out.'); }
 }
 
-function resetToDefaults() {
-    if (!confirm('This will replace all your store products with the default list. Continue?')) return;
-    saveStoreProducts(DEFAULT_PRODUCTS);
-    renderStoreTable();
-    showAdminToast('Store reset to default products.');
+function resetStoreDefaults() {
+  if (!confirm('Reset all products to the default list? Your changes will be lost.')) return;
+  saveProds(DEFAULTS); renderProdTable(); toast('Store reset to defaults.');
 }
-
-function showAdminToast(msg) {
-    // Reuse a simple alert-style feedback
-    const existing = document.getElementById('admin-toast');
-    if (existing) existing.remove();
-    const t = document.createElement('div');
-    t.id = 'admin-toast';
-    t.style.cssText = 'position:fixed;bottom:24px;right:24px;background:var(--bg-card);border:1px solid var(--border-glow);border-radius:8px;padding:14px 20px;font-size:0.88rem;color:var(--text-primary);z-index:999999;transition:all 0.3s;';
-    t.innerHTML = '<i class="fas fa-check-circle" style="color:var(--accent-green);margin-right:8px;"></i>' + msg;
-    document.body.appendChild(t);
-    setTimeout(() => t.remove(), 3000);
-}
-
-// Init store table when tab becomes visible
-const origSwitchTab = switchTab;
-function switchTab(name) {
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('tab-' + name).classList.add('active');
-    event.currentTarget.classList.add('active');
-    if (name === 'overview') updateOverview();
-    if (name === 'store') renderStoreTable();
-}
-
-// Also init on load if already on store tab
-renderStoreTable();
-
 </script>
 </body>
 </html>

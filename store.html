@@ -1,641 +1,578 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Shop quality laptops and tech accessories from Zion Netcom Solutions Limited — Kaduna, Nigeria. Trusted, affordable, delivered.">
-    <title>Laptop Store | Zion Netcom Solutions</title>
-    <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        :root {
-            --bg-primary: #070B14;
-            --bg-secondary: #0D1321;
-            --bg-card: #111827;
-            --bg-elevated: #1A2332;
-            --grid-line: rgba(56, 182, 255, 0.08);
-            --cyan: #38B6FF;
-            --cyan-dim: rgba(56, 182, 255, 0.6);
-            --cyan-glow: rgba(56, 182, 255, 0.25);
-            --text-primary: #E8F4F8;
-            --text-secondary: #8BA3B8;
-            --text-muted: #4A6070;
-            --accent-green: #22c55e;
-            --accent-red: #ef4444;
-            --accent-yellow: #f59e0b;
-            --border-subtle: rgba(56, 182, 255, 0.12);
-            --border-glow: rgba(56, 182, 255, 0.3);
-            --font-mono: 'JetBrains Mono', monospace;
-            --font-sans: 'Inter', system-ui, sans-serif;
-            --font-display: 'Space Grotesk', 'Inter', sans-serif;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; overflow-x: hidden; }
-        body { font-family: var(--font-sans); background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-        body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; }
-        .container { width: 92%; max-width: 1280px; margin: 0 auto; position: relative; z-index: 1; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Shop quality laptops and tech hardware from Zion Netcom Solutions Limited — Kaduna, Nigeria.">
+<title>Laptop Store | Zion Netcom Solutions</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --bg:#070B14;--bg2:#0D1321;--card:#111827;--elevated:#1A2332;
+  --cyan:#38B6FF;--cyan-glow:rgba(56,182,255,0.25);--cyan-dim:rgba(56,182,255,0.6);
+  --text:#E8F4F8;--text2:#8BA3B8;--muted:#4A6070;
+  --green:#22c55e;--red:#ef4444;--yellow:#f59e0b;
+  --border:rgba(56,182,255,0.12);--border-hi:rgba(56,182,255,0.3);
+  --mono:'JetBrains Mono',monospace;--sans:'Inter',system-ui,sans-serif;--display:'Space Grotesk','Inter',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(56,182,255,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(56,182,255,0.06) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+.wrap{width:92%;max-width:1280px;margin:0 auto;position:relative;z-index:1;}
 
-        /* TOPBAR */
-        .topbar { background: var(--bg-secondary); border-bottom: 1px solid var(--border-subtle); padding: 9px 0; font-family: var(--font-mono); font-size: 0.73rem; position: relative; z-index: 100; }
-        .topbar-inner { display: flex; justify-content: space-between; align-items: center; }
-        .topbar-info { display: flex; align-items: center; gap: 20px; }
-        .tb-item { display: flex; align-items: center; gap: 6px; color: var(--text-secondary); text-decoration: none; white-space: nowrap; transition: color 0.2s; }
-        .tb-item i { color: var(--cyan); font-size: 0.78rem; }
-        .topbar-right { display: flex; align-items: center; gap: 14px; }
-        .topbar-social { display: flex; align-items: center; gap: 12px; }
-        .topbar-social a { color: var(--text-muted); font-size: 0.85rem; transition: color 0.3s; }
-        .topbar-social a:hover { color: var(--cyan); }
-        .theme-toggle { background: none; border: 1px solid var(--border-subtle); border-radius: 20px; color: var(--text-secondary); font-size: 0.78rem; cursor: pointer; padding: 4px 10px; display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
-        .theme-toggle:hover { border-color: var(--cyan); color: var(--cyan); }
+/* TOPBAR */
+.topbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:9px 0;font-family:var(--mono);font-size:0.73rem;position:relative;z-index:100;}
+.topbar-inner{display:flex;justify-content:space-between;align-items:center;}
+.tb-info{display:flex;align-items:center;gap:20px;}
+.tb-item{display:flex;align-items:center;gap:6px;color:var(--text2);text-decoration:none;white-space:nowrap;}
+.tb-item i{color:var(--cyan);font-size:0.78rem;}
+.tb-right{display:flex;align-items:center;gap:14px;}
+.tb-social{display:flex;align-items:center;gap:12px;}
+.tb-social a{color:var(--muted);font-size:0.85rem;transition:color 0.2s;}
+.tb-social a:hover{color:var(--cyan);}
+.theme-btn{background:none;border:1px solid var(--border);border-radius:20px;color:var(--text2);font-size:0.78rem;cursor:pointer;padding:4px 10px;display:flex;align-items:center;gap:5px;transition:all 0.2s;}
+.theme-btn:hover{border-color:var(--cyan);color:var(--cyan);}
 
-        /* HEADER */
-        .header { background: rgba(7,11,20,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-subtle); position: sticky; top: 0; z-index: 9999; }
-        .nav-wrapper { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; gap: 20px; }
-        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-        .logo img { height: 48px; width: auto; display: block; }
-        .logo-text { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; color: var(--text-primary); }
-        .logo-text span { color: var(--cyan); }
-        .logo-sub { font-family: var(--font-mono); font-size: 0.62rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-top: 1px; }
-        .nav-links { display: flex; list-style: none; gap: 8px; }
-        .nav-links a { font-family: var(--font-mono); font-size: 0.8rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; padding: 8px 14px; border-radius: 4px; transition: all 0.2s; text-transform: uppercase; letter-spacing: 1px; }
-        .nav-links a:hover, .nav-links a.active { color: var(--cyan); background: rgba(56,182,255,0.08); }
-        .header-actions { display: flex; align-items: center; gap: 12px; }
-        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; border-radius: 4px; font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; text-decoration: none; cursor: pointer; transition: all 0.3s ease; border: none; }
-        .btn-primary { background: var(--cyan); color: var(--bg-primary); box-shadow: 0 0 20px var(--cyan-glow); }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 40px var(--cyan-glow); }
-        .btn-outline { background: transparent; color: var(--cyan); border: 1px solid var(--cyan); }
-        .btn-outline:hover { background: var(--cyan); color: var(--bg-primary); }
-        .btn-green { background: var(--accent-green); color: white; }
-        .btn-green:hover { transform: translateY(-2px); box-shadow: 0 0 20px rgba(34,197,94,0.3); }
-        .btn-sm { padding: 8px 18px; font-size: 0.75rem; }
-        .menu-toggle { display: none; background: none; border: 1px solid var(--border-subtle); color: var(--text-primary); padding: 8px 12px; cursor: pointer; border-radius: 4px; font-size: 1rem; }
-        @media (max-width: 768px) {
-            .nav-links { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--bg-primary); flex-direction: column; justify-content: center; align-items: center; z-index: 9998; gap: 24px; }
-            .nav-links.active { display: flex; }
-            .menu-toggle { display: flex; }
-            .header-actions .btn { display: none; }
-        }
+/* HEADER */
+.header{background:rgba(7,11,20,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:9999;}
+.nav-wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:16px;}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo img{height:44px;width:auto;}
+.logo-name{font-family:var(--display);font-size:1.3rem;font-weight:700;color:var(--text);}
+.logo-name span{color:var(--cyan);}
+.logo-sub{font-family:var(--mono);font-size:0.6rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;}
+nav ul{display:flex;list-style:none;gap:4px;}
+nav ul a{font-family:var(--mono);font-size:0.75rem;font-weight:500;color:var(--text2);text-decoration:none;padding:7px 12px;border-radius:4px;transition:all 0.2s;text-transform:uppercase;letter-spacing:1px;display:block;}
+nav ul a:hover,nav ul a.active{color:var(--cyan);background:rgba(56,182,255,0.08);}
+.nav-actions{display:flex;align-items:center;gap:10px;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:4px;font-family:var(--mono);font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;text-decoration:none;cursor:pointer;transition:all 0.25s;border:none;}
+.btn-primary{background:var(--cyan);color:var(--bg);box-shadow:0 0 20px var(--cyan-glow);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 36px var(--cyan-glow);}
+.btn-outline{background:transparent;color:var(--cyan);border:1px solid var(--cyan);}
+.btn-outline:hover{background:var(--cyan);color:var(--bg);}
+.btn-green{background:#25D366;color:#fff;border:none;}
+.btn-green:hover{background:#1ebe5a;transform:translateY(-2px);}
+.btn-sm{padding:7px 14px;font-size:0.72rem;}
+.menu-btn{display:none;background:none;border:1px solid var(--border);color:var(--text);padding:7px 11px;cursor:pointer;border-radius:4px;font-size:0.95rem;}
 
-        /* LIGHT MODE */
-        body.light-mode { --bg-primary: #F5F7FA; --bg-secondary: #EAEEF3; --bg-card: #FFFFFF; --bg-elevated: #E2E8F0; --grid-line: rgba(0,90,160,0.06); --cyan: #0077CC; --cyan-dim: rgba(0,119,204,0.6); --cyan-glow: rgba(0,119,204,0.18); --text-primary: #0F1E2E; --text-secondary: #3D5A73; --text-muted: #7A94A8; --border-subtle: rgba(0,119,204,0.15); --border-glow: rgba(0,119,204,0.35); }
-        body.light-mode .header { background: rgba(234,238,243,0.92) !important; }
-        body.light-mode .nav-links a { color: var(--text-primary); }
-        body.light-mode .nav-links { background: var(--bg-primary); }
-        body.light-mode .product-card, body.light-mode .filter-bar, body.light-mode .order-modal-box { background: var(--bg-card); border-color: var(--border-subtle); }
-        body.light-mode .footer { background: var(--bg-secondary); }
-        body.light-mode .menu-toggle { color: var(--text-primary); border-color: var(--border-subtle); }
-        body.light-mode .hero-store { background: linear-gradient(135deg, #EBF2FA 0%, #F5F7FA 50%, #E8EFF7 100%) !important; }
-        body.light-mode input, body.light-mode select, body.light-mode textarea { background: var(--bg-elevated); color: var(--text-primary); border-color: var(--border-subtle); }
+/* LIGHT MODE */
+body.light{--bg:#F5F7FA;--bg2:#EAEEF3;--card:#FFF;--elevated:#E2E8F0;--cyan:#0077CC;--cyan-glow:rgba(0,119,204,0.18);--text:#0F1E2E;--text2:#3D5A73;--muted:#7A94A8;--border:rgba(0,119,204,0.15);--border-hi:rgba(0,119,204,0.35);}
+body.light .header{background:rgba(234,238,243,0.92)!important;}
+body.light nav ul{background:var(--bg);}
+body.light nav ul a{color:var(--text);}
+body.light .prod-card,body.light .filter-bar,body.light .modal-box,body.light .filter-search input,body.light .filter-sel{background:var(--card);border-color:var(--border);color:var(--text);}
+body.light .footer{background:var(--bg2);}
+body.light .menu-btn{color:var(--text);border-color:var(--border);}
+body.light .hero{background:linear-gradient(135deg,#EBF2FA 0%,#F5F7FA 60%,#E8EFF7 100%)!important;}
+body.light .fg input,body.light .fg select,body.light .fg textarea{background:var(--elevated);color:var(--text);border-color:var(--border);}
 
-        /* HERO */
-        .hero-store { background: linear-gradient(135deg, #070B14 0%, #0D1321 60%, #111827 100%); padding: 64px 0 48px; border-bottom: 1px solid var(--border-subtle); position: relative; overflow: hidden; }
-        .hero-store::after { content: ''; position: absolute; top: -120px; right: -120px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(56,182,255,0.1) 0%, transparent 70%); pointer-events: none; }
-        .hero-badge { font-family: var(--font-mono); font-size: 0.7rem; color: var(--cyan); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-        .hero-badge::before { content: '//'; color: var(--text-muted); }
-        .hero-store h1 { font-size: clamp(2rem, 5vw, 3.2rem); background: linear-gradient(135deg, var(--text-primary) 0%, var(--cyan) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 14px; }
-        .hero-store p { color: var(--text-secondary); font-size: 1rem; max-width: 540px; margin-bottom: 28px; }
-        .hero-badges { display: flex; gap: 12px; flex-wrap: wrap; }
-        .trust-badge { display: flex; align-items: center; gap: 8px; background: rgba(56,182,255,0.08); border: 1px solid var(--border-subtle); padding: 8px 16px; border-radius: 40px; font-size: 0.8rem; color: var(--text-secondary); }
-        .trust-badge i { color: var(--cyan); }
+/* HERO */
+.hero{background:linear-gradient(135deg,#070B14 0%,#0D1321 60%,#111827 100%);padding:60px 0 44px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
+.hero::after{content:'';position:absolute;top:-120px;right:-100px;width:460px;height:460px;background:radial-gradient(circle,rgba(56,182,255,0.1) 0%,transparent 70%);pointer-events:none;}
+.hero-tag{font-family:var(--mono);font-size:0.7rem;color:var(--cyan);letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.hero-tag::before{content:'//';color:var(--muted);}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);background:linear-gradient(135deg,var(--text) 0%,var(--cyan) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:14px;}
+.hero p{color:var(--text2);font-size:0.97rem;max-width:540px;margin-bottom:26px;}
+.trust-badges{display:flex;gap:10px;flex-wrap:wrap;}
+.tbadge{display:flex;align-items:center;gap:7px;background:rgba(56,182,255,0.08);border:1px solid var(--border);padding:7px 14px;border-radius:40px;font-size:0.78rem;color:var(--text2);}
+.tbadge i{color:var(--cyan);}
 
-        /* FILTER BAR */
-        .filter-section { padding: 24px 0; border-bottom: 1px solid var(--border-subtle); position: sticky; top: 77px; z-index: 100; background: var(--bg-primary); }
-        .filter-bar { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-        .filter-search { flex: 1; min-width: 200px; position: relative; }
-        .filter-search input { width: 100%; padding: 10px 14px 10px 40px; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 4px; color: var(--text-primary); font-family: var(--font-sans); font-size: 0.9rem; outline: none; transition: border-color 0.2s; }
-        .filter-search input:focus { border-color: var(--cyan); }
-        .filter-search i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.85rem; }
-        .filter-select { padding: 10px 14px; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 4px; color: var(--text-primary); font-family: var(--font-mono); font-size: 0.8rem; outline: none; cursor: pointer; min-width: 140px; }
-        .filter-select:focus { border-color: var(--cyan); }
-        select option { background: var(--bg-card); }
-        .filter-chips { display: flex; gap: 8px; flex-wrap: wrap; }
-        .chip { font-family: var(--font-mono); font-size: 0.72rem; padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border-subtle); background: transparent; color: var(--text-muted); cursor: pointer; transition: all 0.2s; text-transform: uppercase; letter-spacing: 1px; }
-        .chip:hover, .chip.active { background: var(--cyan); color: var(--bg-primary); border-color: var(--cyan); }
-        .results-count { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); margin-left: auto; white-space: nowrap; }
+/* FILTER */
+.filter-wrap{padding:18px 0;border-bottom:1px solid var(--border);position:sticky;top:73px;z-index:100;background:var(--bg);}
+.filter-bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.filter-search{flex:1;min-width:180px;position:relative;}
+.filter-search input{width:100%;padding:9px 13px 9px 38px;background:var(--card);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:var(--sans);font-size:0.88rem;outline:none;transition:border-color 0.2s;}
+.filter-search input:focus{border-color:var(--cyan);}
+.filter-search i{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:0.82rem;}
+.filter-sel{padding:9px 13px;background:var(--card);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:var(--mono);font-size:0.78rem;outline:none;cursor:pointer;min-width:130px;}
+.filter-sel:focus{border-color:var(--cyan);}
+.chips{display:flex;gap:6px;flex-wrap:wrap;}
+.chip{font-family:var(--mono);font-size:0.7rem;padding:5px 13px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all 0.2s;text-transform:uppercase;letter-spacing:1px;}
+.chip:hover,.chip.active{background:var(--cyan);color:var(--bg);border-color:var(--cyan);}
+.res-count{font-family:var(--mono);font-size:0.73rem;color:var(--muted);margin-left:auto;white-space:nowrap;}
 
-        /* PRODUCTS GRID */
-        .products-section { padding: 40px 0 80px; }
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
-        .product-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 8px; overflow: hidden; transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s; position: relative; }
-        .product-card:hover { transform: translateY(-4px); border-color: var(--border-glow); box-shadow: 0 8px 32px rgba(56,182,255,0.1); }
-        .product-card.sold-out { opacity: 0.6; }
-        .product-img { width: 100%; height: 200px; background: var(--bg-elevated); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
-        .product-img i { font-size: 4rem; color: var(--cyan-dim); }
-        .product-img img { width: 100%; height: 100%; object-fit: cover; }
-        .product-badge { position: absolute; top: 12px; left: 12px; padding: 4px 10px; border-radius: 4px; font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-        .badge-new { background: var(--cyan); color: var(--bg-primary); }
-        .badge-used { background: var(--accent-yellow); color: #1a1a2e; }
-        .badge-sold { background: var(--accent-red); color: white; }
-        .badge-hot { background: #ff4d4d; color: white; }
-        .stock-indicator { position: absolute; top: 12px; right: 12px; width: 10px; height: 10px; border-radius: 50%; }
-        .stock-in { background: var(--accent-green); box-shadow: 0 0 8px rgba(34,197,94,0.6); }
-        .stock-out { background: var(--accent-red); }
-        .product-body { padding: 20px; }
-        .product-brand { font-family: var(--font-mono); font-size: 0.68rem; color: var(--cyan); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 4px; }
-        .product-name { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; line-height: 1.3; }
-        .product-specs { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
-        .spec-row { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--text-secondary); }
-        .spec-row i { color: var(--cyan); font-size: 0.7rem; width: 14px; flex-shrink: 0; }
-        .product-price-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-        .product-price { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; color: var(--cyan); }
-        .product-old-price { font-size: 0.85rem; color: var(--text-muted); text-decoration: line-through; margin-left: 8px; }
-        .product-actions { display: flex; gap: 8px; }
-        .product-actions .btn { flex: 1; justify-content: center; padding: 10px 14px; font-size: 0.72rem; }
-        .sold-out-overlay { position: absolute; inset: 0; background: rgba(7,11,20,0.6); display: flex; align-items: center; justify-content: center; }
-        .sold-out-tag { font-family: var(--font-display); font-size: 1.4rem; font-weight: 900; color: var(--accent-red); border: 3px solid var(--accent-red); padding: 8px 20px; border-radius: 4px; transform: rotate(-12deg); }
-        .no-results { text-align: center; padding: 80px 20px; color: var(--text-muted); }
-        .no-results i { font-size: 3rem; margin-bottom: 16px; display: block; opacity: 0.3; }
+/* PRODUCTS */
+.products-sec{padding:36px 0 72px;}
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px;}
+.prod-card{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:transform 0.25s,border-color 0.25s,box-shadow 0.25s;position:relative;}
+.prod-card:hover{transform:translateY(-4px);border-color:var(--border-hi);box-shadow:0 8px 32px rgba(56,182,255,0.1);}
+.prod-card.out-of-stock{opacity:0.6;}
+.prod-img{width:100%;height:190px;background:var(--elevated);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.prod-img i{font-size:3.8rem;color:var(--cyan-dim);}
+.prod-img img{width:100%;height:100%;object-fit:cover;}
+.prod-badge{position:absolute;top:11px;left:11px;padding:3px 9px;border-radius:4px;font-family:var(--mono);font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;}
+.b-new{background:var(--cyan);color:var(--bg);}
+.b-used{background:var(--yellow);color:#1a1a2e;}
+.b-refurb{background:#9333ea;color:#fff;}
+.b-hot{background:#ff4d4d;color:#fff;}
+.stock-dot{position:absolute;top:11px;right:11px;width:9px;height:9px;border-radius:50%;}
+.dot-in{background:var(--green);box-shadow:0 0 7px rgba(34,197,94,0.6);}
+.dot-out{background:var(--red);}
+.sold-overlay{position:absolute;inset:0;background:rgba(7,11,20,0.55);display:flex;align-items:center;justify-content:center;}
+.sold-tag{font-family:var(--display);font-size:1.3rem;font-weight:900;color:var(--red);border:2.5px solid var(--red);padding:6px 18px;border-radius:4px;transform:rotate(-12deg);}
+.prod-body{padding:18px;}
+.prod-brand{font-family:var(--mono);font-size:0.65rem;color:var(--cyan);text-transform:uppercase;letter-spacing:2px;margin-bottom:3px;}
+.prod-name{font-family:var(--display);font-size:0.97rem;font-weight:700;color:var(--text);margin-bottom:9px;line-height:1.3;}
+.prod-specs{display:flex;flex-direction:column;gap:3px;margin-bottom:12px;}
+.spec-row{display:flex;align-items:center;gap:7px;font-size:0.78rem;color:var(--text2);}
+.spec-row i{color:var(--cyan);font-size:0.67rem;width:13px;flex-shrink:0;}
+.price-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;}
+.prod-price{font-family:var(--display);font-size:1.32rem;font-weight:700;color:var(--cyan);}
+.old-price{font-size:0.82rem;color:var(--muted);text-decoration:line-through;margin-left:7px;}
+.prod-actions{display:flex;gap:7px;}
+.prod-actions .btn{flex:1;justify-content:center;padding:9px 12px;font-size:0.7rem;}
+.no-results{text-align:center;padding:72px 20px;color:var(--muted);}
+.no-results i{font-size:2.8rem;margin-bottom:14px;display:block;opacity:0.3;}
 
-        /* ORDER MODAL */
-        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 99999; align-items: center; justify-content: center; padding: 20px; }
-        .modal-overlay.active { display: flex; }
-        .order-modal-box { background: var(--bg-card); border: 1px solid var(--border-glow); border-radius: 10px; max-width: 560px; width: 100%; padding: 32px; position: relative; max-height: 90vh; overflow-y: auto; }
-        .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: 1px solid var(--border-subtle); color: var(--text-muted); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; transition: all 0.2s; }
-        .modal-close:hover { border-color: var(--accent-red); color: var(--accent-red); }
-        .modal-product-header { display: flex; gap: 16px; align-items: center; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border-subtle); }
-        .modal-product-icon { width: 60px; height: 60px; background: var(--bg-elevated); border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .modal-product-icon i { font-size: 1.8rem; color: var(--cyan-dim); }
-        .modal-product-name { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
-        .modal-product-price { font-family: var(--font-display); font-size: 1.2rem; color: var(--cyan); font-weight: 700; }
-        .modal-section-label { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--cyan); margin-bottom: 14px; margin-top: 20px; }
-        .form-group { margin-bottom: 14px; }
-        .form-group label { display: block; font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 6px; }
-        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px 14px; background: var(--bg-elevated); border: 1px solid var(--border-subtle); border-radius: 4px; color: var(--text-primary); font-family: var(--font-sans); font-size: 0.9rem; outline: none; transition: border-color 0.2s; }
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--cyan); }
-        .form-group textarea { resize: vertical; min-height: 70px; }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
-        .order-channel-btns { display: flex; gap: 10px; margin-top: 20px; }
-        .order-channel-btns .btn { flex: 1; justify-content: center; }
-        .whatsapp-btn { background: #25D366; color: white; border: none; }
-        .whatsapp-btn:hover { background: #1ebe5a; transform: translateY(-2px); }
-        .divider { display: flex; align-items: center; gap: 12px; margin: 16px 0; }
-        .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border-subtle); }
-        .divider span { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+/* CTA */
+.cta-strip{background:linear-gradient(135deg,rgba(56,182,255,0.1),rgba(56,182,255,0.04));border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:48px 0;text-align:center;}
+.cta-strip h2{font-size:clamp(1.4rem,3.5vw,2rem);margin-bottom:10px;}
+.cta-strip p{color:var(--text2);margin-bottom:22px;max-width:480px;margin-left:auto;margin-right:auto;}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
 
-        /* CTA STRIP */
-        .cta-strip { background: linear-gradient(135deg, rgba(56,182,255,0.1) 0%, rgba(56,182,255,0.05) 100%); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); padding: 48px 0; text-align: center; }
-        .cta-strip h2 { font-size: clamp(1.5rem, 4vw, 2.2rem); margin-bottom: 12px; }
-        .cta-strip p { color: var(--text-secondary); margin-bottom: 24px; max-width: 500px; margin-left: auto; margin-right: auto; }
-        .cta-strip .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+/* ORDER MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.72);z-index:99999;align-items:center;justify-content:center;padding:16px;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:var(--card);border:1px solid var(--border-hi);border-radius:10px;max-width:540px;width:100%;padding:28px;position:relative;max-height:92vh;overflow-y:auto;}
+.modal-close{position:absolute;top:14px;right:14px;background:none;border:1px solid var(--border);color:var(--muted);width:30px;height:30px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.82rem;transition:all 0.2s;}
+.modal-close:hover{border-color:var(--red);color:var(--red);}
+.modal-prod-hdr{display:flex;gap:14px;align-items:center;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.modal-icon{width:54px;height:54px;background:var(--elevated);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.modal-icon i{font-size:1.7rem;color:var(--cyan-dim);}
+.modal-prod-name{font-family:var(--display);font-size:1rem;font-weight:700;color:var(--text);margin-bottom:3px;}
+.modal-prod-price{font-family:var(--display);font-size:1.15rem;color:var(--cyan);font-weight:700;}
+.modal-sec{font-family:var(--mono);font-size:0.68rem;text-transform:uppercase;letter-spacing:2px;color:var(--cyan);margin-bottom:12px;margin-top:18px;}
+.fg{margin-bottom:12px;}
+.fg label{display:block;font-family:var(--mono);font-size:0.67rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:5px;}
+.fg input,.fg select,.fg textarea{width:100%;padding:9px 13px;background:var(--elevated);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:var(--sans);font-size:0.88rem;outline:none;transition:border-color 0.2s;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--cyan);}
+.fg textarea{resize:vertical;min-height:64px;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:480px){.row2{grid-template-columns:1fr;}}
+.order-btns{display:flex;gap:10px;margin-top:18px;}
+.order-btns .btn{flex:1;justify-content:center;}
+.divider{display:flex;align-items:center;gap:10px;margin:14px 0;}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border);}
+.divider span{font-family:var(--mono);font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
 
-        /* FOOTER */
-        .footer { background: var(--bg-secondary); border-top: 1px solid var(--border-subtle); padding: 60px 0 30px; position: relative; z-index: 1; }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px; margin-bottom: 40px; }
-        .footer-brand p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7; margin-bottom: 16px; }
-        .footer h4 { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--cyan); margin-bottom: 16px; }
-        .footer ul { list-style: none; }
-        .footer ul li { margin-bottom: 8px; }
-        .footer ul li a { color: var(--text-secondary); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
-        .footer ul li a:hover { color: var(--cyan); }
-        .footer-contact p { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 10px; }
-        .footer-contact i { color: var(--cyan); margin-top: 3px; flex-shrink: 0; }
-        .footer-bottom { border-top: 1px solid var(--border-subtle); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; }
-        .footer-bottom span { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); }
-        .data-readout { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); }
-        .indicator { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-green); animation: pulse 2s infinite; }
-        @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
-        @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
-        @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } .footer-bottom { flex-direction: column; gap: 8px; } }
+/* TOAST */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--card);border:1px solid var(--border-hi);border-radius:8px;padding:12px 18px;font-size:0.84rem;color:var(--text);z-index:999999;transform:translateY(60px);opacity:0;transition:all 0.3s;pointer-events:none;}
+.toast.show{transform:translateY(0);opacity:1;}
 
-        /* TOAST */
-        .toast { position: fixed; bottom: 24px; right: 24px; background: var(--bg-card); border: 1px solid var(--border-glow); border-radius: 8px; padding: 14px 20px; font-size: 0.88rem; color: var(--text-primary); z-index: 999999; transform: translateY(80px); opacity: 0; transition: all 0.3s ease; max-width: 300px; }
-        .toast.show { transform: translateY(0); opacity: 1; }
-        .toast i { color: var(--accent-green); margin-right: 8px; }
-    </style>
+/* FOOTER */
+.footer{background:var(--bg2);border-top:1px solid var(--border);padding:52px 0 28px;position:relative;z-index:1;}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:36px;margin-bottom:36px;}
+.foot-brand p{color:var(--text2);font-size:0.88rem;line-height:1.7;margin-bottom:14px;}
+.footer h4{font-family:var(--mono);font-size:0.72rem;text-transform:uppercase;letter-spacing:2px;color:var(--cyan);margin-bottom:14px;}
+.footer ul{list-style:none;}
+.footer ul li{margin-bottom:7px;}
+.footer ul li a{color:var(--text2);text-decoration:none;font-size:0.85rem;transition:color 0.2s;}
+.footer ul li a:hover{color:var(--cyan);}
+.foot-contact p{color:var(--text2);font-size:0.83rem;margin-bottom:7px;display:flex;align-items:flex-start;gap:9px;}
+.foot-contact i{color:var(--cyan);margin-top:3px;flex-shrink:0;}
+.foot-bottom{border-top:1px solid var(--border);padding-top:20px;display:flex;justify-content:space-between;align-items:center;}
+.foot-bottom span{font-family:var(--mono);font-size:0.7rem;color:var(--muted);}
+.indicator{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+.readout{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:0.68rem;color:var(--muted);}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+@media(max-width:768px){.foot-grid{grid-template-columns:1fr 1fr;}.menu-btn{display:flex;}nav ul{display:none;position:fixed;inset:0;background:var(--bg);flex-direction:column;justify-content:center;align-items:center;z-index:9998;gap:20px;}nav ul.open{display:flex;}nav ul a{font-size:1rem;padding:10px 24px;}.nav-actions .btn{display:none;}}
+@media(max-width:480px){.foot-grid{grid-template-columns:1fr;}.foot-bottom{flex-direction:column;gap:7px;}.prod-grid{grid-template-columns:1fr;}}
+</style>
 </head>
 <body>
 
-<!-- TOPBAR -->
 <div class="topbar">
-    <div class="container topbar-inner">
-        <div class="topbar-info">
-            <a href="tel:+2347067580599" class="tb-item"><i class="fas fa-phone"></i><span> +234 706 758 0599</span></a>
-            <a href="mailto:zionnetcomsolutionsltd@gmail.com" class="tb-item"><i class="fas fa-envelope"></i><span class="tb-email-text"> zionnetcomsolutionsltd@gmail.com</span></a>
-        </div>
-        <div class="topbar-right">
-            <div class="topbar-social">
-                <a href="https://www.linkedin.com/company/zion-netcom-solutions-limited" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="https://www.youtube.com/@zionnetcomsolutionsltd" target="_blank"><i class="fab fa-youtube"></i></a>
-                <a href="https://www.instagram.com/zionnetcomsolutionsltd/" target="_blank"><i class="fab fa-instagram"></i></a>
-            </div>
-            <button class="theme-toggle" id="theme-toggle"><i class="fas fa-sun" id="theme-icon"></i></button>
-        </div>
+  <div class="wrap topbar-inner">
+    <div class="tb-info">
+      <a href="tel:+2347067580599" class="tb-item"><i class="fas fa-phone"></i> +234 706 758 0599</a>
+      <a href="mailto:zionnetcomsolutionsltd@gmail.com" class="tb-item"><i class="fas fa-envelope"></i> zionnetcomsolutionsltd@gmail.com</a>
     </div>
+    <div class="tb-right">
+      <div class="tb-social">
+        <a href="https://www.linkedin.com/company/zion-netcom-solutions-limited" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.youtube.com/@zionnetcomsolutionsltd" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.instagram.com/zionnetcomsolutionsltd/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </div>
+      <button class="theme-btn" id="themeBtn"><i class="fas fa-sun" id="themeIcon"></i></button>
+    </div>
+  </div>
 </div>
 
-<!-- HEADER -->
 <header class="header">
-    <div class="container nav-wrapper">
-        <a href="index.html" class="logo">
-            <img src="zion.jpg" alt="Zion Netcom Solutions">
-            <div>
-                <div class="logo-text">ZION<span>NETCOM</span></div>
-                <div class="logo-sub">Solutions Limited</div>
-            </div>
-        </a>
-        <nav>
-            <ul class="nav-links" id="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="services.html">Solutions</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="payment.html">Make Payment</a></li>
-                <li><a href="store.html" class="active">Store</a></li>
-            </ul>
-        </nav>
-        <div class="header-actions">
-            <a href="contact.html" class="btn btn-primary btn-sm">Get Quote</a>
-            <button class="menu-toggle" id="menu-toggle"><i class="fas fa-bars" id="menu-icon"></i></button>
-        </div>
+  <div class="wrap nav-wrap">
+    <a href="index.html" class="logo">
+      <img src="zion.jpg" alt="Zion Netcom">
+      <div><div class="logo-name">ZION<span>NETCOM</span></div><div class="logo-sub">Solutions Limited</div></div>
+    </a>
+    <nav>
+      <ul id="navMenu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Solutions</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="payment.html">Make Payment</a></li>
+        <li><a href="store.html" class="active">Store</a></li>
+      </ul>
+    </nav>
+    <div class="nav-actions">
+      <a href="contact.html" class="btn btn-primary btn-sm">Get Quote</a>
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars" id="menuIcon"></i></button>
     </div>
+  </div>
 </header>
 
-<!-- HERO -->
-<section class="hero-store">
-    <div class="container">
-        <div class="hero-badge">Tech Store</div>
-        <h1>Laptops & Tech Hardware</h1>
-        <p>Quality laptops sourced, tested, and sold directly from Zion Netcom in Kaduna. UK-used, brand new, and refurbished options available with warranty.</p>
-        <div class="hero-badges">
-            <div class="trust-badge"><i class="fas fa-shield-alt"></i> Tested & Verified</div>
-            <div class="trust-badge"><i class="fas fa-truck"></i> Nationwide Delivery</div>
-            <div class="trust-badge"><i class="fas fa-headset"></i> After-Sales Support</div>
-            <div class="trust-badge"><i class="fas fa-money-bill-wave"></i> Flexible Payment</div>
-        </div>
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-tag">Tech Store</div>
+    <h1>Laptops & Tech Hardware</h1>
+    <p>Quality laptops sourced, tested, and sold directly from Zion Netcom in Kaduna. Brand new, UK-used, and refurbished options — all verified.</p>
+    <div class="trust-badges">
+      <div class="tbadge"><i class="fas fa-shield-alt"></i> Tested & Verified</div>
+      <div class="tbadge"><i class="fas fa-truck"></i> Nationwide Delivery</div>
+      <div class="tbadge"><i class="fas fa-headset"></i> After-Sales Support</div>
+      <div class="tbadge"><i class="fas fa-money-bill-wave"></i> Flexible Payment</div>
     </div>
+  </div>
 </section>
 
-<!-- FILTER BAR -->
-<div class="filter-section">
-    <div class="container">
-        <div class="filter-bar">
-            <div class="filter-search">
-                <i class="fas fa-search"></i>
-                <input type="text" id="search-input" placeholder="Search laptops..." oninput="filterProducts()">
-            </div>
-            <select class="filter-select" id="brand-filter" onchange="filterProducts()">
-                <option value="">All Brands</option>
-                <option>HP</option>
-                <option>Dell</option>
-                <option>Lenovo</option>
-                <option>Apple</option>
-                <option>Asus</option>
-                <option>Acer</option>
-                <option>Microsoft</option>
-                <option>Samsung</option>
-            </select>
-            <select class="filter-select" id="price-filter" onchange="filterProducts()">
-                <option value="">All Prices</option>
-                <option value="0-150000">Under ₦150k</option>
-                <option value="150000-300000">₦150k – ₦300k</option>
-                <option value="300000-500000">₦300k – ₦500k</option>
-                <option value="500000-999999999">Above ₦500k</option>
-            </select>
-            <div class="filter-chips">
-                <button class="chip active" onclick="setCondition('',this)">All</button>
-                <button class="chip" onclick="setCondition('new',this)">Brand New</button>
-                <button class="chip" onclick="setCondition('uk-used',this)">UK Used</button>
-                <button class="chip" onclick="setCondition('refurb',this)">Refurbished</button>
-            </div>
-            <span class="results-count" id="results-count"></span>
-        </div>
+<div class="filter-wrap">
+  <div class="wrap">
+    <div class="filter-bar">
+      <div class="filter-search">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Search laptops..." oninput="doFilter()">
+      </div>
+      <select class="filter-sel" id="brandFilter" onchange="doFilter()">
+        <option value="">All Brands</option>
+        <option>HP</option><option>Dell</option><option>Lenovo</option>
+        <option>Apple</option><option>Asus</option><option>Acer</option>
+        <option>Microsoft</option><option>Samsung</option>
+      </select>
+      <select class="filter-sel" id="priceFilter" onchange="doFilter()">
+        <option value="">All Prices</option>
+        <option value="0-150000">Under ₦150k</option>
+        <option value="150000-300000">₦150k – ₦300k</option>
+        <option value="300000-500000">₦300k – ₦500k</option>
+        <option value="500000-9999999">Above ₦500k</option>
+      </select>
+      <div class="chips">
+        <button class="chip active" data-cond="">All</button>
+        <button class="chip" data-cond="new">Brand New</button>
+        <button class="chip" data-cond="uk-used">UK Used</button>
+        <button class="chip" data-cond="refurb">Refurbished</button>
+      </div>
+      <span class="res-count" id="resCount"></span>
     </div>
+  </div>
 </div>
 
-<!-- PRODUCTS -->
-<section class="products-section">
-    <div class="container">
-        <div class="products-grid" id="products-grid"></div>
-        <div class="no-results" id="no-results" style="display:none;">
-            <i class="fas fa-laptop"></i>
-            <p>No products match your search. <a href="#" onclick="resetFilters()" style="color:var(--cyan);">Clear filters</a></p>
-        </div>
+<section class="products-sec">
+  <div class="wrap">
+    <div class="prod-grid" id="prodGrid"></div>
+    <div class="no-results" id="noResults" style="display:none;">
+      <i class="fas fa-laptop"></i>
+      <p>No products match your search. <a href="#" onclick="resetFilters();return false;" style="color:var(--cyan);">Clear filters</a></p>
     </div>
+  </div>
 </section>
 
-<!-- CTA STRIP -->
 <section class="cta-strip">
-    <div class="container">
-        <h2>Can't find what you're looking for?</h2>
-        <p>We source specific laptop models on request. Tell us what you need — brand, specs, budget — and we'll find it for you.</p>
-        <div class="cta-btns">
-            <a href="https://wa.me/2347067580599?text=Hi%2C%20I%27m%20looking%20for%20a%20specific%20laptop%20from%20Zion%20Netcom%20Store" target="_blank" class="btn btn-green"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
-            <a href="contact.html" class="btn btn-outline"><i class="fas fa-envelope"></i> Send Enquiry</a>
-        </div>
+  <div class="wrap">
+    <h2>Can't find what you need?</h2>
+    <p>We source specific models on request. Tell us the brand, specs, and budget — we'll find it.</p>
+    <div class="cta-btns">
+      <a href="https://wa.me/2347067580599?text=Hi%2C%20I%27m%20looking%20for%20a%20specific%20laptop%20from%20Zion%20Netcom" target="_blank" class="btn btn-green"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+      <a href="contact.html" class="btn btn-outline"><i class="fas fa-envelope"></i> Send Enquiry</a>
     </div>
+  </div>
 </section>
 
-<!-- FOOTER -->
 <footer class="footer">
-    <div class="container">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <div class="logo" style="margin-bottom:16px;">
-                    <img src="zion.jpg" alt="Zion Netcom" style="height:40px; width:auto;">
-                    <div><div class="logo-text">ZION<span>NETCOM</span></div><div class="logo-sub">Solutions Limited</div></div>
-                </div>
-                <p>Engineering reliable digital infrastructure across Nigeria and Africa.</p>
-                <div class="data-readout" style="margin-top:16px;"><span class="indicator"></span><span>ALL SYSTEMS OPERATIONAL</span></div>
-            </div>
-            <div><h4>Navigation</h4><ul>
-                <li><a href="index.html">Home</a></li><li><a href="services.html">Solutions</a></li>
-                <li><a href="projects.html">Projects</a></li><li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li><li><a href="blog.html">Blog</a></li>
-                <li><a href="payment.html">Make Payment</a></li><li><a href="store.html">Store</a></li>
-            </ul></div>
-            <div><h4>Store</h4><ul>
-                <li><a href="#" onclick="setCondition('new',document.querySelector('.chip'))">Brand New Laptops</a></li>
-                <li><a href="#" onclick="setCondition('uk-used',document.querySelector('.chip'))">UK Used Laptops</a></li>
-                <li><a href="#" onclick="setCondition('refurb',document.querySelector('.chip'))">Refurbished</a></li>
-                <li><a href="contact.html">Request a Model</a></li>
-            </ul></div>
-            <div class="footer-contact"><h4>Contact</h4>
-                <p><i class="fas fa-map-marker-alt"></i> No 32 Benue Plaza, Waff Road, Kaduna</p>
-                <p><i class="fas fa-phone"></i> +234 706 758 0599</p>
-                <p><i class="fas fa-envelope"></i> zionnetcomsolutionsltd@gmail.com</p>
-                <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/2347067580599" style="color:var(--text-secondary);text-decoration:none;" target="_blank">WhatsApp Us</a></p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <span>© 2026 Zion Netcom Solutions Limited</span>
-            <span>Built with precision in Kaduna, Nigeria</span>
-        </div>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo" style="margin-bottom:14px;"><img src="zion.jpg" alt="Zion Netcom" style="height:38px;width:auto;"><div><div class="logo-name">ZION<span>NETCOM</span></div><div class="logo-sub">Solutions Limited</div></div></div>
+        <p>Engineering reliable digital infrastructure across Nigeria and Africa.</p>
+        <div class="readout" style="margin-top:14px;"><span class="indicator"></span><span>ALL SYSTEMS OPERATIONAL</span></div>
+      </div>
+      <div><h4>Navigation</h4><ul>
+        <li><a href="index.html">Home</a></li><li><a href="services.html">Solutions</a></li>
+        <li><a href="projects.html">Projects</a></li><li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li><li><a href="blog.html">Blog</a></li>
+        <li><a href="payment.html">Make Payment</a></li><li><a href="store.html">Store</a></li>
+      </ul></div>
+      <div><h4>Store</h4><ul>
+        <li><a href="#" onclick="setChip('new')">Brand New</a></li>
+        <li><a href="#" onclick="setChip('uk-used')">UK Used</a></li>
+        <li><a href="#" onclick="setChip('refurb')">Refurbished</a></li>
+        <li><a href="contact.html">Request a Model</a></li>
+      </ul></div>
+      <div class="foot-contact"><h4>Contact</h4>
+        <p><i class="fas fa-map-marker-alt"></i> No 32 Benue Plaza, Waff Road, Kaduna</p>
+        <p><i class="fas fa-phone"></i> +234 706 758 0599</p>
+        <p><i class="fas fa-envelope"></i> zionnetcomsolutionsltd@gmail.com</p>
+        <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/2347067580599" target="_blank" style="color:var(--text2);text-decoration:none;">WhatsApp Us</a></p>
+      </div>
     </div>
+    <div class="foot-bottom">
+      <span>© 2026 Zion Netcom Solutions Limited</span>
+      <span>Built with precision in Kaduna, Nigeria</span>
+    </div>
+  </div>
 </footer>
 
 <!-- ORDER MODAL -->
-<div class="modal-overlay" id="order-modal">
-    <div class="order-modal-box">
-        <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
-        <div class="modal-product-header">
-            <div class="modal-product-icon"><i class="fas fa-laptop" id="modal-icon"></i></div>
-            <div>
-                <div class="modal-product-name" id="modal-name">—</div>
-                <div class="modal-product-price" id="modal-price">—</div>
-            </div>
-        </div>
-
-        <div class="modal-section-label">Your Details</div>
-        <div class="form-row">
-            <div class="form-group"><label>Full Name</label><input type="text" id="ord-name" placeholder="Your full name"></div>
-            <div class="form-group"><label>Phone Number</label><input type="text" id="ord-phone" placeholder="+234..."></div>
-        </div>
-        <div class="form-group"><label>Email Address</label><input type="email" id="ord-email" placeholder="your@email.com"></div>
-        <div class="form-group"><label>Delivery Address</label><input type="text" id="ord-address" placeholder="Where should we deliver to?"></div>
-        <div class="form-row">
-            <div class="form-group"><label>Payment Method</label>
-                <select id="ord-payment">
-                    <option>Bank Transfer</option>
-                    <option>Cash on Pickup</option>
-                    <option>Opay</option>
-                    <option>Palmpay</option>
-                    <option>Installment (discuss)</option>
-                </select>
-            </div>
-            <div class="form-group"><label>Pickup or Delivery?</label>
-                <select id="ord-delivery">
-                    <option>Delivery (Kaduna)</option>
-                    <option>Nationwide Delivery</option>
-                    <option>Pickup from Kaduna Office</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group"><label>Additional Notes</label><textarea id="ord-notes" placeholder="Any special requests or questions..."></textarea></div>
-
-        <div class="order-channel-btns">
-            <a id="whatsapp-order-btn" href="#" target="_blank" class="btn whatsapp-btn btn-sm">
-                <i class="fab fa-whatsapp"></i> Order via WhatsApp
-            </a>
-            <button class="btn btn-primary btn-sm" onclick="submitEmailOrder()">
-                <i class="fas fa-envelope"></i> Send Enquiry
-            </button>
-        </div>
+<div class="modal-overlay" id="orderModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+    <div class="modal-prod-hdr">
+      <div class="modal-icon"><i class="fas fa-laptop" id="modalIcon"></i></div>
+      <div>
+        <div class="modal-prod-name" id="modalName">—</div>
+        <div class="modal-prod-price" id="modalPrice">—</div>
+      </div>
     </div>
+    <div class="modal-sec">Your Details</div>
+    <div class="row2">
+      <div class="fg"><label>Full Name</label><input id="ord-name" placeholder="Your full name"></div>
+      <div class="fg"><label>Phone Number</label><input id="ord-phone" placeholder="+234..."></div>
+    </div>
+    <div class="fg"><label>Email Address</label><input type="email" id="ord-email" placeholder="your@email.com"></div>
+    <div class="fg"><label>Delivery Address</label><input id="ord-addr" placeholder="Where should we deliver?"></div>
+    <div class="row2">
+      <div class="fg"><label>Payment Method</label>
+        <select id="ord-pay"><option>Bank Transfer</option><option>Cash on Pickup</option><option>Opay</option><option>Palmpay</option><option>Installment (discuss)</option></select>
+      </div>
+      <div class="fg"><label>Pickup or Delivery</label>
+        <select id="ord-del"><option>Delivery (Kaduna)</option><option>Nationwide Delivery</option><option>Pickup from Kaduna Office</option></select>
+      </div>
+    </div>
+    <div class="fg"><label>Additional Notes</label><textarea id="ord-notes" placeholder="Any special requests..."></textarea></div>
+    <div class="divider"><span>choose how to send</span></div>
+    <div class="order-btns">
+      <a id="waOrderBtn" href="#" target="_blank" class="btn btn-green btn-sm"><i class="fab fa-whatsapp"></i> Order via WhatsApp</a>
+      <button class="btn btn-primary btn-sm" onclick="emailOrder()"><i class="fas fa-envelope"></i> Send by Email</button>
+    </div>
+  </div>
 </div>
 
-<!-- TOAST -->
-<div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toast-msg">Done!</span></div>
+<div class="toast" id="toast"><i class="fas fa-check-circle" style="color:var(--green);margin-right:7px;"></i><span id="toastMsg"></span></div>
 
 <script>
-// ── PRODUCT DATA ──
-const products = [
-    { id: 1, brand: 'HP', name: 'HP EliteBook 840 G5', condition: 'uk-used', price: 185000, oldPrice: 220000, specs: ['Intel Core i5-8th Gen','8GB RAM · 256GB SSD','14" FHD Display','Windows 11 Pro'], inStock: true, hot: false },
-    { id: 2, brand: 'Dell', name: 'Dell Latitude 5490', condition: 'uk-used', price: 175000, oldPrice: null, specs: ['Intel Core i7-8th Gen','16GB RAM · 512GB SSD','14" FHD Display','Windows 11 Pro'], inStock: true, hot: true },
-    { id: 3, brand: 'Lenovo', name: 'Lenovo ThinkPad T480s', condition: 'uk-used', price: 195000, oldPrice: 240000, specs: ['Intel Core i7-8th Gen','16GB RAM · 512GB SSD','14" IPS Display','Windows 11 Pro'], inStock: true, hot: false },
-    { id: 4, brand: 'HP', name: 'HP ProBook 450 G7', condition: 'new', price: 310000, oldPrice: null, specs: ['Intel Core i5-10th Gen','8GB RAM · 256GB SSD','15.6" FHD Display','Windows 11 Home'], inStock: true, hot: false },
-    { id: 5, brand: 'Dell', name: 'Dell Inspiron 15 3520', condition: 'new', price: 285000, oldPrice: null, specs: ['Intel Core i5-12th Gen','8GB RAM · 512GB SSD','15.6" FHD Display','Windows 11 Home'], inStock: true, hot: true },
-    { id: 6, brand: 'Lenovo', name: 'Lenovo IdeaPad 3 Gen 7', condition: 'new', price: 255000, oldPrice: null, specs: ['AMD Ryzen 5 5500U','8GB RAM · 512GB SSD','15.6" FHD Display','Windows 11 Home'], inStock: false, hot: false },
-    { id: 7, brand: 'Apple', name: 'MacBook Air M1 (2020)', condition: 'uk-used', price: 520000, oldPrice: 600000, specs: ['Apple M1 Chip','8GB Unified RAM · 256GB SSD','13.3" Retina Display','macOS Sonoma'], inStock: true, hot: true },
-    { id: 8, brand: 'Asus', name: 'Asus VivoBook 15 X1502', condition: 'new', price: 270000, oldPrice: null, specs: ['Intel Core i5-12th Gen','8GB RAM · 512GB SSD','15.6" OLED Display','Windows 11 Home'], inStock: true, hot: false },
-    { id: 9, brand: 'HP', name: 'HP EliteBook 850 G6', condition: 'refurb', price: 145000, oldPrice: 180000, specs: ['Intel Core i7-8th Gen','16GB RAM · 256GB SSD','15.6" FHD Display','Windows 11 Pro'], inStock: true, hot: false },
-    { id: 10, brand: 'Dell', name: 'Dell XPS 13 9310', condition: 'uk-used', price: 490000, oldPrice: 560000, specs: ['Intel Core i7-11th Gen','16GB RAM · 512GB SSD','13.4" OLED Touch','Windows 11 Pro'], inStock: true, hot: true },
-    { id: 11, brand: 'Microsoft', name: 'Surface Pro 9', condition: 'uk-used', price: 580000, oldPrice: null, specs: ['Intel Core i5-12th Gen','8GB RAM · 256GB SSD','13" PixelSense Touch','Windows 11 Pro'], inStock: false, hot: false },
-    { id: 12, brand: 'Lenovo', name: 'ThinkPad X1 Carbon Gen 9', condition: 'uk-used', price: 420000, oldPrice: 495000, specs: ['Intel Core i7-11th Gen','16GB RAM · 512GB SSD','14" IPS Anti-Glare','Windows 11 Pro'], inStock: true, hot: false },
+// ═══════════════════════════════════════════
+// DATA — reads from admin localStorage, falls back to defaults
+// ═══════════════════════════════════════════
+const DEFAULTS = [
+  {id:1,brand:'HP',name:'HP EliteBook 840 G5',condition:'uk-used',price:185000,oldPrice:220000,specs:['Intel Core i5-8th Gen','8GB RAM · 256GB SSD','14" FHD Display','Windows 11 Pro'],inStock:true,hot:false,image:''},
+  {id:2,brand:'Dell',name:'Dell Latitude 5490',condition:'uk-used',price:175000,oldPrice:null,specs:['Intel Core i7-8th Gen','16GB RAM · 512GB SSD','14" FHD Display','Windows 11 Pro'],inStock:true,hot:true,image:''},
+  {id:3,brand:'Lenovo',name:'Lenovo ThinkPad T480s',condition:'uk-used',price:195000,oldPrice:240000,specs:['Intel Core i7-8th Gen','16GB RAM · 512GB SSD','14" IPS Display','Windows 11 Pro'],inStock:true,hot:false,image:''},
+  {id:4,brand:'HP',name:'HP ProBook 450 G7',condition:'new',price:310000,oldPrice:null,specs:['Intel Core i5-10th Gen','8GB RAM · 256GB SSD','15.6" FHD Display','Windows 11 Home'],inStock:true,hot:false,image:''},
+  {id:5,brand:'Dell',name:'Dell Inspiron 15 3520',condition:'new',price:285000,oldPrice:null,specs:['Intel Core i5-12th Gen','8GB RAM · 512GB SSD','15.6" FHD Display','Windows 11 Home'],inStock:true,hot:true,image:''},
+  {id:6,brand:'Lenovo',name:'Lenovo IdeaPad 3 Gen 7',condition:'new',price:255000,oldPrice:null,specs:['AMD Ryzen 5 5500U','8GB RAM · 512GB SSD','15.6" FHD Display','Windows 11 Home'],inStock:false,hot:false,image:''},
+  {id:7,brand:'Apple',name:'MacBook Air M1 (2020)',condition:'uk-used',price:520000,oldPrice:600000,specs:['Apple M1 Chip','8GB Unified RAM · 256GB SSD','13.3" Retina Display','macOS Sonoma'],inStock:true,hot:true,image:''},
+  {id:8,brand:'Asus',name:'Asus VivoBook 15 X1502',condition:'new',price:270000,oldPrice:null,specs:['Intel Core i5-12th Gen','8GB RAM · 512GB SSD','15.6" OLED Display','Windows 11 Home'],inStock:true,hot:false,image:''},
+  {id:9,brand:'HP',name:'HP EliteBook 850 G6',condition:'refurb',price:145000,oldPrice:180000,specs:['Intel Core i7-8th Gen','16GB RAM · 256GB SSD','15.6" FHD Display','Windows 11 Pro'],inStock:true,hot:false,image:''},
+  {id:10,brand:'Dell',name:'Dell XPS 13 9310',condition:'uk-used',price:490000,oldPrice:560000,specs:['Intel Core i7-11th Gen','16GB RAM · 512GB SSD','13.4" OLED Touch','Windows 11 Pro'],inStock:true,hot:true,image:''},
+  {id:11,brand:'Microsoft',name:'Surface Pro 9',condition:'uk-used',price:580000,oldPrice:null,specs:['Intel Core i5-12th Gen','8GB RAM · 256GB SSD','13" PixelSense Touch','Windows 11 Pro'],inStock:false,hot:false,image:''},
+  {id:12,brand:'Lenovo',name:'ThinkPad X1 Carbon Gen 9',condition:'uk-used',price:420000,oldPrice:495000,specs:['Intel Core i7-11th Gen','16GB RAM · 512GB SSD','14" IPS Anti-Glare','Windows 11 Pro'],inStock:true,hot:false,image:''},
 ];
 
-let activeCondition = '';
-let currentProduct = null;
-
-function formatPrice(n) {
-    return '₦' + n.toLocaleString('en-NG');
+function getAllProducts() {
+  try { const s = localStorage.getItem('zn-store-products'); return s ? JSON.parse(s) : DEFAULTS; }
+  catch(e) { return DEFAULTS; }
 }
 
-function conditionLabel(c) {
-    if (c === 'new') return { text: 'Brand New', cls: 'badge-new' };
-    if (c === 'uk-used') return { text: 'UK Used', cls: 'badge-used' };
-    return { text: 'Refurbished', cls: 'badge-used' };
+let allProducts = getAllProducts();
+let activeCond  = '';
+let currentProd = null;
+
+// ═══════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════
+function fmtPrice(n) { return '₦' + Number(n).toLocaleString('en-NG'); }
+
+function condBadge(c) {
+  if (c==='new')     return {cls:'b-new',  label:'Brand New'};
+  if (c==='uk-used') return {cls:'b-used', label:'UK Used'};
+  return                    {cls:'b-refurb',label:'Refurbished'};
 }
 
 function renderProducts(list) {
-    const grid = document.getElementById('products-grid');
-    const noRes = document.getElementById('no-results');
-    document.getElementById('results-count').textContent = list.length + ' product' + (list.length !== 1 ? 's' : '') + ' found';
-    if (!list.length) { grid.innerHTML = ''; noRes.style.display = 'block'; return; }
-    noRes.style.display = 'none';
-    grid.innerHTML = list.map(p => {
-        const cond = conditionLabel(p.condition);
-        const badge = p.hot ? '<span class="product-badge badge-hot"><i class="fas fa-fire"></i> Hot</span>' : `<span class="product-badge ${cond.cls}">${cond.text}</span>`;
-        const stockDot = `<span class="stock-indicator ${p.inStock ? 'stock-in' : 'stock-out'}" title="${p.inStock ? 'In Stock' : 'Sold Out'}"></span>`;
-        const specs = p.specs.map(s => `<div class="spec-row"><i class="fas fa-check"></i>${s}</div>`).join('');
-        const oldPrice = p.oldPrice ? `<span class="product-old-price">${formatPrice(p.oldPrice)}</span>` : '';
-        const soldOverlay = !p.inStock ? `<div class="sold-out-overlay"><div class="sold-out-tag">SOLD OUT</div></div>` : '';
-        const condBadge2 = !p.hot ? '' : `<span class="product-badge badge-new" style="left:auto;right:12px;top:auto;bottom:12px;">${cond.text}</span>`;
-        return `<div class="product-card ${!p.inStock ? 'sold-out' : ''}" data-brand="${p.brand}" data-condition="${p.condition}" data-price="${p.price}">
-            <div class="product-img">
-                ${p.image ? '<img src="' + p.image + '" alt="' + p.name + '" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">' : ''}
-                <i class="fas fa-laptop" ${p.image ? 'style="display:none"' : ''}></i>
-                ${badge}
-                ${stockDot}
-                ${soldOverlay}
-            </div>
-            <div class="product-body">
-                <div class="product-brand">${p.brand}</div>
-                <div class="product-name">${p.name}</div>
-                <div class="product-specs">${specs}</div>
-                <div class="product-price-row">
-                    <span><span class="product-price">${formatPrice(p.price)}</span>${oldPrice}</span>
-                </div>
-                <div class="product-actions">
-                    ${p.inStock
-                        ? `<button class="btn btn-primary btn-sm" onclick="openModal(${p.id})"><i class="fas fa-shopping-cart"></i> Order Now</button>
-                           <a href="https://wa.me/2347067580599?text=Hi%2C%20I'm%20interested%20in%20the%20${encodeURIComponent(p.name)}%20at%20${encodeURIComponent(formatPrice(p.price))}%20from%20Zion%20Netcom%20Store" target="_blank" class="btn btn-green btn-sm"><i class="fab fa-whatsapp"></i></a>`
-                        : `<button class="btn btn-outline btn-sm" style="opacity:0.5;cursor:not-allowed;" disabled>Out of Stock</button>`
-                    }
-                </div>
-            </div>
-        </div>`;
-    }).join('');
+  const grid = document.getElementById('prodGrid');
+  const noRes = document.getElementById('noResults');
+  document.getElementById('resCount').textContent = list.length + ' product' + (list.length!==1?'s':'') + ' found';
+  if (!list.length) { grid.innerHTML=''; noRes.style.display='block'; return; }
+  noRes.style.display = 'none';
+  const cb = condBadge;
+  grid.innerHTML = list.map(p => {
+    const cond = cb(p.condition);
+    const topBadge = p.hot
+      ? `<span class="prod-badge b-hot"><i class="fas fa-fire"></i> Hot</span>`
+      : `<span class="prod-badge ${cond.cls}">${cond.label}</span>`;
+    const stockDot = `<span class="stock-dot ${p.inStock?'dot-in':'dot-out'}" title="${p.inStock?'In Stock':'Sold Out'}"></span>`;
+    const soldOverlay = p.inStock ? '' : `<div class="sold-overlay"><div class="sold-tag">SOLD OUT</div></div>`;
+    const condBadge2 = p.hot ? `<span class="prod-badge ${cond.cls}" style="left:auto;right:11px;top:auto;bottom:11px;">${cond.label}</span>` : '';
+    const imgTag = p.image
+      ? `<img src="${p.image}" alt="${p.name}" onerror="this.style.display='none'">`
+      : `<i class="fas fa-laptop"></i>`;
+    const oldPrTag = p.oldPrice ? `<span class="old-price">${fmtPrice(p.oldPrice)}</span>` : '';
+    const specs = p.specs.map(s=>`<div class="spec-row"><i class="fas fa-check"></i>${s}</div>`).join('');
+    const actions = p.inStock
+      ? `<button class="btn btn-primary btn-sm" onclick="openModal(${p.id})"><i class="fas fa-shopping-cart"></i> Order</button>
+         <a href="https://wa.me/2347067580599?text=Hi%2C%20I%27m%20interested%20in%20${encodeURIComponent(p.name)}%20at%20${encodeURIComponent(fmtPrice(p.price))}%20from%20Zion%20Netcom%20Store" target="_blank" class="btn btn-green btn-sm"><i class="fab fa-whatsapp"></i></a>`
+      : `<button class="btn btn-outline btn-sm" disabled style="opacity:0.45;cursor:not-allowed;">Out of Stock</button>`;
+    return `<div class="prod-card${p.inStock?'':' out-of-stock'}">
+      <div class="prod-img">${imgTag}${topBadge}${condBadge2}${stockDot}${soldOverlay}</div>
+      <div class="prod-body">
+        <div class="prod-brand">${p.brand}</div>
+        <div class="prod-name">${p.name}</div>
+        <div class="prod-specs">${specs}</div>
+        <div class="price-row"><span><span class="prod-price">${fmtPrice(p.price)}</span>${oldPrTag}</span></div>
+        <div class="prod-actions">${actions}</div>
+      </div>
+    </div>`;
+  }).join('');
 }
 
-function filterProducts() {
-    const q = document.getElementById('search-input').value.toLowerCase();
-    const brand = document.getElementById('brand-filter').value;
-    const priceRange = document.getElementById('price-filter').value;
-    let [minP, maxP] = priceRange ? priceRange.split('-').map(Number) : [0, Infinity];
-
-    const filtered = products.filter(p => {
-        const matchSearch = !q || p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q) || p.specs.some(s => s.toLowerCase().includes(q));
-        const matchBrand = !brand || p.brand === brand;
-        const matchCond = !activeCondition || p.condition === activeCondition;
-        const matchPrice = p.price >= minP && p.price <= maxP;
-        return matchSearch && matchBrand && matchCond && matchPrice;
-    });
-    renderProducts(filtered);
+// ═══════════════════════════════════════════
+// FILTER
+// ═══════════════════════════════════════════
+function doFilter() {
+  const q     = document.getElementById('searchInput').value.toLowerCase();
+  const brand = document.getElementById('brandFilter').value;
+  const prR   = document.getElementById('priceFilter').value;
+  const [minP, maxP] = prR ? prR.split('-').map(Number) : [0, Infinity];
+  const filtered = allProducts.filter(p => {
+    const mQ = !q || p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q) || p.specs.some(s=>s.toLowerCase().includes(q));
+    const mB = !brand || p.brand === brand;
+    const mC = !activeCond || p.condition === activeCond;
+    const mP = p.price >= minP && p.price <= maxP;
+    return mQ && mB && mC && mP;
+  });
+  renderProducts(filtered);
 }
 
-function setCondition(cond, el) {
-    activeCondition = cond;
-    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-    el.classList.add('active');
-    filterProducts();
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.addEventListener('click', function() {
+    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+    this.classList.add('active');
+    activeCond = this.dataset.cond;
+    doFilter();
+  });
+});
+
+function setChip(cond) {
+  document.querySelectorAll('.chip').forEach(c => {
+    c.classList.toggle('active', c.dataset.cond === cond);
+  });
+  activeCond = cond;
+  doFilter();
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
 function resetFilters() {
-    document.getElementById('search-input').value = '';
-    document.getElementById('brand-filter').value = '';
-    document.getElementById('price-filter').value = '';
-    activeCondition = '';
-    document.querySelectorAll('.chip').forEach((c,i) => c.classList.toggle('active', i===0));
-    filterProducts();
+  document.getElementById('searchInput').value = '';
+  document.getElementById('brandFilter').value = '';
+  document.getElementById('priceFilter').value = '';
+  activeCond = '';
+  document.querySelectorAll('.chip').forEach((c,i)=>c.classList.toggle('active',i===0));
+  doFilter();
 }
 
-// ── ORDER MODAL ──
+// ═══════════════════════════════════════════
+// ORDER MODAL
+// ═══════════════════════════════════════════
 function openModal(id) {
-    currentProduct = products.find(p => p.id === id);
-    if (!currentProduct) return;
-    document.getElementById('modal-name').textContent = currentProduct.name;
-    document.getElementById('modal-price').textContent = formatPrice(currentProduct.price);
-    document.getElementById('order-modal').classList.add('active');
-    document.body.style.overflow = 'hidden';
-    updateWhatsAppLink();
+  currentProd = allProducts.find(p=>p.id==id);
+  if (!currentProd) return;
+  document.getElementById('modalName').textContent  = currentProd.name;
+  document.getElementById('modalPrice').textContent = fmtPrice(currentProd.price);
+  document.getElementById('orderModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  updateWALink();
 }
-
 function closeModal() {
-    document.getElementById('order-modal').classList.remove('active');
-    document.body.style.overflow = '';
+  document.getElementById('orderModal').classList.remove('open');
+  document.body.style.overflow = '';
 }
-
-document.getElementById('order-modal').addEventListener('click', e => {
-    if (e.target === document.getElementById('order-modal')) closeModal();
+document.getElementById('orderModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('orderModal')) closeModal();
 });
 
-['ord-name','ord-phone','ord-address','ord-payment','ord-delivery','ord-notes'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.addEventListener('input', updateWhatsAppLink);
-    if (el) el.addEventListener('change', updateWhatsAppLink);
+['ord-name','ord-phone','ord-addr','ord-pay','ord-del','ord-notes'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) { el.addEventListener('input', updateWALink); el.addEventListener('change', updateWALink); }
 });
 
-function updateWhatsAppLink() {
-    if (!currentProduct) return;
-    const name = document.getElementById('ord-name').value || '(name not filled)';
-    const phone = document.getElementById('ord-phone').value || '(phone not filled)';
-    const addr = document.getElementById('ord-address').value || '(address not filled)';
-    const pay = document.getElementById('ord-payment').value;
-    const del = document.getElementById('ord-delivery').value;
-    const notes = document.getElementById('ord-notes').value;
-    const msg = `Hi Zion Netcom, I'd like to order:\n\n*Product:* ${currentProduct.name}\n*Price:* ${formatPrice(currentProduct.price)}\n\n*Name:* ${name}\n*Phone:* ${phone}\n*Delivery Address:* ${addr}\n*Payment Method:* ${pay}\n*Delivery Option:* ${del}\n${notes ? '*Notes:* ' + notes : ''}`;
-    document.getElementById('whatsapp-order-btn').href = 'https://wa.me/2347067580599?text=' + encodeURIComponent(msg);
+function updateWALink() {
+  if (!currentProd) return;
+  const name  = document.getElementById('ord-name').value  || '(not filled)';
+  const phone = document.getElementById('ord-phone').value || '(not filled)';
+  const addr  = document.getElementById('ord-addr').value  || '(not filled)';
+  const pay   = document.getElementById('ord-pay').value;
+  const del   = document.getElementById('ord-del').value;
+  const notes = document.getElementById('ord-notes').value;
+  const msg = `Hi Zion Netcom, I want to order:\n\n*Product:* ${currentProd.name}\n*Price:* ${fmtPrice(currentProd.price)}\n\n*Name:* ${name}\n*Phone:* ${phone}\n*Delivery Address:* ${addr}\n*Payment:* ${pay}\n*Delivery Option:* ${del}${notes?'\n*Notes:* '+notes:''}`;
+  document.getElementById('waOrderBtn').href = 'https://wa.me/2347067580599?text=' + encodeURIComponent(msg);
 }
 
-function submitEmailOrder() {
-    const name = document.getElementById('ord-name').value;
-    const phone = document.getElementById('ord-phone').value;
-    if (!name || !phone) { showToast('Please fill in your name and phone number.', false); return; }
-    const subject = `Store Order: ${currentProduct.name}`;
-    const body = `Product: ${currentProduct.name}\nPrice: ${formatPrice(currentProduct.price)}\n\nName: ${name}\nPhone: ${phone}\nEmail: ${document.getElementById('ord-email').value}\nAddress: ${document.getElementById('ord-address').value}\nPayment: ${document.getElementById('ord-payment').value}\nDelivery: ${document.getElementById('ord-delivery').value}\nNotes: ${document.getElementById('ord-notes').value}`;
-    window.location.href = `mailto:zionnetcomsolutionsltd@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    showToast('Opening your email client...', true);
+function emailOrder() {
+  if (!currentProd) return;
+  const name = document.getElementById('ord-name').value;
+  const phone = document.getElementById('ord-phone').value;
+  if (!name || !phone) { showToast('Please enter your name and phone number.', false); return; }
+  const subject = `Store Order: ${currentProd.name}`;
+  const body = `Product: ${currentProd.name}\nPrice: ${fmtPrice(currentProd.price)}\n\nName: ${name}\nPhone: ${phone}\nEmail: ${document.getElementById('ord-email').value}\nAddress: ${document.getElementById('ord-addr').value}\nPayment: ${document.getElementById('ord-pay').value}\nDelivery: ${document.getElementById('ord-del').value}\nNotes: ${document.getElementById('ord-notes').value}`;
+  window.location.href = `mailto:zionnetcomsolutionsltd@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
+// ═══════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════
 function showToast(msg, ok=true) {
-    const t = document.getElementById('toast');
-    const icon = t.querySelector('i');
-    icon.className = ok ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
-    icon.style.color = ok ? 'var(--accent-green)' : 'var(--accent-yellow)';
-    document.getElementById('toast-msg').textContent = msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 3500);
+  const t = document.getElementById('toast');
+  const ic = t.querySelector('i');
+  ic.style.color = ok ? 'var(--green)' : 'var(--yellow)';
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 3200);
 }
 
-// ── MOBILE MENU ──
-const menuToggle = document.getElementById('menu-toggle');
-const menuIcon = document.getElementById('menu-icon');
-const navLinks = document.getElementById('nav-links');
-if (menuToggle) {
-    menuToggle.addEventListener('click', () => {
-        const isOpen = navLinks.classList.toggle('active');
-        menuIcon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
-    });
-}
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => { navLinks.classList.remove('active'); if (menuIcon) menuIcon.className = 'fas fa-bars'; });
+// ═══════════════════════════════════════════
+// MOBILE MENU & THEME
+// ═══════════════════════════════════════════
+const menuBtn = document.getElementById('menuBtn');
+const menuIcon = document.getElementById('menuIcon');
+const navMenu  = document.getElementById('navMenu');
+menuBtn.addEventListener('click', () => {
+  const open = navMenu.classList.toggle('open');
+  menuIcon.className = open ? 'fas fa-times' : 'fas fa-bars';
 });
+navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  navMenu.classList.remove('open'); menuIcon.className = 'fas fa-bars';
+}));
 
-// ── THEME ──
-const themeToggle = document.getElementById('theme-toggle');
-const themeIcon = document.getElementById('theme-icon');
-function applyTheme(mode) {
-    if (mode === 'light') { document.body.classList.add('light-mode'); themeIcon.className = 'fas fa-moon'; }
-    else { document.body.classList.remove('light-mode'); themeIcon.className = 'fas fa-sun'; }
-    localStorage.setItem('zn-theme', mode);
+const themeBtn  = document.getElementById('themeBtn');
+const themeIcon = document.getElementById('themeIcon');
+function applyTheme(t) {
+  document.body.classList.toggle('light', t==='light');
+  themeIcon.className = t==='light' ? 'fas fa-moon' : 'fas fa-sun';
+  localStorage.setItem('zn-theme', t);
 }
 const savedTheme = localStorage.getItem('zn-theme');
 if (savedTheme) applyTheme(savedTheme);
-if (themeToggle) themeToggle.addEventListener('click', () => { applyTheme(document.body.classList.contains('light-mode') ? 'dark' : 'light'); });
+themeBtn.addEventListener('click', ()=>applyTheme(document.body.classList.contains('light')?'dark':'light'));
 
-// ── INIT ──
-// Load from localStorage (admin-managed) or fall back to defaults
-function getActiveProducts() {
-    const saved = localStorage.getItem('zn-store-products');
-    return saved ? JSON.parse(saved) : products;
-}
-
-let activeProducts = getActiveProducts();
-renderProducts(activeProducts);
-document.getElementById('results-count').textContent = activeProducts.length + ' products found';
-
-// Patch filterProducts to use activeProducts
-const _filterProducts = filterProducts;
-filterProducts = function() {
-    const q = document.getElementById('search-input').value.toLowerCase();
-    const brand = document.getElementById('brand-filter').value;
-    const priceRange = document.getElementById('price-filter').value;
-    let [minP, maxP] = priceRange ? priceRange.split('-').map(Number) : [0, Infinity];
-
-    const filtered = activeProducts.filter(p => {
-        const matchSearch = !q || p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q) || p.specs.some(s => s.toLowerCase().includes(q));
-        const matchBrand = !brand || p.brand === brand;
-        const matchCond = !activeCondition || p.condition === activeCondition;
-        const matchPrice = p.price >= minP && p.price <= maxP;
-        return matchSearch && matchBrand && matchCond && matchPrice;
-    });
-    renderProducts(filtered);
-};
+// ═══════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════
+renderProducts(allProducts);
 </script>
 </body>
 </html>
