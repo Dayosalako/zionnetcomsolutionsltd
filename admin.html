@@ -164,8 +164,12 @@ select option{background:var(--card);}
 /* BLOG MANAGER */
 .btopbar{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding:11px 15px;background:var(--el);border:1px solid var(--br);border-radius:6px;font-family:var(--mono);font-size:0.77rem;}
 .btopbar .uemail{color:var(--cyan);}
-.btopbar .lout{margin-left:auto;background:none;border:1px solid var(--br);color:var(--text2);padding:4px 11px;border-radius:4px;cursor:pointer;font-family:var(--mono);font-size:0.71rem;transition:all 0.2s;text-decoration:none;}
+.btopbar .lout{background:none;border:1px solid var(--br);color:var(--text2);padding:4px 11px;border-radius:4px;cursor:pointer;font-family:var(--mono);font-size:0.71rem;transition:all 0.2s;text-decoration:none;}
+.btopbar .lout:first-of-type{margin-left:0;}
 .btopbar .lout:hover{border-color:var(--red);color:var(--red);}
+.bnew{margin-left:auto;background:var(--cyan);border:1px solid var(--cyan);color:#061019;padding:7px 13px;border-radius:4px;cursor:pointer;font-family:var(--mono);font-size:0.71rem;font-weight:700;display:inline-flex;align-items:center;gap:6px;transition:all 0.2s;}
+.bnew:hover{filter:brightness(1.08);transform:translateY(-1px);box-shadow:0 5px 18px rgba(56,182,255,0.18);}
+@media(max-width:600px){.btopbar{flex-wrap:wrap;}.bnew{margin-left:auto;}.btopbar .lout{margin-left:0;}}
 .bstats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px;}
 .bstat{background:var(--card);border:1px solid var(--br);border-radius:6px;padding:13px 15px;text-align:center;}
 .bsv{font-family:var(--disp);font-size:1.35rem;font-weight:700;color:var(--cyan);}
@@ -612,6 +616,7 @@ select option{background:var(--card);}
         <div class="btopbar">
           <i class="fas fa-circle" style="color:var(--green);font-size:0.5rem;"></i>
           <span>Signed in as <span class="uemail" id="b-uemail">—</span></span>
+          <button class="bnew" onclick="openBNew()"><i class="fas fa-plus"></i> New Blog Post</button>
           <a href="blog.html" target="_blank" class="lout"><i class="fas fa-eye"></i> View Blog</a>
           <button class="lout" onclick="doBlogLogout()"><i class="fas fa-right-from-bracket"></i> Sign Out</button>
         </div>
@@ -692,11 +697,11 @@ select option{background:var(--card);}
   </div>
 </footer>
 
-<!-- BLOG EDIT MODAL -->
+<!-- BLOG CREATE / EDIT MODAL -->
 <div class="bmodal" id="bmodal">
   <div class="bmodalbox">
     <div class="bmhdr">
-      <h3><i class="fas fa-pen" style="color:var(--cyan);margin-right:8px;"></i>Edit Post</h3>
+      <h3 id="bm-title"><i class="fas fa-pen" style="color:var(--cyan);margin-right:8px;"></i>Edit Post</h3>
       <button class="bmclose" onclick="closeBM()"><i class="fas fa-times"></i></button>
     </div>
     <input type="hidden" id="be-id">
@@ -717,7 +722,7 @@ select option{background:var(--card);}
     </div>
     <div class="bmacts">
       <button class="bcanc" onclick="closeBM()">Cancel</button>
-      <button class="btn btn-p btn-sm" onclick="saveBPost()"><i class="fas fa-floppy-disk"></i> Save Changes</button>
+      <button class="btn btn-p btn-sm" id="bm-save" onclick="saveBPost()"><i class="fas fa-floppy-disk"></i> Save Changes</button>
     </div>
   </div>
 </div>
@@ -1381,6 +1386,21 @@ async function delBPost(id) {
   if(!res.error){ toast('Post deleted.'); loadBPosts(); } else toast('Error deleting.',false);
 }
 
+function openBNew() {
+  document.getElementById('be-id').value='';
+  document.getElementById('be-title').value='';
+  document.getElementById('be-slug').value='';
+  document.getElementById('be-exc').value='';
+  document.getElementById('be-topic').selectedIndex=0;
+  document.getElementById('be-emoji').value='🖥️';
+  document.getElementById('be-content').value='';
+  document.getElementById('bm-title').innerHTML='<i class="fas fa-plus" style="color:var(--cyan);margin-right:8px;"></i>New Blog Post';
+  document.getElementById('bm-save').innerHTML='<i class="fas fa-plus"></i> Create Draft';
+  document.getElementById('bmodal').classList.add('open');
+  document.body.style.overflow='hidden';
+  setTimeout(function(){ document.getElementById('be-title').focus(); },50);
+}
+
 function openBEdit(id) {
   var p=blogPosts.find(function(x){ return x.id===id; }); if(!p) return;
   document.getElementById('be-id').value      = p.id;
@@ -1389,27 +1409,69 @@ function openBEdit(id) {
   document.getElementById('be-exc').value     = p.excerpt||'';
   document.getElementById('be-topic').value   = p.topic||'';
   document.getElementById('be-emoji').value   = p.cover_emoji||'🖥️';
-  document.getElementById('be-content').value = p.content;
+  document.getElementById('be-content').value = p.content||'';
+  document.getElementById('bm-title').innerHTML='<i class="fas fa-pen" style="color:var(--cyan);margin-right:8px;"></i>Edit Post';
+  document.getElementById('bm-save').innerHTML='<i class="fas fa-floppy-disk"></i> Save Changes';
   document.getElementById('bmodal').classList.add('open');
   document.body.style.overflow='hidden';
 }
-function closeBM() { document.getElementById('bmodal').classList.remove('open'); document.body.style.overflow=''; }
+
+function closeBM() {
+  document.getElementById('bmodal').classList.remove('open');
+  document.body.style.overflow='';
+}
 document.getElementById('bmodal').addEventListener('click', function(e){ if(e.target===this) closeBM(); });
+
+function makeBSlug(value) {
+  return value.toLowerCase().trim().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-').replace(/-+/g,'-');
+}
+document.getElementById('be-title').addEventListener('blur', function(){
+  var slug=document.getElementById('be-slug');
+  if(!document.getElementById('be-id').value && !slug.value.trim()) slug.value=makeBSlug(this.value);
+});
 
 async function saveBPost() {
   var db=getDB();
+  if(!db){ toast('Supabase is unavailable.',false); return; }
   var id=document.getElementById('be-id').value;
   var updates={
     title:document.getElementById('be-title').value.trim(),
-    slug:document.getElementById('be-slug').value.trim(),
+    slug:makeBSlug(document.getElementById('be-slug').value),
     excerpt:document.getElementById('be-exc').value.trim(),
     topic:document.getElementById('be-topic').value,
-    cover_emoji:document.getElementById('be-emoji').value.trim(),
+    cover_emoji:document.getElementById('be-emoji').value.trim() || '🖥️',
     content:document.getElementById('be-content').value.trim()
   };
+  var btn=document.getElementById('bm-save');
   if(!updates.title||!updates.slug||!updates.content){ toast('Title, slug, and content are required.',false); return; }
-  var res=await db.from('blog_posts').update(updates).eq('id',id);
-  if(!res.error){ toast('Changes saved!'); closeBM(); loadBPosts(); } else toast('Error: '+res.error.message,false);
+  btn.disabled=true;
+  btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> '+(id?'Saving…':'Creating…');
+
+  var res;
+  if(id){
+    res=await db.from('blog_posts').update(updates).eq('id',id);
+  } else {
+    res=await db.from('blog_posts').insert([{
+      title:updates.title,
+      slug:updates.slug,
+      excerpt:updates.excerpt,
+      topic:updates.topic,
+      cover_emoji:updates.cover_emoji,
+      content:updates.content,
+      status:'draft',
+      published_at:null
+    }]);
+  }
+
+  btn.disabled=false;
+  btn.innerHTML='<i class="fas fa-floppy-disk"></i> '+(id?'Save Changes':'Create Draft');
+  if(!res.error){
+    toast(id?'Changes saved!':'Draft created successfully!');
+    closeBM();
+    loadBPosts();
+  } else {
+    toast('Error: '+res.error.message,false);
+  }
 }
 
 
