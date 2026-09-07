@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Panel | Zion Netcom Solutions</title>
 <link rel="icon" type="image/png" href="favicon.png">
@@ -182,7 +183,72 @@ select option{background:var(--card);}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
 @media(max-width:768px){.foot-grid{grid-template-columns:1fr 1fr;}.menu-btn{display:flex;}nav ul{display:none;position:fixed;inset:0;background:var(--bg);flex-direction:column;justify-content:center;align-items:center;z-index:9998;gap:20px;}nav ul.open{display:flex;}nav ul a{font-size:1rem;padding:10px 24px;}.nav-actions .btn{display:none;}}
 @media(max-width:480px){.foot-grid{grid-template-columns:1fr;}.foot-bottom{flex-direction:column;gap:7px;}}
+
+/* ══ LOGIN SCREEN ══ */
+.login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;position:fixed;inset:0;background:rgba(7,11,20,0.97);z-index:99999;backdrop-filter:blur(8px);}
+.login-card{background:var(--card);border:1px solid var(--border-hi);border-radius:10px;padding:36px 32px;width:100%;max-width:400px;position:relative;}
+.login-card::before,.login-card::after{content:'';position:absolute;width:12px;height:12px;border:2px solid var(--cyan);}
+.login-card::before{top:-1px;left:-1px;border-right:none;border-bottom:none;}
+.login-card::after{bottom:-1px;right:-1px;border-left:none;border-top:none;}
+.login-icon{text-align:center;font-size:2.4rem;margin-bottom:16px;}
+.login-card h2{text-align:center;font-size:1.4rem;margin-bottom:4px;}
+.login-sub{text-align:center;color:var(--text2);font-size:0.85rem;margin-bottom:28px;}
+.login-error{display:none;font-family:var(--mono);font-size:0.76rem;color:#ff6b6b;padding:9px 13px;border:1px solid rgba(255,107,107,0.3);background:rgba(255,107,107,0.07);border-radius:4px;margin-bottom:14px;}
+.login-error.show{display:block;}
+.login-btn{width:100%;justify-content:center;margin-top:6px;}
+/* ══ BLOG MANAGER ══ */
+.blog-topbar-info{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding:12px 16px;background:var(--elevated);border:1px solid var(--border);border-radius:6px;font-family:var(--mono);font-size:0.78rem;}
+.blog-topbar-info span{color:var(--text2);}
+.blog-topbar-info .user-email{color:var(--cyan);}
+.blog-topbar-info .logout-btn{margin-left:auto;background:none;border:1px solid var(--border);color:var(--text2);padding:4px 12px;border-radius:4px;cursor:pointer;font-family:var(--mono);font-size:0.72rem;transition:all 0.2s;}
+.blog-topbar-info .logout-btn:hover{border-color:var(--red);color:var(--red);}
+.blog-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;}
+.blog-stat{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:14px 16px;text-align:center;}
+.blog-stat .bs-val{font-family:var(--display);font-size:1.4rem;font-weight:700;color:var(--cyan);}
+.blog-stat .bs-lbl{font-family:var(--mono);font-size:0.65rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-top:3px;}
+.blog-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:20px;}
+.blog-tab{font-family:var(--mono);font-size:0.73rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;padding:9px 16px;background:transparent;color:var(--muted);border:none;border-bottom:2px solid transparent;cursor:pointer;transition:all 0.2s;}
+.blog-tab:hover{color:var(--cyan);}
+.blog-tab.active{color:var(--cyan);border-bottom-color:var(--cyan);}
+.tab-badge{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;background:rgba(56,182,255,0.15);color:var(--cyan);border-radius:10px;font-size:0.65rem;padding:0 5px;margin-left:5px;}
+.posts-wrap{overflow-x:auto;}
+.posts-tbl{width:100%;border-collapse:collapse;}
+.posts-tbl th{font-family:var(--mono);font-size:0.67rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--cyan);padding:9px 12px;text-align:left;border-bottom:1px solid var(--border);}
+.posts-tbl td{padding:10px 12px;font-size:0.85rem;border-bottom:1px solid rgba(56,182,255,0.06);color:var(--text2);vertical-align:middle;}
+.posts-tbl tr:hover td{background:rgba(56,182,255,0.04);}
+.td-emoji{font-size:1.4rem;width:40px;}
+.td-title{font-weight:600;color:var(--text);}
+.post-preview{font-size:0.75rem;color:var(--muted);margin-top:2px;font-weight:400;}
+.topic-chip{font-family:var(--mono);font-size:0.62rem;background:rgba(56,182,255,0.1);color:var(--cyan);padding:2px 8px;border-radius:10px;}
+.status-pill{font-family:var(--mono);font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 10px;border-radius:20px;}
+.status-pill.published{background:rgba(34,197,94,0.15);color:var(--green);}
+.status-pill.draft{background:rgba(245,158,11,0.15);color:var(--yellow);}
+.post-actions{display:flex;gap:5px;}
+.post-btn{font-family:var(--mono);font-size:0.68rem;padding:4px 10px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:5px;}
+.post-btn.edit:hover{border-color:var(--cyan);color:var(--cyan);}
+.post-btn.pub:hover{border-color:var(--green);color:var(--green);}
+.post-btn.unpub:hover{border-color:var(--yellow);color:var(--yellow);}
+.post-btn.del:hover{border-color:var(--red);color:var(--red);}
+.posts-loading{text-align:center;padding:40px;color:var(--muted);}
+.posts-loading i{font-size:1.8rem;animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.posts-empty{text-align:center;padding:40px;color:var(--muted);}
+.posts-empty i{font-size:2rem;display:block;margin-bottom:10px;opacity:0.4;}
+/* BLOG EDIT MODAL */
+.blog-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.72);z-index:99999;align-items:center;justify-content:center;padding:16px;}
+.blog-modal.open{display:flex;}
+.blog-modal-box{background:var(--card);border:1px solid var(--border-hi);border-radius:10px;max-width:640px;width:100%;padding:28px;max-height:90vh;overflow-y:auto;position:relative;}
+.blog-modal-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.blog-modal-hdr h3{font-size:1rem;}
+.blog-modal-close{background:none;border:1px solid var(--border);color:var(--muted);width:28px;height:28px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.8rem;transition:all 0.2s;}
+.blog-modal-close:hover{border-color:var(--red);color:var(--red);}
+.blog-modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px;padding-top:14px;border-top:1px solid var(--border);}
+.btn-cancel{background:transparent;color:var(--text2);border:1px solid var(--border);border-radius:4px;padding:8px 18px;font-family:var(--mono);font-size:0.76rem;cursor:pointer;transition:all 0.2s;}
+.btn-cancel:hover{border-color:var(--text2);}
+@media(max-width:768px){.blog-stats{grid-template-columns:1fr 1fr;}}
+
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
 <body>
 
@@ -190,7 +256,7 @@ select option{background:var(--card);}
   <div class="wrap topbar-inner">
     <div class="tb-info">
       <a href="tel:+2347067580599" class="tb-item"><i class="fas fa-phone"></i> +234 706 758 0599</a>
-      <a href="mailto:zionnetcomsolutionsltd@gmail.com" class="tb-item"><i class="fas fa-envelope"></i> zionnetcomsolutionsltd@gmail.com</a>
+      <a href="mailto:info@zionnetcomsolutionsltd.com.ng" class="tb-item"><i class="fas fa-envelope"></i> info@zionnetcomsolutionsltd.com.ng</a>
     </div>
     <div class="tb-right">
       <div class="tb-social">
@@ -247,6 +313,7 @@ select option{background:var(--card);}
       <button class="tab-btn" data-tab="clients"><i class="fas fa-users"></i> Clients</button>
       <button class="tab-btn" data-tab="notes"><i class="fas fa-sticky-note"></i> Notes</button>
       <button class="tab-btn" data-tab="store"><i class="fas fa-store"></i> Store Manager</button>
+      <button class="tab-btn" data-tab="blog"><i class="fas fa-pen-nib"></i> Blog Manager</button>
       <button class="tab-btn" data-tab="overview"><i class="fas fa-tachometer-alt"></i> Overview</button>
     </div>
 
@@ -260,7 +327,7 @@ select option{background:var(--card);}
             <div class="fg"><label>Address</label><input id="iv-addr" value="No 32 Benue Plaza, Waff Road, Kaduna"></div>
             <div class="row2">
               <div class="fg"><label>Phone</label><input id="iv-phone" value="+234 706 758 0599"></div>
-              <div class="fg"><label>Email</label><input id="iv-email" value="zionnetcomsolutionsltd@gmail.com"></div>
+              <div class="fg"><label>Email</label><input id="iv-email" value="info@zionnetcomsolutionsltd.com.ng"></div>
             </div>
           </div>
           <div class="card">
@@ -337,7 +404,7 @@ select option{background:var(--card);}
             <div class="fg"><label>Address</label><input id="rc-addr" value="No 32 Benue Plaza, Waff Road, Kaduna"></div>
             <div class="row2">
               <div class="fg"><label>Phone</label><input id="rc-phone" value="+234 706 758 0599"></div>
-              <div class="fg"><label>Email</label><input id="rc-email" value="zionnetcomsolutionsltd@gmail.com"></div>
+              <div class="fg"><label>Email</label><input id="rc-email" value="info@zionnetcomsolutionsltd.com.ng"></div>
             </div>
           </div>
           <div class="card">
@@ -524,6 +591,56 @@ select option{background:var(--card);}
       </div>
     </div>
 
+
+    <!-- ══ BLOG MANAGER ══ -->
+    <div class="tab-panel" id="tab-blog">
+
+      <div id="blog-login-wrap">
+        <div class="card" style="max-width:440px;margin:40px auto;">
+          <div class="login-icon">🔐</div>
+          <h3 style="text-align:center;margin-bottom:4px;">Blog Manager</h3>
+          <p class="login-sub">Sign in with your Supabase account to manage blog posts.</p>
+          <div class="login-error" id="blog-login-error"></div>
+          <div class="fg"><label>Email</label><input type="email" id="blog-email" placeholder="your@email.com" autocomplete="email"></div>
+          <div class="fg"><label>Password</label><input type="password" id="blog-password" placeholder="••••••••" autocomplete="current-password"></div>
+          <button class="btn btn-primary login-btn" id="blog-login-btn" onclick="doBlogLogin()">
+            <i class="fas fa-right-to-bracket"></i> Sign In
+          </button>
+        </div>
+      </div>
+
+      <div id="blog-panel" style="display:none;">
+        <div class="blog-topbar-info">
+          <i class="fas fa-circle" style="color:var(--green);font-size:0.5rem;"></i>
+          <span>Signed in as <span class="user-email" id="blog-user-email">—</span></span>
+          <a href="blog.html" target="_blank" class="logout-btn" style="text-decoration:none;margin-left:8px;"><i class="fas fa-eye"></i> View Blog</a>
+          <button class="logout-btn" onclick="doBlogLogout()"><i class="fas fa-right-from-bracket"></i> Sign Out</button>
+        </div>
+        <div class="blog-stats">
+          <div class="blog-stat"><div class="bs-val" id="bs-total">—</div><div class="bs-lbl">Total Posts</div></div>
+          <div class="blog-stat"><div class="bs-val" id="bs-pub">—</div><div class="bs-lbl">Published</div></div>
+          <div class="blog-stat"><div class="bs-val" id="bs-draft">—</div><div class="bs-lbl">Drafts</div></div>
+          <div class="blog-stat"><div class="bs-val" id="bs-month">—</div><div class="bs-lbl">This Month</div></div>
+        </div>
+        <div class="card">
+          <div class="blog-tabs">
+            <button class="blog-tab active" onclick="setBlogFilter(this,'all')">All <span class="tab-badge" id="bc-all">0</span></button>
+            <button class="blog-tab" onclick="setBlogFilter(this,'published')">Published <span class="tab-badge" id="bc-pub">0</span></button>
+            <button class="blog-tab" onclick="setBlogFilter(this,'draft')">Drafts <span class="tab-badge" id="bc-draft">0</span></button>
+          </div>
+          <div class="posts-wrap">
+            <table class="posts-tbl">
+              <thead><tr><th style="width:40px;"></th><th>Title</th><th>Topic</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+              <tbody id="blog-tbody">
+                <tr><td colspan="6"><div class="posts-loading"><i class="fas fa-circle-notch"></i></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
     <!-- ══ OVERVIEW ══ -->
     <div class="tab-panel" id="tab-overview">
       <div class="grid3" style="margin-bottom:20px;">
@@ -569,7 +686,7 @@ select option{background:var(--card);}
       <div class="foot-contact"><h4>Contact</h4>
         <p><i class="fas fa-map-marker-alt"></i> No 32 Benue Plaza, Waff Road, Kaduna</p>
         <p><i class="fas fa-phone"></i> +234 706 758 0599</p>
-        <p><i class="fas fa-envelope"></i> zionnetcomsolutionsltd@gmail.com</p>
+        <p><i class="fas fa-envelope"></i> info@zionnetcomsolutionsltd.com.ng</p>
       </div>
     </div>
     <div class="foot-bottom">
@@ -594,6 +711,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     document.getElementById('tab-' + name).classList.add('active');
     if (name === 'overview') renderOverview();
     if (name === 'store') renderProdTable();
+    if (name === 'blog') initBlog();
   });
 });
 
@@ -739,7 +857,8 @@ function genInvoice() {
   const logo = getLogoTag('52px');
   const sig  = getSigTag();
 
-  _ivDoc = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
+  _ivDoc = `<!DOCTYPE html><html><head><meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow"><style>
     *{margin:0;padding:0;box-sizing:border-box;}
     body{font-family:'Segoe UI',Arial,sans-serif;color:#1a1a2e;font-size:13px;padding:44px;background:#fff;}
     /* HEADER */
@@ -780,7 +899,8 @@ function genInvoice() {
     /* FOOTER */
     .doc-foot{margin-top:28px;text-align:center;font-size:10.5px;color:#aaa;padding-top:14px;border-top:1px solid #eee;}
     @media print{body{padding:24px;}@page{margin:10mm;}}
-  </style></head><body>
+  </style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+</head><body>
 
   <div class="hdr">
     <div class="brand">
@@ -839,7 +959,7 @@ function genInvoice() {
     </div>
   </div>
 
-  <div class="doc-foot">This invoice was generated by Zion Netcom Solutions Limited &nbsp;|&nbsp; No 32 Benue Plaza, Waff Road, Kaduna &nbsp;|&nbsp; zionnetcomsolutionsltd@gmail.com</div>
+  <div class="doc-foot">This invoice was generated by Zion Netcom Solutions Limited &nbsp;|&nbsp; No 32 Benue Plaza, Waff Road, Kaduna &nbsp;|&nbsp; info@zionnetcomsolutionsltd.com.ng</div>
   </body></html>`;
 
   document.getElementById('iv-frame').srcdoc = _ivDoc;
@@ -859,7 +979,8 @@ function genReceipt() {
   const logo = getLogoTag('44px');
   const sig  = getSigTag();
 
-  _rcDoc = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
+  _rcDoc = `<!DOCTYPE html><html><head><meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow"><style>
     *{margin:0;padding:0;box-sizing:border-box;}
     body{font-family:'Segoe UI',Arial,sans-serif;color:#1a1a2e;font-size:13px;background:#fff;}
     .page{max-width:480px;margin:28px auto;padding:28px;border:2px solid #38B6FF;border-radius:8px;}
@@ -892,7 +1013,8 @@ function genReceipt() {
     .stamp-wrap{text-align:center;margin:10px 0 6px;}
     .stamp{display:inline-block;border:3px solid #22c55e;color:#22c55e;font-size:18px;font-weight:900;letter-spacing:4px;padding:4px 16px;border-radius:3px;transform:rotate(-7deg);}
     @media print{body{padding:0;}@page{margin:5mm;}}
-  </style></head><body>
+  </style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+</head><body>
   <div class="page">
     <div class="hdr">
       <div class="logo-row">
@@ -1159,6 +1281,232 @@ function resetStoreDefaults() {
   if (!confirm('Reset all products to the default list? Your changes will be lost.')) return;
   saveProds(DEFAULTS); renderProdTable(); toast('Store reset to defaults.');
 }
+</script>
+
+<!-- BLOG EDIT MODAL -->
+<div class="blog-modal" id="blog-edit-modal">
+  <div class="blog-modal-box">
+    <div class="blog-modal-hdr">
+      <h3><i class="fas fa-pen" style="color:var(--cyan);margin-right:8px;"></i>Edit Post</h3>
+      <button class="blog-modal-close" onclick="closeBlogModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <input type="hidden" id="be-id">
+    <div class="fg"><label>Title</label><input type="text" id="be-title" placeholder="Post title"></div>
+    <div class="fg"><label>Slug (lowercase, hyphens only)</label><input type="text" id="be-slug" placeholder="my-post-title"></div>
+    <div class="fg"><label>Excerpt (shown on blog listing)</label><input type="text" id="be-excerpt" placeholder="One sentence summary..."></div>
+    <div class="fg"><label>Topic</label>
+      <select id="be-topic">
+        <option>Tech & ICT News in Nigeria</option>
+        <option>Web & Software Development Tips</option>
+        <option>IoT & Networking Insights</option>
+        <option>Zion Netcom Projects & Updates</option>
+      </select>
+    </div>
+    <div class="fg"><label>Cover Emoji</label><input type="text" id="be-emoji" style="max-width:80px;" placeholder="🖥️"></div>
+    <div class="fg"><label>Content (double blank line between sections)</label>
+      <textarea id="be-content" style="min-height:200px;" placeholder="Write your post content here..."></textarea>
+    </div>
+    <div class="blog-modal-actions">
+      <button class="btn-cancel" onclick="closeBlogModal()">Cancel</button>
+      <button class="btn btn-primary btn-sm" onclick="saveBlogPost()"><i class="fas fa-floppy-disk"></i> Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<script>
+
+// ═══════════════════════════════════════════
+// BLOG MANAGER
+// ═══════════════════════════════════════════
+const SUPABASE_URL  = 'https://qzloankwskebbralmvqw.supabase.co';
+const SUPABASE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF6bG9hbmt3c2tlYmJyYWxtdnF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcwMTkyMjgsImV4cCI6MjEwMjU5NTIyOH0.s8lftAO67o_SRS6S734kiByY-aA4AvMQ3uI_WrOHGLw';
+let _db = null;
+function getDB() {
+  if (!_db && window.supabase) _db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  return _db;
+}
+
+let blogPosts = [];
+let blogFilter = 'all';
+
+// Check for existing session when blog tab is opened
+async function initBlog() {
+  const db = getDB();
+  if (!db) { console.warn('Supabase not loaded yet'); return; }
+  const { data: { session } } = await db.auth.getSession();
+  if (session) showBlogPanel(session.user.email);
+}
+
+async function doBlogLogin() {
+  const db = getDB();
+  const email = document.getElementById('blog-email').value.trim();
+  const password = document.getElementById('blog-password').value;
+  const btn = document.getElementById('blog-login-btn');
+  const errEl = document.getElementById('blog-login-error');
+  errEl.classList.remove('show');
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in…';
+  btn.disabled = true;
+  const { data, error } = await db.auth.signInWithPassword({ email, password });
+  if (error) {
+    errEl.textContent = 'Invalid email or password. Please try again.';
+    errEl.classList.add('show');
+    btn.innerHTML = '<i class="fas fa-right-to-bracket"></i> Sign In';
+    btn.disabled = false;
+  } else {
+    showBlogPanel(data.user.email);
+  }
+}
+
+async function doBlogLogout() {
+  const db = getDB();
+  await db.auth.signOut();
+  document.getElementById('blog-panel').style.display = 'none';
+  document.getElementById('blog-login-wrap').style.display = 'block';
+  document.getElementById('blog-email').value = '';
+  document.getElementById('blog-password').value = '';
+}
+
+function showBlogPanel(email) {
+  document.getElementById('blog-login-wrap').style.display = 'none';
+  document.getElementById('blog-panel').style.display = 'block';
+  document.getElementById('blog-user-email').textContent = email;
+  loadBlogPosts();
+}
+
+// Enter key login
+document.getElementById('blog-password')?.addEventListener('keydown', e => {
+  if (e.key === 'Enter') doBlogLogin();
+});
+
+async function loadBlogPosts() {
+  const db = getDB();
+  const tbody = document.getElementById('blog-tbody');
+  tbody.innerHTML = '<tr><td colspan="6"><div class="posts-loading"><i class="fas fa-circle-notch"></i></div></td></tr>';
+  const { data, error } = await db.from('blog_posts').select('*').order('created_at', { ascending: false });
+  if (error || !data) {
+    tbody.innerHTML = '<tr><td colspan="6"><div class="posts-empty"><i class="fas fa-triangle-exclamation"></i><p>Failed to load posts. Check connection.</p></div></td></tr>';
+    return;
+  }
+  blogPosts = data;
+  updateBlogStats();
+  renderBlogTable();
+}
+
+function updateBlogStats() {
+  const pub = blogPosts.filter(p => p.status === 'published');
+  const dr  = blogPosts.filter(p => p.status === 'draft');
+  const now = new Date();
+  const mo  = blogPosts.filter(p => {
+    const d = new Date(p.created_at);
+    return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+  });
+  document.getElementById('bs-total').textContent = blogPosts.length;
+  document.getElementById('bs-pub').textContent   = pub.length;
+  document.getElementById('bs-draft').textContent = dr.length;
+  document.getElementById('bs-month').textContent = mo.length;
+  document.getElementById('bc-all').textContent   = blogPosts.length;
+  document.getElementById('bc-pub').textContent   = pub.length;
+  document.getElementById('bc-draft').textContent = dr.length;
+}
+
+function setBlogFilter(btn, filter) {
+  document.querySelectorAll('.blog-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  blogFilter = filter;
+  renderBlogTable();
+}
+
+function renderBlogTable() {
+  const filtered = blogFilter === 'all' ? blogPosts : blogPosts.filter(p => p.status === blogFilter);
+  const tbody = document.getElementById('blog-tbody');
+  if (!filtered.length) {
+    tbody.innerHTML = `<tr><td colspan="6"><div class="posts-empty"><i class="fas fa-pen-to-square"></i><p>No ${blogFilter === 'all' ? '' : blogFilter + ' '}posts yet.</p></div></td></tr>`;
+    return;
+  }
+  tbody.innerHTML = filtered.map(p => `<tr>
+    <td class="td-emoji">${p.cover_emoji || '🖥️'}</td>
+    <td><div class="td-title">${p.title}</div><div class="post-preview">${p.excerpt || ''}</div></td>
+    <td><span class="topic-chip">${(p.topic||'').split(' ').slice(0,3).join(' ')}</span></td>
+    <td><span class="status-pill ${p.status}">${p.status}</span></td>
+    <td style="font-family:var(--mono);font-size:0.73rem;color:var(--muted);">${fmtBlogDate(p.created_at)}</td>
+    <td>
+      <div class="post-actions">
+        <button class="post-btn edit" onclick="openBlogEdit('${p.id}')"><i class="fas fa-pen"></i> Edit</button>
+        ${p.status === 'draft'
+          ? `<button class="post-btn pub" onclick="publishBlogPost('${p.id}')"><i class="fas fa-upload"></i> Publish</button>`
+          : `<button class="post-btn unpub" onclick="unpublishBlogPost('${p.id}')"><i class="fas fa-eye-slash"></i> Unpublish</button>`
+        }
+        <button class="post-btn del" onclick="deleteBlogPost('${p.id}')"><i class="fas fa-trash"></i></button>
+      </div>
+    </td>
+  </tr>`).join('');
+}
+
+function fmtBlogDate(iso) {
+  if (!iso) return '—';
+  return new Date(iso).toLocaleDateString('en-NG', { day:'numeric', month:'short', year:'numeric' });
+}
+
+async function publishBlogPost(id) {
+  const db = getDB();
+  const { error } = await db.from('blog_posts').update({ status:'published', published_at: new Date().toISOString() }).eq('id', id);
+  if (!error) { toast('Post published!'); loadBlogPosts(); } else toast('Error publishing.', false);
+}
+
+async function unpublishBlogPost(id) {
+  const db = getDB();
+  const { error } = await db.from('blog_posts').update({ status:'draft', published_at: null }).eq('id', id);
+  if (!error) { toast('Moved back to drafts.'); loadBlogPosts(); } else toast('Error unpublishing.', false);
+}
+
+async function deleteBlogPost(id) {
+  if (!confirm('Delete this post permanently? This cannot be undone.')) return;
+  const db = getDB();
+  const { error } = await db.from('blog_posts').delete().eq('id', id);
+  if (!error) { toast('Post deleted.'); loadBlogPosts(); } else toast('Error deleting post.', false);
+}
+
+function openBlogEdit(id) {
+  const p = blogPosts.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('be-id').value      = p.id;
+  document.getElementById('be-title').value   = p.title;
+  document.getElementById('be-slug').value    = p.slug;
+  document.getElementById('be-excerpt').value = p.excerpt || '';
+  document.getElementById('be-topic').value   = p.topic || '';
+  document.getElementById('be-emoji').value   = p.cover_emoji || '🖥️';
+  document.getElementById('be-content').value = p.content;
+  document.getElementById('blog-edit-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeBlogModal() {
+  document.getElementById('blog-edit-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('blog-edit-modal')?.addEventListener('click', e => {
+  if (e.target === document.getElementById('blog-edit-modal')) closeBlogModal();
+});
+
+async function saveBlogPost() {
+  const db = getDB();
+  const id = document.getElementById('be-id').value;
+  const updates = {
+    title:       document.getElementById('be-title').value.trim(),
+    slug:        document.getElementById('be-slug').value.trim(),
+    excerpt:     document.getElementById('be-excerpt').value.trim(),
+    topic:       document.getElementById('be-topic').value,
+    cover_emoji: document.getElementById('be-emoji').value.trim(),
+    content:     document.getElementById('be-content').value.trim(),
+  };
+  if (!updates.title || !updates.slug || !updates.content) {
+    toast('Title, slug, and content are required.', false); return;
+  }
+  const { error } = await db.from('blog_posts').update(updates).eq('id', id);
+  if (!error) { toast('Changes saved!'); closeBlogModal(); loadBlogPosts(); }
+  else toast('Error: ' + error.message, false);
+}
+
 </script>
 </body>
 </html>

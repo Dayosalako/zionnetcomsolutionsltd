@@ -189,7 +189,7 @@ body.light .fg input,body.light .fg select,body.light .fg textarea{background:va
   <div class="wrap topbar-inner">
     <div class="tb-info">
       <a href="tel:+2347067580599" class="tb-item"><i class="fas fa-phone"></i> +234 706 758 0599</a>
-      <a href="mailto:zionnetcomsolutionsltd@gmail.com" class="tb-item"><i class="fas fa-envelope"></i> zionnetcomsolutionsltd@gmail.com</a>
+      <a href="mailto:info@zionnetcomsolutionsltd.com.ng" class="tb-item"><i class="fas fa-envelope"></i> info@zionnetcomsolutionsltd.com.ng</a>
     </div>
     <div class="tb-right">
       <div class="tb-social">
@@ -316,7 +316,7 @@ body.light .fg input,body.light .fg select,body.light .fg textarea{background:va
       <div class="foot-contact"><h4>Contact</h4>
         <p><i class="fas fa-map-marker-alt"></i> No 32 Benue Plaza, Waff Road, Kaduna</p>
         <p><i class="fas fa-phone"></i> +234 706 758 0599</p>
-        <p><i class="fas fa-envelope"></i> zionnetcomsolutionsltd@gmail.com</p>
+        <p><i class="fas fa-envelope"></i> info@zionnetcomsolutionsltd.com.ng</p>
         <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/2347067580599" target="_blank" style="color:var(--text2);text-decoration:none;">WhatsApp Us</a></p>
       </div>
     </div>
@@ -529,7 +529,7 @@ function emailOrder() {
   if (!name || !phone) { showToast('Please enter your name and phone number.', false); return; }
   const subject = `Store Order: ${currentProd.name}`;
   const body = `Product: ${currentProd.name}\nPrice: ${fmtPrice(currentProd.price)}\n\nName: ${name}\nPhone: ${phone}\nEmail: ${document.getElementById('ord-email').value}\nAddress: ${document.getElementById('ord-addr').value}\nPayment: ${document.getElementById('ord-pay').value}\nDelivery: ${document.getElementById('ord-del').value}\nNotes: ${document.getElementById('ord-notes').value}`;
-  window.location.href = `mailto:zionnetcomsolutionsltd@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  window.location.href = `mailto:info@zionnetcomsolutionsltd.com.ng?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
 // ═══════════════════════════════════════════

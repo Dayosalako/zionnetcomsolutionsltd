@@ -211,15 +211,15 @@
         }
         .nav-links {
             display: flex;
-            gap: 40px;
+            gap: 18px;
             list-style: none;
             align-items: center;
         }
         .nav-links a {
             font-family: var(--font-mono);
-            font-size: 0.8rem;
+            font-size: 0.72rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
             color: var(--text-secondary);
             text-decoration: none;
             transition: all 0.3s;
@@ -1382,14 +1382,14 @@ const PAYSTACK_PUBLIC_KEY = 'pk_live_d6e5f81fb3ff1e1daedd1f84c3792c6c7739a6bd';
 
 // ===== EMAILJS CONFIG (auto receipt emails — no backend required) =====
 // 1. Create a free account at https://www.emailjs.com
-// 2. Add an Email Service (Gmail recommended, connect zionnetcomsolutionsltd@gmail.com)
+// 2. Add an Email Service (Gmail recommended, connect info@zionnetcomsolutionsltd.com.ng)
 // 3. Create TWO email templates (see setup notes provided separately) and paste their IDs below
 // 4. Replace YOUR_PUBLIC_KEY, YOUR_SERVICE_ID, and the two template IDs with your real values
 const EMAILJS_PUBLIC_KEY = '1_LA5L9fCfqUWjhgR';
 const EMAILJS_SERVICE_ID = 'service_g0eaqhf';
 const EMAILJS_TEMPLATE_CUSTOMER = 'template_fpud6vc';
 const EMAILJS_TEMPLATE_ADMIN = 'template_agjabqd';
-const BUSINESS_EMAIL = 'zionnetcomsolutionsltd@gmail.com';
+const BUSINESS_EMAIL = 'info@zionnetcomsolutionsltd.com.ng';
 
 if (window.emailjs && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
     emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
