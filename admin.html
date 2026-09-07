@@ -1598,7 +1598,8 @@ function openProdEdit(id) {
   document.getElementById('p-stock').value = String(p.in_stock);
   document.getElementById('p-hot').value   = String(p.hot);
   document.getElementById('pform-title').innerHTML = '<i class="fas fa-edit"></i> Editing: ' + p.name;
-  document.getElementById('p-slbl').textContent = 'Update Product';
+  var pslbl = document.getElementById('p-slbl');
+  if (pslbl) pslbl.textContent = 'Update Product';
   renderImagePreviews();
   document.getElementById('pform').scrollIntoView({behavior:'smooth', block:'start'});
 }
@@ -1615,7 +1616,8 @@ function cancelProd() {
   document.getElementById('p-brand').value = 'HP';
   document.getElementById('p-cond').value  = 'new';
   document.getElementById('pform-title').innerHTML = '<i class="fas fa-plus-circle"></i> Add New Product';
-  document.getElementById('p-slbl').textContent = 'Save Product';
+  var pslbl = document.getElementById('p-slbl');
+  if (pslbl) pslbl.textContent = 'Save Product';
   renderImagePreviews();
 }
 
