@@ -738,11 +738,25 @@ function getDB() {
 const lscreen = document.getElementById('lscreen');
 
 async function checkSession() {
-  const saved = localStorage.getItem('zn-admin-auth');
-  if (saved === 'true') {
-    lscreen.classList.remove('show');
-  } else {
+  const db = getDB();
+  if (!db) {
     lscreen.classList.add('show');
+    document.getElementById('lerr').textContent = 'Authentication service is unavailable. Please check your connection.';
+    document.getElementById('lerr').classList.add('show');
+    return;
+  }
+
+  try {
+    const { data, error } = await db.auth.getSession();
+    if (!error && data && data.session) {
+      lscreen.classList.remove('show');
+    } else {
+      lscreen.classList.add('show');
+    }
+  } catch (e) {
+    lscreen.classList.add('show');
+    document.getElementById('lerr').textContent = 'Unable to verify your session. Please try again.';
+    document.getElementById('lerr').classList.add('show');
   }
 }
 
@@ -753,42 +767,38 @@ async function doLogin() {
   const err   = document.getElementById('lerr');
   err.classList.remove('show');
 
-  if (!email || !pass) { err.textContent = 'Please enter your email and password.'; err.classList.add('show'); return; }
+  if (!email || !pass) {
+    err.textContent = 'Please enter your email and password.';
+    err.classList.add('show');
+    return;
+  }
 
   btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in…';
   btn.disabled = true;
 
-  const db = getDB();
-  if (db) {
-    const { data, error } = await db.auth.signInWithPassword({ email, password: pass });
-    if (!error && data.user) {
-      localStorage.setItem('zn-admin-auth', 'true');
-      localStorage.setItem('zn-admin-email', email);
-      lscreen.classList.remove('show');
-      btn.innerHTML = '<i class="fas fa-right-to-bracket"></i> Sign In';
-      btn.disabled = false;
+  try {
+    const db = getDB();
+    if (!db) throw new Error('Authentication service is unavailable.');
+
+    const { data, error } = await db.auth.signInWithPassword({
+      email: email,
+      password: pass
+    });
+
+    if (error || !data || !data.user) {
+      err.textContent = error ? error.message : 'Unable to sign in. Please check your credentials.';
+      err.classList.add('show');
       return;
     }
-  }
 
-  // Fallback: local password check
-  const stored = localStorage.getItem('zn-admin-pass');
-  if (stored && pass === stored) {
-    localStorage.setItem('zn-admin-auth', 'true');
     lscreen.classList.remove('show');
-  } else if (!stored) {
-    // First time — accept any credentials and store them
-    localStorage.setItem('zn-admin-auth', 'true');
-    localStorage.setItem('zn-admin-pass', pass);
-    localStorage.setItem('zn-admin-email', email);
-    lscreen.classList.remove('show');
-  } else {
-    err.textContent = 'Incorrect password. Please try again.';
+  } catch (e) {
+    err.textContent = e.message || 'Unable to sign in. Please try again.';
     err.classList.add('show');
+  } finally {
+    btn.innerHTML = '<i class="fas fa-right-to-bracket"></i> Sign In';
+    btn.disabled = false;
   }
-
-  btn.innerHTML = '<i class="fas fa-right-to-bracket"></i> Sign In';
-  btn.disabled = false;
 }
 
 document.getElementById('l-pass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
@@ -1455,9 +1465,9 @@ function renderStoreTable() {
       '<td><span class="badge '+(p.in_stock?'bg':'br_')+'">'+(p.in_stock?'In Stock':'Sold Out')+'</span></td>' +
       '<td style="text-align:center;">'+(p.hot?'🔥':'—')+'</td>' +
       '<td><div class="ra">' +
-        '<button class="icon-btn" onclick="openProdEdit(''+p.id+'')" title="Edit"><i class="fas fa-edit"></i></button>' +
-        '<button class="icon-btn '+(p.in_stock?'rd':'gn')+'" onclick="toggleProdStock(''+p.id+'','+p.in_stock+')" title="'+(p.in_stock?'Mark Sold Out':'Mark In Stock')+'"><i class="fas fa-'+(p.in_stock?'ban':'check')+'"></i></button>' +
-        '<button class="icon-btn rd" onclick="delProd(''+p.id+'')" title="Delete"><i class="fas fa-trash"></i></button>' +
+        '<button class="icon-btn" onclick="openProdEdit(\''+p.id+'\')" title="Edit"><i class="fas fa-edit"></i></button>' +
+        '<button class="icon-btn '+(p.in_stock?'rd':'gn')+'" onclick="toggleProdStock(\''+p.id+'\','+p.in_stock+')" title="'+(p.in_stock?'Mark Sold Out':'Mark In Stock')+'"><i class="fas fa-'+(p.in_stock?'ban':'check')+'"></i></button>' +
+        '<button class="icon-btn rd" onclick="delProd(\''+p.id+'\')" title="Delete"><i class="fas fa-trash"></i></button>' +
       '</div></td></tr>';
   }).join('');
 }
@@ -1550,8 +1560,7 @@ async function saveProd() {
       condition: document.getElementById('p-cond').value,
       price:     price,
       old_price: opv ? parseFloat(opv) : null,
-      specs:     document.getElementById('p-specs').value.split('
-').map(function(s){ return s.trim(); }).filter(Boolean),
+      specs:     document.getElementById('p-specs').value.split('\\n').map(function(s){ return s.trim(); }).filter(Boolean),
       in_stock:  document.getElementById('p-stock').value === 'true',
       hot:       document.getElementById('p-hot').value === 'true',
       images:    allImages
@@ -1585,8 +1594,7 @@ function openProdEdit(id) {
   document.getElementById('p-name').value  = p.name;
   document.getElementById('p-price').value = p.price;
   document.getElementById('p-oldp').value  = p.old_price || '';
-  document.getElementById('p-specs').value = (p.specs || []).join('
-');
+  document.getElementById('p-specs').value = (p.specs || []).join('\\n');
   document.getElementById('p-stock').value = String(p.in_stock);
   document.getElementById('p-hot').value   = String(p.hot);
   document.getElementById('pform-title').innerHTML = '<i class="fas fa-edit"></i> Editing: ' + p.name;
