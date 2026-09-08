@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Read what our clients say about Zion Netcom Solutions Limited — trusted ICT and telecoms engineering across Nigeria.">
+<title>Customer Reviews | Zion Netcom Solutions</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<style>
+:root{
+  --bg:#070B14;--bg2:#0D1321;--card:#111827;--el:#1A2332;
+  --cyan:#38B6FF;--cg:rgba(56,182,255,0.25);--cd:rgba(56,182,255,0.6);
+  --text:#E8F4F8;--text2:#8BA3B8;--muted:#4A6070;
+  --green:#22c55e;--red:#ef4444;--yellow:#f59e0b;--star:#FFD700;
+  --br:rgba(56,182,255,0.12);--brh:rgba(56,182,255,0.3);
+  --mono:'JetBrains Mono',monospace;--sans:'Inter',system-ui,sans-serif;--disp:'Space Grotesk','Inter',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(56,182,255,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(56,182,255,0.06) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+.container{width:92%;max-width:1280px;margin:0 auto;position:relative;z-index:1;}
+
+/* TOPBAR */
+.topbar{background:var(--bg2);border-bottom:1px solid var(--br);padding:9px 0;font-family:var(--mono);font-size:0.73rem;position:relative;z-index:100;}
+.topbar-inner{display:flex;justify-content:space-between;align-items:center;}
+.tb-info{display:flex;align-items:center;gap:20px;}
+.tb-item{display:flex;align-items:center;gap:6px;color:var(--text2);text-decoration:none;white-space:nowrap;}
+.tb-item i{color:var(--cyan);font-size:0.78rem;}
+.tb-right{display:flex;align-items:center;gap:14px;}
+.tb-social{display:flex;align-items:center;gap:12px;}
+.tb-social a{color:var(--muted);font-size:0.85rem;transition:color 0.2s;text-decoration:none;}
+.tb-social a:hover{color:var(--cyan);}
+.theme-btn{background:none;border:1px solid var(--br);border-radius:20px;color:var(--text2);font-size:0.78rem;cursor:pointer;padding:4px 10px;display:flex;align-items:center;gap:5px;transition:all 0.2s;}
+.theme-btn:hover{border-color:var(--cyan);color:var(--cyan);}
+
+/* HEADER */
+.header{background:rgba(7,11,20,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--br);position:sticky;top:0;z-index:9999;}
+.nav-wrapper{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:16px;}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo img{height:44px;width:auto;}
+.logo-text{font-family:var(--disp);font-size:1.3rem;font-weight:700;color:var(--text);}
+.logo-text span{color:var(--cyan);}
+.logo-sub{font-family:var(--mono);font-size:0.6rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;}
+.nav-links{display:flex;list-style:none;gap:4px;}
+.nav-links a{font-family:var(--mono);font-size:0.72rem;font-weight:500;color:var(--text2);text-decoration:none;padding:7px 10px;border-radius:4px;transition:all 0.2s;text-transform:uppercase;letter-spacing:1px;display:block;}
+.nav-links a:hover,.nav-links a.active{color:var(--cyan);background:rgba(56,182,255,0.08);}
+.header-actions{display:flex;align-items:center;gap:10px;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:4px;font-family:var(--mono);font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;text-decoration:none;cursor:pointer;transition:all 0.25s;border:none;}
+.btn-primary{background:var(--cyan);color:var(--bg);box-shadow:0 0 20px var(--cg);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 36px var(--cg);}
+.btn-outline{background:transparent;color:var(--cyan);border:1px solid var(--cyan);}
+.btn-outline:hover{background:var(--cyan);color:var(--bg);}
+.btn-sm{padding:7px 14px;font-size:0.72rem;}
+.menu-toggle{display:none;background:none;border:1px solid var(--br);color:var(--text);padding:7px 11px;cursor:pointer;border-radius:4px;font-size:0.95rem;}
+
+/* LIGHT MODE */
+body.light-mode{--bg:#F5F7FA;--bg2:#EAEEF3;--card:#FFF;--el:#E2E8F0;--cyan:#0077CC;--cg:rgba(0,119,204,0.18);--text:#0F1E2E;--text2:#3D5A73;--muted:#7A94A8;--br:rgba(0,119,204,0.15);--brh:rgba(0,119,204,0.35);}
+body.light-mode .header{background:rgba(234,238,243,0.92)!important;}
+body.light-mode .nav-links{background:var(--bg);}
+body.light-mode .nav-links a{color:var(--text);}
+body.light-mode .review-card,.light-mode .submit-card{background:var(--card);}
+body.light-mode .footer{background:var(--bg2);}
+body.light-mode .menu-toggle{color:var(--text);}
+body.light-mode input,body.light-mode textarea,body.light-mode select{background:var(--el);color:var(--text);border-color:var(--br);}
+
+/* HERO */
+.page-hero{background:linear-gradient(135deg,#070B14 0%,#0D1321 60%,#111827 100%);padding:56px 0 40px;border-bottom:1px solid var(--br);position:relative;overflow:hidden;}
+.page-hero::after{content:'';position:absolute;top:-100px;right:-100px;width:420px;height:420px;background:radial-gradient(circle,rgba(56,182,255,0.1),transparent 70%);pointer-events:none;}
+.hero-tag{font-family:var(--mono);font-size:0.7rem;color:var(--cyan);letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.hero-tag::before{content:'//';color:var(--muted);}
+.page-hero h1{font-size:clamp(2rem,5vw,3rem);background:linear-gradient(135deg,var(--text) 0%,var(--cyan) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;}
+.page-hero p{color:var(--text2);font-size:0.97rem;max-width:520px;margin-bottom:28px;}
+
+/* STATS STRIP */
+.stats-strip{display:flex;gap:0;border-bottom:1px solid var(--br);background:var(--bg2);}
+.stat-item{flex:1;padding:20px 24px;text-align:center;border-right:1px solid var(--br);}
+.stat-item:last-child{border-right:none;}
+.stat-val{font-family:var(--disp);font-size:1.8rem;font-weight:700;color:var(--cyan);}
+.stat-lbl{font-family:var(--mono);font-size:0.67rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-top:3px;}
+.stat-stars{color:var(--star);font-size:1rem;margin-bottom:2px;}
+
+/* FILTER STRIP */
+.filter-strip{padding:18px 0;border-bottom:1px solid var(--br);background:var(--bg);position:sticky;top:73px;z-index:100;}
+.filter-inner{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.fchip{font-family:var(--mono);font-size:0.7rem;padding:5px 14px;border-radius:20px;border:1px solid var(--br);background:transparent;color:var(--muted);cursor:pointer;transition:all 0.2s;text-transform:uppercase;letter-spacing:1px;}
+.fchip:hover,.fchip.active{background:var(--cyan);color:var(--bg);border-color:var(--cyan);}
+.filter-right{margin-left:auto;font-family:var(--mono);font-size:0.72rem;color:var(--muted);}
+
+/* REVIEWS GRID */
+.reviews-section{padding:40px 0 72px;}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px;}
+.review-card{background:var(--card);border:1px solid var(--br);border-radius:10px;padding:24px;position:relative;transition:border-color 0.25s,box-shadow 0.25s,transform 0.25s;}
+.review-card:hover{border-color:var(--brh);box-shadow:0 6px 28px rgba(56,182,255,0.09);transform:translateY(-3px);}
+.review-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--cyan);border-radius:2px 0 0 2px;transition:height 0.3s;}
+.review-card:hover::before{height:100%;}
+.rc-top{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px;}
+.rc-avatar{width:52px;height:52px;border-radius:50%;overflow:hidden;border:2px solid var(--brh);flex-shrink:0;background:var(--el);display:flex;align-items:center;justify-content:center;}
+.rc-avatar img{width:100%;height:100%;object-fit:cover;}
+.rc-avatar .avatar-initials{font-family:var(--disp);font-size:1.1rem;font-weight:700;color:var(--cyan);}
+.rc-info{flex:1;min-width:0;}
+.rc-name{font-family:var(--disp);font-size:0.97rem;font-weight:700;color:var(--text);margin-bottom:2px;}
+.rc-role{font-size:0.8rem;color:var(--text2);}
+.rc-company{font-family:var(--mono);font-size:0.68rem;color:var(--cyan);margin-top:1px;}
+.rc-anon{font-size:0.8rem;color:var(--muted);font-style:italic;}
+.rc-stars{display:flex;gap:3px;margin-bottom:12px;}
+.rc-stars i{color:var(--star);font-size:0.9rem;}
+.rc-stars i.empty{color:var(--el);}
+.rc-text{font-size:0.88rem;color:var(--text2);line-height:1.75;font-style:italic;position:relative;padding-left:16px;}
+.rc-text::before{content:'"';position:absolute;left:0;top:-4px;font-size:2rem;color:var(--cyan);opacity:0.4;line-height:1;font-family:Georgia,serif;}
+.rc-date{font-family:var(--mono);font-size:0.65rem;color:var(--muted);margin-top:14px;}
+.rc-badge{position:absolute;top:16px;right:16px;font-family:var(--mono);font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:2px 8px;border-radius:10px;background:rgba(56,182,255,0.12);color:var(--cyan);}
+.reviews-loading{text-align:center;padding:60px 20px;color:var(--muted);}
+.reviews-loading i{font-size:2rem;display:block;margin-bottom:12px;animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.reviews-empty{text-align:center;padding:60px 20px;color:var(--muted);}
+.reviews-empty i{font-size:2.5rem;display:block;margin-bottom:14px;opacity:0.3;}
+
+/* SUBMIT FORM */
+.submit-section{padding:56px 0;background:var(--bg2);border-top:1px solid var(--br);border-bottom:1px solid var(--br);}
+.submit-wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
+.submit-left h2{font-size:clamp(1.6rem,3.5vw,2.2rem);margin-bottom:12px;}
+.submit-left p{color:var(--text2);font-size:0.93rem;line-height:1.8;margin-bottom:20px;}
+.trust-pts{display:flex;flex-direction:column;gap:12px;}
+.trust-pt{display:flex;align-items:center;gap:12px;font-size:0.87rem;color:var(--text2);}
+.trust-pt i{color:var(--cyan);width:18px;flex-shrink:0;}
+.submit-card{background:var(--card);border:1px solid var(--br);border-radius:10px;padding:28px;}
+.submit-card h3{font-family:var(--disp);font-size:1rem;margin-bottom:20px;color:var(--text);display:flex;align-items:center;gap:9px;}
+.submit-card h3 i{color:var(--cyan);}
+/* STAR PICKER */
+.star-picker{display:flex;gap:8px;margin-bottom:16px;}
+.star-picker .sp-star{font-size:2rem;cursor:pointer;color:var(--el);transition:color 0.15s,transform 0.15s;}
+.star-picker .sp-star:hover,.star-picker .sp-star.selected{color:var(--star);transform:scale(1.15);}
+.star-label{font-family:var(--mono);font-size:0.72rem;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:1.5px;}
+/* FORM FIELDS */
+.fg{margin-bottom:14px;}
+.fg label{display:block;font-family:var(--mono);font-size:0.68rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--cyan);margin-bottom:6px;}
+.fg input,.fg textarea,.fg select{width:100%;padding:10px 13px;background:var(--el);border:1px solid var(--br);border-radius:4px;color:var(--text);font-family:var(--sans);font-size:0.88rem;transition:border-color 0.2s;outline:none;}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(56,182,255,0.1);}
+.fg textarea{resize:vertical;min-height:100px;}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
+/* IDENTITY TOGGLE */
+.identity-toggle{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--el);border:1px solid var(--br);border-radius:6px;margin-bottom:14px;cursor:pointer;}
+.identity-toggle input[type=checkbox]{width:18px;height:18px;accent-color:var(--cyan);cursor:pointer;flex-shrink:0;}
+.identity-toggle-text .it-title{font-size:0.87rem;font-weight:600;color:var(--text);}
+.identity-toggle-text .it-sub{font-size:0.77rem;color:var(--muted);margin-top:2px;}
+/* PHOTO UPLOAD */
+.photo-upload-label{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--el);border:1px dashed var(--brh);border-radius:4px;cursor:pointer;color:var(--cyan);font-family:var(--mono);font-size:0.75rem;letter-spacing:1px;text-transform:uppercase;transition:all 0.2s;margin-bottom:8px;}
+.photo-upload-label:hover{background:rgba(56,182,255,0.08);}
+.photo-upload-label i{font-size:1.1rem;}
+.photo-preview{display:none;margin-top:8px;}
+.photo-preview img{width:80px;height:60px;object-fit:cover;border-radius:4px;border:2px solid var(--cyan);}
+/* SUCCESS STATE */
+.success-state{display:none;text-align:center;padding:28px 20px;}
+.success-state i{font-size:3rem;color:var(--green);margin-bottom:14px;display:block;}
+.success-state h3{font-size:1.1rem;margin-bottom:8px;}
+.success-state p{color:var(--text2);font-size:0.88rem;}
+/* CTA */
+.cta-strip{background:linear-gradient(135deg,rgba(56,182,255,0.08),rgba(56,182,255,0.03));border-top:1px solid var(--br);padding:48px 0;text-align:center;}
+.cta-strip h2{font-size:clamp(1.4rem,3vw,2rem);margin-bottom:10px;}
+.cta-strip p{color:var(--text2);margin-bottom:24px;max-width:460px;margin-left:auto;margin-right:auto;}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+/* FOOTER */
+.footer{background:var(--bg2);border-top:1px solid var(--br);padding:52px 0 28px;position:relative;z-index:1;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:36px;margin-bottom:36px;}
+.footer-brand p{color:var(--text2);font-size:0.88rem;line-height:1.7;margin-bottom:14px;}
+.footer h4{font-family:var(--mono);font-size:0.72rem;text-transform:uppercase;letter-spacing:2px;color:var(--cyan);margin-bottom:14px;}
+.footer ul{list-style:none;}
+.footer ul li{margin-bottom:7px;}
+.footer ul li a{color:var(--text2);text-decoration:none;font-size:0.85rem;transition:color 0.2s;}
+.footer ul li a:hover{color:var(--cyan);}
+.footer-contact p{color:var(--text2);font-size:0.83rem;margin-bottom:7px;display:flex;align-items:flex-start;gap:9px;}
+.footer-contact i{color:var(--cyan);margin-top:3px;flex-shrink:0;}
+.footer-bottom{border-top:1px solid var(--br);padding-top:20px;display:flex;justify-content:space-between;align-items:center;}
+.footer-bottom span{font-family:var(--mono);font-size:0.7rem;color:var(--muted);}
+.indicator{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+.data-readout{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:0.67rem;color:var(--muted);}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+/* TOAST */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--card);border:1px solid var(--brh);border-radius:8px;padding:12px 18px;font-size:0.84rem;color:var(--text);z-index:999999;transform:translateY(60px);opacity:0;transition:all 0.3s;pointer-events:none;max-width:290px;}
+.toast.show{transform:translateY(0);opacity:1;}
+@media(max-width:1024px){.submit-wrap{grid-template-columns:1fr;gap:32px;}.footer-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:768px){.stats-strip{flex-wrap:wrap;}.stat-item{flex:1 1 45%;}.reviews-grid{grid-template-columns:1fr;}.menu-toggle{display:flex;}.nav-links{display:none;position:fixed;inset:0;background:var(--bg);flex-direction:column;justify-content:center;align-items:center;z-index:9998;gap:22px;}.nav-links.active{display:flex;}.nav-links a{font-size:1rem;padding:10px 24px;}.header-actions .btn-primary{display:none;}.filter-strip{top:73px;}}
+@media(max-width:480px){.r2{grid-template-columns:1fr;}.footer-grid{grid-template-columns:1fr;}.footer-bottom{flex-direction:column;gap:7px;}.stat-item{flex:1 1 100%;}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container topbar-inner">
+    <div class="tb-info">
+      <a href="tel:+2347067580599" class="tb-item"><i class="fas fa-phone"></i> +234 706 758 0599</a>
+      <a href="mailto:info@zionnetcomsolutionsltd.com.ng" class="tb-item"><i class="fas fa-envelope"></i> info@zionnetcomsolutionsltd.com.ng</a>
+    </div>
+    <div class="tb-right">
+      <div class="tb-social">
+        <a href="https://www.linkedin.com/company/zion-netcom-solutions-limited" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.youtube.com/@zionnetcomsolutionsltd" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.instagram.com/zionnetcomsolutionsltd/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </div>
+      <button class="theme-btn" id="themeBtn"><i class="fas fa-sun" id="themeIcon"></i></button>
+    </div>
+  </div>
+</div>
+
+<header class="header">
+  <div class="container nav-wrapper">
+    <a href="index.html" class="logo">
+      <img src="zion.jpg" alt="Zion Netcom Solutions">
+      <div><div class="logo-text">ZION<span>NETCOM</span></div><div class="logo-sub">Solutions Limited</div></div>
+    </a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Solutions</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="payment.html">Make Payment</a></li>
+        <li><a href="store.html">Store</a></li>
+        <li><a href="reviews.html" class="active">Reviews</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <a href="contact.html" class="btn btn-primary btn-sm">Get Quote</a>
+      <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars" id="menuIcon"></i></button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="hero-tag">Client Reviews</div>
+    <h1>What Our Clients Say</h1>
+    <p>Real feedback from businesses and individuals we've served across Nigeria. Every review is verified and approved before it appears here.</p>
+    <a href="#leave-review" class="btn btn-primary"><i class="fas fa-star"></i> Leave a Review</a>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip" id="statsStrip">
+  <div class="stat-item">
+    <div class="stat-val" id="stat-total">—</div>
+    <div class="stat-lbl">Total Reviews</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-stars" id="stat-stars">★★★★★</div>
+    <div class="stat-val" id="stat-avg">—</div>
+    <div class="stat-lbl">Average Rating</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-val" id="stat-five">—</div>
+    <div class="stat-lbl">Five-Star Reviews</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-val" id="stat-rec">—%</div>
+    <div class="stat-lbl">Would Recommend</div>
+  </div>
+</div>
+
+<!-- FILTER -->
+<div class="filter-strip">
+  <div class="container filter-inner">
+    <button class="fchip active" data-filter="all">All Reviews</button>
+    <button class="fchip" data-filter="5">⭐⭐⭐⭐⭐ 5 Stars</button>
+    <button class="fchip" data-filter="4">⭐⭐⭐⭐ 4 Stars</button>
+    <button class="fchip" data-filter="3">⭐⭐⭐ 3 Stars</button>
+    <button class="fchip" data-filter="recent">Most Recent</button>
+    <span class="filter-right" id="filterCount"></span>
+  </div>
+</div>
+
+<!-- REVIEWS GRID -->
+<section class="reviews-section">
+  <div class="container">
+    <div id="reviewsLoading" class="reviews-loading"><i class="fas fa-circle-notch"></i>Loading reviews...</div>
+    <div class="reviews-grid" id="reviewsGrid" style="display:none;"></div>
+    <div class="reviews-empty" id="reviewsEmpty" style="display:none;">
+      <i class="fas fa-comment-slash"></i>
+      <p style="font-size:0.97rem;">No reviews found for this filter.</p>
+      <p style="font-size:0.84rem;margin-top:6px;color:var(--muted);">Be the first to leave a review below!</p>
+    </div>
+  </div>
+</section>
+
+<!-- SUBMIT REVIEW -->
+<section class="submit-section" id="leave-review">
+  <div class="container">
+    <div class="submit-wrap">
+      <div class="submit-left">
+        <div class="hero-tag" style="margin-bottom:12px;">Share Your Experience</div>
+        <h2>Leave a Review</h2>
+        <p>Worked with us? We'd love to hear about your experience. Your feedback helps us improve and helps other businesses make informed decisions.</p>
+        <div class="trust-pts">
+          <div class="trust-pt"><i class="fas fa-shield-check"></i> All reviews are reviewed before publishing</div>
+          <div class="trust-pt"><i class="fas fa-eye-slash"></i> You can choose to hide your identity</div>
+          <div class="trust-pt"><i class="fas fa-star"></i> Honest feedback — good or constructive — is welcome</div>
+          <div class="trust-pt"><i class="fas fa-clock"></i> Reviews typically appear within 24–48 hours</div>
+        </div>
+      </div>
+      <div class="submit-card">
+        <!-- Form state -->
+        <div id="formState">
+          <h3><i class="fas fa-pen"></i> Write Your Review</h3>
+
+          <!-- STAR RATING -->
+          <div class="star-label">Your Rating *</div>
+          <div class="star-picker" id="starPicker">
+            <i class="fas fa-star sp-star" data-val="1"></i>
+            <i class="fas fa-star sp-star" data-val="2"></i>
+            <i class="fas fa-star sp-star" data-val="3"></i>
+            <i class="fas fa-star sp-star" data-val="4"></i>
+            <i class="fas fa-star sp-star" data-val="5"></i>
+          </div>
+          <div style="font-family:var(--mono);font-size:0.72rem;color:var(--muted);margin-bottom:16px;" id="starHint">Click a star to rate</div>
+
+          <!-- IDENTITY TOGGLE -->
+          <label class="identity-toggle">
+            <input type="checkbox" id="showIdentity" checked>
+            <div class="identity-toggle-text">
+              <div class="it-title">Show my name and details publicly</div>
+              <div class="it-sub">Uncheck to post anonymously</div>
+            </div>
+          </label>
+
+          <!-- NAME / ROLE FIELDS (hidden when anonymous) -->
+          <div id="identityFields">
+            <div class="r2">
+              <div class="fg"><label>Full Name *</label><input type="text" id="rv-name" placeholder="e.g. Aminu Ibrahim"></div>
+              <div class="fg"><label>Your Role / Title</label><input type="text" id="rv-role" placeholder="e.g. IT Manager"></div>
+            </div>
+            <div class="fg"><label>Company / Organisation</label><input type="text" id="rv-company" placeholder="e.g. Dangote Group"></div>
+          </div>
+
+          <!-- REVIEW TEXT -->
+          <div class="fg"><label>Your Review *</label>
+            <textarea id="rv-text" placeholder="Tell us about your experience with Zion Netcom. What service did we provide? What did we do well? What could we improve?"></textarea>
+          </div>
+
+          <!-- SERVICE TYPE -->
+          <div class="fg"><label>Service Used</label>
+            <select id="rv-service">
+              <option value="">Select a service (optional)</option>
+              <option>Fiber Optic / FTTH</option>
+              <option>Network Infrastructure</option>
+              <option>IoT / Smart Systems</option>
+              <option>Web / Software Development</option>
+              <option>Branding & Marketing</option>
+              <option>Telecoms Engineering</option>
+              <option>Laptop / Hardware Purchase</option>
+              <option>Consulting</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <!-- PHOTO UPLOAD -->
+          <div class="fg">
+            <label>Your Photo (optional)</label>
+            <label class="photo-upload-label" for="rv-photo">
+              <i class="fas fa-camera"></i> Upload a Profile Photo
+            </label>
+            <input type="file" id="rv-photo" accept="image/*" style="display:none;" onchange="previewPhoto(this)">
+            <div class="photo-preview" id="photoPreview">
+              <img id="photoPreviewImg" src="" alt="Preview">
+            </div>
+          </div>
+
+          <button class="btn btn-primary" style="width:100%;justify-content:center;" id="submitBtn" onclick="submitReview()">
+            <i class="fas fa-paper-plane"></i> Submit Review
+          </button>
+          <p style="font-size:0.75rem;color:var(--muted);text-align:center;margin-top:10px;">Your review will be reviewed before appearing publicly.</p>
+        </div>
+
+        <!-- Success state -->
+        <div class="success-state" id="successState">
+          <i class="fas fa-check-circle"></i>
+          <h3>Thank You!</h3>
+          <p>Your review has been submitted and is pending approval. It will appear on this page within 24–48 hours.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-strip">
+  <div class="container">
+    <h2>Ready to work with us?</h2>
+    <p>Join dozens of businesses and institutions that trust Zion Netcom for their ICT needs.</p>
+    <div class="cta-btns">
+      <a href="contact.html" class="btn btn-primary"><i class="fas fa-envelope"></i> Get in Touch</a>
+      <a href="services.html" class="btn btn-outline"><i class="fas fa-cogs"></i> Our Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo" style="margin-bottom:14px;"><img src="zion.jpg" alt="Zion Netcom" style="height:38px;width:auto;"><div><div class="logo-text">ZION<span>NETCOM</span></div><div class="logo-sub">Solutions Limited</div></div></div>
+        <p>Engineering reliable digital infrastructure across Nigeria and Africa.</p>
+        <div class="data-readout" style="margin-top:13px;"><span class="indicator"></span><span>ALL SYSTEMS OPERATIONAL</span></div>
+      </div>
+      <div><h4>Navigation</h4><ul>
+        <li><a href="index.html">Home</a></li><li><a href="services.html">Solutions</a></li>
+        <li><a href="projects.html">Projects</a></li><li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li><li><a href="blog.html">Blog</a></li>
+        <li><a href="payment.html">Make Payment</a></li><li><a href="store.html">Store</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+      </ul></div>
+      <div><h4>Services</h4><ul>
+        <li><a href="services.html">Fiber Optic / FTTH</a></li>
+        <li><a href="services.html">Network Infrastructure</a></li>
+        <li><a href="services.html">IoT Systems</a></li>
+        <li><a href="services.html">Web Development</a></li>
+        <li><a href="store.html">Laptop Store</a></li>
+      </ul></div>
+      <div class="footer-contact"><h4>Contact</h4>
+        <p><i class="fas fa-map-marker-alt"></i> No 32 Benue Plaza, Waff Road, Kaduna</p>
+        <p><i class="fas fa-phone"></i> +234 706 758 0599</p>
+        <p><i class="fas fa-envelope"></i> info@zionnetcomsolutionsltd.com.ng</p>
+        <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/2347067580599" target="_blank" style="color:var(--text2);text-decoration:none;">WhatsApp Us</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Zion Netcom Solutions Limited</span>
+      <span>Built with precision in Kaduna, Nigeria</span>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"><i class="fas fa-check-circle" id="t-icon" style="color:var(--green);margin-right:7px;"></i><span id="t-msg"></span></div>
+
+<script>
+// ═══ SUPABASE ═══
+var SB_URL = 'https://qzloankwskebbralmvqw.supabase.co';
+var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF6bG9hbmt3c2tlYmJyYWxtdnF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcwMTkyMjgsImV4cCI6MjEwMjU5NTIyOH0.s8lftAO67o_SRS6S734kiByY-aA4AvMQ3uI_WrOHGLw';
+var _db = null;
+function getDB() {
+  if (!_db && window.supabase) _db = window.supabase.createClient(SB_URL, SB_KEY);
+  return _db;
+}
+
+var allReviews  = [];
+var activeFilter = 'all';
+var selectedRating = 0;
+
+// ═══ LOAD & RENDER ═══
+async function loadReviews() {
+  var db  = getDB();
+  var res = await db.from('reviews').select('*').eq('status','approved').order('created_at',{ascending:false});
+  document.getElementById('reviewsLoading').style.display = 'none';
+  if (res.error || !res.data) {
+    document.getElementById('reviewsEmpty').style.display = 'block';
+    return;
+  }
+  allReviews = res.data;
+  updateStats();
+  renderReviews();
+}
+
+function updateStats() {
+  var total  = allReviews.length;
+  var avg    = total ? (allReviews.reduce(function(s,r){ return s+r.rating; },0) / total) : 0;
+  var fives  = allReviews.filter(function(r){ return r.rating === 5; }).length;
+  var rec    = total ? Math.round((allReviews.filter(function(r){ return r.rating >= 4; }).length / total) * 100) : 0;
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-avg').textContent   = avg ? avg.toFixed(1) : '—';
+  document.getElementById('stat-five').textContent  = fives;
+  document.getElementById('stat-rec').textContent   = total ? rec + '%' : '—%';
+  // Color stars based on avg
+  var starEl = document.getElementById('stat-stars');
+  var filled = Math.round(avg);
+  starEl.innerHTML = '';
+  for (var i = 1; i <= 5; i++) {
+    starEl.innerHTML += '<i class="fas fa-star" style="color:' + (i <= filled ? 'var(--star)' : 'var(--el)') + '"></i>';
+  }
+}
+
+function renderReviews() {
+  var filtered = allReviews;
+  if (activeFilter === 'recent') {
+    filtered = allReviews.slice(0, 12);
+  } else if (activeFilter !== 'all') {
+    var stars = parseInt(activeFilter);
+    filtered = allReviews.filter(function(r){ return r.rating === stars; });
+  }
+  document.getElementById('filterCount').textContent = filtered.length + ' review' + (filtered.length !== 1 ? 's' : '');
+  var grid  = document.getElementById('reviewsGrid');
+  var empty = document.getElementById('reviewsEmpty');
+  if (!filtered.length) { grid.style.display='none'; empty.style.display='block'; return; }
+  grid.style.display = 'grid'; empty.style.display = 'none';
+  grid.innerHTML = filtered.map(function(r) {
+    var stars = '';
+    for (var i = 1; i <= 5; i++) {
+      stars += '<i class="fas fa-star' + (i <= r.rating ? '' : ' empty') + '"></i>';
+    }
+    var avatar = '';
+    if (r.show_identity && r.photo_url) {
+      avatar = '<img src="' + r.photo_url + '" alt="' + (r.name||'Reviewer') + '" onerror="this.parentElement.innerHTML=\'<div class=\\\"avatar-initials\\\">'+getInitials(r.name)+'</div>\'">';
+    } else if (r.show_identity && r.name) {
+      avatar = '<div class="avatar-initials">' + getInitials(r.name) + '</div>';
+    } else {
+      avatar = '<div class="avatar-initials" style="color:var(--muted)">?</div>';
+    }
+    var nameHtml = r.show_identity && r.name
+      ? '<div class="rc-name">' + r.name + '</div>' +
+        (r.role ? '<div class="rc-role">' + r.role + '</div>' : '') +
+        (r.company ? '<div class="rc-company">' + r.company + '</div>' : '')
+      : '<div class="rc-anon">Anonymous</div>';
+    var svcBadge = r.service ? '<div class="rc-badge">' + r.service + '</div>' : '';
+    var dt = r.created_at ? new Date(r.created_at).toLocaleDateString('en-NG',{day:'numeric',month:'long',year:'numeric'}) : '';
+    return '<div class="review-card">' + svcBadge +
+      '<div class="rc-top"><div class="rc-avatar">' + avatar + '</div><div class="rc-info">' + nameHtml + '</div></div>' +
+      '<div class="rc-stars">' + stars + '</div>' +
+      '<div class="rc-text">' + escHtml(r.review_text) + '</div>' +
+      '<div class="rc-date">' + dt + '</div>' +
+      '</div>';
+  }).join('');
+}
+
+function getInitials(name) {
+  if (!name) return '?';
+  var parts = name.trim().split(' ');
+  return (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
+}
+function escHtml(s) {
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ═══ FILTER ═══
+document.querySelectorAll('.fchip').forEach(function(chip) {
+  chip.addEventListener('click', function() {
+    document.querySelectorAll('.fchip').forEach(function(c){ c.classList.remove('active'); });
+    this.classList.add('active');
+    activeFilter = this.dataset.filter;
+    renderReviews();
+  });
+});
+
+// ═══ STAR PICKER ═══
+var stars = document.querySelectorAll('.sp-star');
+var ratingLabels = ['','Poor','Below Average','Average','Good','Excellent'];
+stars.forEach(function(star) {
+  star.addEventListener('click', function() {
+    selectedRating = parseInt(this.dataset.val);
+    stars.forEach(function(s) {
+      s.classList.toggle('selected', parseInt(s.dataset.val) <= selectedRating);
+    });
+    document.getElementById('starHint').textContent = ratingLabels[selectedRating] + ' — ' + selectedRating + '/5 stars';
+    document.getElementById('starHint').style.color = 'var(--star)';
+  });
+  star.addEventListener('mouseover', function() {
+    var hov = parseInt(this.dataset.val);
+    stars.forEach(function(s){ s.style.color = parseInt(s.dataset.val) <= hov ? 'var(--star)' : 'var(--el)'; });
+  });
+  star.addEventListener('mouseout', function() {
+    stars.forEach(function(s){ s.style.color = parseInt(s.dataset.val) <= selectedRating ? 'var(--star)' : 'var(--el)'; });
+  });
+});
+
+// ═══ IDENTITY TOGGLE ═══
+document.getElementById('showIdentity').addEventListener('change', function() {
+  document.getElementById('identityFields').style.display = this.checked ? 'block' : 'none';
+});
+
+// ═══ PHOTO PREVIEW ═══
+function previewPhoto(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById('photoPreviewImg').src = e.target.result;
+      document.getElementById('photoPreview').style.display = 'block';
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+// ═══ SUBMIT REVIEW ═══
+async function submitReview() {
+  var db   = getDB();
+  var btn  = document.getElementById('submitBtn');
+  var show = document.getElementById('showIdentity').checked;
+  var name = document.getElementById('rv-name').value.trim();
+  var text = document.getElementById('rv-text').value.trim();
+
+  if (!selectedRating) { showToast('Please select a star rating.', false); return; }
+  if (show && !name)   { showToast('Please enter your name.', false); return; }
+  if (!text)           { showToast('Please write your review.', false); return; }
+  if (text.length < 20){ showToast('Review must be at least 20 characters.', false); return; }
+
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+  btn.disabled  = true;
+
+  try {
+    var photoUrl = null;
+    var photoFile = document.getElementById('rv-photo').files[0];
+    if (photoFile && show) {
+      var ext  = photoFile.name.split('.').pop();
+      var path = 'reviewers/' + Date.now() + '.' + ext;
+      var up   = await db.storage.from('review-photos').upload(path, photoFile, {upsert:true});
+      if (!up.error) {
+        var pub = db.storage.from('review-photos').getPublicUrl(path);
+        photoUrl = pub.data.publicUrl;
+      }
+    }
+
+    var data = {
+      name:          show ? name : null,
+      role:          show ? document.getElementById('rv-role').value.trim() || null : null,
+      company:       show ? document.getElementById('rv-company').value.trim() || null : null,
+      rating:        selectedRating,
+      review_text:   text,
+      photo_url:     photoUrl,
+      show_identity: show,
+      service:       document.getElementById('rv-service').value || null,
+      status:        'pending'
+    };
+
+    var res = await db.from('reviews').insert(data);
+    if (res.error) throw new Error(res.error.message);
+
+    document.getElementById('formState').style.display    = 'none';
+    document.getElementById('successState').style.display = 'block';
+  } catch(e) {
+    showToast('Error: ' + e.message, false);
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Review';
+    btn.disabled  = false;
+  }
+}
+
+// ═══ TOAST ═══
+function showToast(msg, ok) {
+  if (ok === undefined) ok = true;
+  var t  = document.getElementById('toast');
+  var ic = document.getElementById('t-icon');
+  ic.style.color = ok ? 'var(--green)' : 'var(--yellow)';
+  ic.className   = ok ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+  document.getElementById('t-msg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 3500);
+}
+
+// ═══ MOBILE MENU & THEME ═══
+var menuToggle = document.getElementById('menuToggle');
+var menuIcon   = document.getElementById('menuIcon');
+var navLinks   = document.getElementById('navLinks');
+menuToggle.addEventListener('click', function() {
+  var open = navLinks.classList.toggle('active');
+  menuIcon.className = open ? 'fas fa-times' : 'fas fa-bars';
+});
+navLinks.querySelectorAll('a').forEach(function(a) {
+  a.addEventListener('click', function(){ navLinks.classList.remove('active'); menuIcon.className='fas fa-bars'; });
+});
+var themeBtn  = document.getElementById('themeBtn');
+var themeIcon = document.getElementById('themeIcon');
+function applyTheme(t) {
+  document.body.classList.toggle('light-mode', t==='light');
+  themeIcon.className = t==='light' ? 'fas fa-moon' : 'fas fa-sun';
+  localStorage.setItem('zn-theme', t);
+}
+var savedT = localStorage.getItem('zn-theme');
+if (savedT) applyTheme(savedT);
+themeBtn.addEventListener('click', function(){ applyTheme(document.body.classList.contains('light-mode')?'dark':'light'); });
+
+// ═══ INIT ═══
+loadReviews();
+</script>
+</body>
+</html>

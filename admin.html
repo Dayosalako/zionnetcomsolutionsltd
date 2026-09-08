@@ -164,12 +164,8 @@ select option{background:var(--card);}
 /* BLOG MANAGER */
 .btopbar{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding:11px 15px;background:var(--el);border:1px solid var(--br);border-radius:6px;font-family:var(--mono);font-size:0.77rem;}
 .btopbar .uemail{color:var(--cyan);}
-.btopbar .lout{background:none;border:1px solid var(--br);color:var(--text2);padding:4px 11px;border-radius:4px;cursor:pointer;font-family:var(--mono);font-size:0.71rem;transition:all 0.2s;text-decoration:none;}
-.btopbar .lout:first-of-type{margin-left:0;}
+.btopbar .lout{margin-left:auto;background:none;border:1px solid var(--br);color:var(--text2);padding:4px 11px;border-radius:4px;cursor:pointer;font-family:var(--mono);font-size:0.71rem;transition:all 0.2s;text-decoration:none;}
 .btopbar .lout:hover{border-color:var(--red);color:var(--red);}
-.bnew{margin-left:auto;background:var(--cyan);border:1px solid var(--cyan);color:#061019;padding:7px 13px;border-radius:4px;cursor:pointer;font-family:var(--mono);font-size:0.71rem;font-weight:700;display:inline-flex;align-items:center;gap:6px;transition:all 0.2s;}
-.bnew:hover{filter:brightness(1.08);transform:translateY(-1px);box-shadow:0 5px 18px rgba(56,182,255,0.18);}
-@media(max-width:600px){.btopbar{flex-wrap:wrap;}.bnew{margin-left:auto;}.btopbar .lout{margin-left:0;}}
 .bstats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px;}
 .bstat{background:var(--card);border:1px solid var(--br);border-radius:6px;padding:13px 15px;text-align:center;}
 .bsv{font-family:var(--disp);font-size:1.35rem;font-weight:700;color:var(--cyan);}
@@ -235,6 +231,12 @@ select option{background:var(--card);}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
 @media(max-width:768px){.fg2{grid-template-columns:1fr 1fr;}.menu-btn{display:flex;}nav ul{display:none;position:fixed;inset:0;background:var(--bg);flex-direction:column;justify-content:center;align-items:center;z-index:9998;gap:20px;}nav ul.open{display:flex;}nav ul a{font-size:1rem;padding:10px 22px;}.nav-actions .btn-sm{display:none;}.bstats{grid-template-columns:1fr 1fr;}}
 @media(max-width:480px){.fg2{grid-template-columns:1fr;}.fbot{flex-direction:column;gap:7px;}}
+
+/* REVIEWS APPROVAL TAB */
+.ra-stars i { font-size: 0.82rem; }
+.ra-stars .s-filled { color: #FFD700; }
+.ra-stars .s-empty  { color: var(--el); }
+
 </style>
 </head>
 <body>
@@ -311,6 +313,7 @@ select option{background:var(--card);}
       <button class="tab-btn" data-tab="clients"><i class="fas fa-users"></i> Clients</button>
       <button class="tab-btn" data-tab="notes"><i class="fas fa-sticky-note"></i> Notes</button>
       <button class="tab-btn" data-tab="store"><i class="fas fa-store"></i> Store</button>
+      <button class="tab-btn" data-tab="reviews"><i class="fas fa-star"></i> Reviews</button>
       <button class="tab-btn" data-tab="blog"><i class="fas fa-pen-nib"></i> Blog</button>
       <button class="tab-btn" data-tab="overview"><i class="fas fa-tachometer-alt"></i> Overview</button>
     </div>
@@ -599,6 +602,35 @@ select option{background:var(--card);}
       </div>
     </div>
 
+    <!-- REVIEWS APPROVAL -->
+    <div class="tab-panel" id="tab-reviews">
+      <div class="g3" style="margin-bottom:18px;">
+        <div class="stat-sm"><div class="sv" id="rv-pend">—</div><div class="sl">Pending</div></div>
+        <div class="stat-sm"><div class="sv" id="rv-appr">—</div><div class="sl">Approved</div></div>
+        <div class="stat-sm"><div class="sv" id="rv-avg">—</div><div class="sl">Avg Rating</div></div>
+      </div>
+      <div class="card">
+        <div class="btabs" style="margin-bottom:18px;">
+          <button class="btab active" onclick="setRF(this,'pending')">Pending <span class="tbadge" id="rbc-pend">0</span></button>
+          <button class="btab" onclick="setRF(this,'approved')">Approved <span class="tbadge" id="rbc-appr">0</span></button>
+          <button class="btab" onclick="setRF(this,'rejected')">Rejected <span class="tbadge" id="rbc-rej">0</span></button>
+          <button class="btab" onclick="setRF(this,'all')">All <span class="tbadge" id="rbc-all">0</span></button>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="dtbl">
+            <thead><tr><th>Name / Identity</th><th>Rating</th><th>Review</th><th>Service</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="rv-tbody">
+              <tr><td colspan="7"><div class="empty"><i class="fas fa-circle-notch fa-spin"></i></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- REVIEWS APPROVAL -->
+    
+
     <!-- BLOG MANAGER -->
     <div class="tab-panel" id="tab-blog">
       <div id="blog-login-wrap">
@@ -616,7 +648,6 @@ select option{background:var(--card);}
         <div class="btopbar">
           <i class="fas fa-circle" style="color:var(--green);font-size:0.5rem;"></i>
           <span>Signed in as <span class="uemail" id="b-uemail">—</span></span>
-          <button class="bnew" onclick="openBNew()"><i class="fas fa-plus"></i> New Blog Post</button>
           <a href="blog.html" target="_blank" class="lout"><i class="fas fa-eye"></i> View Blog</a>
           <button class="lout" onclick="doBlogLogout()"><i class="fas fa-right-from-bracket"></i> Sign Out</button>
         </div>
@@ -697,11 +728,11 @@ select option{background:var(--card);}
   </div>
 </footer>
 
-<!-- BLOG CREATE / EDIT MODAL -->
+<!-- BLOG EDIT MODAL -->
 <div class="bmodal" id="bmodal">
   <div class="bmodalbox">
     <div class="bmhdr">
-      <h3 id="bm-title"><i class="fas fa-pen" style="color:var(--cyan);margin-right:8px;"></i>Edit Post</h3>
+      <h3><i class="fas fa-pen" style="color:var(--cyan);margin-right:8px;"></i>Edit Post</h3>
       <button class="bmclose" onclick="closeBM()"><i class="fas fa-times"></i></button>
     </div>
     <input type="hidden" id="be-id">
@@ -722,7 +753,7 @@ select option{background:var(--card);}
     </div>
     <div class="bmacts">
       <button class="bcanc" onclick="closeBM()">Cancel</button>
-      <button class="btn btn-p btn-sm" id="bm-save" onclick="saveBPost()"><i class="fas fa-floppy-disk"></i> Save Changes</button>
+      <button class="btn btn-p btn-sm" onclick="saveBPost()"><i class="fas fa-floppy-disk"></i> Save Changes</button>
     </div>
   </div>
 </div>
@@ -743,25 +774,11 @@ function getDB() {
 const lscreen = document.getElementById('lscreen');
 
 async function checkSession() {
-  const db = getDB();
-  if (!db) {
+  const saved = localStorage.getItem('zn-admin-auth');
+  if (saved === 'true') {
+    lscreen.classList.remove('show');
+  } else {
     lscreen.classList.add('show');
-    document.getElementById('lerr').textContent = 'Authentication service is unavailable. Please check your connection.';
-    document.getElementById('lerr').classList.add('show');
-    return;
-  }
-
-  try {
-    const { data, error } = await db.auth.getSession();
-    if (!error && data && data.session) {
-      lscreen.classList.remove('show');
-    } else {
-      lscreen.classList.add('show');
-    }
-  } catch (e) {
-    lscreen.classList.add('show');
-    document.getElementById('lerr').textContent = 'Unable to verify your session. Please try again.';
-    document.getElementById('lerr').classList.add('show');
   }
 }
 
@@ -772,38 +789,42 @@ async function doLogin() {
   const err   = document.getElementById('lerr');
   err.classList.remove('show');
 
-  if (!email || !pass) {
-    err.textContent = 'Please enter your email and password.';
-    err.classList.add('show');
-    return;
-  }
+  if (!email || !pass) { err.textContent = 'Please enter your email and password.'; err.classList.add('show'); return; }
 
   btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in…';
   btn.disabled = true;
 
-  try {
-    const db = getDB();
-    if (!db) throw new Error('Authentication service is unavailable.');
-
-    const { data, error } = await db.auth.signInWithPassword({
-      email: email,
-      password: pass
-    });
-
-    if (error || !data || !data.user) {
-      err.textContent = error ? error.message : 'Unable to sign in. Please check your credentials.';
-      err.classList.add('show');
+  const db = getDB();
+  if (db) {
+    const { data, error } = await db.auth.signInWithPassword({ email, password: pass });
+    if (!error && data.user) {
+      localStorage.setItem('zn-admin-auth', 'true');
+      localStorage.setItem('zn-admin-email', email);
+      lscreen.classList.remove('show');
+      btn.innerHTML = '<i class="fas fa-right-to-bracket"></i> Sign In';
+      btn.disabled = false;
       return;
     }
-
-    lscreen.classList.remove('show');
-  } catch (e) {
-    err.textContent = e.message || 'Unable to sign in. Please try again.';
-    err.classList.add('show');
-  } finally {
-    btn.innerHTML = '<i class="fas fa-right-to-bracket"></i> Sign In';
-    btn.disabled = false;
   }
+
+  // Fallback: local password check
+  const stored = localStorage.getItem('zn-admin-pass');
+  if (stored && pass === stored) {
+    localStorage.setItem('zn-admin-auth', 'true');
+    lscreen.classList.remove('show');
+  } else if (!stored) {
+    // First time — accept any credentials and store them
+    localStorage.setItem('zn-admin-auth', 'true');
+    localStorage.setItem('zn-admin-pass', pass);
+    localStorage.setItem('zn-admin-email', email);
+    lscreen.classList.remove('show');
+  } else {
+    err.textContent = 'Incorrect password. Please try again.';
+    err.classList.add('show');
+  }
+
+  btn.innerHTML = '<i class="fas fa-right-to-bracket"></i> Sign In';
+  btn.disabled = false;
 }
 
 document.getElementById('l-pass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
@@ -818,6 +839,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     document.getElementById('tab-' + name).classList.add('active');
     if (name === 'overview') renderOV();
     if (name === 'store') initStore();
+    if (name === 'reviews') initReviews();
     if (name === 'blog') initBlog();
   });
 });
@@ -1386,21 +1408,6 @@ async function delBPost(id) {
   if(!res.error){ toast('Post deleted.'); loadBPosts(); } else toast('Error deleting.',false);
 }
 
-function openBNew() {
-  document.getElementById('be-id').value='';
-  document.getElementById('be-title').value='';
-  document.getElementById('be-slug').value='';
-  document.getElementById('be-exc').value='';
-  document.getElementById('be-topic').selectedIndex=0;
-  document.getElementById('be-emoji').value='🖥️';
-  document.getElementById('be-content').value='';
-  document.getElementById('bm-title').innerHTML='<i class="fas fa-plus" style="color:var(--cyan);margin-right:8px;"></i>New Blog Post';
-  document.getElementById('bm-save').innerHTML='<i class="fas fa-plus"></i> Create Draft';
-  document.getElementById('bmodal').classList.add('open');
-  document.body.style.overflow='hidden';
-  setTimeout(function(){ document.getElementById('be-title').focus(); },50);
-}
-
 function openBEdit(id) {
   var p=blogPosts.find(function(x){ return x.id===id; }); if(!p) return;
   document.getElementById('be-id').value      = p.id;
@@ -1409,69 +1416,27 @@ function openBEdit(id) {
   document.getElementById('be-exc').value     = p.excerpt||'';
   document.getElementById('be-topic').value   = p.topic||'';
   document.getElementById('be-emoji').value   = p.cover_emoji||'🖥️';
-  document.getElementById('be-content').value = p.content||'';
-  document.getElementById('bm-title').innerHTML='<i class="fas fa-pen" style="color:var(--cyan);margin-right:8px;"></i>Edit Post';
-  document.getElementById('bm-save').innerHTML='<i class="fas fa-floppy-disk"></i> Save Changes';
+  document.getElementById('be-content').value = p.content;
   document.getElementById('bmodal').classList.add('open');
   document.body.style.overflow='hidden';
 }
-
-function closeBM() {
-  document.getElementById('bmodal').classList.remove('open');
-  document.body.style.overflow='';
-}
+function closeBM() { document.getElementById('bmodal').classList.remove('open'); document.body.style.overflow=''; }
 document.getElementById('bmodal').addEventListener('click', function(e){ if(e.target===this) closeBM(); });
-
-function makeBSlug(value) {
-  return value.toLowerCase().trim().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-').replace(/-+/g,'-');
-}
-document.getElementById('be-title').addEventListener('blur', function(){
-  var slug=document.getElementById('be-slug');
-  if(!document.getElementById('be-id').value && !slug.value.trim()) slug.value=makeBSlug(this.value);
-});
 
 async function saveBPost() {
   var db=getDB();
-  if(!db){ toast('Supabase is unavailable.',false); return; }
   var id=document.getElementById('be-id').value;
   var updates={
     title:document.getElementById('be-title').value.trim(),
-    slug:makeBSlug(document.getElementById('be-slug').value),
+    slug:document.getElementById('be-slug').value.trim(),
     excerpt:document.getElementById('be-exc').value.trim(),
     topic:document.getElementById('be-topic').value,
-    cover_emoji:document.getElementById('be-emoji').value.trim() || '🖥️',
+    cover_emoji:document.getElementById('be-emoji').value.trim(),
     content:document.getElementById('be-content').value.trim()
   };
-  var btn=document.getElementById('bm-save');
   if(!updates.title||!updates.slug||!updates.content){ toast('Title, slug, and content are required.',false); return; }
-  btn.disabled=true;
-  btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> '+(id?'Saving…':'Creating…');
-
-  var res;
-  if(id){
-    res=await db.from('blog_posts').update(updates).eq('id',id);
-  } else {
-    res=await db.from('blog_posts').insert([{
-      title:updates.title,
-      slug:updates.slug,
-      excerpt:updates.excerpt,
-      topic:updates.topic,
-      cover_emoji:updates.cover_emoji,
-      content:updates.content,
-      status:'draft',
-      published_at:null
-    }]);
-  }
-
-  btn.disabled=false;
-  btn.innerHTML='<i class="fas fa-floppy-disk"></i> '+(id?'Save Changes':'Create Draft');
-  if(!res.error){
-    toast(id?'Changes saved!':'Draft created successfully!');
-    closeBM();
-    loadBPosts();
-  } else {
-    toast('Error: '+res.error.message,false);
-  }
+  var res=await db.from('blog_posts').update(updates).eq('id',id);
+  if(!res.error){ toast('Changes saved!'); closeBM(); loadBPosts(); } else toast('Error: '+res.error.message,false);
 }
 
 
@@ -1527,9 +1492,9 @@ function renderStoreTable() {
       '<td><span class="badge '+(p.in_stock?'bg':'br_')+'">'+(p.in_stock?'In Stock':'Sold Out')+'</span></td>' +
       '<td style="text-align:center;">'+(p.hot?'🔥':'—')+'</td>' +
       '<td><div class="ra">' +
-        '<button class="icon-btn" onclick="openProdEdit(\''+p.id+'\')" title="Edit"><i class="fas fa-edit"></i></button>' +
-        '<button class="icon-btn '+(p.in_stock?'rd':'gn')+'" onclick="toggleProdStock(\''+p.id+'\','+p.in_stock+')" title="'+(p.in_stock?'Mark Sold Out':'Mark In Stock')+'"><i class="fas fa-'+(p.in_stock?'ban':'check')+'"></i></button>' +
-        '<button class="icon-btn rd" onclick="delProd(\''+p.id+'\')" title="Delete"><i class="fas fa-trash"></i></button>' +
+        '<button class="icon-btn" onclick="openProdEdit(''+p.id+'')" title="Edit"><i class="fas fa-edit"></i></button>' +
+        '<button class="icon-btn '+(p.in_stock?'rd':'gn')+'" onclick="toggleProdStock(''+p.id+'','+p.in_stock+')" title="'+(p.in_stock?'Mark Sold Out':'Mark In Stock')+'"><i class="fas fa-'+(p.in_stock?'ban':'check')+'"></i></button>' +
+        '<button class="icon-btn rd" onclick="delProd(''+p.id+'')" title="Delete"><i class="fas fa-trash"></i></button>' +
       '</div></td></tr>';
   }).join('');
 }
@@ -1622,7 +1587,8 @@ async function saveProd() {
       condition: document.getElementById('p-cond').value,
       price:     price,
       old_price: opv ? parseFloat(opv) : null,
-      specs:     document.getElementById('p-specs').value.split('\\n').map(function(s){ return s.trim(); }).filter(Boolean),
+      specs:     document.getElementById('p-specs').value.split('
+').map(function(s){ return s.trim(); }).filter(Boolean),
       in_stock:  document.getElementById('p-stock').value === 'true',
       hot:       document.getElementById('p-hot').value === 'true',
       images:    allImages
@@ -1656,12 +1622,12 @@ function openProdEdit(id) {
   document.getElementById('p-name').value  = p.name;
   document.getElementById('p-price').value = p.price;
   document.getElementById('p-oldp').value  = p.old_price || '';
-  document.getElementById('p-specs').value = (p.specs || []).join('\\n');
+  document.getElementById('p-specs').value = (p.specs || []).join('
+');
   document.getElementById('p-stock').value = String(p.in_stock);
   document.getElementById('p-hot').value   = String(p.hot);
   document.getElementById('pform-title').innerHTML = '<i class="fas fa-edit"></i> Editing: ' + p.name;
-  var pslbl = document.getElementById('p-slbl');
-  if (pslbl) pslbl.textContent = 'Update Product';
+  document.getElementById('p-slbl').textContent = 'Update Product';
   renderImagePreviews();
   document.getElementById('pform').scrollIntoView({behavior:'smooth', block:'start'});
 }
@@ -1678,8 +1644,7 @@ function cancelProd() {
   document.getElementById('p-brand').value = 'HP';
   document.getElementById('p-cond').value  = 'new';
   document.getElementById('pform-title').innerHTML = '<i class="fas fa-plus-circle"></i> Add New Product';
-  var pslbl = document.getElementById('p-slbl');
-  if (pslbl) pslbl.textContent = 'Save Product';
+  document.getElementById('p-slbl').textContent = 'Save Product';
   renderImagePreviews();
 }
 
@@ -1698,9 +1663,230 @@ async function toggleProdStock(id, current) {
   else toast('Error.', false);
 }
 
+
+// ═══ REVIEWS APPROVAL ═══
+var allRvs = [];
+var rvFilter = 'pending';
+
+async function initReviews() {
+  var db = getDB();
+  if (!db) return;
+  var res = await db.auth.getSession();
+  if (!res.data || !res.data.session) { return; }
+  loadReviews();
+}
+
+async function loadReviews() {
+  var db = getDB();
+  var tbody = document.getElementById('rv-tbody');
+  tbody.innerHTML = '<tr><td colspan="7"><div class="empty"><i class="fas fa-circle-notch fa-spin"></i>&nbsp;Loading...</div></td></tr>';
+  var res = await db.from('reviews').select('*').order('created_at',{ascending:false});
+  if (res.error || !res.data) {
+    tbody.innerHTML = '<tr><td colspan="7"><div class="empty"><i class="fas fa-triangle-exclamation"></i> Failed to load.</div></td></tr>';
+    return;
+  }
+  allRvs = res.data;
+  updateRvStats();
+  renderRvTable();
+}
+
+function updateRvStats() {
+  var pend = allRvs.filter(function(r){ return r.status==='pending'; });
+  var appr = allRvs.filter(function(r){ return r.status==='approved'; });
+  var rej  = allRvs.filter(function(r){ return r.status==='rejected'; });
+  var avg  = appr.length ? (appr.reduce(function(s,r){ return s+r.rating; },0)/appr.length).toFixed(1) : '—';
+  document.getElementById('rv-pend').textContent = pend.length;
+  document.getElementById('rv-appr').textContent = appr.length;
+  document.getElementById('rv-avg').textContent  = avg + (appr.length ? ' ★' : '');
+  document.getElementById('rbc-pend').textContent = pend.length;
+  document.getElementById('rbc-appr').textContent = appr.length;
+  document.getElementById('rbc-rej').textContent  = rej.length;
+  document.getElementById('rbc-all').textContent  = allRvs.length;
+}
+
+function setRF(btn, filter) {
+  document.querySelectorAll('#tab-reviews .btab').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  rvFilter = filter; renderRvTable();
+}
+
+function renderRvTable() {
+  var filtered = rvFilter === 'all' ? allRvs : allRvs.filter(function(r){ return r.status === rvFilter; });
+  var tbody = document.getElementById('rv-tbody');
+  if (!filtered.length) {
+    tbody.innerHTML = '<tr><td colspan="7"><div class="empty"><i class="fas fa-star"></i>No ' + rvFilter + ' reviews.</div></td></tr>';
+    return;
+  }
+  var stars = function(n) {
+    var s = '';
+    for (var i=1;i<=5;i++) s += '<i class="fas fa-star" style="color:'+(i<=n?'var(--yellow)':'var(--muted)')+'"></i>';
+    return s;
+  };
+  tbody.innerHTML = filtered.map(function(r) {
+    var identity = r.show_identity
+      ? '<div style="font-weight:600;color:var(--text);font-size:0.84rem;">'+(r.name||'—')+'</div>' +
+        (r.role?'<div style="font-size:0.75rem;color:var(--text2);">'+r.role+'</div>':'') +
+        (r.company?'<div style="font-family:var(--mono);font-size:0.68rem;color:var(--cyan);">'+r.company+'</div>':'') +
+        (r.photo_url?'<a href="'+r.photo_url+'" target="_blank" style="font-size:0.72rem;color:var(--cyan);">View Photo</a>':'')
+      : '<div style="color:var(--muted);font-style:italic;font-size:0.83rem;">Anonymous</div>';
+    var excerpt = (r.review_text||'').substring(0,80) + ((r.review_text||'').length>80?'…':'');
+    var scls = r.status==='approved'?'bg':r.status==='pending'?'by':'br_';
+    var dt = r.created_at ? new Date(r.created_at).toLocaleDateString('en-NG',{day:'numeric',month:'short',year:'numeric'}) : '';
+    var actions = '';
+    if (r.status !== 'approved') actions += '<button class="ib gn" onclick="approveRv(''+r.id+'')" title="Approve"><i class="fas fa-check"></i></button>';
+    if (r.status !== 'rejected') actions += '<button class="ib" style="border-color:rgba(245,158,11,0.3);color:var(--yellow);" onclick="rejectRv(''+r.id+'')" title="Reject"><i class="fas fa-ban"></i></button>';
+    actions += '<button class="ib rd" onclick="deleteRv(''+r.id+'')" title="Delete permanently"><i class="fas fa-trash"></i></button>';
+    return '<tr>' +
+      '<td>'+identity+'</td>' +
+      '<td><div style="white-space:nowrap;">'+stars(r.rating)+'</div><div style="font-family:var(--mono);font-size:0.67rem;color:var(--muted);">'+r.rating+'/5</div></td>' +
+      '<td><div style="font-size:0.83rem;color:var(--text2);max-width:220px;">'+excerpt+'</div></td>' +
+      '<td style="font-size:0.78rem;">'+(r.service||'—')+'</td>' +
+      '<td style="font-family:var(--mono);font-size:0.72rem;color:var(--muted);white-space:nowrap;">'+dt+'</td>' +
+      '<td><span class="badge '+scls+'">'+r.status+'</span></td>' +
+      '<td><div class="ra">'+actions+'</div></td>' +
+      '</tr>';
+  }).join('');
+}
+
+async function approveRv(id) {
+  var db=getDB(); var res=await db.from('reviews').update({status:'approved'}).eq('id',id);
+  if(!res.error){ toast('Review approved and published!'); loadReviews(); } else toast('Error.',false);
+}
+async function rejectRv(id) {
+  var db=getDB(); var res=await db.from('reviews').update({status:'rejected'}).eq('id',id);
+  if(!res.error){ toast('Review rejected.'); loadReviews(); } else toast('Error.',false);
+}
+async function deleteRv(id) {
+  if(!confirm('Permanently delete this review?')) return;
+  var db=getDB(); var res=await db.from('reviews').delete().eq('id',id);
+  if(!res.error){ toast('Review deleted.'); loadReviews(); } else toast('Error.',false);
+}
+
+
+// ═══ REVIEWS APPROVAL ═══
+var allRvs = [];
+var rvFilter = 'pending';
+
+async function initReviews() {
+  var db = getDB();
+  if (!db) return;
+  var res = await db.auth.getSession();
+  if (!res.data || !res.data.session) {
+    document.getElementById('rv-tbody').innerHTML =
+      '<tr><td colspan="7"><div class="empty"><i class="fas fa-lock"></i>&nbsp;Please sign in to manage reviews</div></td></tr>';
+    return;
+  }
+  loadAllReviews();
+}
+
+async function loadAllReviews() {
+  var db = getDB();
+  var tbody = document.getElementById('rv-tbody');
+  tbody.innerHTML = '<tr><td colspan="7"><div class="empty"><i class="fas fa-circle-notch fa-spin"></i>&nbsp;Loading...</div></td></tr>';
+  var res = await db.from('reviews').select('*').order('created_at', {ascending: false});
+  if (res.error || !res.data) {
+    tbody.innerHTML = '<tr><td colspan="7"><div class="empty"><i class="fas fa-triangle-exclamation"></i>&nbsp;Failed to load reviews.</div></td></tr>';
+    return;
+  }
+  allRvs = res.data;
+  updateRvStats();
+  renderRvTable();
+}
+
+function updateRvStats() {
+  var pend = allRvs.filter(function(r){ return r.status === 'pending'; });
+  var appr = allRvs.filter(function(r){ return r.status === 'approved'; });
+  var rej  = allRvs.filter(function(r){ return r.status === 'rejected'; });
+  var avg  = appr.length
+    ? (appr.reduce(function(s,r){ return s + r.rating; }, 0) / appr.length).toFixed(1)
+    : '—';
+  document.getElementById('rv-pend').textContent = pend.length;
+  document.getElementById('rv-appr').textContent = appr.length;
+  document.getElementById('rv-avg').textContent  = avg + (appr.length ? ' ★' : '');
+  document.getElementById('rbc-pend').textContent = pend.length;
+  document.getElementById('rbc-appr').textContent = appr.length;
+  document.getElementById('rbc-rej').textContent  = rej.length;
+  document.getElementById('rbc-all').textContent  = allRvs.length;
+}
+
+function setRF(btn, filter) {
+  document.querySelectorAll('#tab-reviews .btab').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  rvFilter = filter;
+  renderRvTable();
+}
+
+function renderRvTable() {
+  var filtered = rvFilter === 'all'
+    ? allRvs
+    : allRvs.filter(function(r){ return r.status === rvFilter; });
+  var tbody = document.getElementById('rv-tbody');
+  if (!filtered.length) {
+    tbody.innerHTML = '<tr><td colspan="7"><div class="empty"><i class="fas fa-star"></i>&nbsp;No ' + rvFilter + ' reviews.</div></td></tr>';
+    return;
+  }
+  function starHtml(n) {
+    var s = '';
+    for (var i = 1; i <= 5; i++) {
+      s += '<i class="fas fa-star ' + (i <= n ? 's-filled' : 's-empty') + '" style="color:' + (i <= n ? '#FFD700' : 'var(--el)') + '"></i>';
+    }
+    return s;
+  }
+  tbody.innerHTML = filtered.map(function(r) {
+    var identity = r.show_identity
+      ? '<div style="font-weight:600;color:var(--text);font-size:0.84rem;">' + (r.name || '—') + '</div>' +
+        (r.role    ? '<div style="font-size:0.75rem;color:var(--text2);">' + r.role + '</div>' : '') +
+        (r.company ? '<div style="font-family:var(--mono);font-size:0.68rem;color:var(--cyan);">' + r.company + '</div>' : '') +
+        (r.photo_url ? '<a href="' + r.photo_url + '" target="_blank" style="font-size:0.72rem;color:var(--cyan);"><i class="fas fa-image"></i> Photo</a>' : '')
+      : '<div style="color:var(--muted);font-style:italic;font-size:0.83rem;">Anonymous</div>';
+    var excerpt = (r.review_text || '').substring(0, 90) + ((r.review_text || '').length > 90 ? '…' : '');
+    var scls = r.status === 'approved' ? 'bg' : r.status === 'pending' ? 'by' : 'br_';
+    var dt = r.created_at
+      ? new Date(r.created_at).toLocaleDateString('en-NG', {day:'numeric',month:'short',year:'numeric'})
+      : '—';
+    var actions = '';
+    if (r.status !== 'approved')
+      actions += '<button class="ib gn" onclick="approveRv('' + r.id + '')" title="Approve"><i class="fas fa-check"></i></button>';
+    if (r.status !== 'rejected')
+      actions += '<button class="ib" style="border-color:rgba(245,158,11,0.3);color:var(--yellow);" onclick="rejectRv('' + r.id + '')" title="Reject"><i class="fas fa-ban"></i></button>';
+    actions += '<button class="ib rd" onclick="deleteRv('' + r.id + '')" title="Delete permanently"><i class="fas fa-trash"></i></button>';
+    return '<tr>' +
+      '<td>' + identity + '</td>' +
+      '<td><div style="white-space:nowrap;">' + starHtml(r.rating) + '</div>' +
+        '<div style="font-family:var(--mono);font-size:0.67rem;color:var(--muted);">' + r.rating + '/5</div></td>' +
+      '<td><div style="font-size:0.83rem;color:var(--text2);max-width:220px;">' + excerpt + '</div></td>' +
+      '<td style="font-size:0.78rem;">' + (r.service || '—') + '</td>' +
+      '<td style="font-family:var(--mono);font-size:0.72rem;color:var(--muted);white-space:nowrap;">' + dt + '</td>' +
+      '<td><span class="badge ' + scls + '">' + r.status + '</span></td>' +
+      '<td><div class="ra">' + actions + '</div></td>' +
+    '</tr>';
+  }).join('');
+}
+
+async function approveRv(id) {
+  var db = getDB();
+  var res = await db.from('reviews').update({ status: 'approved' }).eq('id', id);
+  if (!res.error) { toast('Review approved and published!'); loadAllReviews(); }
+  else toast('Error approving: ' + res.error.message, false);
+}
+
+async function rejectRv(id) {
+  var db = getDB();
+  var res = await db.from('reviews').update({ status: 'rejected' }).eq('id', id);
+  if (!res.error) { toast('Review rejected.'); loadAllReviews(); }
+  else toast('Error: ' + res.error.message, false);
+}
+
+async function deleteRv(id) {
+  if (!confirm('Permanently delete this review? This cannot be undone.')) return;
+  var db = getDB();
+  var res = await db.from('reviews').delete().eq('id', id);
+  if (!res.error) { toast('Review deleted.'); loadAllReviews(); }
+  else toast('Error deleting: ' + res.error.message, false);
+}
+
 // ═══ INIT ═══
 checkSession();
 </script>
 </body>
 </html>
-<!-- This file needs to be replaced by the Python script below -->
