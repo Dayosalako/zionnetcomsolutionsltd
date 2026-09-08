@@ -1008,8 +1008,8 @@ const projects = [
         status: 'dev',
         statusLabel: 'Always Ready',
         tags: ['SolarEdge', 'Victron', 'IoT', 'Remote Monitoring']
-    }
-      {
+    },
+    {
          id: 'PRJ.012',
         title: 'Hotel Networks Management',
         category: 'ict',
@@ -1091,11 +1091,13 @@ document.addEventListener('keydown', (e) => {
 const menuToggle = document.getElementById('menu-toggle');
 const menuIcon = document.getElementById('menu-icon');
 const navLinks = document.getElementById('nav-links');
+const navOverlay = document.getElementById('nav-overlay');
 
 if (menuToggle) {
     menuToggle.addEventListener('click', () => {
         const isOpen = navLinks.classList.toggle('active');
         menuIcon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+        navOverlay.classList.toggle('active', isOpen);
         document.body.style.overflow = isOpen ? 'hidden' : '';
     });
 }
@@ -1104,6 +1106,7 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
         navLinks.classList.remove('active');
         if (menuIcon) menuIcon.className = 'fas fa-bars';
+        if (navOverlay) navOverlay.classList.remove('active');
         document.body.style.overflow = '';
         if (typeof navOverlay !== 'undefined' && navOverlay) navOverlay.classList.remove('active');
     });
@@ -1114,6 +1117,7 @@ document.addEventListener('click', (e) => {
         !navLinks.contains(e.target) && e.target !== menuToggle && !menuToggle.contains(e.target)) {
         navLinks.classList.remove('active');
         if (menuIcon) menuIcon.className = 'fas fa-bars';
+        if (navOverlay) navOverlay.classList.remove('active');
         document.body.style.overflow = '';
     }
 });
