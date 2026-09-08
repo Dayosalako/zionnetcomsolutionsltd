@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,9 +8,12 @@
     <title>About | Zion Netcom Solutions</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <style>
         :root {
             --bg-primary: #070B14;
@@ -30,8 +34,18 @@
             --font-sans: 'Inter', system-ui, sans-serif;
             --font-display: 'Space Grotesk', 'Inter', sans-serif;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; overflow-x: hidden; }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
         body {
             font-family: var(--font-sans);
             background: var(--bg-primary);
@@ -40,11 +54,15 @@
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
+
         body::before {
             content: '';
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: 
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
                 linear-gradient(var(--grid-line) 1px, transparent 1px),
                 linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
             background-size: 40px 40px;
@@ -52,8 +70,20 @@
             z-index: 0;
         }
 
-.container { width: 92%; max-width: 1280px; margin: 0 auto; position: relative; z-index: 1; }
-        h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height: 1.1; }
+        .container {
+            width: 92%;
+            max-width: 1280px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
         .section-label {
             font-family: var(--font-mono);
             font-size: 0.75rem;
@@ -65,7 +95,12 @@
             align-items: center;
             gap: 12px;
         }
-        .section-label::before { content: '//'; color: var(--text-muted); }
+
+        .section-label::before {
+            content: '//';
+            color: var(--text-muted);
+        }
+
         .section-title {
             font-size: clamp(2rem, 5vw, 3.5rem);
             margin-bottom: 1.5rem;
@@ -74,6 +109,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+
         .btn {
             display: inline-flex;
             align-items: center;
@@ -90,72 +126,240 @@
             transition: all 0.3s ease;
             border: none;
         }
+
         .btn-primary {
             background: var(--cyan);
             color: var(--bg-primary);
             box-shadow: 0 0 20px var(--cyan-glow), inset 0 0 0 1px rgba(255,255,255,0.2);
         }
+
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 0 40px var(--cyan-glow), 0 10px 30px rgba(0,0,0,0.3);
         }
+
         .btn-outline {
             background: transparent;
             color: var(--cyan);
             border: 1px solid var(--cyan);
             box-shadow: 0 0 10px rgba(56,182,255,0.1);
         }
+
         .btn-outline:hover {
             background: var(--cyan);
             color: var(--bg-primary);
             box-shadow: 0 0 30px var(--cyan-glow);
         }
 
-        /* TOPBAR */
-
-/* HEADER */
         /* ===== TOPBAR ===== */
-        .topbar { background: var(--bg-secondary); border-bottom: 1px solid var(--border-subtle); padding: 9px 0; font-family: var(--font-mono); font-size: 0.73rem; position: relative; z-index: 100; }
-        .topbar-inner { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-        .topbar-info { display: flex; align-items: center; gap: 20px; flex-wrap: nowrap; overflow: hidden; }
-        .tb-item { display: flex; align-items: center; gap: 6px; color: var(--text-secondary); text-decoration: none; white-space: nowrap; transition: color 0.2s; flex-shrink: 0; }
-        .tb-item i { color: var(--cyan); font-size: 0.78rem; flex-shrink: 0; }
-        .tb-item:hover { color: var(--cyan); }
-        .topbar-right { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
-        .topbar-social { display: flex; align-items: center; gap: 12px; }
-        .topbar-social a { color: var(--text-muted); font-size: 0.85rem; transition: color 0.3s; }
-        .topbar-social a:hover { color: var(--cyan); }
-        .theme-toggle { background: none; border: 1px solid var(--border-subtle); border-radius: 20px; color: var(--text-secondary); font-size: 0.78rem; cursor: pointer; padding: 4px 10px; display: flex; align-items: center; gap: 5px; transition: all 0.2s; white-space: nowrap; }
-        .theme-toggle:hover { border-color: var(--cyan); color: var(--cyan); }
+
+        .topbar {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 9px 0;
+            font-family: var(--font-mono);
+            font-size: 0.73rem;
+            position: relative;
+            z-index: 10000;
+        }
+
+        .topbar-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .tb-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: nowrap;
+            min-width: 0;
+        }
+
+        .tb-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            white-space: nowrap;
+            transition: color 0.2s;
+            flex-shrink: 0;
+        }
+
+        .tb-item i {
+            color: var(--cyan);
+            font-size: 0.78rem;
+            flex-shrink: 0;
+        }
+
+        .tb-item:hover {
+            color: var(--cyan);
+        }
+
+        .tb-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-shrink: 0;
+        }
+
+        .tb-social {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tb-social a {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .tb-social a:hover {
+            color: var(--cyan);
+        }
+
+        .theme-btn {
+            width: 30px;
+            height: 30px;
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            border-radius: 50%;
+            color: var(--text-secondary);
+            font-size: 0.78rem;
+            cursor: pointer;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .theme-btn:hover {
+            border-color: var(--cyan);
+            color: var(--cyan);
+            box-shadow: 0 0 12px var(--cyan-glow);
+        }
 
         /* ===== LIGHT MODE ===== */
-        body.light-mode { --bg-primary: #F5F7FA; --bg-secondary: #EAEEF3; --bg-card: #FFFFFF; --bg-elevated: #E2E8F0; --grid-line: rgba(0, 90, 160, 0.06); --grid-major: rgba(0, 90, 160, 0.12); --cyan: #0077CC; --cyan-dim: rgba(0, 119, 204, 0.6); --cyan-glow: rgba(0, 119, 204, 0.18); --text-primary: #0F1E2E; --text-secondary: #3D5A73; --text-muted: #7A94A8; --accent-warm: #D95F1A; --border-subtle: rgba(0, 119, 204, 0.15); --border-glow: rgba(0, 119, 204, 0.35); }
-        body.light-mode .header { background: rgba(234, 238, 243, 0.92) !important; }
-        body.light-mode .nav-links a { color: var(--text-primary); }
-        body.light-mode .nav-links { background: var(--bg-primary); }
-        body.light-mode .service-card, body.light-mode .project-card, body.light-mode .tech-item,
-        body.light-mode .stat-item, body.light-mode .value-card, body.light-mode .info-card,
-        body.light-mode .form-panel, body.light-mode .timeline-content, body.light-mode .blueprint-card
-            { background: var(--bg-card); border-color: var(--border-subtle); }
-        body.light-mode .hero, body.light-mode .page-hero { background: linear-gradient(135deg, #EBF2FA 0%, #F5F7FA 50%, #E8EFF7 100%) !important; }
-        body.light-mode .footer { background: var(--bg-secondary); border-top-color: var(--border-subtle); }
-        body.light-mode .stats-strip, body.light-mode .tech-stack { background: var(--bg-secondary); }
-        body.light-mode .nav-overlay { background: rgba(180, 200, 220, 0.7); }
-        body.light-mode .menu-toggle { color: var(--text-primary); border-color: var(--border-subtle); }
-        body.light-mode .logo-text, body.light-mode .logo-sub { color: var(--text-primary) !important; }
+
+        body.light-mode {
+            --bg-primary: #F5F7FA;
+            --bg-secondary: #EAEEF3;
+            --bg-card: #FFFFFF;
+            --bg-elevated: #E2E8F0;
+            --grid-line: rgba(0, 90, 160, 0.06);
+            --grid-major: rgba(0, 90, 160, 0.12);
+            --cyan: #0077CC;
+            --cyan-dim: rgba(0, 119, 204, 0.6);
+            --cyan-glow: rgba(0, 119, 204, 0.18);
+            --text-primary: #0F1E2E;
+            --text-secondary: #3D5A73;
+            --text-muted: #7A94A8;
+            --accent-warm: #D95F1A;
+            --border-subtle: rgba(0, 119, 204, 0.15);
+            --border-glow: rgba(0, 119, 204, 0.35);
+        }
+
+        body.light-mode .header {
+            background: rgba(234, 238, 243, 0.92) !important;
+        }
+
+        body.light-mode .nav-links a {
+            color: var(--text-primary);
+        }
+
+        body.light-mode .nav-links {
+            background: var(--bg-primary);
+        }
+
+        body.light-mode .service-card,
+        body.light-mode .project-card,
+        body.light-mode .tech-item,
+        body.light-mode .stat-item,
+        body.light-mode .value-card,
+        body.light-mode .info-card,
+        body.light-mode .form-panel,
+        body.light-mode .timeline-content,
+        body.light-mode .blueprint-card {
+            background: var(--bg-card);
+            border-color: var(--border-subtle);
+        }
+
+        body.light-mode .hero,
+        body.light-mode .page-hero {
+            background: linear-gradient(135deg, #EBF2FA 0%, #F5F7FA 50%, #E8EFF7 100%) !important;
+        }
+
+        body.light-mode .footer {
+            background: var(--bg-secondary);
+            border-top-color: var(--border-subtle);
+        }
+
+        body.light-mode .stats-strip,
+        body.light-mode .tech-stack {
+            background: var(--bg-secondary);
+        }
+
+        body.light-mode .nav-overlay {
+            background: rgba(180, 200, 220, 0.7);
+        }
+
+        body.light-mode .menu-toggle {
+            color: var(--text-primary);
+            border-color: var(--border-subtle);
+        }
+
+        body.light-mode .logo-text,
+        body.light-mode .logo-sub {
+            color: var(--text-primary) !important;
+        }
 
         /* ===== TOPBAR RESPONSIVE ===== */
+
         @media (max-width: 768px) {
-            .topbar { padding: 7px 0; }
-            .tb-phone .tb-text, .tb-email { display: none; }
-            .topbar-info { gap: 14px; }
-        }
-        @media (max-width: 480px) {
-            .tb-location .tb-text { display: none; }
-            .topbar-info { gap: 10px; }
-            .theme-toggle span { display: none; }
+            .topbar {
+                padding: 7px 0;
+            }
+
+            .tb-info {
+                gap: 14px;
+            }
+
+            .tb-item .tb-text {
+                display: none;
+            }
+
+            .tb-social {
+                gap: 10px;
+            }
         }
 
+        @media (max-width: 480px) {
+            .tb-info {
+                gap: 10px;
+            }
+
+            .tb-item .tb-text {
+                display: none;
+            }
+
+            .tb-social {
+                gap: 9px;
+            }
+
+            .theme-btn {
+                width: 28px;
+                height: 28px;
+            }
+        }
+
+        /* ===== HEADER ===== */
 
         .header {
             background: rgba(7, 11, 20, 0.85);
@@ -165,6 +369,7 @@
             top: 0;
             z-index: 9999;
         }
+
         .nav-wrapper {
             display: flex;
             align-items: center;
@@ -172,28 +377,41 @@
             padding: 16px 0;
             gap: 20px;
         }
+
         .logo {
             display: flex;
             align-items: center;
             gap: 12px;
             text-decoration: none;
         }
+
+        .logo img {
+            height: 42px;
+            width: auto;
+            display: block;
+        }
+
         .logo-icon {
-            width: 42px; height: 42px;
+            width: 42px;
+            height: 42px;
             border: 2px solid var(--cyan);
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-family: var(--font-mono);
             font-weight: 700;
             font-size: 1.1rem;
             color: var(--cyan);
             position: relative;
         }
+
         .logo-icon::before {
             content: '';
             position: absolute;
             inset: 3px;
             border: 1px solid var(--cyan-dim);
         }
+
         .logo-text {
             font-family: var(--font-display);
             font-size: 1.4rem;
@@ -201,7 +419,11 @@
             color: var(--text-primary);
             line-height: 1.2;
         }
-        .logo-text span { color: var(--cyan); }
+
+        .logo-text span {
+            color: var(--cyan);
+        }
+
         .logo-sub {
             font-family: var(--font-mono);
             font-size: 0.65rem;
@@ -209,12 +431,14 @@
             letter-spacing: 2px;
             text-transform: uppercase;
         }
+
         .nav-links {
             display: flex;
             gap: 18px;
             list-style: none;
             align-items: center;
         }
+
         .nav-links a {
             font-family: var(--font-mono);
             font-size: 0.72rem;
@@ -226,47 +450,75 @@
             position: relative;
             padding: 4px 0;
         }
+
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -2px; left: 0;
-            width: 0; height: 1px;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
             background: var(--cyan);
             transition: width 0.3s;
             box-shadow: 0 0 8px var(--cyan);
         }
-        .nav-links a:hover, .nav-links a.active { color: var(--cyan); }
-        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-        .header-actions { display: flex; align-items: center; gap: 20px; }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--cyan);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
         .menu-toggle {
             display: none;
-            background: none; border: none;
+            background: none;
+            border: none;
             color: var(--cyan);
             font-size: 1.5rem;
             cursor: pointer;
         }
 
-        /* PAGE HERO */
+        /* ===== PAGE HERO ===== */
+
         .page-hero {
             padding: 140px 0 100px;
             background: var(--bg-secondary);
             border-bottom: 1px solid var(--border-subtle);
             position: relative;
         }
+
         .page-hero::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0;
+            top: 0;
+            left: 0;
+            right: 0;
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--cyan), transparent);
             opacity: 0.5;
         }
+
         .page-hero h1 {
             font-size: clamp(2rem, 6vw, 4rem);
             margin-bottom: 20px;
             letter-spacing: -1px;
         }
-        .page-hero h1 .highlight { color: var(--cyan); text-shadow: 0 0 30px var(--cyan-glow); }
+
+        .page-hero h1 .highlight {
+            color: var(--cyan);
+            text-shadow: 0 0 30px var(--cyan-glow);
+        }
+
         .page-hero p {
             font-size: 1.15rem;
             color: var(--text-secondary);
@@ -274,33 +526,53 @@
             line-height: 1.7;
         }
 
-        /* ABOUT CONTENT */
+        /* ===== ABOUT CONTENT ===== */
+
         .about-section {
             padding: 100px 0;
         }
+
         .about-grid {
             display: grid;
             grid-template-columns: 1fr 1.2fr;
             gap: 80px;
             align-items: start;
         }
+
         .about-visual {
             position: relative;
         }
+
         .about-visual .schematic-box {
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
             padding: 50px;
             position: relative;
         }
-        .about-visual .schematic-box::before, .about-visual .schematic-box::after {
+
+        .about-visual .schematic-box::before,
+        .about-visual .schematic-box::after {
             content: '';
             position: absolute;
-            width: 20px; height: 20px;
+            width: 20px;
+            height: 20px;
             border: 2px solid var(--cyan);
         }
-        .about-visual .schematic-box::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
-        .about-visual .schematic-box::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+        .about-visual .schematic-box::before {
+            top: -1px;
+            left: -1px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .about-visual .schematic-box::after {
+            bottom: -1px;
+            right: -1px;
+            border-left: none;
+            border-top: none;
+        }
+
         .about-visual .schematic-box h3 {
             font-family: var(--font-mono);
             font-size: 0.8rem;
@@ -309,6 +581,7 @@
             color: var(--cyan);
             margin-bottom: 24px;
         }
+
         .about-visual .schematic-box .data-row {
             display: flex;
             justify-content: space-between;
@@ -316,40 +589,59 @@
             border-bottom: 1px solid var(--border-subtle);
             font-family: var(--font-mono);
             font-size: 0.8rem;
+            gap: 15px;
         }
-        .about-visual .schematic-box .data-row:last-child { border-bottom: none; }
-        .about-visual .schematic-box .data-row .label { color: var(--text-muted); }
-        .about-visual .schematic-box .data-row .value { color: var(--cyan); }
-        .about-visual .schematic-box .data-row .value.secondary { color: var(--text-secondary); }
+
+        .about-visual .schematic-box .data-row:last-child {
+            border-bottom: none;
+        }
+
+        .about-visual .schematic-box .data-row .label {
+            color: var(--text-muted);
+        }
+
+        .about-visual .schematic-box .data-row .value {
+            color: var(--cyan);
+            text-align: right;
+        }
+
+        .about-visual .schematic-box .data-row .value.secondary {
+            color: var(--text-secondary);
+        }
 
         .about-text h3 {
             font-size: 1.8rem;
             margin-bottom: 24px;
             color: var(--text-primary);
         }
+
         .about-text p {
             color: var(--text-secondary);
             font-size: 1rem;
             line-height: 1.8;
             margin-bottom: 20px;
         }
+
         .about-text .highlight-text {
             color: var(--cyan);
             font-weight: 600;
         }
 
-        /* TIMELINE */
+        /* ===== TIMELINE ===== */
+
         .timeline-section {
             padding: 100px 0;
             background: var(--bg-secondary);
             border-top: 1px solid var(--border-subtle);
             border-bottom: 1px solid var(--border-subtle);
         }
+
         .timeline {
             position: relative;
             max-width: 900px;
             margin: 0 auto;
         }
+
         .timeline::before {
             content: '';
             position: absolute;
@@ -360,6 +652,7 @@
             background: var(--border-subtle);
             transform: translateX(-50%);
         }
+
         .timeline-item {
             display: flex;
             justify-content: flex-end;
@@ -367,11 +660,13 @@
             position: relative;
             margin-bottom: 60px;
         }
+
         .timeline-item:nth-child(even) {
             justify-content: flex-start;
             padding-right: 0;
             padding-left: 50%;
         }
+
         .timeline-content {
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
@@ -380,22 +675,32 @@
             position: relative;
             transition: all 0.3s;
         }
+
         .timeline-content:hover {
             border-color: var(--border-glow);
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
         }
+
         .timeline-content::before {
             content: '';
             position: absolute;
             top: 50%;
-            width: 12px; height: 12px;
+            width: 12px;
+            height: 12px;
             background: var(--cyan);
             border-radius: 50%;
             box-shadow: 0 0 12px var(--cyan);
             transform: translateY(-50%);
         }
-        .timeline-item:nth-child(odd) .timeline-content::before { right: -56px; }
-        .timeline-item:nth-child(even) .timeline-content::before { left: -56px; }
+
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            right: -56px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: -56px;
+        }
+
         .timeline-year {
             font-family: var(--font-mono);
             font-size: 0.75rem;
@@ -403,25 +708,30 @@
             margin-bottom: 8px;
             letter-spacing: 2px;
         }
+
         .timeline-content h4 {
             font-size: 1.2rem;
             margin-bottom: 8px;
         }
+
         .timeline-content p {
             font-size: 0.9rem;
             color: var(--text-secondary);
             line-height: 1.6;
         }
 
-        /* VALUES */
+        /* ===== VALUES ===== */
+
         .values-section {
             padding: 100px 0;
         }
+
         .values-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 24px;
         }
+
         .value-card {
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
@@ -429,36 +739,43 @@
             text-align: center;
             transition: all 0.3s;
         }
+
         .value-card:hover {
             border-color: var(--border-glow);
             transform: translateY(-4px);
         }
+
         .value-card i {
             font-size: 2rem;
             color: var(--cyan-dim);
             margin-bottom: 20px;
             transition: all 0.3s;
         }
+
         .value-card:hover i {
             color: var(--cyan);
             text-shadow: 0 0 15px var(--cyan-glow);
         }
+
         .value-card h4 {
             font-size: 1.1rem;
             margin-bottom: 12px;
         }
+
         .value-card p {
             font-size: 0.85rem;
             color: var(--text-secondary);
             line-height: 1.6;
         }
 
-        /* LEADERSHIP */
+        /* ===== LEADERSHIP ===== */
+
         .leadership-section {
             padding: 100px 0;
             background: var(--bg-secondary);
             border-top: 1px solid var(--border-subtle);
         }
+
         .leadership-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -466,6 +783,7 @@
             max-width: 800px;
             margin: 0 auto;
         }
+
         .leader-card {
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
@@ -473,11 +791,14 @@
             text-align: center;
             transition: all 0.3s;
         }
+
         .leader-card:hover {
             border-color: var(--border-glow);
         }
+
         .leader-avatar {
-            width: 80px; height: 80px;
+            width: 80px;
+            height: 80px;
             border: 2px solid var(--cyan);
             border-radius: 50%;
             display: flex;
@@ -489,10 +810,12 @@
             color: var(--cyan);
             background: var(--bg-elevated);
         }
+
         .leader-card h4 {
             font-size: 1.3rem;
             margin-bottom: 4px;
         }
+
         .leader-card .role {
             font-family: var(--font-mono);
             font-size: 0.75rem;
@@ -501,30 +824,37 @@
             letter-spacing: 1.5px;
             margin-bottom: 16px;
         }
+
         .leader-card p {
             font-size: 0.9rem;
             color: var(--text-secondary);
             line-height: 1.6;
         }
 
-        /* CTA */
+        /* ===== CTA ===== */
+
         .cta-section {
             padding: 120px 0;
             text-align: center;
             position: relative;
         }
+
         .cta-section::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0;
+            top: 0;
+            left: 0;
+            right: 0;
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--cyan), transparent);
             opacity: 0.5;
         }
+
         .cta-section h2 {
             font-size: clamp(2rem, 4vw, 3.2rem);
             margin-bottom: 20px;
         }
+
         .cta-section p {
             color: var(--text-secondary);
             max-width: 600px;
@@ -532,34 +862,44 @@
             font-size: 1.1rem;
         }
 
-        /* FOOTER */
+        /* ===== FOOTER ===== */
+
         .footer {
             background: var(--bg-secondary);
             border-top: 1px solid var(--border-subtle);
             padding: 80px 0 30px;
             position: relative;
         }
+
         .footer::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0;
+            top: 0;
+            left: 0;
+            right: 0;
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--cyan), transparent);
             opacity: 0.5;
         }
-        .footer-grid > * { min-width: 0; }
+
+        .footer-grid > * {
+            min-width: 0;
+        }
+
         .footer-grid {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr 1.5fr;
             gap: 60px;
             margin-bottom: 60px;
         }
+
         .footer-brand p {
             color: var(--text-secondary);
             font-size: 0.95rem;
             max-width: 300px;
             margin: 20px 0;
         }
+
         .footer h4 {
             font-family: var(--font-mono);
             font-size: 0.75rem;
@@ -568,8 +908,15 @@
             color: var(--cyan);
             margin-bottom: 24px;
         }
-        .footer ul { list-style: none; }
-        .footer ul li { margin-bottom: 12px; }
+
+        .footer ul {
+            list-style: none;
+        }
+
+        .footer ul li {
+            margin-bottom: 12px;
+        }
+
         .footer ul a {
             color: var(--text-secondary);
             text-decoration: none;
@@ -579,22 +926,36 @@
             align-items: center;
             gap: 8px;
         }
-        .footer ul a:hover { color: var(--cyan); padding-left: 4px; }
+
+        .footer ul a:hover {
+            color: var(--cyan);
+            padding-left: 4px;
+        }
+
         .footer ul a::before {
             content: '>';
             font-family: var(--font-mono);
             color: var(--text-muted);
             font-size: 0.7rem;
         }
+
         .footer-contact p {
             color: var(--text-secondary);
             font-size: 0.9rem;
             margin-bottom: 8px;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 10px;
         }
-        .footer-contact i { color: var(--cyan); width: 16px; font-size: 0.85rem; }
+
+        .footer-contact i {
+            color: var(--cyan);
+            width: 16px;
+            font-size: 0.85rem;
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+
         .footer-bottom {
             border-top: 1px solid var(--border-subtle);
             padding-top: 30px;
@@ -607,6 +968,7 @@
             font-size: 0.75rem;
             color: var(--text-muted);
         }
+
         .data-readout {
             font-family: var(--font-mono);
             font-size: 0.75rem;
@@ -615,31 +977,52 @@
             align-items: center;
             gap: 8px;
         }
+
         .data-readout .indicator {
-            width: 6px; height: 6px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             background: var(--cyan);
             box-shadow: 0 0 8px var(--cyan);
             animation: pulse 2s infinite;
         }
+
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
+            0%, 100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
         }
 
-        /* ===== RESPONSIVE — TABLET LANDSCAPE (1100px) ===== */
+        /* ===== RESPONSIVE — TABLET LANDSCAPE ===== */
+
         @media (max-width: 1100px) {
-            .footer-grid > * { min-width: 0; }
-        .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+            .footer-grid > * {
+                min-width: 0;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
         }
 
-        /* ===== RESPONSIVE — TABLET PORTRAIT (992px) ===== */
+        /* ===== RESPONSIVE — TABLET PORTRAIT ===== */
+
         @media (max-width: 992px) {
-            .container { width: 94%; }
+            .container {
+                width: 94%;
+            }
+
             .nav-links {
                 position: fixed;
-                top: 0; left: -100%;
-                width: 100%; height: 100vh;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100vh;
                 background: var(--bg-primary);
                 flex-direction: column;
                 align-items: center;
@@ -650,57 +1033,171 @@
                 z-index: 9998;
                 padding-top: 80px;
             }
-            .nav-links.active { left: 0; }
-            .menu-toggle { display: block; }
-            .header-actions .btn { padding: 10px 18px; font-size: 0.75rem; }
-/* Page-specific tablet overrides below */
-            .about-grid { grid-template-columns: 1fr; gap: 40px; }
-            .values-grid { grid-template-columns: repeat(2, 1fr); }
-            .timeline::before { left: 20px; }
-            .timeline-item, .timeline-item:nth-child(even) {
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 44px;
+                min-height: 44px;
+                background: none;
+                border: 1px solid var(--border-subtle);
+                border-radius: 4px;
+                color: var(--cyan);
+                font-size: 1.2rem;
+                cursor: pointer;
+                padding: 0 10px;
+                transition: all 0.2s;
+                position: relative;
+                z-index: 10001;
+            }
+
+            .menu-toggle:hover {
+                border-color: var(--cyan);
+                background: rgba(56,182,255,0.08);
+            }
+
+            .header-actions .btn {
+                padding: 10px 18px;
+                font-size: 0.75rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .values-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(even) {
                 justify-content: flex-start;
                 padding-left: 50px;
                 padding-right: 0;
             }
+
             .timeline-item:nth-child(odd) .timeline-content::before,
             .timeline-item:nth-child(even) .timeline-content::before {
                 left: -36px;
                 right: auto;
             }
-            .leadership-grid { grid-template-columns: 1fr; }
+
+            .leadership-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
-        /* ===== RESPONSIVE — MOBILE (768px) ===== */
+        /* ===== RESPONSIVE — MOBILE ===== */
+
         @media (max-width: 768px) {
-            .container { width: 95%; }
+            .container {
+                width: 95%;
+            }
 
-.nav-wrapper { padding: 12px 0; }
-            .page-hero { padding: 100px 0 60px; }
-            .values-grid { grid-template-columns: 1fr; }
-            .footer-grid > * { min-width: 0; }
-        .footer-grid { grid-template-columns: 1fr; }
-            .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+            .nav-wrapper {
+                padding: 12px 0;
+            }
+
+            .page-hero {
+                padding: 100px 0 60px;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid > * {
+                min-width: 0;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
         }
 
-        /* ===== RESPONSIVE — SMALL MOBILE (480px) ===== */
+        /* ===== RESPONSIVE — SMALL MOBILE ===== */
+
         @media (max-width: 480px) {
-            .container { width: 96%; }
-            .logo-text { font-size: 1.1rem; }
-            .logo-sub { display: none; }
-            .page-hero { padding: 80px 0 44px; }
-            .header-actions .btn { padding: 8px 14px; font-size: 0.7rem; }
-            .section-title { font-size: clamp(1.7rem, 7vw, 2.4rem); }
-            .footer-grid > * { min-width: 0; }
-        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
-            .btn { padding: 12px 20px; font-size: 0.78rem; }
+            .container {
+                width: 96%;
+            }
+
+            .logo-text {
+                font-size: 1.1rem;
+            }
+
+            .logo-sub {
+                display: none;
+            }
+
+            .logo img {
+                height: 38px;
+            }
+
+            .page-hero {
+                padding: 80px 0 44px;
+            }
+
+            .header-actions .btn {
+                padding: 8px 14px;
+                font-size: 0.7rem;
+            }
+
+            .section-title {
+                font-size: clamp(1.7rem, 7vw, 2.4rem);
+            }
+
+            .footer-grid > * {
+                min-width: 0;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .btn {
+                padding: 12px 20px;
+                font-size: 0.78rem;
+            }
+
+            .about-visual .schematic-box {
+                padding: 30px 20px;
+            }
+
+            .about-visual .schematic-box .data-row {
+                font-size: 0.7rem;
+            }
         }
 
         @media (max-width: 360px) {
-            .section-title { font-size: clamp(1.5rem, 8vw, 2rem); }
-            .logo-text { font-size: 1rem; }
+            .section-title {
+                font-size: clamp(1.5rem, 8vw, 2rem);
+            }
+
+            .logo-text {
+                font-size: 1rem;
+            }
         }
 
         /* ===== MOBILE NAV OVERLAY BACKDROP ===== */
+
         .nav-overlay {
             display: none;
             position: fixed;
@@ -709,379 +1206,941 @@
             z-index: 9997;
             backdrop-filter: blur(2px);
         }
-        .nav-overlay.active { display: block; }
 
-        .menu-toggle {
-            min-width: 44px;
-            min-height: 44px;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            background: none;
-            border: 1px solid var(--border-subtle);
-            border-radius: 4px;
-            color: var(--cyan);
-            font-size: 1.2rem;
-            cursor: pointer;
-            padding: 0 10px;
-            transition: all 0.2s;
+        .nav-overlay.active {
+            display: block;
         }
-        .menu-toggle:hover { border-color: var(--cyan); background: rgba(56,182,255,0.08); }
-    
-        @media (max-width: 640px) { .header-actions .btn-outline { display: none; } }
-</style>
+
+        @media (max-width: 640px) {
+            .header-actions .btn-outline {
+                display: none;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
+<!-- ===== TOPBAR ===== -->
+
 <div class="topbar">
-  <div class="container topbar-inner">
-    <div class="tb-info">
-      <a href="tel:+2347067580599" class="tb-item"><i class="fas fa-phone"></i> +234 706 758 0599</a>
-      <a href="mailto:info@zionnetcomsolutionsltd.com.ng" class="tb-item"><i class="fas fa-envelope"></i> info@zionnetcomsolutionsltd.com.ng</a>
+    <div class="container topbar-inner">
+
+        <div class="tb-info">
+
+            <a href="tel:+2347067580599" class="tb-item">
+                <i class="fas fa-phone"></i>
+                <span class="tb-text">+234 706 758 0599</span>
+            </a>
+
+            <a href="mailto:info@zionnetcomsolutionsltd.com.ng" class="tb-item">
+                <i class="fas fa-envelope"></i>
+                <span class="tb-text">info@zionnetcomsolutionsltd.com.ng</span>
+            </a>
+
+        </div>
+
+        <div class="tb-right">
+
+            <div class="tb-social">
+
+                <a href="https://www.linkedin.com/company/zion-netcom-solutions-limited" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+
+                <a href="https://www.youtube.com/@zionnetcomsolutionsltd" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+
+                <a href="https://www.instagram.com/zionnetcomsolutionsltd/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+
+            </div>
+
+            <button class="theme-btn" id="themeBtn" aria-label="Switch to light mode">
+                <i class="fas fa-sun" id="themeIcon"></i>
+            </button>
+
+        </div>
     </div>
-    <div class="tb-right">
-      <div class="tb-social">
-        <a href="https://www.linkedin.com/company/zion-netcom-solutions-limited" target="_blank"><i class="fab fa-linkedin"></i></a>
-        <a href="https://www.youtube.com/@zionnetcomsolutionsltd" target="_blank"><i class="fab fa-youtube"></i></a>
-        <a href="https://www.instagram.com/zionnetcomsolutionsltd/" target="_blank"><i class="fab fa-instagram"></i></a>
-      </div>
-      <button class="theme-btn" id="themeBtn"><i class="fas fa-sun" id="themeIcon"></i></button>
-    </div>
-  </div>
 </div>
 
+
+<!-- ===== HEADER ===== -->
+
 <header class="header">
-  <div class="container nav-wrapper">
-    <a href="index.html" class="logo">
-      <img src="zion.jpg" alt="Zion Netcom Solutions">
-      <div><div class="logo-text">ZION<span>NETCOM</span></div><div class="logo-sub">Solutions Limited</div></div>
-    </a>
-    <nav>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="services.html">Solutions</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="payment.html">Make Payment</a></li>
-        <li><a href="store.html">Store</a></li>
-        <li><a href="reviews.html" class="active">Reviews</a></li>
-      </ul>
-    </nav>
-    <div class="header-actions">
-      <a href="contact.html" class="btn btn-primary btn-sm">Get Quote</a>
-      <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars" id="menuIcon"></i></button>
+
+    <div class="container nav-wrapper">
+
+        <a href="index.html" class="logo">
+
+            <img src="zion.jpg" alt="Zion Netcom Solutions">
+
+            <div>
+                <div class="logo-text">
+                    ZION<span>NETCOM</span>
+                </div>
+
+                <div class="logo-sub">
+                    Solutions Limited
+                </div>
+            </div>
+
+        </a>
+
+        <nav>
+
+            <ul class="nav-links" id="navLinks">
+
+                <li><a href="index.html">Home</a></li>
+
+                <li><a href="services.html">Solutions</a></li>
+
+                <li><a href="projects.html">Projects</a></li>
+
+                <li><a href="about.html" class="active">About</a></li>
+
+                <li><a href="contact.html">Contact</a></li>
+
+                <li><a href="blog.html">Blog</a></li>
+
+                <li><a href="payment.html">Make Payment</a></li>
+
+                <li><a href="store.html">Store</a></li>
+
+                <li><a href="reviews.html">Reviews</a></li>
+
+            </ul>
+
+        </nav>
+
+        <div class="header-actions">
+
+            <a href="contact.html" class="btn btn-primary btn-sm">
+                Get Quote
+            </a>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+                <i class="fas fa-bars" id="menuIcon"></i>
+            </button>
+
+        </div>
+
     </div>
-  </div>
+
 </header>
 
 
-<!-- PAGE HERO -->
+<!-- ===== PAGE HERO ===== -->
+
 <section class="page-hero">
+
     <div class="container">
-        <div class="section-label">Company Profile</div>
-        <h1>About <span class="highlight">Zion Netcom</span></h1>
-        <p>Engineering reliable digital infrastructure across Nigeria and Africa since 2023. We build the networks, software, and systems that power modern institutions.</p>
+
+        <div class="section-label">
+            Company Profile
+        </div>
+
+        <h1>
+            About <span class="highlight">Zion Netcom</span>
+        </h1>
+
+        <p>
+            Engineering reliable digital infrastructure across Nigeria and Africa since 2023.
+            We build the networks, software, and systems that power modern institutions.
+        </p>
+
     </div>
+
 </section>
 
-<!-- ABOUT STORY -->
+
+<!-- ===== ABOUT STORY ===== -->
+
 <section class="about-section">
+
     <div class="container">
+
         <div class="about-grid">
+
             <div class="about-visual">
+
                 <div class="schematic-box">
-                    <h3>Company Spec Sheet</h3>
+
+                    <h3>
+                        Company Spec Sheet
+                    </h3>
+
                     <div class="data-row">
                         <span class="label">ENTITY</span>
                         <span class="value">Zion Netcom Solutions Ltd.</span>
                     </div>
+
                     <div class="data-row">
                         <span class="label">REG. NO</span>
                         <span class="value secondary">RC 1234567</span>
                     </div>
+
                     <div class="data-row">
                         <span class="label">FOUNDED</span>
                         <span class="value secondary">2023</span>
                     </div>
+
                     <div class="data-row">
                         <span class="label">HQ</span>
                         <span class="value secondary">Kaduna, Nigeria</span>
                     </div>
+
                     <div class="data-row">
                         <span class="label">SECTORS</span>
                         <span class="value">ICT / Networking / Software</span>
                     </div>
+
                     <div class="data-row">
                         <span class="label">EMPLOYEES</span>
                         <span class="value secondary">15+</span>
                     </div>
+
                     <div class="data-row">
                         <span class="label">STATUS</span>
                         <span class="value">OPERATIONAL</span>
                     </div>
+
                 </div>
+
             </div>
+
             <div class="about-text">
-                <h3>Building Nigeria's Digital Infrastructure</h3>
+
+                <h3>
+                    Building Nigeria's Digital Infrastructure
+                </h3>
+
                 <p>
-                    Zion Netcom Solutions Limited was founded in 2023 with a singular mission: to bridge the digital infrastructure gap 
-                    across Nigerian institutions and communities. What began as a small network consultancy in Kaduna has grown into a 
-                    full-service technology company delivering <span class="highlight-text">enterprise networking, custom web applications, 
-                    and large-scale ICT deployments</span>.
+                    Zion Netcom Solutions Limited was founded in 2023 with a singular mission:
+                    to bridge the digital infrastructure gap across Nigerian institutions and communities.
+                    What began as a small network consultancy in Kaduna has grown into a full-service
+                    technology company delivering
+                    <span class="highlight-text">
+                        enterprise networking, custom web applications, and large-scale ICT deployments
+                    </span>.
                 </p>
+
                 <p>
-                    Our team combines deep expertise in telecommunications engineering with modern software development practices. 
-                    We have deployed networks for federal universities, technical education boards, and vocational schools — while 
-                    simultaneously building web platforms that serve thousands of users across community, logistics, and education sectors.
+                    Our team combines deep expertise in telecommunications engineering with modern
+                    software development practices. We have deployed networks for federal universities,
+                    technical education boards, and vocational schools — while simultaneously building
+                    web platforms that serve thousands of users across community, logistics, and education sectors.
                 </p>
+
                 <p>
-                    Looking ahead, we are actively developing capabilities in <span class="highlight-text">AI-powered surveillance, 
-                    solar-powered ICT infrastructure, and industrial IoT</span> — positioning Zion Netcom at the forefront of 
-                    Africa's next-generation technology landscape.
+                    Looking ahead, we are actively developing capabilities in
+                    <span class="highlight-text">
+                        AI-powered surveillance, solar-powered ICT infrastructure, and industrial IoT
+                    </span>
+                    — positioning Zion Netcom at the forefront of Africa's next-generation technology landscape.
                 </p>
+
             </div>
+
         </div>
+
     </div>
+
 </section>
 
-<!-- TIMELINE -->
+
+<!-- ===== TIMELINE ===== -->
+
 <section class="timeline-section">
+
     <div class="container">
-        <div class="section-label" style="text-align:center; justify-content:center;">Evolution</div>
-        <h2 class="section-title" style="text-align:center;">Our Timeline</h2>
+
+        <div class="section-label" style="text-align:center; justify-content:center;">
+            Evolution
+        </div>
+
+        <h2 class="section-title" style="text-align:center;">
+            Our Timeline
+        </h2>
+
         <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <div class="timeline-year">2023</div>
-                    <h4>Foundation</h4>
-                    <p>Zion Netcom Solutions Limited incorporated in Kaduna, Nigeria. Initial focus on network consulting and small-scale ISP infrastructure.</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <div class="timeline-year">2024</div>
-                    <h4>First Institutional Contract</h4>
-                    <p>Secured first major ICT deployment contract with a federal educational institution, establishing our campus network expertise.</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <div class="timeline-year">2024</div>
-                    <h4>Software Division Launch</h4>
-                    <p>Expanded into full-stack web development with the launch of Biu Forum — our first major community platform built on Google Cloud.</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <div class="timeline-year">2025</div>
-                    <h4>Multi-Campus Expansion</h4>
-                    <p>Deployed campus-wide networks for Federal University Wukari and Bauchi State University, Yuli Campus. Starlink integration capabilities added.</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <div class="timeline-year">2024</div>
-                    <h4>NBTE Partnership</h4>
-                    <p>Began comprehensive network management and support for the National Board for Technical Education — our largest ongoing institutional contract.</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <div class="timeline-year">2023-2026</div>
-                    <h4>Product Portfolio Growth</h4>
-                    <p>Launched SchoolOS (school management system), ZionDrive (enterprise file management), and began development of DND Logistics and Harmony Welfare platforms.</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <div class="timeline-year">2025-2026</div>
-                    <h4>Future Tech Roadmap</h4>
-                    <p>Active R&D in AI surveillance, solar ICT infrastructure, and industrial IoT. Organization Management System and Identification System in development.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-<!-- VALUES -->
-<section class="values-section">
-    <div class="container">
-        <div class="section-label" style="text-align:center; justify-content:center;">Operating Principles</div>
-        <h2 class="section-title" style="text-align:center;">Core Values</h2>
-        <div class="values-grid">
-            <div class="value-card">
-                <i class="fas fa-cogs"></i>
-                <h4>Engineering Excellence</h4>
-                <p>Every deployment is designed for reliability, scalability, and performance. We don't cut corners on infrastructure.</p>
-            </div>
-            <div class="value-card">
-                <i class="fas fa-shield-alt"></i>
-                <h4>Security First</h4>
-                <p>Security is embedded at every layer — from network architecture to application code. Zero-trust principles guide our work.</p>
-            </div>
-            <div class="value-card">
-                <i class="fas fa-users"></i>
-                <h4>Client Partnership</h4>
-                <p>We work alongside our clients as technical partners, not vendors. Long-term relationships drive better outcomes.</p>
-            </div>
-            <div class="value-card">
-                <i class="fas fa-rocket"></i>
-                <h4>Innovation Focus</h4>
-                <p>We continuously evaluate emerging technologies — from Starlink to AI analytics — to bring cutting-edge solutions to Africa.</p>
-            </div>
-        </div>
-    </div>
-</section>
+            <div class="timeline-item">
 
-<!-- LEADERSHIP -->
-<section class="leadership-section">
-    <div class="container">
-        <div class="section-label" style="text-align:center; justify-content:center;">Leadership</div>
-        <h2 class="section-title" style="text-align:center;">The Team</h2>
-        <div class="leadership-grid">
-            <div class="leader-card">
-                <div class="leader-avatar">DS</div>
-                <h4>Dayo Salako</h4>
-                <div class="role">Founder & CEO</div>
-                <p>CCNA certified. Network engineer and software architect with expertise in enterprise infrastructure, full-stack development, and ICT project management across Nigerian institutions.</p>
-            </div>
-            <div class="leader-card">
-                <div class="leader-avatar">TE</div>
-                <h4>Technical Team</h4>
-                <div class="role">Engineering Division</div>
-                <p>A multidisciplinary team of network engineers, software developers, and systems architects delivering end-to-end technology solutions.</p>
-            </div>
-        </div>
-    </div>
-</section>
+                <div class="timeline-content">
 
-<!-- CTA -->
-<section class="cta-section">
-    <div class="container">
-        <h2>Work With Us</h2>
-        <p>Whether you need a campus network, a custom web application, or a complete ICT overhaul — we're ready to engineer your solution.</p>
-        <a href="contact.html" class="btn btn-primary">Contact Us <i class="fas fa-arrow-right"></i></a>
-    </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-    <div class="container">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <div class="logo" style="margin-bottom: 16px;">
-                    <img src="zion.jpg" alt="Zion Netcom Solutions" style="height: 40px; width: auto; display: block;">
-                    <div>
-                        <div class="logo-text" style="font-size:1.2rem;">ZION<span>NETCOM</span></div>
-                        <div class="logo-sub">Solutions Limited</div>
+                    <div class="timeline-year">
+                        2023
                     </div>
+
+                    <h4>
+                        Foundation
+                    </h4>
+
+                    <p>
+                        Zion Netcom Solutions Limited incorporated in Kaduna, Nigeria.
+                        Initial focus on network consulting and small-scale ISP infrastructure.
+                    </p>
+
                 </div>
-                <p>Engineering reliable digital infrastructure across Nigeria and Africa since 2018.</p>
-                <div class="data-readout" style="margin-top: 16px;">
-                    <span class="indicator"></span>
-                    <span>ALL SYSTEMS OPERATIONAL</span>
+
+            </div>
+
+
+            <div class="timeline-item">
+
+                <div class="timeline-content">
+
+                    <div class="timeline-year">
+                        2024
+                    </div>
+
+                    <h4>
+                        First Institutional Contract
+                    </h4>
+
+                    <p>
+                        Secured first major ICT deployment contract with a federal educational
+                        institution, establishing our campus network expertise.
+                    </p>
+
                 </div>
+
             </div>
-            <div>
-                <h4>Navigation</h4>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="services.html">Solutions</a></li>
-                    <li><a href="projects.html">Projects</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-<li><a href="blog.html">Blog</a></li>
-                    <li><a href="payment.html">Make Payment</a></li>
-                    <li><a href="store.html">Store</a></li>
-                </ul>
+
+
+            <div class="timeline-item">
+
+                <div class="timeline-content">
+
+                    <div class="timeline-year">
+                        2024
+                    </div>
+
+                    <h4>
+                        Software Division Launch
+                    </h4>
+
+                    <p>
+                        Expanded into full-stack web development with the launch of Biu Forum —
+                        our first major community platform built on Google Cloud.
+                    </p>
+
+                </div>
+
             </div>
-            <div>
-                <h4>Services</h4>
-                <ul>
-                    <li><a href="services.html">Enterprise Networks</a></li>
-                    <li><a href="services.html">Web Development</a></li>
-                    <li><a href="services.html">ICT Deployment</a></li>
-                    <li><a href="services.html">AI Surveillance</a></li>
-                </ul>
+
+
+            <div class="timeline-item">
+
+                <div class="timeline-content">
+
+                    <div class="timeline-year">
+                        2025
+                    </div>
+
+                    <h4>
+                        Multi-Campus Expansion
+                    </h4>
+
+                    <p>
+                        Deployed campus-wide networks for Federal University Wukari and
+                        Bauchi State University, Yuli Campus. Starlink integration capabilities added.
+                    </p>
+
+                </div>
+
             </div>
-            <div class="footer-contact">
-                <h4>Contact</h4>
-                <p><i class="fas fa-map-marker-alt"></i> Starcase Office, Benue Plaza, Mohammadu Buhari Way, Kaduna</p>
-                <p><i class="fas fa-phone"></i> +234 706 758 0599</p>
-                <p><i class="fas fa-envelope"></i> info@zionnetcomsolutionsltd.com.ng</p>
+
+
+            <div class="timeline-item">
+
+                <div class="timeline-content">
+
+                    <div class="timeline-year">
+                        2024
+                    </div>
+
+                    <h4>
+                        NBTE Partnership
+                    </h4>
+
+                    <p>
+                        Began comprehensive network management and support for the National Board
+                        for Technical Education — our largest ongoing institutional contract.
+                    </p>
+
+                </div>
+
             </div>
+
+
+            <div class="timeline-item">
+
+                <div class="timeline-content">
+
+                    <div class="timeline-year">
+                        2023-2026
+                    </div>
+
+                    <h4>
+                        Product Portfolio Growth
+                    </h4>
+
+                    <p>
+                        Launched SchoolOS (school management system), ZionDrive (enterprise file management),
+                        and began development of DND Logistics and Harmony Welfare platforms.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item">
+
+                <div class="timeline-content">
+
+                    <div class="timeline-year">
+                        2025-2026
+                    </div>
+
+                    <h4>
+                        Future Tech Roadmap
+                    </h4>
+
+                    <p>
+                        Active R&D in AI surveillance, solar ICT infrastructure, and industrial IoT.
+                        Organization Management System and Identification System in development.
+                    </p>
+
+                </div>
+
+            </div>
+
         </div>
-        <div class="footer-bottom">
-            <span>© 2026 Zion Netcom Solutions Limited</span>
-            <span>Built with precision in Kaduna, Nigeria</span>
-        </div>
+
     </div>
+
+</section>
+
+
+<!-- ===== VALUES ===== -->
+
+<section class="values-section">
+
+    <div class="container">
+
+        <div class="section-label" style="text-align:center; justify-content:center;">
+            Operating Principles
+        </div>
+
+        <h2 class="section-title" style="text-align:center;">
+            Core Values
+        </h2>
+
+        <div class="values-grid">
+
+            <div class="value-card">
+
+                <i class="fas fa-cogs"></i>
+
+                <h4>
+                    Engineering Excellence
+                </h4>
+
+                <p>
+                    Every deployment is designed for reliability, scalability, and performance.
+                    We don't cut corners on infrastructure.
+                </p>
+
+            </div>
+
+
+            <div class="value-card">
+
+                <i class="fas fa-shield-alt"></i>
+
+                <h4>
+                    Security First
+                </h4>
+
+                <p>
+                    Security is embedded at every layer — from network architecture to application code.
+                    Zero-trust principles guide our work.
+                </p>
+
+            </div>
+
+
+            <div class="value-card">
+
+                <i class="fas fa-users"></i>
+
+                <h4>
+                    Client Partnership
+                </h4>
+
+                <p>
+                    We work alongside our clients as technical partners, not vendors.
+                    Long-term relationships drive better outcomes.
+                </p>
+
+            </div>
+
+
+            <div class="value-card">
+
+                <i class="fas fa-rocket"></i>
+
+                <h4>
+                    Innovation Focus
+                </h4>
+
+                <p>
+                    We continuously evaluate emerging technologies — from Starlink to AI analytics —
+                    to bring cutting-edge solutions to Africa.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ===== LEADERSHIP ===== -->
+
+<section class="leadership-section">
+
+    <div class="container">
+
+        <div class="section-label" style="text-align:center; justify-content:center;">
+            Leadership
+        </div>
+
+        <h2 class="section-title" style="text-align:center;">
+            The Team
+        </h2>
+
+        <div class="leadership-grid">
+
+            <div class="leader-card">
+
+                <div class="leader-avatar">
+                    DS
+                </div>
+
+                <h4>
+                    Dayo Salako
+                </h4>
+
+                <div class="role">
+                    Founder & CEO
+                </div>
+
+                <p>
+                    CCNA certified. Network engineer and software architect with expertise
+                    in enterprise infrastructure, full-stack development, and ICT project
+                    management across Nigerian institutions.
+                </p>
+
+            </div>
+
+
+            <div class="leader-card">
+
+                <div class="leader-avatar">
+                    TE
+                </div>
+
+                <h4>
+                    Technical Team
+                </h4>
+
+                <div class="role">
+                    Engineering Division
+                </div>
+
+                <p>
+                    A multidisciplinary team of network engineers, software developers,
+                    and systems architects delivering end-to-end technology solutions.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ===== CTA ===== -->
+
+<section class="cta-section">
+
+    <div class="container">
+
+        <h2>
+            Work With Us
+        </h2>
+
+        <p>
+            Whether you need a campus network, a custom web application, or a complete ICT overhaul —
+            we're ready to engineer your solution.
+        </p>
+
+        <a href="contact.html" class="btn btn-primary">
+            Contact Us
+            <i class="fas fa-arrow-right"></i>
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ===== FOOTER ===== -->
+
+<footer class="footer">
+
+    <div class="container">
+
+        <div class="footer-grid">
+
+            <div class="footer-brand">
+
+                <div class="logo" style="margin-bottom: 16px;">
+
+                    <img
+                        src="zion.jpg"
+                        alt="Zion Netcom Solutions"
+                        style="height: 40px; width: auto; display: block;"
+                    >
+
+                    <div>
+
+                        <div class="logo-text" style="font-size:1.2rem;">
+                            ZION<span>NETCOM</span>
+                        </div>
+
+                        <div class="logo-sub">
+                            Solutions Limited
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <p>
+                    Engineering reliable digital infrastructure across Nigeria and Africa since 2018.
+                </p>
+
+                <div class="data-readout" style="margin-top: 16px;">
+
+                    <span class="indicator"></span>
+
+                    <span>
+                        ALL SYSTEMS OPERATIONAL
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Navigation
+                </h4>
+
+                <ul>
+
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+
+                    <li>
+                        <a href="services.html">Solutions</a>
+                    </li>
+
+                    <li>
+                        <a href="projects.html">Projects</a>
+                    </li>
+
+                    <li>
+                        <a href="about.html">About</a>
+                    </li>
+
+                    <li>
+                        <a href="contact.html">Contact</a>
+                    </li>
+
+                    <li>
+                        <a href="blog.html">Blog</a>
+                    </li>
+
+                    <li>
+                        <a href="payment.html">Make Payment</a>
+                    </li>
+
+                    <li>
+                        <a href="store.html">Store</a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Services
+                </h4>
+
+                <ul>
+
+                    <li>
+                        <a href="services.html">Enterprise Networks</a>
+                    </li>
+
+                    <li>
+                        <a href="services.html">Web Development</a>
+                    </li>
+
+                    <li>
+                        <a href="services.html">ICT Deployment</a>
+                    </li>
+
+                    <li>
+                        <a href="services.html">AI Surveillance</a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <div class="footer-contact">
+
+                <h4>
+                    Contact
+                </h4>
+
+                <p>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>
+                        Starcase Office, Benue Plaza, Mohammadu Buhari Way, Kaduna
+                    </span>
+                </p>
+
+                <p>
+                    <i class="fas fa-phone"></i>
+                    <span>
+                        +234 706 758 0599
+                    </span>
+                </p>
+
+                <p>
+                    <i class="fas fa-envelope"></i>
+                    <span>
+                        info@zionnetcomsolutionsltd.com.ng
+                    </span>
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <span>
+                © 2026 Zion Netcom Solutions Limited
+            </span>
+
+            <span>
+                Built with precision in Kaduna, Nigeria
+            </span>
+
+        </div>
+
+    </div>
+
 </footer>
 
-<script>
-// ===== MOBILE MENU =====
-const menuToggle = document.getElementById('menu-toggle');
-const menuIcon = document.getElementById('menu-icon');
-const navLinks = document.getElementById('nav-links');
 
-if (menuToggle) {
+<script>
+
+/* ===== MOBILE MENU ===== */
+
+const menuToggle = document.getElementById('menuToggle');
+const menuIcon = document.getElementById('menuIcon');
+const navLinks = document.getElementById('navLinks');
+
+if (menuToggle && navLinks) {
+
     menuToggle.addEventListener('click', () => {
+
         const isOpen = navLinks.classList.toggle('active');
-        menuIcon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
-        document.body.style.overflow = isOpen ? 'hidden' : '';
+
+        if (menuIcon) {
+            menuIcon.className = isOpen
+                ? 'fas fa-times'
+                : 'fas fa-bars';
+        }
+
+        menuToggle.setAttribute(
+            'aria-label',
+            isOpen ? 'Close menu' : 'Open menu'
+        );
+
+        document.body.style.overflow =
+            isOpen ? 'hidden' : '';
+
     });
+
 }
 
+
+/* Close mobile menu when navigation link is clicked */
+
 document.querySelectorAll('.nav-links a').forEach(link => {
+
     link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        if (menuIcon) menuIcon.className = 'fas fa-bars';
+
+        if (navLinks) {
+            navLinks.classList.remove('active');
+        }
+
+        if (menuIcon) {
+            menuIcon.className = 'fas fa-bars';
+        }
+
+        if (menuToggle) {
+            menuToggle.setAttribute(
+                'aria-label',
+                'Open menu'
+            );
+        }
+
         document.body.style.overflow = '';
-        if (typeof navOverlay !== 'undefined' && navOverlay) navOverlay.classList.remove('active');
+
     });
+
 });
+
+
+/* Close mobile menu when clicking outside */
 
 document.addEventListener('click', (e) => {
-    if (navLinks && navLinks.classList.contains('active') &&
-        !navLinks.contains(e.target) && e.target !== menuToggle && !menuToggle.contains(e.target)) {
+
+    if (
+        navLinks &&
+        navLinks.classList.contains('active') &&
+        !navLinks.contains(e.target) &&
+        e.target !== menuToggle &&
+        !menuToggle.contains(e.target)
+    ) {
+
         navLinks.classList.remove('active');
-        if (menuIcon) menuIcon.className = 'fas fa-bars';
+
+        if (menuIcon) {
+            menuIcon.className = 'fas fa-bars';
+        }
+
+        if (menuToggle) {
+            menuToggle.setAttribute(
+                'aria-label',
+                'Open menu'
+            );
+        }
+
         document.body.style.overflow = '';
+
     }
+
 });
 
-    // ===== DARK / LIGHT MODE TOGGLE =====
-    const themeToggle = document.getElementById('theme-toggle');
-    const themeIcon = document.getElementById('theme-icon');
-    const savedTheme = localStorage.getItem('zn-theme');
 
-    function applyTheme(mode) {
-        if (mode === 'light') {
-            document.body.classList.add('light-mode');
+/* ===== DARK / LIGHT MODE TOGGLE ===== */
+
+const themeToggle = document.getElementById('themeBtn');
+const themeIcon = document.getElementById('themeIcon');
+
+const savedTheme = localStorage.getItem('zn-theme');
+
+
+function applyTheme(mode) {
+
+    if (mode === 'light') {
+
+        document.body.classList.add('light-mode');
+
+        if (themeIcon) {
             themeIcon.className = 'fas fa-moon';
-            themeToggle.setAttribute('aria-label', 'Switch to dark mode');
-        } else {
-            document.body.classList.remove('light-mode');
-            themeIcon.className = 'fas fa-sun';
-            themeToggle.setAttribute('aria-label', 'Switch to light mode');
         }
-        localStorage.setItem('zn-theme', mode);
+
+        if (themeToggle) {
+            themeToggle.setAttribute(
+                'aria-label',
+                'Switch to dark mode'
+            );
+        }
+
+    } else {
+
+        document.body.classList.remove('light-mode');
+
+        if (themeIcon) {
+            themeIcon.className = 'fas fa-sun';
+        }
+
+        if (themeToggle) {
+            themeToggle.setAttribute(
+                'aria-label',
+                'Switch to light mode'
+            );
+        }
+
     }
 
-    // Apply saved preference on load
-    if (savedTheme) {
-        applyTheme(savedTheme);
-    }
+    localStorage.setItem('zn-theme', mode);
 
-    if (themeToggle) {
-        themeToggle.addEventListener('click', () => {
-            const isLight = document.body.classList.contains('light-mode');
-            applyTheme(isLight ? 'dark' : 'light');
-        });
-    }
+}
+
+
+/* Apply saved preference on load */
+
+applyTheme(savedTheme || 'dark');
+
+
+/* Toggle theme */
+
+if (themeToggle) {
+
+    themeToggle.addEventListener('click', () => {
+
+        const isLight =
+            document.body.classList.contains('light-mode');
+
+        applyTheme(
+            isLight ? 'dark' : 'light'
+        );
+
+    });
+
+}
 
 </script>
+
 </body>
 </html>
+```
