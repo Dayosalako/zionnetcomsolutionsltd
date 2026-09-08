@@ -1883,6 +1883,26 @@ async function deleteRv(id) {
   else toast('Error deleting: ' + res.error.message, false);
 }
 
+// ═══ REVIEWS FINAL FIX ═══
+async function initReviews() {
+  var db = getDB();
+  var tbody = document.getElementById('rv-tbody');
+  if (!db) { tbody.innerHTML = '<tr><td colspan="7"><div class="empty">Supabase is not available.</div></td></tr>'; return; }
+  var sessionRes = await db.auth.getSession();
+  if (!sessionRes.data || !sessionRes.data.session) { tbody.innerHTML = '<tr><td colspan="7"><div class="empty"><i class="fas fa-lock"></i>&nbsp;Please sign in with the Supabase admin account to manage reviews.</div></td></tr>'; return; }
+  await loadAllReviews();
+}
+async function loadAllReviews() {
+  var db=getDB(), tbody=document.getElementById('rv-tbody');
+  tbody.innerHTML='<tr><td colspan="7"><div class="empty"><i class="fas fa-circle-notch fa-spin"></i>&nbsp;Loading reviews...</div></td></tr>';
+  var res=await db.from('reviews').select('*').order('created_at',{ascending:false});
+  if(res.error||!res.data){ tbody.innerHTML='<tr><td colspan="7"><div class="empty"><i class="fas fa-triangle-exclamation"></i>&nbsp;Failed to load reviews: '+((res.error&&res.error.message)||'Unknown error')+'</div></td></tr>'; return; }
+  allRvs=res.data; updateRvStats(); renderRvTable();
+}
+async function approveRv(id){ var res=await getDB().from('reviews').update({status:'approved'}).eq('id',id); if(!res.error){toast('Review approved and published!');await loadAllReviews();}else toast('Error approving: '+res.error.message,false); }
+async function rejectRv(id){ var res=await getDB().from('reviews').update({status:'rejected'}).eq('id',id); if(!res.error){toast('Review rejected.');await loadAllReviews();}else toast('Error rejecting: '+res.error.message,false); }
+async function deleteRv(id){ if(!confirm('Permanently delete this review? This cannot be undone.'))return; var res=await getDB().from('reviews').delete().eq('id',id); if(!res.error){toast('Review deleted.');await loadAllReviews();}else toast('Error deleting: '+res.error.message,false); }
+
 // ═══ INIT ═══
 checkSession();
 </script>
