@@ -1492,9 +1492,9 @@ function renderStoreTable() {
       '<td><span class="badge '+(p.in_stock?'bg':'br_')+'">'+(p.in_stock?'In Stock':'Sold Out')+'</span></td>' +
       '<td style="text-align:center;">'+(p.hot?'🔥':'—')+'</td>' +
       '<td><div class="ra">' +
-        '<button class="icon-btn" onclick="openProdEdit(''+p.id+'')" title="Edit"><i class="fas fa-edit"></i></button>' +
-        '<button class="icon-btn '+(p.in_stock?'rd':'gn')+'" onclick="toggleProdStock(''+p.id+'','+p.in_stock+')" title="'+(p.in_stock?'Mark Sold Out':'Mark In Stock')+'"><i class="fas fa-'+(p.in_stock?'ban':'check')+'"></i></button>' +
-        '<button class="icon-btn rd" onclick="delProd(''+p.id+'')" title="Delete"><i class="fas fa-trash"></i></button>' +
+        '<button class="icon-btn" onclick="openProdEdit(\''+p.id+'\')" title="Edit"><i class="fas fa-edit"></i></button>' +
+        '<button class="icon-btn '+(p.in_stock?'rd':'gn')+'" onclick="toggleProdStock(\''+p.id+'\','+p.in_stock+')" title="'+(p.in_stock?'Mark Sold Out':'Mark In Stock')+'"><i class="fas fa-'+(p.in_stock?'ban':'check')+'"></i></button>' +
+        '<button class="icon-btn rd" onclick="delProd(\''+p.id+'\')" title="Delete"><i class="fas fa-trash"></i></button>' +
       '</div></td></tr>';
   }).join('');
 }
@@ -1587,8 +1587,7 @@ async function saveProd() {
       condition: document.getElementById('p-cond').value,
       price:     price,
       old_price: opv ? parseFloat(opv) : null,
-      specs:     document.getElementById('p-specs').value.split('
-').map(function(s){ return s.trim(); }).filter(Boolean),
+      specs:     document.getElementById('p-specs').value.split('\n').map(function(s){ return s.trim(); }).filter(Boolean),
       in_stock:  document.getElementById('p-stock').value === 'true',
       hot:       document.getElementById('p-hot').value === 'true',
       images:    allImages
@@ -1622,8 +1621,7 @@ function openProdEdit(id) {
   document.getElementById('p-name').value  = p.name;
   document.getElementById('p-price').value = p.price;
   document.getElementById('p-oldp').value  = p.old_price || '';
-  document.getElementById('p-specs').value = (p.specs || []).join('
-');
+  document.getElementById('p-specs').value = (p.specs || []).join('\n');
   document.getElementById('p-stock').value = String(p.in_stock);
   document.getElementById('p-hot').value   = String(p.hot);
   document.getElementById('pform-title').innerHTML = '<i class="fas fa-edit"></i> Editing: ' + p.name;
@@ -1733,9 +1731,9 @@ function renderRvTable() {
     var scls = r.status==='approved'?'bg':r.status==='pending'?'by':'br_';
     var dt = r.created_at ? new Date(r.created_at).toLocaleDateString('en-NG',{day:'numeric',month:'short',year:'numeric'}) : '';
     var actions = '';
-    if (r.status !== 'approved') actions += '<button class="ib gn" onclick="approveRv(''+r.id+'')" title="Approve"><i class="fas fa-check"></i></button>';
-    if (r.status !== 'rejected') actions += '<button class="ib" style="border-color:rgba(245,158,11,0.3);color:var(--yellow);" onclick="rejectRv(''+r.id+'')" title="Reject"><i class="fas fa-ban"></i></button>';
-    actions += '<button class="ib rd" onclick="deleteRv(''+r.id+'')" title="Delete permanently"><i class="fas fa-trash"></i></button>';
+    if (r.status !== 'approved') actions += '<button class="ib gn" onclick="approveRv(\''+r.id+'\')" title="Approve"><i class="fas fa-check"></i></button>';
+    if (r.status !== 'rejected') actions += '<button class="ib" style="border-color:rgba(245,158,11,0.3);color:var(--yellow);" onclick="rejectRv(\''+r.id+'\')" title="Reject"><i class="fas fa-ban"></i></button>';
+    actions += '<button class="ib rd" onclick="deleteRv(\''+r.id+'\')" title="Delete permanently"><i class="fas fa-trash"></i></button>';
     return '<tr>' +
       '<td>'+identity+'</td>' +
       '<td><div style="white-space:nowrap;">'+stars(r.rating)+'</div><div style="font-family:var(--mono);font-size:0.67rem;color:var(--muted);">'+r.rating+'/5</div></td>' +
@@ -1846,10 +1844,10 @@ function renderRvTable() {
       : '—';
     var actions = '';
     if (r.status !== 'approved')
-      actions += '<button class="ib gn" onclick="approveRv('' + r.id + '')" title="Approve"><i class="fas fa-check"></i></button>';
+      actions += '<button class="ib gn" onclick="approveRv(\'' + r.id + '\')" title="Approve"><i class="fas fa-check"></i></button>';
     if (r.status !== 'rejected')
-      actions += '<button class="ib" style="border-color:rgba(245,158,11,0.3);color:var(--yellow);" onclick="rejectRv('' + r.id + '')" title="Reject"><i class="fas fa-ban"></i></button>';
-    actions += '<button class="ib rd" onclick="deleteRv('' + r.id + '')" title="Delete permanently"><i class="fas fa-trash"></i></button>';
+      actions += '<button class="ib" style="border-color:rgba(245,158,11,0.3);color:var(--yellow);" onclick="rejectRv(\'' + r.id + '\')" title="Reject"><i class="fas fa-ban"></i></button>';
+    actions += '<button class="ib rd" onclick="deleteRv(\'' + r.id + '\')" title="Delete permanently"><i class="fas fa-trash"></i></button>';
     return '<tr>' +
       '<td>' + identity + '</td>' +
       '<td><div style="white-space:nowrap;">' + starHtml(r.rating) + '</div>' +
@@ -1890,3 +1888,6 @@ checkSession();
 </script>
 </body>
 </html>
+
+
+The switch tab is not working. Please help me crosscheck, do not touch anything in this code
