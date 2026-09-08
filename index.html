@@ -615,6 +615,20 @@
             font-size: 1.1rem;
         }
 
+        /* ===== REVIEW PREVIEW ===== */
+        .home-reviews { padding: 88px 0; position: relative; }
+        .home-reviews-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 36px; }
+        .home-reviews-head .section-title { margin-bottom: 0; }
+        .home-reviews-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+        .home-review-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 24px; min-height: 240px; display: flex; flex-direction: column; transition: transform .25s, border-color .25s, box-shadow .25s; }
+        .home-review-card:hover { transform: translateY(-4px); border-color: var(--border-glow); box-shadow: 0 14px 32px rgba(0,0,0,.18); }
+        .home-review-stars { color: #FFD700; font-size: .8rem; letter-spacing: 2px; margin-bottom: 16px; }
+        .home-review-text { color: var(--text-secondary); font-size: .91rem; line-height: 1.75; flex: 1; }
+        .home-review-meta { margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--border-subtle); }
+        .home-review-name { font-family: var(--font-mono); color: var(--text-primary); font-size: .77rem; text-transform: uppercase; letter-spacing: .8px; }
+        .home-review-service { color: var(--cyan); font-family: var(--font-mono); font-size: .67rem; margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
+        .home-reviews-status { grid-column: 1 / -1; padding: 28px; border: 1px dashed var(--border-subtle); color: var(--text-muted); text-align: center; font-family: var(--font-mono); font-size: .78rem; }
+
         /* ===== FOOTER ===== */
         .footer {
             background: var(--bg-secondary);
@@ -820,6 +834,11 @@
             /* CTA */
             .cta-section { padding: 80px 0; }
 
+            /* Reviews */
+            .home-reviews { padding: 64px 0; }
+            .home-reviews-grid { grid-template-columns: 1fr; }
+            .home-reviews-head { align-items: flex-start; flex-direction: column; }
+
             /* Footer */
             .footer { padding: 60px 0 24px; }
             .footer-grid > * { min-width: 0; }
@@ -916,7 +935,6 @@
 <div class="topbar">
     <div class="container topbar-inner">
         <div class="topbar-info">
-            <span class="tb-item tb-location"><i class="fas fa-map-marker-alt"></i><span class="tb-text"> Kaduna, Nigeria</span></span>
             <a href="tel:+2347067580599" class="tb-item tb-phone"><i class="fas fa-phone"></i><span class="tb-text"> +234 706 758 0599</span></a>
             <a href="mailto:info@zionnetcomsolutionsltd.com.ng" class="tb-item tb-email"><i class="fas fa-envelope"></i><span class="tb-text tb-email-text"> info@zionnetcomsolutionsltd.com.ng</span></a>
         </div>
@@ -949,6 +967,7 @@
 <li><a href="blog.html">Blog</a></li>
 <li><a href="payment.html">Make Payment</a></li>
 <li><a href="store.html">Store</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
             </ul>
         </nav>
         <div class="header-actions">
@@ -1148,6 +1167,22 @@
     </div>
 </section>
 
+<!-- LATEST REVIEWS -->
+<section class="home-reviews" aria-labelledby="latest-reviews-title">
+    <div class="container">
+        <div class="home-reviews-head">
+            <div>
+                <div class="section-label">Client Feedback</div>
+                <h2 class="section-title" id="latest-reviews-title">Latest Reviews</h2>
+            </div>
+            <a href="reviews.html" class="btn btn-outline">View All Reviews <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="home-reviews-grid" id="homeReviews" aria-live="polite">
+            <div class="home-reviews-status"><i class="fas fa-circle-notch fa-spin"></i> Loading client reviews...</div>
+        </div>
+    </div>
+</section>
+
 <!-- FOOTER -->
 <footer class="footer">
     <div class="container">
@@ -1202,6 +1237,7 @@
     </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
 // ===== NETWORK CANVAS ANIMATION =====
 const canvas = document.getElementById('network-canvas');
@@ -1348,6 +1384,50 @@ document.addEventListener('click', (e) => {
             applyTheme(isLight ? 'dark' : 'light');
         });
     }
+
+// ===== LATEST APPROVED REVIEWS =====
+const HOME_REVIEWS_SUPABASE_URL = 'https://qzloankwskebbralmvqw.supabase.co';
+const HOME_REVIEWS_SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF6bG9hbmt3c2tlYmJyYWxtdnF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcwMTkyMjgsImV4cCI6MjEwMjU5NTIyOH0.s8lftAO67o_SRS6S734kiByY-aA4AvMQ3uI_WrOHGLw';
+
+function escapeHomeReview(value) {
+    return String(value || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+function renderHomeReviewStars(rating) {
+    const count = Math.max(0, Math.min(5, Number(rating) || 0));
+    return Array.from({ length: 5 }, (_, index) => '<i class="fas fa-star"' + (index < count ? '' : ' style="opacity:.22"') + '></i>').join('');
+}
+
+async function loadHomeReviews() {
+    const grid = document.getElementById('homeReviews');
+    if (!grid || !window.supabase) return;
+
+    try {
+        const reviewDb = window.supabase.createClient(HOME_REVIEWS_SUPABASE_URL, HOME_REVIEWS_SUPABASE_KEY);
+        const { data, error } = await reviewDb.from('reviews').select('name, rating, review_text, service, show_identity, created_at').eq('status', 'approved').order('created_at', { ascending: false }).limit(3);
+        if (error) throw error;
+
+        if (!data || !data.length) {
+            grid.innerHTML = '<div class="home-reviews-status">No approved reviews have been published yet. <a href="reviews.html">Be the first to leave feedback.</a></div>';
+            return;
+        }
+
+        grid.innerHTML = data.map(review => {
+            const name = review.show_identity && review.name ? escapeHomeReview(review.name) : 'Anonymous client';
+            const service = review.service ? '<div class="home-review-service">' + escapeHomeReview(review.service) + '</div>' : '';
+            return '<article class="home-review-card">' +
+                '<div class="home-review-stars" aria-label="' + Number(review.rating || 0) + ' out of 5 stars">' + renderHomeReviewStars(review.rating) + '</div>' +
+                '<p class="home-review-text">“' + escapeHomeReview(review.review_text) + '”</p>' +
+                '<div class="home-review-meta"><div class="home-review-name">' + name + '</div>' + service + '</div>' +
+                '</article>';
+        }).join('');
+    } catch (error) {
+        grid.innerHTML = '<div class="home-reviews-status">Reviews are temporarily unavailable. <a href="reviews.html">View the reviews page</a>.</div>';
+        console.error('Unable to load homepage reviews:', error);
+    }
+}
+
+loadHomeReviews();
 
 </script>
 </body>
