@@ -1602,7 +1602,14 @@ async function saveProd() {
       if (!res.error) toast('Product added to store.');
     }
     if (res.error) { toast('Error: ' + res.error.message, false); }
-    else { cancelProd(); loadStoreProducts(); }
+    else {
+      // Restore the button label before cancelProd() updates its label span.
+      btn.innerHTML = '<i class="fas fa-save"></i> <span id="p-slbl">Save Product</span>';
+      btn.disabled = false;
+      cancelProd();
+      loadStoreProducts();
+      return;
+    }
   } catch(e) { toast('Unexpected error: ' + e.message, false); }
 
   btn.innerHTML = '<i class="fas fa-save"></i> <span id="p-slbl">Save Product</span>';

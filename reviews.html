@@ -505,18 +505,18 @@ function renderReviews() {
     }
     var avatar = '';
     if (r.show_identity && r.photo_url) {
-      avatar = '<img src="' + r.photo_url + '" alt="' + (r.name||'Reviewer') + '" onerror="this.parentElement.innerHTML=\'<div class=\\\"avatar-initials\\\">'+getInitials(r.name)+'</div>\'">';
+      avatar = '<img src="' + r.photo_url + '" alt="' + escHtml(r.name||'Reviewer') + '" onerror="this.parentElement.innerHTML=\'<div class=\\\"avatar-initials\\\">'+getInitials(r.name)+'</div>\'">';
     } else if (r.show_identity && r.name) {
       avatar = '<div class="avatar-initials">' + getInitials(r.name) + '</div>';
     } else {
       avatar = '<div class="avatar-initials" style="color:var(--muted)">?</div>';
     }
     var nameHtml = r.show_identity && r.name
-      ? '<div class="rc-name">' + r.name + '</div>' +
-        (r.role ? '<div class="rc-role">' + r.role + '</div>' : '') +
-        (r.company ? '<div class="rc-company">' + r.company + '</div>' : '')
+      ? '<div class="rc-name">' + escHtml(r.name) + '</div>' +
+        (r.role ? '<div class="rc-role">' + escHtml(r.role) + '</div>' : '') +
+        (r.company ? '<div class="rc-company">' + escHtml(r.company) + '</div>' : '')
       : '<div class="rc-anon">Anonymous</div>';
-    var svcBadge = r.service ? '<div class="rc-badge">' + r.service + '</div>' : '';
+    var svcBadge = r.service ? '<div class="rc-badge">' + escHtml(r.service) + '</div>' : '';
     var dt = r.created_at ? new Date(r.created_at).toLocaleDateString('en-NG',{day:'numeric',month:'long',year:'numeric'}) : '';
     return '<div class="review-card">' + svcBadge +
       '<div class="rc-top"><div class="rc-avatar">' + avatar + '</div><div class="rc-info">' + nameHtml + '</div></div>' +
