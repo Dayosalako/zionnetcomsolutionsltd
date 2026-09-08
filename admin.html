@@ -495,7 +495,8 @@ select option{background:var(--card);}
     <!-- CLIENTS -->
     <div class="tab-panel" id="tab-clients">
       <div class="card">
-        <h3><i class="fas fa-user-plus"></i> Add Client</h3>
+        <h3 id="cl-form-title"><i class="fas fa-user-plus"></i> Add Client</h3>
+        <input type="hidden" id="cl-eid">
         <div class="r2">
           <div class="fg"><label>Client / Company Name</label><input id="cl-name" placeholder="Company or person name"></div>
           <div class="fg"><label>Contact Person</label><input id="cl-contact" placeholder="Contact person"></div>
@@ -510,7 +511,10 @@ select option{background:var(--card);}
             <select id="cl-svc"><option>Fiber Optic / FTTH</option><option>Network Infrastructure</option><option>IoT / Smart Systems</option><option>Web Development</option><option>Branding / Marketing</option><option>Telecoms Engineering</option><option>Consulting</option><option>Laptop / Hardware</option><option>Other</option></select>
           </div>
         </div>
-        <button class="btn btn-p btn-sm" onclick="addClient()"><i class="fas fa-plus"></i> Save Client</button>
+        <div class="acts">
+          <button class="btn btn-p btn-sm" onclick="addClient()"><i class="fas fa-plus" id="cl-save-icon"></i> <span id="cl-save-label">Save Client</span></button>
+          <button class="btn btn-o btn-sm" id="cl-cancel-btn" onclick="clearClientForm()" style="display:none;"><i class="fas fa-times"></i> Cancel</button>
+        </div>
       </div>
       <div class="card">
         <h3><i class="fas fa-users"></i> Client Directory</h3>
@@ -657,6 +661,10 @@ select option{background:var(--card);}
           <div class="bstat"><div class="bsv" id="bs-dr">—</div><div class="bsl">Drafts</div></div>
           <div class="bstat"><div class="bsv" id="bs-mo">—</div><div class="bsl">This Month</div></div>
         </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;margin:0 0 14px;">
+          <span style="font-family:var(--mono);font-size:0.72rem;color:var(--muted);">Create a post, save it as a draft, then publish when ready.</span>
+          <button class="btn btn-p btn-sm" onclick="openBCreate()"><i class="fas fa-plus"></i> New Blog Post</button>
+        </div>
         <div class="card">
           <div class="btabs">
             <button class="btab active" onclick="setBF(this,'all')">All <span class="tbadge" id="bc-all">0</span></button>
@@ -732,7 +740,7 @@ select option{background:var(--card);}
 <div class="bmodal" id="bmodal">
   <div class="bmodalbox">
     <div class="bmhdr">
-      <h3><i class="fas fa-pen" style="color:var(--cyan);margin-right:8px;"></i>Edit Post</h3>
+      <h3 id="bmodal-title"><i class="fas fa-pen" style="color:var(--cyan);margin-right:8px;"></i>Edit Post</h3>
       <button class="bmclose" onclick="closeBM()"><i class="fas fa-times"></i></button>
     </div>
     <input type="hidden" id="be-id">
@@ -753,7 +761,7 @@ select option{background:var(--card);}
     </div>
     <div class="bmacts">
       <button class="bcanc" onclick="closeBM()">Cancel</button>
-      <button class="btn btn-p btn-sm" onclick="saveBPost()"><i class="fas fa-floppy-disk"></i> Save Changes</button>
+      <button class="btn btn-p btn-sm" id="b-savebtn" onclick="saveBPost()"><i class="fas fa-floppy-disk"></i> Save Changes</button>
     </div>
   </div>
 </div>
@@ -1157,16 +1165,50 @@ var clients = JSON.parse(localStorage.getItem('zn-clients') || '[]');
 function addClient() {
   var name = document.getElementById('cl-name').value.trim();
   if (!name) { toast('Client name is required.', false); return; }
-  clients.push({ id:Date.now(), name:name, contact:document.getElementById('cl-contact').value, phone:document.getElementById('cl-phone').value, email:document.getElementById('cl-email').value, addr:document.getElementById('cl-addr').value, svc:document.getElementById('cl-svc').value });
+  var editId = document.getElementById('cl-eid').value;
+  var client = { name:name, contact:document.getElementById('cl-contact').value.trim(), phone:document.getElementById('cl-phone').value.trim(), email:document.getElementById('cl-email').value.trim(), addr:document.getElementById('cl-addr').value.trim(), svc:document.getElementById('cl-svc').value };
+  if (editId) {
+    var index = clients.findIndex(function(c){ return String(c.id) === editId; });
+    if (index === -1) { toast('Client record was not found.', false); return; }
+    client.id = clients[index].id;
+    clients[index] = client;
+  } else {
+    client.id = Date.now();
+    clients.push(client);
+  }
   localStorage.setItem('zn-clients', JSON.stringify(clients));
-  ['cl-name','cl-contact','cl-phone','cl-email','cl-addr'].forEach(function(id){ document.getElementById(id).value=''; });
-  renderCl(); toast('Client saved.');
+  clearClientForm();
+  renderCl(); toast(editId ? 'Client updated.' : 'Client saved.');
 }
 function delCl(id) { clients=clients.filter(function(c){ return c.id!==id; }); localStorage.setItem('zn-clients',JSON.stringify(clients)); renderCl(); }
+function editCl(id) {
+  var client = clients.find(function(c){ return c.id === id; });
+  if (!client) { toast('Client record was not found.', false); return; }
+  document.getElementById('cl-eid').value = client.id;
+  document.getElementById('cl-name').value = client.name || '';
+  document.getElementById('cl-contact').value = client.contact || '';
+  document.getElementById('cl-phone').value = client.phone || '';
+  document.getElementById('cl-email').value = client.email || '';
+  document.getElementById('cl-addr').value = client.addr || '';
+  document.getElementById('cl-svc').value = client.svc || 'Other';
+  document.getElementById('cl-form-title').innerHTML = '<i class="fas fa-user-pen"></i> Edit Client';
+  document.getElementById('cl-save-label').textContent = 'Update Client';
+  document.getElementById('cl-save-icon').className = 'fas fa-floppy-disk';
+  document.getElementById('cl-cancel-btn').style.display = 'inline-flex';
+  document.getElementById('cl-name').focus();
+}
+function clearClientForm() {
+  ['cl-eid','cl-name','cl-contact','cl-phone','cl-email','cl-addr'].forEach(function(id){ document.getElementById(id).value=''; });
+  document.getElementById('cl-svc').selectedIndex = 0;
+  document.getElementById('cl-form-title').innerHTML = '<i class="fas fa-user-plus"></i> Add Client';
+  document.getElementById('cl-save-label').textContent = 'Save Client';
+  document.getElementById('cl-save-icon').className = 'fas fa-plus';
+  document.getElementById('cl-cancel-btn').style.display = 'none';
+}
 function renderCl() {
   var tbody = document.getElementById('cl-body');
   if (!clients.length) { tbody.innerHTML='<tr><td colspan="7"><div class="empty"><i class="fas fa-users"></i>No clients yet</div></td></tr>'; return; }
-  tbody.innerHTML = clients.map(function(c,i){ return '<tr><td style="color:var(--cyan);font-family:var(--mono);font-size:0.77rem;">'+(i+1)+'</td><td style="font-weight:600;color:var(--text);">'+c.name+'</td><td>'+c.contact+'</td><td>'+c.phone+'</td><td>'+c.email+'</td><td><span class="badge bb">'+c.svc+'</span></td><td><button class="ib rd" onclick="delCl('+c.id+')"><i class="fas fa-trash"></i></button></td></tr>'; }).join('');
+  tbody.innerHTML = clients.map(function(c,i){ return '<tr><td style="color:var(--cyan);font-family:var(--mono);font-size:0.77rem;">'+(i+1)+'</td><td style="font-weight:600;color:var(--text);">'+c.name+'</td><td>'+c.contact+'</td><td>'+c.phone+'</td><td>'+c.email+'</td><td><span class="badge bb">'+c.svc+'</span></td><td style="white-space:nowrap;"><button class="ib" onclick="editCl('+c.id+')" title="Edit client"><i class="fas fa-pen"></i></button><button class="ib rd" onclick="delCl('+c.id+')" title="Delete client"><i class="fas fa-trash"></i></button></td></tr>'; }).join('');
 }
 renderCl();
 
@@ -1410,6 +1452,8 @@ async function delBPost(id) {
 
 function openBEdit(id) {
   var p=blogPosts.find(function(x){ return x.id===id; }); if(!p) return;
+  document.getElementById('bmodal-title').innerHTML = '<i class="fas fa-pen" style="color:var(--cyan);margin-right:8px;"></i>Edit Post';
+  document.getElementById('b-savebtn').innerHTML = '<i class="fas fa-floppy-disk"></i> Save Changes';
   document.getElementById('be-id').value      = p.id;
   document.getElementById('be-title').value   = p.title;
   document.getElementById('be-slug').value    = p.slug;
@@ -1420,6 +1464,28 @@ function openBEdit(id) {
   document.getElementById('bmodal').classList.add('open');
   document.body.style.overflow='hidden';
 }
+
+function openBCreate() {
+  document.getElementById('bmodal-title').innerHTML = '<i class="fas fa-plus" style="color:var(--cyan);margin-right:8px;"></i>Create New Post';
+  document.getElementById('b-savebtn').innerHTML = '<i class="fas fa-file-circle-plus"></i> Save Draft';
+  document.getElementById('be-id').value = '';
+  document.getElementById('be-title').value = '';
+  document.getElementById('be-slug').value = '';
+  document.getElementById('be-exc').value = '';
+  document.getElementById('be-topic').selectedIndex = 0;
+  document.getElementById('be-emoji').value = '🖥️';
+  document.getElementById('be-content').value = '';
+  document.getElementById('bmodal').classList.add('open');
+  document.body.style.overflow='hidden';
+  document.getElementById('be-title').focus();
+}
+
+document.getElementById('be-title').addEventListener('input', function() {
+  if (document.getElementById('be-id').value) return;
+  document.getElementById('be-slug').value = this.value.toLowerCase().trim()
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60);
+});
+
 function closeBM() { document.getElementById('bmodal').classList.remove('open'); document.body.style.overflow=''; }
 document.getElementById('bmodal').addEventListener('click', function(e){ if(e.target===this) closeBM(); });
 
@@ -1435,8 +1501,19 @@ async function saveBPost() {
     content:document.getElementById('be-content').value.trim()
   };
   if(!updates.title||!updates.slug||!updates.content){ toast('Title, slug, and content are required.',false); return; }
-  var res=await db.from('blog_posts').update(updates).eq('id',id);
-  if(!res.error){ toast('Changes saved!'); closeBM(); loadBPosts(); } else toast('Error: '+res.error.message,false);
+  var btn=document.getElementById('b-savebtn');
+  btn.disabled=true;
+  btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Saving...';
+  var res;
+  if (id) {
+    res=await db.from('blog_posts').update(updates).eq('id',id);
+  } else {
+    updates.status='draft';
+    res=await db.from('blog_posts').insert(updates);
+  }
+  btn.disabled=false;
+  if(!res.error){ toast(id ? 'Changes saved!' : 'Draft created!'); closeBM(); loadBPosts(); }
+  else { toast('Error: '+res.error.message,false); btn.innerHTML=id?'<i class="fas fa-floppy-disk"></i> Save Changes':'<i class="fas fa-file-circle-plus"></i> Save Draft'; }
 }
 
 
