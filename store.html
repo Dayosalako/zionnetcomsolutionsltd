@@ -173,6 +173,57 @@ body.light .hero{background:linear-gradient(135deg,#EBF2FA,#F5F7FA,#E8EFF7)!impo
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
 @media(max-width:768px){.fg2{grid-template-columns:1fr 1fr;}.menu-btn{display:flex;}nav ul{display:none;position:fixed;inset:0;background:var(--bg);flex-direction:column;justify-content:center;align-items:center;z-index:9998;gap:20px;}nav ul.open{display:flex;}nav ul a{font-size:1rem;padding:10px 22px;}.nav-actions .btn{display:none;}.prod-grid{grid-template-columns:repeat(auto-fill,minmax(250px,1fr));}}
 @media(max-width:480px){.fg2{grid-template-columns:1fr;}.fbot{flex-direction:column;gap:7px;}.prod-grid{grid-template-columns:1fr;}}
+/* QUICK VIEW MODAL */
+.img-carousel{cursor:pointer;}
+.qv-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:999998;align-items:center;justify-content:center;padding:20px;}
+.qv-overlay.open{display:flex;}
+.qv-box{background:var(--card);border:1px solid var(--brh);border-radius:12px;max-width:960px;width:100%;max-height:92vh;overflow-y:auto;display:grid;grid-template-columns:1.1fr 1fr;position:relative;}
+.qv-close{position:absolute;top:13px;right:13px;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.2);color:#fff;width:34px;height:34px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.9rem;z-index:6;transition:all 0.2s;}
+.qv-close:hover{border-color:var(--red);color:var(--red);background:rgba(0,0,0,0.7);}
+.qv-media{background:var(--el);display:flex;flex-direction:column;}
+.qv-main{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;background:var(--el);cursor:zoom-in;}
+.qv-main img{width:100%;height:100%;object-fit:contain;display:none;}
+.qv-main img.active{display:block;}
+.qv-main .no-img{display:flex;align-items:center;justify-content:center;height:100%;color:var(--cd);font-size:5rem;}
+.qv-main-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.5);color:#fff;border:none;width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.9rem;z-index:3;transition:background 0.2s;}
+.qv-main-arrow:hover{background:rgba(56,182,255,0.85);}
+.qv-main-arrow.prev{left:12px;}
+.qv-main-arrow.next{right:12px;}
+.qv-zoom-hint{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,0.6);color:#fff;font-family:var(--mono);font-size:0.63rem;padding:5px 10px;border-radius:20px;display:flex;align-items:center;gap:5px;z-index:3;pointer-events:none;}
+.qv-thumbs{display:flex;gap:8px;padding:12px;overflow-x:auto;background:var(--card);}
+.qv-thumb{width:56px;height:56px;flex-shrink:0;border-radius:5px;overflow:hidden;cursor:pointer;border:2px solid transparent;opacity:0.6;transition:all 0.2s;}
+.qv-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.qv-thumb.active,.qv-thumb:hover{opacity:1;border-color:var(--cyan);}
+.qv-info{padding:28px;display:flex;flex-direction:column;}
+.qv-badges{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+.qv-badges .prod-badge{position:static;}
+.qv-brand{font-family:var(--mono);font-size:0.7rem;color:var(--cyan);text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;}
+.qv-name{font-family:var(--disp);font-size:1.35rem;font-weight:700;color:var(--text);margin-bottom:12px;line-height:1.3;}
+.qv-price-row{display:flex;align-items:baseline;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.qv-price{font-family:var(--disp);font-size:1.7rem;font-weight:700;color:var(--cyan);}
+.qv-old-price{font-size:0.92rem;color:var(--muted);text-decoration:line-through;}
+.qv-stock{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:0.7rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:18px;padding:5px 12px;border-radius:20px;width:fit-content;}
+.qv-stock.in{background:rgba(34,197,94,0.12);color:var(--green);}
+.qv-stock.out{background:rgba(239,68,68,0.12);color:var(--red);}
+.qv-sec-title{font-family:var(--mono);font-size:0.66rem;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:10px;}
+.qv-specs{display:flex;flex-direction:column;gap:8px;margin-bottom:22px;}
+.qv-spec-row{display:flex;align-items:center;gap:9px;font-size:0.86rem;color:var(--text2);}
+.qv-spec-row i{color:var(--cyan);font-size:0.73rem;width:14px;flex-shrink:0;}
+.qv-actions{display:flex;gap:10px;margin-top:auto;padding-top:14px;flex-wrap:wrap;}
+.qv-actions .btn{flex:1;justify-content:center;min-width:130px;}
+body.light .qv-box,body.light .qv-thumbs{background:var(--card);}
+@media(max-width:768px){.qv-box{grid-template-columns:1fr;}}
+/* IMAGE LIGHTBOX (full zoom view) */
+.lb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.96);z-index:9999999;align-items:center;justify-content:center;padding:30px;}
+.lb-overlay.open{display:flex;}
+.lb-overlay img{max-width:100%;max-height:100%;object-fit:contain;border-radius:4px;}
+.lb-close{position:absolute;top:20px;right:24px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);color:#fff;width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;z-index:2;}
+.lb-close:hover{background:rgba(239,68,68,0.3);border-color:var(--red);}
+.lb-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);color:#fff;width:44px;height:44px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;z-index:2;}
+.lb-arrow:hover{background:rgba(56,182,255,0.4);}
+.lb-arrow.prev{left:20px;}
+.lb-arrow.next{right:20px;}
+@media(max-width:600px){.lb-arrow{width:36px;height:36px;}}
 </style>
 </head>
 <body>
@@ -356,6 +407,35 @@ body.light .hero{background:linear-gradient(135deg,#EBF2FA,#F5F7FA,#E8EFF7)!impo
   </div>
 </div>
 
+<!-- QUICK VIEW MODAL -->
+<div class="qv-overlay" id="qvModal">
+  <div class="qv-box">
+    <button class="qv-close" onclick="closeQuickView()"><i class="fas fa-times"></i></button>
+    <div class="qv-media">
+      <div class="qv-main" id="qvMain" onclick="openLightbox()"></div>
+      <div class="qv-thumbs" id="qvThumbs"></div>
+    </div>
+    <div class="qv-info">
+      <div class="qv-badges" id="qvBadges"></div>
+      <div class="qv-brand" id="qvBrand"></div>
+      <div class="qv-name" id="qvName"></div>
+      <div class="qv-price-row"><span class="qv-price" id="qvPrice"></span><span class="qv-old-price" id="qvOldPrice"></span></div>
+      <span class="qv-stock" id="qvStock"></span>
+      <div class="qv-sec-title">Specifications</div>
+      <div class="qv-specs" id="qvSpecs"></div>
+      <div class="qv-actions" id="qvActions"></div>
+    </div>
+  </div>
+</div>
+
+<!-- IMAGE LIGHTBOX -->
+<div class="lb-overlay" id="lbOverlay">
+  <button class="lb-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+  <button class="lb-arrow prev" id="lbPrev" onclick="lbNav(-1)"><i class="fas fa-chevron-left"></i></button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-arrow next" id="lbNext" onclick="lbNav(1)"><i class="fas fa-chevron-right"></i></button>
+</div>
+
 <div class="toast" id="toast"><i class="fas fa-check-circle" id="t-icon" style="color:var(--green);margin-right:7px;"></i><span id="t-msg"></span></div>
 
 <script>
@@ -435,12 +515,12 @@ function renderProducts(list) {
         '<a href="https://wa.me/2347067580599?text=Hi%2C%20I%27m%20interested%20in%20' + encodeURIComponent(p.name) + '%20at%20' + encodeURIComponent(fmtP(p.price)) + '%20from%20Zion%20Netcom%20Store" target="_blank" class="btn btn-g btn-sm"><i class="fab fa-whatsapp"></i></a>'
       : '<button class="btn btn-o btn-sm" disabled style="opacity:0.45;cursor:not-allowed;">Out of Stock</button>';
     return '<div class="prod-card' + (p.in_stock ? '' : ' oos') + '" id="card-' + p.id + '">' +
-      '<div class="img-carousel" id="car-' + p.id + '">' + imgHtml + topBadge + condLabel2 +
+      '<div class="img-carousel" id="car-' + p.id + '" onclick="openQuickView(\'' + p.id + '\')">' + imgHtml + topBadge + condLabel2 +
       '<span class="stock-dot ' + (p.in_stock ? 'dot-in' : 'dot-out') + '"></span>' +
       soldOverlay + arrows + dots + '</div>' +
       '<div class="prod-body">' +
         '<div class="prod-brand">' + p.brand + '</div>' +
-        '<div class="prod-name">' + p.name + '</div>' +
+        '<div class="prod-name" onclick="openQuickView(\'' + p.id + '\')" style="cursor:pointer;">' + p.name + '</div>' +
         '<div class="prod-specs">' + specs + '</div>' +
         '<div class="price-row"><span><span class="prod-price">' + fmtP(p.price) + '</span>' + oldP + '</span>' + imgCount + '</div>' +
         '<div class="prod-actions">' + actions + '</div>' +
@@ -589,6 +669,105 @@ function applyTheme(t) {
 var savedT = localStorage.getItem('zn-theme');
 if (savedT) applyTheme(savedT);
 themeBtn.addEventListener('click', function(){ applyTheme(document.body.classList.contains('light')?'dark':'light'); });
+
+// ═══ QUICK VIEW ═══
+var qvProd  = null;
+var qvIndex = 0;
+
+function openQuickView(id) {
+  qvProd = allProducts.find(function(p){ return p.id === id; });
+  if (!qvProd) return;
+  qvIndex = 0;
+  renderQuickView();
+  document.getElementById('qvModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeQuickView() {
+  document.getElementById('qvModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function renderQuickView() {
+  var p    = qvProd;
+  var imgs = p.images && p.images.length ? p.images : [];
+  var mainEl = document.getElementById('qvMain');
+  if (imgs.length) {
+    mainEl.innerHTML = imgs.map(function(url, i) {
+      return '<img src="' + url + '" class="' + (i === qvIndex ? 'active' : '') + '" alt="' + p.name + '">';
+    }).join('') +
+    (imgs.length > 1 ? '<button class="qv-main-arrow prev" onclick="qvNav(-1,event)"><i class="fas fa-chevron-left"></i></button><button class="qv-main-arrow next" onclick="qvNav(1,event)"><i class="fas fa-chevron-right"></i></button>' : '') +
+    '<span class="qv-zoom-hint"><i class="fas fa-magnifying-glass-plus"></i> Click to zoom</span>';
+  } else {
+    mainEl.innerHTML = '<div class="no-img"><i class="fas fa-laptop"></i></div>';
+  }
+  var thumbsEl = document.getElementById('qvThumbs');
+  thumbsEl.innerHTML = imgs.length > 1 ? imgs.map(function(url, i) {
+    return '<div class="qv-thumb' + (i === qvIndex ? ' active' : '') + '" onclick="qvGo(' + i + ')"><img src="' + url + '" alt=""></div>';
+  }).join('') : '';
+  var ci = condInfo(p.condition);
+  var badges = p.hot ? '<span class="prod-badge b-hot"><i class="fas fa-fire"></i> Hot</span>' : '';
+  badges += '<span class="prod-badge ' + ci.cls + '">' + ci.label + '</span>';
+  document.getElementById('qvBadges').innerHTML = badges;
+  document.getElementById('qvBrand').textContent = p.brand;
+  document.getElementById('qvName').textContent  = p.name;
+  document.getElementById('qvPrice').textContent = fmtP(p.price);
+  document.getElementById('qvOldPrice').textContent = p.old_price ? fmtP(p.old_price) : '';
+  var stockEl = document.getElementById('qvStock');
+  stockEl.className = 'qv-stock ' + (p.in_stock ? 'in' : 'out');
+  stockEl.innerHTML  = p.in_stock ? '<i class="fas fa-circle-check"></i> In Stock' : '<i class="fas fa-circle-xmark"></i> Out of Stock';
+  document.getElementById('qvSpecs').innerHTML = (p.specs || []).map(function(s) {
+    return '<div class="qv-spec-row"><i class="fas fa-check"></i>' + s + '</div>';
+  }).join('');
+  document.getElementById('qvActions').innerHTML = p.in_stock
+    ? '<button class="btn btn-p btn-sm" onclick="closeQuickView();openModal(\'' + p.id + '\')"><i class="fas fa-shopping-cart"></i> Order Now</button>' +
+      '<a href="https://wa.me/2347067580599?text=Hi%2C%20I%27m%20interested%20in%20' + encodeURIComponent(p.name) + '%20at%20' + encodeURIComponent(fmtP(p.price)) + '%20from%20Zion%20Netcom%20Store" target="_blank" class="btn btn-g btn-sm"><i class="fab fa-whatsapp"></i> WhatsApp</a>'
+    : '<button class="btn btn-o btn-sm" disabled style="opacity:0.45;cursor:not-allowed;">Out of Stock</button>';
+}
+function qvNav(dir, e) {
+  if (e) e.stopPropagation();
+  var imgs = qvProd.images || [];
+  if (!imgs.length) return;
+  qvIndex = (qvIndex + dir + imgs.length) % imgs.length;
+  renderQuickView();
+}
+function qvGo(i) {
+  qvIndex = i;
+  renderQuickView();
+}
+document.getElementById('qvModal').addEventListener('click', function(e){ if (e.target === this) closeQuickView(); });
+
+// ═══ IMAGE LIGHTBOX (full zoom view) ═══
+function openLightbox() {
+  var imgs = (qvProd && qvProd.images) || [];
+  if (!imgs.length) return;
+  document.getElementById('lbImg').src = imgs[qvIndex];
+  var multi = imgs.length > 1;
+  document.getElementById('lbPrev').style.display = multi ? 'flex' : 'none';
+  document.getElementById('lbNext').style.display = multi ? 'flex' : 'none';
+  document.getElementById('lbOverlay').classList.add('open');
+}
+function closeLightbox() {
+  document.getElementById('lbOverlay').classList.remove('open');
+}
+function lbNav(dir) {
+  var imgs = qvProd.images || [];
+  if (!imgs.length) return;
+  qvIndex = (qvIndex + dir + imgs.length) % imgs.length;
+  document.getElementById('lbImg').src = imgs[qvIndex];
+  document.querySelectorAll('.qv-thumb').forEach(function(t,i){ t.classList.toggle('active', i===qvIndex); });
+  document.querySelectorAll('#qvMain img').forEach(function(im,i){ im.classList.toggle('active', i===qvIndex); });
+}
+document.getElementById('lbOverlay').addEventListener('click', function(e){ if (e.target === this) closeLightbox(); });
+document.addEventListener('keydown', function(e) {
+  if (document.getElementById('lbOverlay').classList.contains('open')) {
+    if (e.key === 'Escape')     closeLightbox();
+    if (e.key === 'ArrowLeft')  lbNav(-1);
+    if (e.key === 'ArrowRight') lbNav(1);
+  } else if (document.getElementById('qvModal').classList.contains('open')) {
+    if (e.key === 'Escape')     closeQuickView();
+    if (e.key === 'ArrowLeft')  qvNav(-1);
+    if (e.key === 'ArrowRight') qvNav(1);
+  }
+});
 
 // ═══ INIT ═══
 loadProducts();
