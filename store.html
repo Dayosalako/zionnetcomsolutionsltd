@@ -3,225 +3,258 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Read what our clients say about Zion Netcom Solutions Limited — trusted ICT and telecoms engineering across Nigeria.">
-<title>Customer Reviews | Zion Netcom Solutions</title>
+<meta name="description" content="Shop quality laptops and tech hardware from Zion Netcom Solutions Limited — Kaduna, Nigeria.">
+<title>Laptop Store | Zion Netcom Solutions</title>
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
-:root{
-  --bg:#070B14;--bg2:#0D1321;--card:#111827;--el:#1A2332;
-  --cyan:#38B6FF;--cg:rgba(56,182,255,0.25);--cd:rgba(56,182,255,0.6);
-  --text:#E8F4F8;--text2:#8BA3B8;--muted:#4A6070;
-  --green:#22c55e;--red:#ef4444;--yellow:#f59e0b;--star:#FFD700;
-  --br:rgba(56,182,255,0.12);--brh:rgba(56,182,255,0.3);
-  --mono:'JetBrains Mono',monospace;--sans:'Inter',system-ui,sans-serif;--disp:'Space Grotesk','Inter',sans-serif;
-}
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;overflow-x:hidden;}
+:root{--bg:#070B14;--bg2:#0D1321;--card:#111827;--el:#1A2332;--cyan:#38B6FF;--cg:rgba(56,182,255,0.25);--cd:rgba(56,182,255,0.6);--text:#E8F4F8;--text2:#8BA3B8;--muted:#4A6070;--green:#22c55e;--red:#ef4444;--yellow:#f59e0b;--br:rgba(56,182,255,0.12);--brh:rgba(56,182,255,0.3);--mono:'JetBrains Mono',monospace;--sans:'Inter',system-ui,sans-serif;--disp:'Space Grotesk','Inter',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;overflow-x:hidden;}
 body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;}
 body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(56,182,255,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(56,182,255,0.06) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
-.container{width:92%;max-width:1280px;margin:0 auto;position:relative;z-index:1;}
-
-/* TOPBAR */
+.wrap{width:92%;max-width:1280px;margin:0 auto;position:relative;z-index:1;}
 .topbar{background:var(--bg2);border-bottom:1px solid var(--br);padding:9px 0;font-family:var(--mono);font-size:0.73rem;position:relative;z-index:100;}
-.topbar-inner{display:flex;justify-content:space-between;align-items:center;gap:10px;}
-.topbar-info{display:flex;align-items:center;gap:20px;flex-wrap:nowrap;overflow:hidden;}
-.tb-item{display:flex;align-items:center;gap:6px;color:var(--text2);text-decoration:none;white-space:nowrap;transition:color 0.2s;flex-shrink:0;}
-.tb-item i{color:var(--cyan);font-size:0.78rem;flex-shrink:0;}
-.tb-item:hover{color:var(--cyan);}
-.topbar-right{display:flex;align-items:center;gap:14px;flex-shrink:0;}
-.topbar-social{display:flex;align-items:center;gap:12px;}
-.topbar-social a{color:var(--muted);font-size:0.85rem;transition:color 0.3s;text-decoration:none;}
-.topbar-social a:hover{color:var(--cyan);}
-.theme-toggle{background:none;border:1px solid var(--br);border-radius:20px;color:var(--text2);font-size:0.78rem;cursor:pointer;padding:4px 10px;display:flex;align-items:center;gap:5px;transition:all 0.2s;white-space:nowrap;}
-.theme-toggle:hover{border-color:var(--cyan);color:var(--cyan);}
-@media(max-width:768px){.topbar{padding:7px 0;}.tb-phone .tb-text,.tb-email{display:none;}.topbar-info{gap:14px;}}
-@media(max-width:480px){.tb-location .tb-text{display:none;}.topbar-info{gap:10px;}.theme-toggle span{display:none;}}
-
-/* HEADER */
+.topbar-inner{display:flex;justify-content:space-between;align-items:center;}
+.tb-info{display:flex;align-items:center;gap:20px;}
+.tb-item{display:flex;align-items:center;gap:6px;color:var(--text2);text-decoration:none;white-space:nowrap;}
+.tb-item i{color:var(--cyan);font-size:0.78rem;}
+.tb-right{display:flex;align-items:center;gap:14px;}
+.tb-social{display:flex;align-items:center;gap:12px;}
+.tb-social a{color:var(--muted);font-size:0.85rem;transition:color 0.2s;text-decoration:none;}
+.tb-social a:hover{color:var(--cyan);}
+.theme-btn{background:none;border:1px solid var(--br);border-radius:20px;color:var(--text2);font-size:0.78rem;cursor:pointer;padding:4px 10px;display:flex;align-items:center;gap:5px;transition:all 0.2s;}
+.theme-btn:hover{border-color:var(--cyan);color:var(--cyan);}
 .header{background:rgba(7,11,20,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--br);position:sticky;top:0;z-index:9999;}
-.nav-wrapper{display:flex;align-items:center;justify-content:space-between;padding:16px 0;gap:20px;}
+.nav-wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:16px;}
 .logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
-.nav-links{display:flex;list-style:none;gap:18px;align-items:center;}
-.nav-links a{font-family:var(--mono);font-size:0.72rem;text-transform:uppercase;letter-spacing:1px;color:var(--text2);text-decoration:none;transition:all 0.3s;position:relative;padding:4px 0;display:block;}
-.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--cyan);transition:width 0.3s;box-shadow:0 0 8px var(--cyan);}
-.nav-links a:hover,.nav-links a.active{color:var(--cyan);}
-.nav-links a:hover::after,.nav-links a.active::after{width:100%;}
-.header-actions{display:flex;align-items:center;gap:20px;}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:4px;font-family:var(--mono);font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;text-decoration:none;cursor:pointer;transition:all 0.25s;border:none;}
-.btn-primary{background:var(--cyan);color:var(--bg);box-shadow:0 0 20px var(--cg);}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 36px var(--cg);}
-.btn-outline{background:transparent;color:var(--cyan);border:1px solid var(--cyan);}
-.btn-outline:hover{background:var(--cyan);color:var(--bg);}
+.logo img{height:44px;width:auto;}
+.logo-name{font-family:var(--disp);font-size:1.3rem;font-weight:700;color:var(--text);}
+.logo-name span{color:var(--cyan);}
+.logo-sub{font-family:var(--mono);font-size:0.6rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;}
+nav ul{display:flex;list-style:none;gap:18px;align-items:center;}
+nav ul a{font-family:var(--mono);font-size:0.72rem;text-transform:uppercase;letter-spacing:1px;color:var(--text2);text-decoration:none;transition:all 0.3s;position:relative;padding:4px 0;display:block;}
+nav ul a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--cyan);transition:width 0.3s;box-shadow:0 0 8px var(--cyan);}
+nav ul a:hover,nav ul a.active{color:var(--cyan);}
+nav ul a:hover::after,nav ul a.active::after{width:100%;}
+.nav-actions{display:flex;align-items:center;gap:10px;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:4px;font-family:var(--mono);font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;text-decoration:none;cursor:pointer;transition:all 0.25s;border:none;}
+.btn-p{background:var(--cyan);color:var(--bg);box-shadow:0 0 20px var(--cg);}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 0 36px var(--cg);}
+.btn-o{background:transparent;color:var(--cyan);border:1px solid var(--cyan);}
+.btn-o:hover{background:var(--cyan);color:var(--bg);}
+.btn-g{background:#25D366;color:#fff;border:none;}
+.btn-g:hover{background:#1ebe5a;transform:translateY(-2px);}
 .btn-sm{padding:7px 14px;font-size:0.72rem;}
-.menu-toggle{display:none;min-width:44px;min-height:44px;align-items:center;justify-content:center;background:none;border:1px solid var(--br);border-radius:4px;color:var(--cyan);font-size:1.2rem;cursor:pointer;padding:0 10px;transition:all 0.2s;}
-.menu-toggle:hover{border-color:var(--cyan);background:rgba(56,182,255,0.08);}
-.nav-overlay{display:none;position:fixed;inset:0;background:rgba(7,11,20,0.7);z-index:9997;backdrop-filter:blur(2px);}
-.nav-overlay.active{display:block;}
-@media(max-width:640px){.header-actions .btn-outline{display:none;}}
-
-/* LIGHT MODE */
-body.light-mode{--bg:#F5F7FA;--bg2:#EAEEF3;--card:#FFF;--el:#E2E8F0;--cyan:#0077CC;--cg:rgba(0,119,204,0.18);--text:#0F1E2E;--text2:#3D5A73;--muted:#7A94A8;--br:rgba(0,119,204,0.15);--brh:rgba(0,119,204,0.35);}
-body.light-mode .header{background:rgba(234,238,243,0.92)!important;}
-body.light-mode .nav-links{background:var(--bg);}
-body.light-mode .nav-links a{color:var(--text);}
-body.light-mode .nav-overlay{background:rgba(180,200,220,0.7);}
-body.light-mode .review-card,.light-mode .submit-card{background:var(--card);}
-body.light-mode .footer{background:var(--bg2);}
-body.light-mode .menu-toggle{color:var(--text);}
-body.light-mode input,body.light-mode textarea,body.light-mode select{background:var(--el);color:var(--text);border-color:var(--br);}
-
+.menu-btn{display:none;background:none;border:1px solid var(--br);color:var(--text);padding:7px 11px;cursor:pointer;border-radius:4px;font-size:0.95rem;}
+/* LIGHT */
+body.light{--bg:#F5F7FA;--bg2:#EAEEF3;--card:#FFF;--el:#E2E8F0;--cyan:#0077CC;--cg:rgba(0,119,204,0.18);--text:#0F1E2E;--text2:#3D5A73;--muted:#7A94A8;--br:rgba(0,119,204,0.15);--brh:rgba(0,119,204,0.35);}
+body.light .header{background:rgba(234,238,243,0.92)!important;}
+body.light nav ul a{color:var(--text);}body.light nav ul{background:var(--bg);}
+body.light .prod-card,body.light .filter-wrap,body.light .filter-search input,body.light .fsel,body.light .modal-box{background:var(--card);border-color:var(--br);color:var(--text);}
+body.light .footer{background:var(--bg2);}body.light .menu-btn{color:var(--text);}
+body.light .hero{background:linear-gradient(135deg,#EBF2FA,#F5F7FA,#E8EFF7)!important;}
 /* HERO */
-.page-hero{background:linear-gradient(135deg,#070B14 0%,#0D1321 60%,#111827 100%);padding:56px 0 40px;border-bottom:1px solid var(--br);position:relative;overflow:hidden;}
-.page-hero::after{content:'';position:absolute;top:-100px;right:-100px;width:420px;height:420px;background:radial-gradient(circle,rgba(56,182,255,0.1),transparent 70%);pointer-events:none;}
+.hero{background:linear-gradient(135deg,#070B14 0%,#0D1321 60%,#111827 100%);padding:56px 0 40px;border-bottom:1px solid var(--br);position:relative;overflow:hidden;}
+.hero::after{content:'';position:absolute;top:-120px;right:-100px;width:460px;height:460px;background:radial-gradient(circle,rgba(56,182,255,0.1),transparent 70%);pointer-events:none;}
 .hero-tag{font-family:var(--mono);font-size:0.7rem;color:var(--cyan);letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
 .hero-tag::before{content:'//';color:var(--muted);}
-.page-hero h1{font-size:clamp(2rem,5vw,3rem);background:linear-gradient(135deg,var(--text) 0%,var(--cyan) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;}
-.page-hero p{color:var(--text2);font-size:0.97rem;max-width:520px;margin-bottom:28px;}
-
-/* STATS STRIP */
-.stats-strip{display:flex;gap:0;border-bottom:1px solid var(--br);background:var(--bg2);}
-.stat-item{flex:1;padding:20px 24px;text-align:center;border-right:1px solid var(--br);}
-.stat-item:last-child{border-right:none;}
-.stat-val{font-family:var(--disp);font-size:1.8rem;font-weight:700;color:var(--cyan);}
-.stat-lbl{font-family:var(--mono);font-size:0.67rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-top:3px;}
-.stat-stars{color:var(--star);font-size:1rem;margin-bottom:2px;}
-
-/* FILTER STRIP */
-.filter-strip{padding:18px 0;border-bottom:1px solid var(--br);background:var(--bg);position:sticky;top:73px;z-index:100;}
-.filter-inner{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
-.fchip{font-family:var(--mono);font-size:0.7rem;padding:5px 14px;border-radius:20px;border:1px solid var(--br);background:transparent;color:var(--muted);cursor:pointer;transition:all 0.2s;text-transform:uppercase;letter-spacing:1px;}
-.fchip:hover,.fchip.active{background:var(--cyan);color:var(--bg);border-color:var(--cyan);}
-.filter-right{margin-left:auto;font-family:var(--mono);font-size:0.72rem;color:var(--muted);}
-
-/* REVIEWS GRID */
-.reviews-section{padding:40px 0 72px;}
-.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px;}
-.review-card{background:var(--card);border:1px solid var(--br);border-radius:10px;padding:24px;position:relative;transition:border-color 0.25s,box-shadow 0.25s,transform 0.25s;}
-.review-card:hover{border-color:var(--brh);box-shadow:0 6px 28px rgba(56,182,255,0.09);transform:translateY(-3px);}
-.review-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--cyan);border-radius:2px 0 0 2px;transition:height 0.3s;}
-.review-card:hover::before{height:100%;}
-.rc-top{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px;}
-.rc-avatar{width:52px;height:52px;border-radius:50%;overflow:hidden;border:2px solid var(--brh);flex-shrink:0;background:var(--el);display:flex;align-items:center;justify-content:center;}
-.rc-avatar img{width:100%;height:100%;object-fit:cover;}
-.rc-avatar .avatar-initials{font-family:var(--disp);font-size:1.1rem;font-weight:700;color:var(--cyan);}
-.rc-info{flex:1;min-width:0;}
-.rc-name{font-family:var(--disp);font-size:0.97rem;font-weight:700;color:var(--text);margin-bottom:2px;}
-.rc-role{font-size:0.8rem;color:var(--text2);}
-.rc-company{font-family:var(--mono);font-size:0.68rem;color:var(--cyan);margin-top:1px;}
-.rc-anon{font-size:0.8rem;color:var(--muted);font-style:italic;}
-.rc-stars{display:flex;gap:3px;margin-bottom:12px;}
-.rc-stars i{color:var(--star);font-size:0.9rem;}
-.rc-stars i.empty{color:var(--el);}
-.rc-text{font-size:0.88rem;color:var(--text2);line-height:1.75;font-style:italic;position:relative;padding-left:16px;}
-.rc-text::before{content:'"';position:absolute;left:0;top:-4px;font-size:2rem;color:var(--cyan);opacity:0.4;line-height:1;font-family:Georgia,serif;}
-.rc-date{font-family:var(--mono);font-size:0.65rem;color:var(--muted);margin-top:14px;}
-.rc-badge{position:absolute;top:16px;right:16px;font-family:var(--mono);font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:2px 8px;border-radius:10px;background:rgba(56,182,255,0.12);color:var(--cyan);}
-.reviews-loading{text-align:center;padding:60px 20px;color:var(--muted);}
-.reviews-loading i{font-size:2rem;display:block;margin-bottom:12px;animation:spin 1s linear infinite;}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);background:linear-gradient(135deg,var(--text),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:13px;}
+.hero p{color:var(--text2);font-size:0.97rem;max-width:540px;margin-bottom:24px;}
+.trust-badges{display:flex;gap:10px;flex-wrap:wrap;}
+.tbadge{display:flex;align-items:center;gap:7px;background:rgba(56,182,255,0.08);border:1px solid var(--br);padding:7px 14px;border-radius:40px;font-size:0.78rem;color:var(--text2);}
+.tbadge i{color:var(--cyan);}
+/* FILTER */
+.filter-wrap{padding:16px 0;border-bottom:1px solid var(--br);position:sticky;top:73px;z-index:100;background:var(--bg);}
+.filter-bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.filter-search{flex:1;min-width:180px;position:relative;}
+.filter-search input{width:100%;padding:9px 13px 9px 38px;background:var(--card);border:1px solid var(--br);border-radius:4px;color:var(--text);font-family:var(--sans);font-size:0.88rem;outline:none;transition:border-color 0.2s;}
+.filter-search input:focus{border-color:var(--cyan);}
+.filter-search i{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:0.82rem;}
+.fsel{padding:9px 12px;background:var(--card);border:1px solid var(--br);border-radius:4px;color:var(--text);font-family:var(--mono);font-size:0.76rem;outline:none;cursor:pointer;min-width:125px;}
+.fsel:focus{border-color:var(--cyan);}
+.chips{display:flex;gap:6px;flex-wrap:wrap;}
+.chip{font-family:var(--mono);font-size:0.69rem;padding:5px 12px;border-radius:20px;border:1px solid var(--br);background:transparent;color:var(--muted);cursor:pointer;transition:all 0.2s;text-transform:uppercase;letter-spacing:1px;}
+.chip:hover,.chip.active{background:var(--cyan);color:var(--bg);border-color:var(--cyan);}
+.res-count{font-family:var(--mono);font-size:0.72rem;color:var(--muted);margin-left:auto;white-space:nowrap;}
+/* PRODUCTS */
+.products-sec{padding:34px 0 68px;}
+.loading-state{text-align:center;padding:60px 20px;color:var(--muted);}
+.loading-state i{font-size:2rem;display:block;margin-bottom:12px;animation:spin 1s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
-.reviews-empty{text-align:center;padding:60px 20px;color:var(--muted);}
-.reviews-empty i{font-size:2.5rem;display:block;margin-bottom:14px;opacity:0.3;}
-
-/* SUBMIT FORM */
-.submit-section{padding:56px 0;background:var(--bg2);border-top:1px solid var(--br);border-bottom:1px solid var(--br);}
-.submit-wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
-.submit-left h2{font-size:clamp(1.6rem,3.5vw,2.2rem);margin-bottom:12px;}
-.submit-left p{color:var(--text2);font-size:0.93rem;line-height:1.8;margin-bottom:20px;}
-.trust-pts{display:flex;flex-direction:column;gap:12px;}
-.trust-pt{display:flex;align-items:center;gap:12px;font-size:0.87rem;color:var(--text2);}
-.trust-pt i{color:var(--cyan);width:18px;flex-shrink:0;}
-.submit-card{background:var(--card);border:1px solid var(--br);border-radius:10px;padding:28px;}
-.submit-card h3{font-family:var(--disp);font-size:1rem;margin-bottom:20px;color:var(--text);display:flex;align-items:center;gap:9px;}
-.submit-card h3 i{color:var(--cyan);}
-/* STAR PICKER */
-.star-picker{display:flex;gap:8px;margin-bottom:16px;}
-.star-picker .sp-star{font-size:2rem;cursor:pointer;color:var(--el);transition:color 0.15s,transform 0.15s;}
-.star-picker .sp-star:hover,.star-picker .sp-star.selected{color:var(--star);transform:scale(1.15);}
-.star-label{font-family:var(--mono);font-size:0.72rem;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:1.5px;}
-/* FORM FIELDS */
-.fg{margin-bottom:14px;}
-.fg label{display:block;font-family:var(--mono);font-size:0.68rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--cyan);margin-bottom:6px;}
-.fg input,.fg textarea,.fg select{width:100%;padding:10px 13px;background:var(--el);border:1px solid var(--br);border-radius:4px;color:var(--text);font-family:var(--sans);font-size:0.88rem;transition:border-color 0.2s;outline:none;}
-.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(56,182,255,0.1);}
-.fg textarea{resize:vertical;min-height:100px;}
-.r2{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
-/* IDENTITY TOGGLE */
-.identity-toggle{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--el);border:1px solid var(--br);border-radius:6px;margin-bottom:14px;cursor:pointer;}
-.identity-toggle input[type=checkbox]{width:18px;height:18px;accent-color:var(--cyan);cursor:pointer;flex-shrink:0;}
-.identity-toggle-text .it-title{font-size:0.87rem;font-weight:600;color:var(--text);}
-.identity-toggle-text .it-sub{font-size:0.77rem;color:var(--muted);margin-top:2px;}
-/* PHOTO UPLOAD */
-.photo-upload-label{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--el);border:1px dashed var(--brh);border-radius:4px;cursor:pointer;color:var(--cyan);font-family:var(--mono);font-size:0.75rem;letter-spacing:1px;text-transform:uppercase;transition:all 0.2s;margin-bottom:8px;}
-.photo-upload-label:hover{background:rgba(56,182,255,0.08);}
-.photo-upload-label i{font-size:1.1rem;}
-.photo-preview{display:none;margin-top:8px;}
-.photo-preview img{width:80px;height:60px;object-fit:cover;border-radius:4px;border:2px solid var(--cyan);}
-/* SUCCESS STATE */
-.success-state{display:none;text-align:center;padding:28px 20px;}
-.success-state i{font-size:3rem;color:var(--green);margin-bottom:14px;display:block;}
-.success-state h3{font-size:1.1rem;margin-bottom:8px;}
-.success-state p{color:var(--text2);font-size:0.88rem;}
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px;}
+.prod-card{background:var(--card);border:1px solid var(--br);border-radius:8px;overflow:hidden;transition:transform 0.25s,border-color 0.25s,box-shadow 0.25s;position:relative;}
+.prod-card:hover{transform:translateY(-4px);border-color:var(--brh);box-shadow:0 8px 32px rgba(56,182,255,0.1);}
+.prod-card.oos{opacity:0.65;}
+/* IMAGE CAROUSEL */
+.img-carousel{position:relative;width:100%;height:200px;background:var(--el);overflow:hidden;}
+.img-carousel img{width:100%;height:100%;object-fit:cover;display:none;position:absolute;top:0;left:0;transition:opacity 0.3s;}
+.img-carousel img.active{display:block;}
+.img-carousel .no-img{display:flex;align-items:center;justify-content:center;height:100%;color:var(--cd);font-size:3.5rem;}
+.carousel-nav{position:absolute;bottom:8px;left:0;right:0;display:flex;justify-content:center;gap:5px;z-index:2;}
+.carousel-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.4);cursor:pointer;border:none;padding:0;transition:all 0.2s;}
+.carousel-dot.active{background:#fff;width:14px;border-radius:3px;}
+.carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.5);color:#fff;border:none;width:28px;height:28px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.75rem;z-index:2;transition:background 0.2s;}
+.carousel-arrow:hover{background:rgba(56,182,255,0.8);}
+.carousel-arrow.prev{left:8px;}
+.carousel-arrow.next{right:8px;}
+.prod-badge{position:absolute;top:10px;left:10px;padding:3px 9px;border-radius:4px;font-family:var(--mono);font-size:0.61rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;z-index:2;}
+.b-new{background:var(--cyan);color:var(--bg);}
+.b-used{background:var(--yellow);color:#1a1a2e;}
+.b-refurb{background:#9333ea;color:#fff;}
+.b-hot{background:#ff4d4d;color:#fff;}
+.stock-dot{position:absolute;top:10px;right:10px;width:9px;height:9px;border-radius:50%;z-index:2;}
+.dot-in{background:var(--green);box-shadow:0 0 7px rgba(34,197,94,0.6);}
+.dot-out{background:var(--red);}
+.sold-overlay{position:absolute;inset:0;background:rgba(7,11,20,0.55);display:flex;align-items:center;justify-content:center;z-index:1;}
+.sold-tag{font-family:var(--disp);font-size:1.3rem;font-weight:900;color:var(--red);border:2.5px solid var(--red);padding:5px 17px;border-radius:4px;transform:rotate(-12deg);}
+.prod-body{padding:17px;}
+.prod-brand{font-family:var(--mono);font-size:0.64rem;color:var(--cyan);text-transform:uppercase;letter-spacing:2px;margin-bottom:3px;}
+.prod-name{font-family:var(--disp);font-size:0.96rem;font-weight:700;color:var(--text);margin-bottom:9px;line-height:1.3;}
+.prod-specs{display:flex;flex-direction:column;gap:3px;margin-bottom:12px;}
+.spec-row{display:flex;align-items:center;gap:7px;font-size:0.77rem;color:var(--text2);}
+.spec-row i{color:var(--cyan);font-size:0.66rem;width:12px;flex-shrink:0;}
+.price-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.prod-price{font-family:var(--disp);font-size:1.3rem;font-weight:700;color:var(--cyan);}
+.old-price{font-size:0.81rem;color:var(--muted);text-decoration:line-through;margin-left:7px;}
+.img-count{font-family:var(--mono);font-size:0.65rem;color:var(--muted);}
+.prod-actions{display:flex;gap:7px;}
+.prod-actions .btn{flex:1;justify-content:center;padding:9px 11px;font-size:0.7rem;}
+.no-results{text-align:center;padding:68px 20px;color:var(--muted);}
+.no-results i{font-size:2.6rem;margin-bottom:13px;display:block;opacity:0.3;}
 /* CTA */
-.cta-strip{background:linear-gradient(135deg,rgba(56,182,255,0.08),rgba(56,182,255,0.03));border-top:1px solid var(--br);padding:48px 0;text-align:center;}
-.cta-strip h2{font-size:clamp(1.4rem,3vw,2rem);margin-bottom:10px;}
-.cta-strip p{color:var(--text2);margin-bottom:24px;max-width:460px;margin-left:auto;margin-right:auto;}
+.cta-strip{background:linear-gradient(135deg,rgba(56,182,255,0.1),rgba(56,182,255,0.04));border-top:1px solid var(--br);border-bottom:1px solid var(--br);padding:46px 0;text-align:center;}
+.cta-strip h2{font-size:clamp(1.4rem,3.5vw,2rem);margin-bottom:10px;}
+.cta-strip p{color:var(--text2);margin-bottom:22px;max-width:480px;margin-left:auto;margin-right:auto;}
 .cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
-/* FOOTER */
-.footer{background:var(--bg2);border-top:1px solid var(--br);padding:52px 0 28px;position:relative;z-index:1;}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:36px;margin-bottom:36px;}
-.footer-brand p{color:var(--text2);font-size:0.88rem;line-height:1.7;margin-bottom:14px;}
-.footer h4{font-family:var(--mono);font-size:0.72rem;text-transform:uppercase;letter-spacing:2px;color:var(--cyan);margin-bottom:14px;}
-.footer ul{list-style:none;}
-.footer ul li{margin-bottom:7px;}
-.footer ul li a{color:var(--text2);text-decoration:none;font-size:0.85rem;transition:color 0.2s;}
-.footer ul li a:hover{color:var(--cyan);}
-.footer-contact p{color:var(--text2);font-size:0.83rem;margin-bottom:7px;display:flex;align-items:flex-start;gap:9px;}
-.footer-contact i{color:var(--cyan);margin-top:3px;flex-shrink:0;}
-.footer-bottom{border-top:1px solid var(--br);padding-top:20px;display:flex;justify-content:space-between;align-items:center;}
-.footer-bottom span{font-family:var(--mono);font-size:0.7rem;color:var(--muted);}
-.indicator{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
-.data-readout{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:0.67rem;color:var(--muted);}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+/* ORDER MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:99999;align-items:center;justify-content:center;padding:16px;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:var(--card);border:1px solid var(--brh);border-radius:10px;max-width:560px;width:100%;padding:26px;position:relative;max-height:92vh;overflow-y:auto;}
+.modal-close{position:absolute;top:13px;right:13px;background:none;border:1px solid var(--br);color:var(--muted);width:30px;height:30px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.8rem;transition:all 0.2s;}
+.modal-close:hover{border-color:var(--red);color:var(--red);}
+.modal-prod-hdr{display:flex;gap:13px;align-items:center;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--br);}
+.modal-thumb{width:70px;height:54px;border-radius:5px;overflow:hidden;background:var(--el);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.modal-thumb img{width:100%;height:100%;object-fit:cover;}
+.modal-thumb i{font-size:1.6rem;color:var(--cd);}
+.modal-pname{font-family:var(--disp);font-size:1rem;font-weight:700;color:var(--text);margin-bottom:3px;}
+.modal-pprice{font-family:var(--disp);font-size:1.15rem;color:var(--cyan);font-weight:700;}
+.modal-sec{font-family:var(--mono);font-size:0.67rem;text-transform:uppercase;letter-spacing:2px;color:var(--cyan);margin-bottom:11px;margin-top:16px;}
+.fg{margin-bottom:12px;}
+.fg label{display:block;font-family:var(--mono);font-size:0.67rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:5px;}
+.fg input,.fg select,.fg textarea{width:100%;padding:9px 12px;background:var(--el);border:1px solid var(--br);border-radius:4px;color:var(--text);font-family:var(--sans);font-size:0.87rem;outline:none;transition:border-color 0.2s;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--cyan);}
+.fg textarea{resize:vertical;min-height:62px;}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:480px){.wrap{width:96%;}.r2{grid-template-columns:1fr;}}
+.order-btns{display:flex;gap:10px;margin-top:16px;}
+.order-btns .btn{flex:1;justify-content:center;}
+.divider{display:flex;align-items:center;gap:10px;margin:13px 0;}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--br);}
+.divider span{font-family:var(--mono);font-size:0.67rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
 /* TOAST */
-.toast{position:fixed;bottom:20px;right:20px;background:var(--card);border:1px solid var(--brh);border-radius:8px;padding:12px 18px;font-size:0.84rem;color:var(--text);z-index:999999;transform:translateY(60px);opacity:0;transition:all 0.3s;pointer-events:none;max-width:290px;}
+.toast{position:fixed;bottom:20px;right:20px;background:var(--card);border:1px solid var(--brh);border-radius:8px;padding:11px 17px;font-size:0.84rem;color:var(--text);z-index:999999;transform:translateY(60px);opacity:0;transition:all 0.3s;pointer-events:none;}
 .toast.show{transform:translateY(0);opacity:1;}
-@media(max-width:1024px){.submit-wrap{grid-template-columns:1fr;gap:32px;}.footer-grid{grid-template-columns:1fr 1fr;}}
-@media(max-width:992px){.container{width:94%;}.menu-toggle{display:flex;}.nav-links{display:none;position:fixed;inset:0;background:var(--bg);flex-direction:column;justify-content:center;align-items:center;z-index:9998;gap:30px;}.nav-links.active{display:flex;}.header-actions .btn-primary{display:none;}}
-@media(max-width:768px){.container{width:95%;}.stats-strip{flex-wrap:wrap;}.stat-item{flex:1 1 45%;}.reviews-grid{grid-template-columns:1fr;}.filter-strip{top:73px;}}
-@media(max-width:480px){.container{width:96%;}.r2{grid-template-columns:1fr;}.footer-grid{grid-template-columns:1fr;}.footer-bottom{flex-direction:column;gap:7px;}.stat-item{flex:1 1 100%;}}
+/* FOOTER */
+.footer{background:var(--bg2);border-top:1px solid var(--br);padding:48px 0 26px;position:relative;z-index:1;}
+.fg2{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:34px;margin-bottom:32px;}
+.fb p{color:var(--text2);font-size:0.87rem;line-height:1.7;margin-bottom:13px;}
+.footer h4{font-family:var(--mono);font-size:0.71rem;text-transform:uppercase;letter-spacing:2px;color:var(--cyan);margin-bottom:13px;}
+.footer ul{list-style:none;}
+.footer ul li{margin-bottom:6px;}
+.footer ul li a{color:var(--text2);text-decoration:none;font-size:0.84rem;transition:color 0.2s;}
+.footer ul li a:hover{color:var(--cyan);}
+.fc p{color:var(--text2);font-size:0.82rem;margin-bottom:6px;display:flex;align-items:flex-start;gap:8px;}
+.fc i{color:var(--cyan);margin-top:3px;flex-shrink:0;}
+.fbot{border-top:1px solid var(--br);padding-top:18px;display:flex;justify-content:space-between;align-items:center;}
+.fbot span{font-family:var(--mono);font-size:0.69rem;color:var(--muted);}
+.ind{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+.rdo{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:0.67rem;color:var(--muted);}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+@media(max-width:992px){.wrap{width:94%;}.menu-btn{display:flex;}nav ul{display:none;position:fixed;inset:0;background:var(--bg);flex-direction:column;justify-content:center;align-items:center;z-index:9998;gap:30px;}nav ul.open{display:flex;}.nav-actions .btn{display:none;}}
+@media(max-width:768px){.wrap{width:95%;}.fg2{grid-template-columns:1fr 1fr;}.prod-grid{grid-template-columns:repeat(auto-fill,minmax(250px,1fr));}}
+@media(max-width:480px){.fg2{grid-template-columns:1fr;}.fbot{flex-direction:column;gap:7px;}.prod-grid{grid-template-columns:1fr;}}
+/* QUICK VIEW MODAL */
+.img-carousel{cursor:pointer;}
+.qv-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:999998;align-items:center;justify-content:center;padding:20px;}
+.qv-overlay.open{display:flex;}
+.qv-box{background:var(--card);border:1px solid var(--brh);border-radius:12px;max-width:960px;width:100%;max-height:92vh;overflow-y:auto;display:grid;grid-template-columns:1.1fr 1fr;position:relative;}
+.qv-close{position:absolute;top:13px;right:13px;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.2);color:#fff;width:34px;height:34px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.9rem;z-index:6;transition:all 0.2s;}
+.qv-close:hover{border-color:var(--red);color:var(--red);background:rgba(0,0,0,0.7);}
+.qv-media{background:var(--el);display:flex;flex-direction:column;}
+.qv-main{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;background:var(--el);cursor:zoom-in;}
+.qv-main img{width:100%;height:100%;object-fit:contain;display:none;}
+.qv-main img.active{display:block;}
+.qv-main .no-img{display:flex;align-items:center;justify-content:center;height:100%;color:var(--cd);font-size:5rem;}
+.qv-main-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.5);color:#fff;border:none;width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.9rem;z-index:3;transition:background 0.2s;}
+.qv-main-arrow:hover{background:rgba(56,182,255,0.85);}
+.qv-main-arrow.prev{left:12px;}
+.qv-main-arrow.next{right:12px;}
+.qv-zoom-hint{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,0.6);color:#fff;font-family:var(--mono);font-size:0.63rem;padding:5px 10px;border-radius:20px;display:flex;align-items:center;gap:5px;z-index:3;pointer-events:none;}
+.qv-thumbs{display:flex;gap:8px;padding:12px;overflow-x:auto;background:var(--card);}
+.qv-thumb{width:56px;height:56px;flex-shrink:0;border-radius:5px;overflow:hidden;cursor:pointer;border:2px solid transparent;opacity:0.6;transition:all 0.2s;}
+.qv-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.qv-thumb.active,.qv-thumb:hover{opacity:1;border-color:var(--cyan);}
+.qv-info{padding:28px;display:flex;flex-direction:column;}
+.qv-badges{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+.qv-badges .prod-badge{position:static;}
+.qv-brand{font-family:var(--mono);font-size:0.7rem;color:var(--cyan);text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;}
+.qv-name{font-family:var(--disp);font-size:1.35rem;font-weight:700;color:var(--text);margin-bottom:12px;line-height:1.3;}
+.qv-price-row{display:flex;align-items:baseline;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.qv-price{font-family:var(--disp);font-size:1.7rem;font-weight:700;color:var(--cyan);}
+.qv-old-price{font-size:0.92rem;color:var(--muted);text-decoration:line-through;}
+.qv-stock{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:0.7rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:18px;padding:5px 12px;border-radius:20px;width:fit-content;}
+.qv-stock.in{background:rgba(34,197,94,0.12);color:var(--green);}
+.qv-stock.out{background:rgba(239,68,68,0.12);color:var(--red);}
+.qv-sec-title{font-family:var(--mono);font-size:0.66rem;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:10px;}
+.qv-specs{display:flex;flex-direction:column;gap:8px;margin-bottom:22px;}
+.qv-spec-row{display:flex;align-items:center;gap:9px;font-size:0.86rem;color:var(--text2);}
+.qv-spec-row i{color:var(--cyan);font-size:0.73rem;width:14px;flex-shrink:0;}
+.qv-actions{display:flex;gap:10px;margin-top:auto;padding-top:14px;flex-wrap:wrap;}
+.qv-actions .btn{flex:1;justify-content:center;min-width:130px;}
+body.light .qv-box,body.light .qv-thumbs{background:var(--card);}
+@media(max-width:768px){.qv-box{grid-template-columns:1fr;}}
+/* IMAGE LIGHTBOX (full zoom view) */
+.lb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.96);z-index:9999999;align-items:center;justify-content:center;padding:30px;}
+.lb-overlay.open{display:flex;}
+.lb-overlay img{max-width:100%;max-height:100%;object-fit:contain;border-radius:4px;}
+.lb-close{position:absolute;top:20px;right:24px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);color:#fff;width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;z-index:2;}
+.lb-close:hover{background:rgba(239,68,68,0.3);border-color:var(--red);}
+.lb-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);color:#fff;width:44px;height:44px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;z-index:2;}
+.lb-arrow:hover{background:rgba(56,182,255,0.4);}
+.lb-arrow.prev{left:20px;}
+.lb-arrow.next{right:20px;}
+@media(max-width:600px){.lb-arrow{width:36px;height:36px;}}
 </style>
 </head>
 <body>
 
-<div class="nav-overlay" id="navOverlay"></div>
 <div class="topbar">
-  <div class="container topbar-inner">
-    <div class="topbar-info">
-      <a href="tel:+2347067580599" class="tb-item tb-phone"><i class="fas fa-phone"></i><span class="tb-text"> +234 706 758 0599</span></a>
-      <a href="mailto:info@zionnetcomsolutionsltd.com.ng" class="tb-item tb-email"><i class="fas fa-envelope"></i><span class="tb-text"> info@zionnetcomsolutionsltd.com.ng</span></a>
+  <div class="wrap topbar-inner">
+    <div class="tb-info">
+      <a href="tel:+2347067580599" class="tb-item"><i class="fas fa-phone"></i> +234 706 758 0599</a>
+      <a href="mailto:info@zionnetcomsolutionsltd.com.ng" class="tb-item"><i class="fas fa-envelope"></i> info@zionnetcomsolutionsltd.com.ng</a>
     </div>
-    <div class="topbar-right">
-      <div class="topbar-social">
-        <a href="https://www.linkedin.com/company/zion-netcom-solutions-limited" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-        <a href="https://www.youtube.com/@zionnetcomsolutionsltd" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-        <a href="https://www.instagram.com/zionnetcomsolutionsltd/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    <div class="tb-right">
+      <div class="tb-social">
+        <a href="https://www.linkedin.com/company/zion-netcom-solutions-limited" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.youtube.com/@zionnetcomsolutionsltd" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.instagram.com/zionnetcomsolutionsltd/" target="_blank"><i class="fab fa-instagram"></i></a>
       </div>
-      <button class="theme-toggle" id="themeBtn" aria-label="Toggle dark/light mode"><i class="fas fa-sun" id="themeIcon"></i></button>
+      <button class="theme-btn" id="themeBtn"><i class="fas fa-sun" id="themeIcon"></i></button>
     </div>
   </div>
 </div>
 
 <header class="header">
-  <div class="container nav-wrapper">
+  <div class="wrap nav-wrap">
     <a href="index.html" class="logo">
       <img src="zion.jpg" alt="Zion Netcom Solutions" style="height: 48px; width: auto; display: block;">
     </a>
     <nav>
-      <ul class="nav-links" id="navLinks">
+      <ul class="nav-links" id="navMenu">
         <li><a href="index.html">Home</a></li>
         <li><a href="services.html">Solutions</a></li>
         <li><a href="projects.html">Projects</a></li>
@@ -229,220 +262,181 @@ body.light-mode input,body.light-mode textarea,body.light-mode select{background
         <li><a href="contact.html">Contact</a></li>
         <li><a href="blog.html">Blog</a></li>
         <li><a href="payment.html">Make Payment</a></li>
-        <li><a href="store.html">Store</a></li>
-        <li><a href="reviews.html" class="active">Reviews</a></li>
+        <li><a href="store.html" class="active">Store</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
       </ul>
     </nav>
-    <div class="header-actions">
-      <a href="contact.html" class="btn btn-primary">Get Quote</a>
-      <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars" id="menuIcon"></i></button>
+    <div class="nav-actions">
+      <a href="contact.html" class="btn btn-p">Get Quote</a>
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars" id="menuIcon"></i></button>
     </div>
   </div>
 </header>
 
-<!-- HERO -->
-<section class="page-hero">
-  <div class="container">
-    <div class="hero-tag">Client Reviews</div>
-    <h1>What Our Clients Say</h1>
-    <p>Real feedback from businesses and individuals we've served across Nigeria. Every review is verified and approved before it appears here.</p>
-    <a href="#leave-review" class="btn btn-primary"><i class="fas fa-star"></i> Leave a Review</a>
-  </div>
-</section>
-
-<!-- STATS STRIP -->
-<div class="stats-strip" id="statsStrip">
-  <div class="stat-item">
-    <div class="stat-val" id="stat-total">—</div>
-    <div class="stat-lbl">Total Reviews</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-stars" id="stat-stars">★★★★★</div>
-    <div class="stat-val" id="stat-avg">—</div>
-    <div class="stat-lbl">Average Rating</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-val" id="stat-five">—</div>
-    <div class="stat-lbl">Five-Star Reviews</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-val" id="stat-rec">—%</div>
-    <div class="stat-lbl">Would Recommend</div>
-  </div>
-</div>
-
-<!-- FILTER -->
-<div class="filter-strip">
-  <div class="container filter-inner">
-    <button class="fchip active" data-filter="all">All Reviews</button>
-    <button class="fchip" data-filter="5">⭐⭐⭐⭐⭐ 5 Stars</button>
-    <button class="fchip" data-filter="4">⭐⭐⭐⭐ 4 Stars</button>
-    <button class="fchip" data-filter="3">⭐⭐⭐ 3 Stars</button>
-    <button class="fchip" data-filter="recent">Most Recent</button>
-    <span class="filter-right" id="filterCount"></span>
-  </div>
-</div>
-
-<!-- REVIEWS GRID -->
-<section class="reviews-section">
-  <div class="container">
-    <div id="reviewsLoading" class="reviews-loading"><i class="fas fa-circle-notch"></i>Loading reviews...</div>
-    <div class="reviews-grid" id="reviewsGrid" style="display:none;"></div>
-    <div class="reviews-empty" id="reviewsEmpty" style="display:none;">
-      <i class="fas fa-comment-slash"></i>
-      <p style="font-size:0.97rem;">No reviews found for this filter.</p>
-      <p style="font-size:0.84rem;margin-top:6px;color:var(--muted);">Be the first to leave a review below!</p>
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-tag">Tech Store</div>
+    <h1>Laptops & Tech Hardware</h1>
+    <p>Quality laptops sourced, tested, and sold directly from Zion Netcom in Kaduna. Brand new, UK-used, and refurbished — all verified.</p>
+    <div class="trust-badges">
+      <div class="tbadge"><i class="fas fa-shield-alt"></i> Tested & Verified</div>
+      <div class="tbadge"><i class="fas fa-truck"></i> Nationwide Delivery</div>
+      <div class="tbadge"><i class="fas fa-headset"></i> After-Sales Support</div>
+      <div class="tbadge"><i class="fas fa-money-bill-wave"></i> Flexible Payment</div>
     </div>
   </div>
 </section>
 
-<!-- SUBMIT REVIEW -->
-<section class="submit-section" id="leave-review">
-  <div class="container">
-    <div class="submit-wrap">
-      <div class="submit-left">
-        <div class="hero-tag" style="margin-bottom:12px;">Share Your Experience</div>
-        <h2>Leave a Review</h2>
-        <p>Worked with us? We'd love to hear about your experience. Your feedback helps us improve and helps other businesses make informed decisions.</p>
-        <div class="trust-pts">
-          <div class="trust-pt"><i class="fas fa-shield-check"></i> All reviews are reviewed before publishing</div>
-          <div class="trust-pt"><i class="fas fa-eye-slash"></i> You can choose to hide your identity</div>
-          <div class="trust-pt"><i class="fas fa-star"></i> Honest feedback — good or constructive — is welcome</div>
-          <div class="trust-pt"><i class="fas fa-clock"></i> Reviews typically appear within 24–48 hours</div>
-        </div>
+<div class="filter-wrap">
+  <div class="wrap">
+    <div class="filter-bar">
+      <div class="filter-search">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Search laptops..." oninput="doFilter()">
       </div>
-      <div class="submit-card">
-        <!-- Form state -->
-        <div id="formState">
-          <h3><i class="fas fa-pen"></i> Write Your Review</h3>
-
-          <!-- STAR RATING -->
-          <div class="star-label">Your Rating *</div>
-          <div class="star-picker" id="starPicker">
-            <i class="fas fa-star sp-star" data-val="1"></i>
-            <i class="fas fa-star sp-star" data-val="2"></i>
-            <i class="fas fa-star sp-star" data-val="3"></i>
-            <i class="fas fa-star sp-star" data-val="4"></i>
-            <i class="fas fa-star sp-star" data-val="5"></i>
-          </div>
-          <div style="font-family:var(--mono);font-size:0.72rem;color:var(--muted);margin-bottom:16px;" id="starHint">Click a star to rate</div>
-
-          <!-- IDENTITY TOGGLE -->
-          <label class="identity-toggle">
-            <input type="checkbox" id="showIdentity" checked>
-            <div class="identity-toggle-text">
-              <div class="it-title">Show my name and details publicly</div>
-              <div class="it-sub">Uncheck to post anonymously</div>
-            </div>
-          </label>
-
-          <!-- NAME / ROLE FIELDS (hidden when anonymous) -->
-          <div id="identityFields">
-            <div class="r2">
-              <div class="fg"><label>Full Name *</label><input type="text" id="rv-name" placeholder="e.g. Aminu Ibrahim"></div>
-              <div class="fg"><label>Your Role / Title</label><input type="text" id="rv-role" placeholder="e.g. IT Manager"></div>
-            </div>
-            <div class="fg"><label>Company / Organisation</label><input type="text" id="rv-company" placeholder="e.g. Dangote Group"></div>
-          </div>
-
-          <!-- REVIEW TEXT -->
-          <div class="fg"><label>Your Review *</label>
-            <textarea id="rv-text" placeholder="Tell us about your experience with Zion Netcom. What service did we provide? What did we do well? What could we improve?"></textarea>
-          </div>
-
-          <!-- SERVICE TYPE -->
-          <div class="fg"><label>Service Used</label>
-            <select id="rv-service">
-              <option value="">Select a service (optional)</option>
-              <option>Fiber Optic / FTTH</option>
-              <option>Network Infrastructure</option>
-              <option>IoT / Smart Systems</option>
-              <option>Web / Software Development</option>
-              <option>Branding & Marketing</option>
-              <option>Telecoms Engineering</option>
-              <option>Laptop / Hardware Purchase</option>
-              <option>Consulting</option>
-              <option>Other</option>
-            </select>
-          </div>
-
-          <!-- PHOTO UPLOAD -->
-          <div class="fg">
-            <label>Your Photo (optional)</label>
-            <label class="photo-upload-label" for="rv-photo">
-              <i class="fas fa-camera"></i> Upload a Profile Photo
-            </label>
-            <input type="file" id="rv-photo" accept="image/*" style="display:none;" onchange="previewPhoto(this)">
-            <div class="photo-preview" id="photoPreview">
-              <img id="photoPreviewImg" src="" alt="Preview">
-            </div>
-          </div>
-
-          <button class="btn btn-primary" style="width:100%;justify-content:center;" id="submitBtn" onclick="submitReview()">
-            <i class="fas fa-paper-plane"></i> Submit Review
-          </button>
-          <p style="font-size:0.75rem;color:var(--muted);text-align:center;margin-top:10px;">Your review will be reviewed before appearing publicly.</p>
-        </div>
-
-        <!-- Success state -->
-        <div class="success-state" id="successState">
-          <i class="fas fa-check-circle"></i>
-          <h3>Thank You!</h3>
-          <p>Your review has been submitted and is pending approval. It will appear on this page within 24–48 hours.</p>
-        </div>
+      <select class="fsel" id="brandFilter" onchange="doFilter()">
+        <option value="">All Brands</option>
+        <option>HP</option><option>Dell</option><option>Lenovo</option>
+        <option>Apple</option><option>Asus</option><option>Acer</option>
+        <option>Microsoft</option><option>Samsung</option>
+      </select>
+      <select class="fsel" id="priceFilter" onchange="doFilter()">
+        <option value="">All Prices</option>
+        <option value="0-150000">Under ₦150k</option>
+        <option value="150000-300000">₦150k – ₦300k</option>
+        <option value="300000-500000">₦300k – ₦500k</option>
+        <option value="500000-9999999">Above ₦500k</option>
+      </select>
+      <div class="chips">
+        <button class="chip active" data-cond="">All</button>
+        <button class="chip" data-cond="new">Brand New</button>
+        <button class="chip" data-cond="uk-used">UK Used</button>
+        <button class="chip" data-cond="refurb">Refurbished</button>
       </div>
+      <span class="res-count" id="resCount"></span>
+    </div>
+  </div>
+</div>
+
+<section class="products-sec">
+  <div class="wrap">
+    <div id="loadingState" class="loading-state"><i class="fas fa-circle-notch"></i>Loading products...</div>
+    <div class="prod-grid" id="prodGrid" style="display:none;"></div>
+    <div class="no-results" id="noResults" style="display:none;">
+      <i class="fas fa-laptop"></i>
+      <p>No products match your search. <a href="#" onclick="resetFilters();return false;" style="color:var(--cyan);">Clear filters</a></p>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
 <section class="cta-strip">
-  <div class="container">
-    <h2>Ready to work with us?</h2>
-    <p>Join dozens of businesses and institutions that trust Zion Netcom for their ICT needs.</p>
+  <div class="wrap">
+    <h2>Can't find what you need?</h2>
+    <p>We source specific models on request. Tell us the brand, specs, and budget — we'll find it.</p>
     <div class="cta-btns">
-      <a href="contact.html" class="btn btn-primary"><i class="fas fa-envelope"></i> Get in Touch</a>
-      <a href="services.html" class="btn btn-outline"><i class="fas fa-cogs"></i> Our Services</a>
+      <a href="https://wa.me/2347067580599?text=Hi%2C%20I%27m%20looking%20for%20a%20specific%20laptop%20from%20Zion%20Netcom" target="_blank" class="btn btn-g"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+      <a href="contact.html" class="btn btn-o"><i class="fas fa-envelope"></i> Send Enquiry</a>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="logo" style="margin-bottom:14px;"><img src="zion.jpg" alt="Zion Netcom" style="height:38px;width:auto;"><div><div class="logo-text">ZION<span>NETCOM</span></div><div class="logo-sub">Solutions Limited</div></div></div>
+  <div class="wrap">
+    <div class="fg2">
+      <div class="fb">
+        <div class="logo" style="margin-bottom:13px;"><img src="zion.jpg" alt="Zion Netcom" style="height:37px;width:auto;"><div><div class="logo-name">ZION<span>NETCOM</span></div><div class="logo-sub">Solutions Limited</div></div></div>
         <p>Engineering reliable digital infrastructure across Nigeria and Africa.</p>
-        <div class="data-readout" style="margin-top:13px;"><span class="indicator"></span><span>ALL SYSTEMS OPERATIONAL</span></div>
+        <div class="rdo" style="margin-top:12px;"><span class="ind"></span><span>ALL SYSTEMS OPERATIONAL</span></div>
       </div>
       <div><h4>Navigation</h4><ul>
         <li><a href="index.html">Home</a></li><li><a href="services.html">Solutions</a></li>
         <li><a href="projects.html">Projects</a></li><li><a href="about.html">About</a></li>
         <li><a href="contact.html">Contact</a></li><li><a href="blog.html">Blog</a></li>
         <li><a href="payment.html">Make Payment</a></li><li><a href="store.html">Store</a></li>
-        <li><a href="reviews.html">Reviews</a></li>
       </ul></div>
-      <div><h4>Services</h4><ul>
-        <li><a href="services.html">Fiber Optic / FTTH</a></li>
-        <li><a href="services.html">Network Infrastructure</a></li>
-        <li><a href="services.html">IoT Systems</a></li>
-        <li><a href="services.html">Web Development</a></li>
-        <li><a href="store.html">Laptop Store</a></li>
+      <div><h4>Store</h4><ul>
+        <li><a href="#" onclick="setChip('new');return false;">Brand New</a></li>
+        <li><a href="#" onclick="setChip('uk-used');return false;">UK Used</a></li>
+        <li><a href="#" onclick="setChip('refurb');return false;">Refurbished</a></li>
+        <li><a href="contact.html">Request a Model</a></li>
       </ul></div>
-      <div class="footer-contact"><h4>Contact</h4>
+      <div class="fc"><h4>Contact</h4>
         <p><i class="fas fa-map-marker-alt"></i> No 32 Benue Plaza, Waff Road, Kaduna</p>
         <p><i class="fas fa-phone"></i> +234 706 758 0599</p>
         <p><i class="fas fa-envelope"></i> info@zionnetcomsolutionsltd.com.ng</p>
         <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/2347067580599" target="_blank" style="color:var(--text2);text-decoration:none;">WhatsApp Us</a></p>
       </div>
     </div>
-    <div class="footer-bottom">
+    <div class="fbot">
       <span>© 2026 Zion Netcom Solutions Limited</span>
       <span>Built with precision in Kaduna, Nigeria</span>
     </div>
   </div>
 </footer>
+
+<!-- ORDER MODAL -->
+<div class="modal-overlay" id="orderModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+    <div class="modal-prod-hdr">
+      <div class="modal-thumb" id="modalThumb"><i class="fas fa-laptop"></i></div>
+      <div>
+        <div class="modal-pname" id="modalName">—</div>
+        <div class="modal-pprice" id="modalPrice">—</div>
+      </div>
+    </div>
+    <div class="modal-sec">Your Details</div>
+    <div class="r2">
+      <div class="fg"><label>Full Name</label><input id="ord-name" placeholder="Your full name"></div>
+      <div class="fg"><label>Phone Number</label><input id="ord-phone" placeholder="+234..."></div>
+    </div>
+    <div class="fg"><label>Email Address</label><input type="email" id="ord-email" placeholder="your@email.com"></div>
+    <div class="fg"><label>Delivery Address</label><input id="ord-addr" placeholder="Where should we deliver?"></div>
+    <div class="r2">
+      <div class="fg"><label>Payment Method</label>
+        <select id="ord-pay"><option>Bank Transfer</option><option>Cash on Pickup</option><option>Opay</option><option>Palmpay</option><option>Installment (discuss)</option></select>
+      </div>
+      <div class="fg"><label>Pickup or Delivery</label>
+        <select id="ord-del"><option>Delivery (Kaduna)</option><option>Nationwide Delivery</option><option>Pickup from Kaduna Office</option></select>
+      </div>
+    </div>
+    <div class="fg"><label>Additional Notes</label><textarea id="ord-notes" placeholder="Any special requests..."></textarea></div>
+    <div class="divider"><span>choose how to send</span></div>
+    <div class="order-btns">
+      <a id="waBtn" href="#" target="_blank" class="btn btn-g btn-sm"><i class="fab fa-whatsapp"></i> Order via WhatsApp</a>
+      <button class="btn btn-p btn-sm" onclick="emailOrder()"><i class="fas fa-envelope"></i> Send by Email</button>
+    </div>
+  </div>
+</div>
+
+<!-- QUICK VIEW MODAL -->
+<div class="qv-overlay" id="qvModal">
+  <div class="qv-box">
+    <button class="qv-close" onclick="closeQuickView()"><i class="fas fa-times"></i></button>
+    <div class="qv-media">
+      <div class="qv-main" id="qvMain" onclick="openLightbox()"></div>
+      <div class="qv-thumbs" id="qvThumbs"></div>
+    </div>
+    <div class="qv-info">
+      <div class="qv-badges" id="qvBadges"></div>
+      <div class="qv-brand" id="qvBrand"></div>
+      <div class="qv-name" id="qvName"></div>
+      <div class="qv-price-row"><span class="qv-price" id="qvPrice"></span><span class="qv-old-price" id="qvOldPrice"></span></div>
+      <span class="qv-stock" id="qvStock"></span>
+      <div class="qv-sec-title">Specifications</div>
+      <div class="qv-specs" id="qvSpecs"></div>
+      <div class="qv-actions" id="qvActions"></div>
+    </div>
+  </div>
+</div>
+
+<!-- IMAGE LIGHTBOX -->
+<div class="lb-overlay" id="lbOverlay">
+  <button class="lb-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+  <button class="lb-arrow prev" id="lbPrev" onclick="lbNav(-1)"><i class="fas fa-chevron-left"></i></button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-arrow next" id="lbNext" onclick="lbNav(1)"><i class="fas fa-chevron-right"></i></button>
+</div>
 
 <div class="toast" id="toast"><i class="fas fa-check-circle" id="t-icon" style="color:var(--green);margin-right:7px;"></i><span id="t-msg"></span></div>
 
@@ -456,246 +450,329 @@ function getDB() {
   return _db;
 }
 
-var allReviews  = [];
-var activeFilter = 'all';
-var selectedRating = 0;
+var allProducts = [];
+var activeCond  = '';
+var currentProd = null;
 
-// ═══ LOAD & RENDER ═══
-async function loadReviews() {
-  var db  = getDB();
-  var res = await db.from('reviews').select('*').eq('status','approved').order('created_at',{ascending:false});
-  document.getElementById('reviewsLoading').style.display = 'none';
+// ═══ LOAD PRODUCTS ═══
+async function loadProducts() {
+  var db = getDB();
+  var res = await db.from('products').select('*').order('created_at', {ascending: false});
+  document.getElementById('loadingState').style.display = 'none';
+  document.getElementById('prodGrid').style.display = 'grid';
   if (res.error || !res.data) {
-    document.getElementById('reviewsEmpty').style.display = 'block';
+    document.getElementById('noResults').style.display = 'block';
+    document.getElementById('noResults').innerHTML = '<i class="fas fa-triangle-exclamation"></i><p>Failed to load products. Please refresh.</p>';
     return;
   }
-  allReviews = res.data;
-  updateStats();
-  renderReviews();
+  allProducts = res.data;
+  doFilter();
 }
 
-function updateStats() {
-  var total  = allReviews.length;
-  var avg    = total ? (allReviews.reduce(function(s,r){ return s+r.rating; },0) / total) : 0;
-  var fives  = allReviews.filter(function(r){ return r.rating === 5; }).length;
-  var rec    = total ? Math.round((allReviews.filter(function(r){ return r.rating >= 4; }).length / total) * 100) : 0;
-  document.getElementById('stat-total').textContent = total;
-  document.getElementById('stat-avg').textContent   = avg ? avg.toFixed(1) : '—';
-  document.getElementById('stat-five').textContent  = fives;
-  document.getElementById('stat-rec').textContent   = total ? rec + '%' : '—%';
-  // Color stars based on avg
-  var starEl = document.getElementById('stat-stars');
-  var filled = Math.round(avg);
-  starEl.innerHTML = '';
-  for (var i = 1; i <= 5; i++) {
-    starEl.innerHTML += '<i class="fas fa-star" style="color:' + (i <= filled ? 'var(--star)' : 'var(--el)') + '"></i>';
-  }
+// ═══ RENDER ═══
+function fmtP(n) { return '₦' + Number(n).toLocaleString('en-NG'); }
+
+function condInfo(c) {
+  if (c === 'new')     return {cls:'b-new',   label:'Brand New'};
+  if (c === 'uk-used') return {cls:'b-used',  label:'UK Used'};
+  return                      {cls:'b-refurb', label:'Refurbished'};
 }
 
-function renderReviews() {
-  var filtered = allReviews;
-  if (activeFilter === 'recent') {
-    filtered = allReviews.slice(0, 12);
-  } else if (activeFilter !== 'all') {
-    var stars = parseInt(activeFilter);
-    filtered = allReviews.filter(function(r){ return r.rating === stars; });
-  }
-  document.getElementById('filterCount').textContent = filtered.length + ' review' + (filtered.length !== 1 ? 's' : '');
-  var grid  = document.getElementById('reviewsGrid');
-  var empty = document.getElementById('reviewsEmpty');
-  if (!filtered.length) { grid.style.display='none'; empty.style.display='block'; return; }
-  grid.style.display = 'grid'; empty.style.display = 'none';
-  grid.innerHTML = filtered.map(function(r) {
-    var stars = '';
-    for (var i = 1; i <= 5; i++) {
-      stars += '<i class="fas fa-star' + (i <= r.rating ? '' : ' empty') + '"></i>';
-    }
-    var avatar = '';
-    if (r.show_identity && r.photo_url) {
-      avatar = '<img src="' + r.photo_url + '" alt="' + escHtml(r.name||'Reviewer') + '" onerror="this.parentElement.innerHTML=\'<div class=\\\"avatar-initials\\\">'+getInitials(r.name)+'</div>\'">';
-    } else if (r.show_identity && r.name) {
-      avatar = '<div class="avatar-initials">' + getInitials(r.name) + '</div>';
+function renderProducts(list) {
+  var grid   = document.getElementById('prodGrid');
+  var noRes  = document.getElementById('noResults');
+  document.getElementById('resCount').textContent = list.length + ' product' + (list.length !== 1 ? 's' : '') + ' found';
+  if (!list.length) { grid.innerHTML = ''; noRes.style.display = 'block'; return; }
+  noRes.style.display = 'none';
+  grid.innerHTML = list.map(function(p) {
+    var ci     = condInfo(p.condition);
+    var imgs   = p.images && p.images.length ? p.images : [];
+    var imgHtml = '';
+    if (imgs.length) {
+      imgs.forEach(function(url, i) {
+        imgHtml += '<img src="' + url + '" class="' + (i === 0 ? 'active' : '') + '" alt="' + p.name + '" onerror="this.style.display=\'none\'">';
+      });
     } else {
-      avatar = '<div class="avatar-initials" style="color:var(--muted)">?</div>';
+      imgHtml = '<div class="no-img"><i class="fas fa-laptop"></i></div>';
     }
-    var nameHtml = r.show_identity && r.name
-      ? '<div class="rc-name">' + escHtml(r.name) + '</div>' +
-        (r.role ? '<div class="rc-role">' + escHtml(r.role) + '</div>' : '') +
-        (r.company ? '<div class="rc-company">' + escHtml(r.company) + '</div>' : '')
-      : '<div class="rc-anon">Anonymous</div>';
-    var svcBadge = r.service ? '<div class="rc-badge">' + escHtml(r.service) + '</div>' : '';
-    var dt = r.created_at ? new Date(r.created_at).toLocaleDateString('en-NG',{day:'numeric',month:'long',year:'numeric'}) : '';
-    return '<div class="review-card">' + svcBadge +
-      '<div class="rc-top"><div class="rc-avatar">' + avatar + '</div><div class="rc-info">' + nameHtml + '</div></div>' +
-      '<div class="rc-stars">' + stars + '</div>' +
-      '<div class="rc-text">' + escHtml(r.review_text) + '</div>' +
-      '<div class="rc-date">' + dt + '</div>' +
-      '</div>';
+    var arrows = imgs.length > 1
+      ? '<button class="carousel-arrow prev" onclick="carouselNav(\''+p.id+'\', -1, event)"><i class="fas fa-chevron-left"></i></button>' +
+        '<button class="carousel-arrow next" onclick="carouselNav(\''+p.id+'\', 1, event)"><i class="fas fa-chevron-right"></i></button>'
+      : '';
+    var dots = imgs.length > 1
+      ? '<div class="carousel-nav">' + imgs.map(function(_, i) {
+          return '<button class="carousel-dot' + (i === 0 ? ' active' : '') + '" onclick="carouselGo(\''+p.id+'\', '+i+', event)"></button>';
+        }).join('') + '</div>'
+      : '';
+    var topBadge = p.hot
+      ? '<span class="prod-badge b-hot"><i class="fas fa-fire"></i> Hot</span>'
+      : '<span class="prod-badge ' + ci.cls + '">' + ci.label + '</span>';
+    var condLabel2 = p.hot ? '<span class="prod-badge ' + ci.cls + '" style="left:auto;right:10px;top:auto;bottom:10px;">' + ci.label + '</span>' : '';
+    var soldOverlay = p.in_stock ? '' : '<div class="sold-overlay"><div class="sold-tag">SOLD OUT</div></div>';
+    var specs = (p.specs || []).map(function(s) { return '<div class="spec-row"><i class="fas fa-check"></i>' + s + '</div>'; }).join('');
+    var oldP  = p.old_price ? '<span class="old-price">' + fmtP(p.old_price) + '</span>' : '';
+    var imgCount = imgs.length > 1 ? '<span class="img-count"><i class="fas fa-images"></i> ' + imgs.length + ' photos</span>' : '';
+    var actions = p.in_stock
+      ? '<button class="btn btn-p btn-sm" onclick="openModal(\'' + p.id + '\')"><i class="fas fa-shopping-cart"></i> Order</button>' +
+        '<a href="https://wa.me/2347067580599?text=Hi%2C%20I%27m%20interested%20in%20' + encodeURIComponent(p.name) + '%20at%20' + encodeURIComponent(fmtP(p.price)) + '%20from%20Zion%20Netcom%20Store" target="_blank" class="btn btn-g btn-sm"><i class="fab fa-whatsapp"></i></a>'
+      : '<button class="btn btn-o btn-sm" disabled style="opacity:0.45;cursor:not-allowed;">Out of Stock</button>';
+    return '<div class="prod-card' + (p.in_stock ? '' : ' oos') + '" id="card-' + p.id + '">' +
+      '<div class="img-carousel" id="car-' + p.id + '" onclick="openQuickView(\'' + p.id + '\')">' + imgHtml + topBadge + condLabel2 +
+      '<span class="stock-dot ' + (p.in_stock ? 'dot-in' : 'dot-out') + '"></span>' +
+      soldOverlay + arrows + dots + '</div>' +
+      '<div class="prod-body">' +
+        '<div class="prod-brand">' + p.brand + '</div>' +
+        '<div class="prod-name" onclick="openQuickView(\'' + p.id + '\')" style="cursor:pointer;">' + p.name + '</div>' +
+        '<div class="prod-specs">' + specs + '</div>' +
+        '<div class="price-row"><span><span class="prod-price">' + fmtP(p.price) + '</span>' + oldP + '</span>' + imgCount + '</div>' +
+        '<div class="prod-actions">' + actions + '</div>' +
+      '</div></div>';
   }).join('');
 }
 
-function getInitials(name) {
-  if (!name) return '?';
-  var parts = name.trim().split(' ');
-  return (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
+// ═══ CAROUSEL ═══
+function carouselNav(id, dir, e) {
+  e.stopPropagation();
+  var car  = document.getElementById('car-' + id);
+  var imgs = car.querySelectorAll('img');
+  var dots = car.querySelectorAll('.carousel-dot');
+  var cur  = Array.from(imgs).findIndex(function(i){ return i.classList.contains('active'); });
+  var next = (cur + dir + imgs.length) % imgs.length;
+  imgs[cur].classList.remove('active'); imgs[next].classList.add('active');
+  if (dots.length) { dots[cur].classList.remove('active'); dots[next].classList.add('active'); }
 }
-function escHtml(s) {
-  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+function carouselGo(id, idx, e) {
+  e.stopPropagation();
+  var car  = document.getElementById('car-' + id);
+  var imgs = car.querySelectorAll('img');
+  var dots = car.querySelectorAll('.carousel-dot');
+  var cur  = Array.from(imgs).findIndex(function(i){ return i.classList.contains('active'); });
+  imgs[cur].classList.remove('active'); imgs[idx].classList.add('active');
+  if (dots.length) { dots[cur].classList.remove('active'); dots[idx].classList.add('active'); }
 }
 
 // ═══ FILTER ═══
-document.querySelectorAll('.fchip').forEach(function(chip) {
-  chip.addEventListener('click', function() {
-    document.querySelectorAll('.fchip').forEach(function(c){ c.classList.remove('active'); });
-    this.classList.add('active');
-    activeFilter = this.dataset.filter;
-    renderReviews();
+function doFilter() {
+  var q    = document.getElementById('searchInput').value.toLowerCase();
+  var brand = document.getElementById('brandFilter').value;
+  var prR  = document.getElementById('priceFilter').value;
+  var minP = 0, maxP = Infinity;
+  if (prR) { var parts = prR.split('-'); minP = Number(parts[0]); maxP = Number(parts[1]); }
+  var filtered = allProducts.filter(function(p) {
+    var mQ = !q || p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q) || (p.specs || []).some(function(s){ return s.toLowerCase().includes(q); });
+    var mB = !brand || p.brand === brand;
+    var mC = !activeCond || p.condition === activeCond;
+    var mP = p.price >= minP && p.price <= maxP;
+    return mQ && mB && mC && mP;
   });
-});
-
-// ═══ STAR PICKER ═══
-var stars = document.querySelectorAll('.sp-star');
-var ratingLabels = ['','Poor','Below Average','Average','Good','Excellent'];
-stars.forEach(function(star) {
-  star.addEventListener('click', function() {
-    selectedRating = parseInt(this.dataset.val);
-    stars.forEach(function(s) {
-      s.classList.toggle('selected', parseInt(s.dataset.val) <= selectedRating);
-    });
-    document.getElementById('starHint').textContent = ratingLabels[selectedRating] + ' — ' + selectedRating + '/5 stars';
-    document.getElementById('starHint').style.color = 'var(--star)';
-  });
-  star.addEventListener('mouseover', function() {
-    var hov = parseInt(this.dataset.val);
-    stars.forEach(function(s){ s.style.color = parseInt(s.dataset.val) <= hov ? 'var(--star)' : 'var(--el)'; });
-  });
-  star.addEventListener('mouseout', function() {
-    stars.forEach(function(s){ s.style.color = parseInt(s.dataset.val) <= selectedRating ? 'var(--star)' : 'var(--el)'; });
-  });
-});
-
-// ═══ IDENTITY TOGGLE ═══
-document.getElementById('showIdentity').addEventListener('change', function() {
-  document.getElementById('identityFields').style.display = this.checked ? 'block' : 'none';
-});
-
-// ═══ PHOTO PREVIEW ═══
-function previewPhoto(input) {
-  if (input.files && input.files[0]) {
-    var reader = new FileReader();
-    reader.onload = function(e) {
-      document.getElementById('photoPreviewImg').src = e.target.result;
-      document.getElementById('photoPreview').style.display = 'block';
-    };
-    reader.readAsDataURL(input.files[0]);
-  }
+  renderProducts(filtered);
 }
 
-// ═══ SUBMIT REVIEW ═══
-async function submitReview() {
-  var db   = getDB();
-  var btn  = document.getElementById('submitBtn');
-  var show = document.getElementById('showIdentity').checked;
-  var name = document.getElementById('rv-name').value.trim();
-  var text = document.getElementById('rv-text').value.trim();
+document.querySelectorAll('.chip').forEach(function(chip) {
+  chip.addEventListener('click', function() {
+    document.querySelectorAll('.chip').forEach(function(c){ c.classList.remove('active'); });
+    this.classList.add('active');
+    activeCond = this.dataset.cond;
+    doFilter();
+  });
+});
 
-  if (!selectedRating) { showToast('Please select a star rating.', false); return; }
-  if (show && !name)   { showToast('Please enter your name.', false); return; }
-  if (!text)           { showToast('Please write your review.', false); return; }
-  if (text.length < 20){ showToast('Review must be at least 20 characters.', false); return; }
+function setChip(cond) {
+  document.querySelectorAll('.chip').forEach(function(c){ c.classList.toggle('active', c.dataset.cond === cond); });
+  activeCond = cond; doFilter();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function resetFilters() {
+  document.getElementById('searchInput').value = '';
+  document.getElementById('brandFilter').value = '';
+  document.getElementById('priceFilter').value = '';
+  activeCond = '';
+  document.querySelectorAll('.chip').forEach(function(c,i){ c.classList.toggle('active', i===0); });
+  doFilter();
+}
 
-  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
-  btn.disabled  = true;
-
-  try {
-    var photoUrl = null;
-    var photoFile = document.getElementById('rv-photo').files[0];
-    if (photoFile && show) {
-      var ext  = photoFile.name.split('.').pop();
-      var path = 'reviewers/' + Date.now() + '.' + ext;
-      var up   = await db.storage.from('review-photos').upload(path, photoFile, {upsert:true});
-      if (!up.error) {
-        var pub = db.storage.from('review-photos').getPublicUrl(path);
-        photoUrl = pub.data.publicUrl;
-      }
-    }
-
-    var data = {
-      name:          show ? name : null,
-      role:          show ? document.getElementById('rv-role').value.trim() || null : null,
-      company:       show ? document.getElementById('rv-company').value.trim() || null : null,
-      rating:        selectedRating,
-      review_text:   text,
-      photo_url:     photoUrl,
-      show_identity: show,
-      service:       document.getElementById('rv-service').value || null,
-      status:        'pending'
-    };
-
-    var res = await db.from('reviews').insert(data);
-    if (res.error) throw new Error(res.error.message);
-
-    document.getElementById('formState').style.display    = 'none';
-    document.getElementById('successState').style.display = 'block';
-  } catch(e) {
-    showToast('Error: ' + e.message, false);
-    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Review';
-    btn.disabled  = false;
+// ═══ ORDER MODAL ═══
+function openModal(id) {
+  currentProd = allProducts.find(function(p){ return p.id === id; });
+  if (!currentProd) return;
+  document.getElementById('modalName').textContent  = currentProd.name;
+  document.getElementById('modalPrice').textContent = fmtP(currentProd.price);
+  var thumb = document.getElementById('modalThumb');
+  if (currentProd.images && currentProd.images[0]) {
+    thumb.innerHTML = '<img src="' + currentProd.images[0] + '" alt="' + currentProd.name + '">';
+  } else {
+    thumb.innerHTML = '<i class="fas fa-laptop"></i>';
   }
+  document.getElementById('orderModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  updateWA();
+}
+function closeModal() {
+  document.getElementById('orderModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('orderModal').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
+
+['ord-name','ord-phone','ord-addr','ord-pay','ord-del','ord-notes'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) { el.addEventListener('input', updateWA); el.addEventListener('change', updateWA); }
+});
+
+function updateWA() {
+  if (!currentProd) return;
+  var name  = document.getElementById('ord-name').value  || '(not filled)';
+  var phone = document.getElementById('ord-phone').value || '(not filled)';
+  var addr  = document.getElementById('ord-addr').value  || '(not filled)';
+  var pay   = document.getElementById('ord-pay').value;
+  var del_  = document.getElementById('ord-del').value;
+  var notes = document.getElementById('ord-notes').value;
+  var msg   = 'Hi Zion Netcom, I want to order:\n\n*Product:* ' + currentProd.name + '\n*Price:* ' + fmtP(currentProd.price) + '\n\n*Name:* ' + name + '\n*Phone:* ' + phone + '\n*Delivery Address:* ' + addr + '\n*Payment:* ' + pay + '\n*Delivery Option:* ' + del_ + (notes ? '\n*Notes:* ' + notes : '');
+  document.getElementById('waBtn').href = 'https://wa.me/2347067580599?text=' + encodeURIComponent(msg);
+}
+
+function emailOrder() {
+  if (!currentProd) return;
+  var name = document.getElementById('ord-name').value;
+  var phone = document.getElementById('ord-phone').value;
+  if (!name || !phone) { showToast('Please enter your name and phone number.', false); return; }
+  var sub  = 'Store Order: ' + currentProd.name;
+  var body = 'Product: ' + currentProd.name + '\nPrice: ' + fmtP(currentProd.price) + '\n\nName: ' + name + '\nPhone: ' + phone + '\nEmail: ' + document.getElementById('ord-email').value + '\nAddress: ' + document.getElementById('ord-addr').value + '\nPayment: ' + document.getElementById('ord-pay').value + '\nDelivery: ' + document.getElementById('ord-del').value + '\nNotes: ' + document.getElementById('ord-notes').value;
+  window.location.href = 'mailto:info@zionnetcomsolutionsltd.com.ng?subject=' + encodeURIComponent(sub) + '&body=' + encodeURIComponent(body);
 }
 
 // ═══ TOAST ═══
 function showToast(msg, ok) {
   if (ok === undefined) ok = true;
-  var t  = document.getElementById('toast');
-  var ic = document.getElementById('t-icon');
-  ic.style.color = ok ? 'var(--green)' : 'var(--yellow)';
-  ic.className   = ok ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+  var t = document.getElementById('toast');
+  document.getElementById('t-icon').style.color = ok ? 'var(--green)' : 'var(--yellow)';
   document.getElementById('t-msg').textContent = msg;
   t.classList.add('show');
-  setTimeout(function(){ t.classList.remove('show'); }, 3500);
+  setTimeout(function(){ t.classList.remove('show'); }, 3200);
 }
 
 // ═══ MOBILE MENU & THEME ═══
-var menuToggle = document.getElementById('menuToggle');
-var menuIcon   = document.getElementById('menuIcon');
-var navLinks   = document.getElementById('navLinks');
-var navOverlay = document.getElementById('navOverlay');
-menuToggle.addEventListener('click', function() {
-  var open = navLinks.classList.toggle('active');
+var menuBtn  = document.getElementById('menuBtn');
+var menuIcon = document.getElementById('menuIcon');
+var navMenu  = document.getElementById('navMenu');
+menuBtn.addEventListener('click', function() {
+  var open = navMenu.classList.toggle('open');
   menuIcon.className = open ? 'fas fa-times' : 'fas fa-bars';
-  if (navOverlay) navOverlay.classList.toggle('active', open);
-  document.body.style.overflow = open ? 'hidden' : '';
 });
-navLinks.querySelectorAll('a').forEach(function(a) {
-  a.addEventListener('click', function(){
-    navLinks.classList.remove('active');
-    menuIcon.className='fas fa-bars';
-    if (navOverlay) navOverlay.classList.remove('active');
-    document.body.style.overflow = '';
-  });
-});
-document.addEventListener('click', function(e) {
-  if (navLinks.classList.contains('active') && !navLinks.contains(e.target) && e.target !== menuToggle && !menuToggle.contains(e.target)) {
-    navLinks.classList.remove('active');
-    menuIcon.className = 'fas fa-bars';
-    if (navOverlay) navOverlay.classList.remove('active');
-    document.body.style.overflow = '';
-  }
+navMenu.querySelectorAll('a').forEach(function(a) {
+  a.addEventListener('click', function(){ navMenu.classList.remove('open'); menuIcon.className='fas fa-bars'; });
 });
 var themeBtn  = document.getElementById('themeBtn');
 var themeIcon = document.getElementById('themeIcon');
 function applyTheme(t) {
-  document.body.classList.toggle('light-mode', t==='light');
+  document.body.classList.toggle('light', t==='light');
   themeIcon.className = t==='light' ? 'fas fa-moon' : 'fas fa-sun';
   localStorage.setItem('zn-theme', t);
 }
 var savedT = localStorage.getItem('zn-theme');
 if (savedT) applyTheme(savedT);
-themeBtn.addEventListener('click', function(){ applyTheme(document.body.classList.contains('light-mode')?'dark':'light'); });
+themeBtn.addEventListener('click', function(){ applyTheme(document.body.classList.contains('light')?'dark':'light'); });
+
+// ═══ QUICK VIEW ═══
+var qvProd  = null;
+var qvIndex = 0;
+
+function openQuickView(id) {
+  qvProd = allProducts.find(function(p){ return p.id === id; });
+  if (!qvProd) return;
+  qvIndex = 0;
+  renderQuickView();
+  document.getElementById('qvModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeQuickView() {
+  document.getElementById('qvModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function renderQuickView() {
+  var p    = qvProd;
+  var imgs = p.images && p.images.length ? p.images : [];
+  var mainEl = document.getElementById('qvMain');
+  if (imgs.length) {
+    mainEl.innerHTML = imgs.map(function(url, i) {
+      return '<img src="' + url + '" class="' + (i === qvIndex ? 'active' : '') + '" alt="' + p.name + '">';
+    }).join('') +
+    (imgs.length > 1 ? '<button class="qv-main-arrow prev" onclick="qvNav(-1,event)"><i class="fas fa-chevron-left"></i></button><button class="qv-main-arrow next" onclick="qvNav(1,event)"><i class="fas fa-chevron-right"></i></button>' : '') +
+    '<span class="qv-zoom-hint"><i class="fas fa-magnifying-glass-plus"></i> Click to zoom</span>';
+  } else {
+    mainEl.innerHTML = '<div class="no-img"><i class="fas fa-laptop"></i></div>';
+  }
+  var thumbsEl = document.getElementById('qvThumbs');
+  thumbsEl.innerHTML = imgs.length > 1 ? imgs.map(function(url, i) {
+    return '<div class="qv-thumb' + (i === qvIndex ? ' active' : '') + '" onclick="qvGo(' + i + ')"><img src="' + url + '" alt=""></div>';
+  }).join('') : '';
+  var ci = condInfo(p.condition);
+  var badges = p.hot ? '<span class="prod-badge b-hot"><i class="fas fa-fire"></i> Hot</span>' : '';
+  badges += '<span class="prod-badge ' + ci.cls + '">' + ci.label + '</span>';
+  document.getElementById('qvBadges').innerHTML = badges;
+  document.getElementById('qvBrand').textContent = p.brand;
+  document.getElementById('qvName').textContent  = p.name;
+  document.getElementById('qvPrice').textContent = fmtP(p.price);
+  document.getElementById('qvOldPrice').textContent = p.old_price ? fmtP(p.old_price) : '';
+  var stockEl = document.getElementById('qvStock');
+  stockEl.className = 'qv-stock ' + (p.in_stock ? 'in' : 'out');
+  stockEl.innerHTML  = p.in_stock ? '<i class="fas fa-circle-check"></i> In Stock' : '<i class="fas fa-circle-xmark"></i> Out of Stock';
+  document.getElementById('qvSpecs').innerHTML = (p.specs || []).map(function(s) {
+    return '<div class="qv-spec-row"><i class="fas fa-check"></i>' + s + '</div>';
+  }).join('');
+  document.getElementById('qvActions').innerHTML = p.in_stock
+    ? '<button class="btn btn-p btn-sm" onclick="closeQuickView();openModal(\'' + p.id + '\')"><i class="fas fa-shopping-cart"></i> Order Now</button>' +
+      '<a href="https://wa.me/2347067580599?text=Hi%2C%20I%27m%20interested%20in%20' + encodeURIComponent(p.name) + '%20at%20' + encodeURIComponent(fmtP(p.price)) + '%20from%20Zion%20Netcom%20Store" target="_blank" class="btn btn-g btn-sm"><i class="fab fa-whatsapp"></i> WhatsApp</a>'
+    : '<button class="btn btn-o btn-sm" disabled style="opacity:0.45;cursor:not-allowed;">Out of Stock</button>';
+}
+function qvNav(dir, e) {
+  if (e) e.stopPropagation();
+  var imgs = qvProd.images || [];
+  if (!imgs.length) return;
+  qvIndex = (qvIndex + dir + imgs.length) % imgs.length;
+  renderQuickView();
+}
+function qvGo(i) {
+  qvIndex = i;
+  renderQuickView();
+}
+document.getElementById('qvModal').addEventListener('click', function(e){ if (e.target === this) closeQuickView(); });
+
+// ═══ IMAGE LIGHTBOX (full zoom view) ═══
+function openLightbox() {
+  var imgs = (qvProd && qvProd.images) || [];
+  if (!imgs.length) return;
+  document.getElementById('lbImg').src = imgs[qvIndex];
+  var multi = imgs.length > 1;
+  document.getElementById('lbPrev').style.display = multi ? 'flex' : 'none';
+  document.getElementById('lbNext').style.display = multi ? 'flex' : 'none';
+  document.getElementById('lbOverlay').classList.add('open');
+}
+function closeLightbox() {
+  document.getElementById('lbOverlay').classList.remove('open');
+}
+function lbNav(dir) {
+  var imgs = qvProd.images || [];
+  if (!imgs.length) return;
+  qvIndex = (qvIndex + dir + imgs.length) % imgs.length;
+  document.getElementById('lbImg').src = imgs[qvIndex];
+  document.querySelectorAll('.qv-thumb').forEach(function(t,i){ t.classList.toggle('active', i===qvIndex); });
+  document.querySelectorAll('#qvMain img').forEach(function(im,i){ im.classList.toggle('active', i===qvIndex); });
+}
+document.getElementById('lbOverlay').addEventListener('click', function(e){ if (e.target === this) closeLightbox(); });
+document.addEventListener('keydown', function(e) {
+  if (document.getElementById('lbOverlay').classList.contains('open')) {
+    if (e.key === 'Escape')     closeLightbox();
+    if (e.key === 'ArrowLeft')  lbNav(-1);
+    if (e.key === 'ArrowRight') lbNav(1);
+  } else if (document.getElementById('qvModal').classList.contains('open')) {
+    if (e.key === 'Escape')     closeQuickView();
+    if (e.key === 'ArrowLeft')  qvNav(-1);
+    if (e.key === 'ArrowRight') qvNav(1);
+  }
+});
 
 // ═══ INIT ═══
-loadReviews();
+loadProducts();
 </script>
 </body>
 </html>
