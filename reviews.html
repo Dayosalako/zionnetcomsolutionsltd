@@ -27,44 +27,48 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 
 /* TOPBAR */
 .topbar{background:var(--bg2);border-bottom:1px solid var(--br);padding:9px 0;font-family:var(--mono);font-size:0.73rem;position:relative;z-index:100;}
-.topbar-inner{display:flex;justify-content:space-between;align-items:center;}
-.tb-info{display:flex;align-items:center;gap:20px;}
-.tb-item{display:flex;align-items:center;gap:6px;color:var(--text2);text-decoration:none;white-space:nowrap;}
-.tb-item i{color:var(--cyan);font-size:0.78rem;}
-.tb-right{display:flex;align-items:center;gap:14px;}
-.tb-social{display:flex;align-items:center;gap:12px;}
-.tb-social a{color:var(--muted);font-size:0.85rem;transition:color 0.2s;text-decoration:none;}
-.tb-social a:hover{color:var(--cyan);}
-.theme-btn{background:none;border:1px solid var(--br);border-radius:20px;color:var(--text2);font-size:0.78rem;cursor:pointer;padding:4px 10px;display:flex;align-items:center;gap:5px;transition:all 0.2s;}
-.theme-btn:hover{border-color:var(--cyan);color:var(--cyan);}
+.topbar-inner{display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.topbar-info{display:flex;align-items:center;gap:20px;flex-wrap:nowrap;overflow:hidden;}
+.tb-item{display:flex;align-items:center;gap:6px;color:var(--text2);text-decoration:none;white-space:nowrap;transition:color 0.2s;flex-shrink:0;}
+.tb-item i{color:var(--cyan);font-size:0.78rem;flex-shrink:0;}
+.tb-item:hover{color:var(--cyan);}
+.topbar-right{display:flex;align-items:center;gap:14px;flex-shrink:0;}
+.topbar-social{display:flex;align-items:center;gap:12px;}
+.topbar-social a{color:var(--muted);font-size:0.85rem;transition:color 0.3s;text-decoration:none;}
+.topbar-social a:hover{color:var(--cyan);}
+.theme-toggle{background:none;border:1px solid var(--br);border-radius:20px;color:var(--text2);font-size:0.78rem;cursor:pointer;padding:4px 10px;display:flex;align-items:center;gap:5px;transition:all 0.2s;white-space:nowrap;}
+.theme-toggle:hover{border-color:var(--cyan);color:var(--cyan);}
+@media(max-width:768px){.topbar{padding:7px 0;}.tb-phone .tb-text,.tb-email{display:none;}.topbar-info{gap:14px;}}
+@media(max-width:480px){.tb-location .tb-text{display:none;}.topbar-info{gap:10px;}.theme-toggle span{display:none;}}
 
 /* HEADER */
 .header{background:rgba(7,11,20,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--br);position:sticky;top:0;z-index:9999;}
-.nav-wrapper{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:16px;}
+.nav-wrapper{display:flex;align-items:center;justify-content:space-between;padding:16px 0;gap:20px;}
 .logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
-.logo img{height:44px;width:auto;}
-.logo-text{font-family:var(--disp);font-size:1.3rem;font-weight:700;color:var(--text);}
-.logo-text span{color:var(--cyan);}
-.logo-sub{font-family:var(--mono);font-size:0.6rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;}
 .nav-links{display:flex;list-style:none;gap:18px;align-items:center;}
 .nav-links a{font-family:var(--mono);font-size:0.72rem;text-transform:uppercase;letter-spacing:1px;color:var(--text2);text-decoration:none;transition:all 0.3s;position:relative;padding:4px 0;display:block;}
 .nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--cyan);transition:width 0.3s;box-shadow:0 0 8px var(--cyan);}
 .nav-links a:hover,.nav-links a.active{color:var(--cyan);}
 .nav-links a:hover::after,.nav-links a.active::after{width:100%;}
-.header-actions{display:flex;align-items:center;gap:10px;}
+.header-actions{display:flex;align-items:center;gap:20px;}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:4px;font-family:var(--mono);font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;text-decoration:none;cursor:pointer;transition:all 0.25s;border:none;}
 .btn-primary{background:var(--cyan);color:var(--bg);box-shadow:0 0 20px var(--cg);}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 36px var(--cg);}
 .btn-outline{background:transparent;color:var(--cyan);border:1px solid var(--cyan);}
 .btn-outline:hover{background:var(--cyan);color:var(--bg);}
 .btn-sm{padding:7px 14px;font-size:0.72rem;}
-.menu-toggle{display:none;background:none;border:1px solid var(--br);color:var(--text);padding:7px 11px;cursor:pointer;border-radius:4px;font-size:0.95rem;}
+.menu-toggle{display:none;min-width:44px;min-height:44px;align-items:center;justify-content:center;background:none;border:1px solid var(--br);border-radius:4px;color:var(--cyan);font-size:1.2rem;cursor:pointer;padding:0 10px;transition:all 0.2s;}
+.menu-toggle:hover{border-color:var(--cyan);background:rgba(56,182,255,0.08);}
+.nav-overlay{display:none;position:fixed;inset:0;background:rgba(7,11,20,0.7);z-index:9997;backdrop-filter:blur(2px);}
+.nav-overlay.active{display:block;}
+@media(max-width:640px){.header-actions .btn-outline{display:none;}}
 
 /* LIGHT MODE */
 body.light-mode{--bg:#F5F7FA;--bg2:#EAEEF3;--card:#FFF;--el:#E2E8F0;--cyan:#0077CC;--cg:rgba(0,119,204,0.18);--text:#0F1E2E;--text2:#3D5A73;--muted:#7A94A8;--br:rgba(0,119,204,0.15);--brh:rgba(0,119,204,0.35);}
 body.light-mode .header{background:rgba(234,238,243,0.92)!important;}
 body.light-mode .nav-links{background:var(--bg);}
 body.light-mode .nav-links a{color:var(--text);}
+body.light-mode .nav-overlay{background:rgba(180,200,220,0.7);}
 body.light-mode .review-card,.light-mode .submit-card{background:var(--card);}
 body.light-mode .footer{background:var(--bg2);}
 body.light-mode .menu-toggle{color:var(--text);}
@@ -193,19 +197,20 @@ body.light-mode input,body.light-mode textarea,body.light-mode select{background
 </head>
 <body>
 
+<div class="nav-overlay" id="navOverlay"></div>
 <div class="topbar">
   <div class="container topbar-inner">
-    <div class="tb-info">
-      <a href="tel:+2347067580599" class="tb-item"><i class="fas fa-phone"></i> +234 706 758 0599</a>
-      <a href="mailto:info@zionnetcomsolutionsltd.com.ng" class="tb-item"><i class="fas fa-envelope"></i> info@zionnetcomsolutionsltd.com.ng</a>
+    <div class="topbar-info">
+      <a href="tel:+2347067580599" class="tb-item tb-phone"><i class="fas fa-phone"></i><span class="tb-text"> +234 706 758 0599</span></a>
+      <a href="mailto:info@zionnetcomsolutionsltd.com.ng" class="tb-item tb-email"><i class="fas fa-envelope"></i><span class="tb-text"> info@zionnetcomsolutionsltd.com.ng</span></a>
     </div>
-    <div class="tb-right">
-      <div class="tb-social">
-        <a href="https://www.linkedin.com/company/zion-netcom-solutions-limited" target="_blank"><i class="fab fa-linkedin"></i></a>
-        <a href="https://www.youtube.com/@zionnetcomsolutionsltd" target="_blank"><i class="fab fa-youtube"></i></a>
-        <a href="https://www.instagram.com/zionnetcomsolutionsltd/" target="_blank"><i class="fab fa-instagram"></i></a>
+    <div class="topbar-right">
+      <div class="topbar-social">
+        <a href="https://www.linkedin.com/company/zion-netcom-solutions-limited" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.youtube.com/@zionnetcomsolutionsltd" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.instagram.com/zionnetcomsolutionsltd/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
       </div>
-      <button class="theme-btn" id="themeBtn"><i class="fas fa-sun" id="themeIcon"></i></button>
+      <button class="theme-toggle" id="themeBtn" aria-label="Toggle dark/light mode"><i class="fas fa-sun" id="themeIcon"></i></button>
     </div>
   </div>
 </div>
@@ -655,12 +660,28 @@ function showToast(msg, ok) {
 var menuToggle = document.getElementById('menuToggle');
 var menuIcon   = document.getElementById('menuIcon');
 var navLinks   = document.getElementById('navLinks');
+var navOverlay = document.getElementById('navOverlay');
 menuToggle.addEventListener('click', function() {
   var open = navLinks.classList.toggle('active');
   menuIcon.className = open ? 'fas fa-times' : 'fas fa-bars';
+  if (navOverlay) navOverlay.classList.toggle('active', open);
+  document.body.style.overflow = open ? 'hidden' : '';
 });
 navLinks.querySelectorAll('a').forEach(function(a) {
-  a.addEventListener('click', function(){ navLinks.classList.remove('active'); menuIcon.className='fas fa-bars'; });
+  a.addEventListener('click', function(){
+    navLinks.classList.remove('active');
+    menuIcon.className='fas fa-bars';
+    if (navOverlay) navOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  });
+});
+document.addEventListener('click', function(e) {
+  if (navLinks.classList.contains('active') && !navLinks.contains(e.target) && e.target !== menuToggle && !menuToggle.contains(e.target)) {
+    navLinks.classList.remove('active');
+    menuIcon.className = 'fas fa-bars';
+    if (navOverlay) navOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
 });
 var themeBtn  = document.getElementById('themeBtn');
 var themeIcon = document.getElementById('themeIcon');
