@@ -34,9 +34,11 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .logo-name{font-family:var(--disp);font-size:1.3rem;font-weight:700;color:var(--text);}
 .logo-name span{color:var(--cyan);}
 .logo-sub{font-family:var(--mono);font-size:0.6rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;}
-nav ul{display:flex;list-style:none;gap:6px;}
-nav ul a{font-family:var(--mono);font-size:0.72rem;font-weight:500;color:var(--text2);text-decoration:none;padding:7px 10px;border-radius:4px;transition:all 0.2s;text-transform:uppercase;letter-spacing:1px;display:block;}
-nav ul a:hover,nav ul a.active{color:var(--cyan);background:rgba(56,182,255,0.08);}
+nav ul{display:flex;list-style:none;gap:18px;align-items:center;}
+nav ul a{font-family:var(--mono);font-size:0.72rem;text-transform:uppercase;letter-spacing:1px;color:var(--text2);text-decoration:none;transition:all 0.3s;position:relative;padding:4px 0;display:block;}
+nav ul a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--cyan);transition:width 0.3s;box-shadow:0 0 8px var(--cyan);}
+nav ul a:hover,nav ul a.active{color:var(--cyan);}
+nav ul a:hover::after,nav ul a.active::after{width:100%;}
 .nav-actions{display:flex;align-items:center;gap:10px;}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:4px;font-family:var(--mono);font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;text-decoration:none;cursor:pointer;transition:all 0.25s;border:none;}
 .btn-p{background:var(--cyan);color:var(--bg);box-shadow:0 0 20px var(--cg);}
@@ -146,7 +148,7 @@ body.light .hero{background:linear-gradient(135deg,#EBF2FA,#F5F7FA,#E8EFF7)!impo
 .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--cyan);}
 .fg textarea{resize:vertical;min-height:62px;}
 .r2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-@media(max-width:480px){.r2{grid-template-columns:1fr;}}
+@media(max-width:480px){.wrap{width:96%;}.r2{grid-template-columns:1fr;}}
 .order-btns{display:flex;gap:10px;margin-top:16px;}
 .order-btns .btn{flex:1;justify-content:center;}
 .divider{display:flex;align-items:center;gap:10px;margin:13px 0;}
@@ -171,7 +173,8 @@ body.light .hero{background:linear-gradient(135deg,#EBF2FA,#F5F7FA,#E8EFF7)!impo
 .ind{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
 .rdo{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:0.67rem;color:var(--muted);}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
-@media(max-width:768px){.fg2{grid-template-columns:1fr 1fr;}.menu-btn{display:flex;}nav ul{display:none;position:fixed;inset:0;background:var(--bg);flex-direction:column;justify-content:center;align-items:center;z-index:9998;gap:20px;}nav ul.open{display:flex;}nav ul a{font-size:1rem;padding:10px 22px;}.nav-actions .btn{display:none;}.prod-grid{grid-template-columns:repeat(auto-fill,minmax(250px,1fr));}}
+@media(max-width:992px){.wrap{width:94%;}.menu-btn{display:flex;}nav ul{display:none;position:fixed;inset:0;background:var(--bg);flex-direction:column;justify-content:center;align-items:center;z-index:9998;gap:30px;}nav ul.open{display:flex;}.nav-actions .btn{display:none;}}
+@media(max-width:768px){.wrap{width:95%;}.fg2{grid-template-columns:1fr 1fr;}.prod-grid{grid-template-columns:repeat(auto-fill,minmax(250px,1fr));}}
 @media(max-width:480px){.fg2{grid-template-columns:1fr;}.fbot{flex-direction:column;gap:7px;}.prod-grid{grid-template-columns:1fr;}}
 /* QUICK VIEW MODAL */
 .img-carousel{cursor:pointer;}
@@ -248,11 +251,10 @@ body.light .qv-box,body.light .qv-thumbs{background:var(--card);}
 <header class="header">
   <div class="wrap nav-wrap">
     <a href="index.html" class="logo">
-      <img src="zion.jpg" alt="Zion Netcom">
-      <div><div class="logo-name">ZION<span>NETCOM</span></div><div class="logo-sub">Solutions Limited</div></div>
+      <img src="zion.jpg" alt="Zion Netcom Solutions" style="height: 48px; width: auto; display: block;">
     </a>
     <nav>
-      <ul id="navMenu">
+      <ul class="nav-links" id="navMenu">
         <li><a href="index.html">Home</a></li>
         <li><a href="services.html">Solutions</a></li>
         <li><a href="projects.html">Projects</a></li>
@@ -265,7 +267,7 @@ body.light .qv-box,body.light .qv-thumbs{background:var(--card);}
       </ul>
     </nav>
     <div class="nav-actions">
-      <a href="contact.html" class="btn btn-p btn-sm">Get Quote</a>
+      <a href="contact.html" class="btn btn-p">Get Quote</a>
       <button class="menu-btn" id="menuBtn"><i class="fas fa-bars" id="menuIcon"></i></button>
     </div>
   </div>

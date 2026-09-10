@@ -46,9 +46,11 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .logo-text{font-family:var(--disp);font-size:1.3rem;font-weight:700;color:var(--text);}
 .logo-text span{color:var(--cyan);}
 .logo-sub{font-family:var(--mono);font-size:0.6rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;}
-.nav-links{display:flex;list-style:none;gap:4px;}
-.nav-links a{font-family:var(--mono);font-size:0.72rem;font-weight:500;color:var(--text2);text-decoration:none;padding:7px 10px;border-radius:4px;transition:all 0.2s;text-transform:uppercase;letter-spacing:1px;display:block;}
-.nav-links a:hover,.nav-links a.active{color:var(--cyan);background:rgba(56,182,255,0.08);}
+.nav-links{display:flex;list-style:none;gap:18px;align-items:center;}
+.nav-links a{font-family:var(--mono);font-size:0.72rem;text-transform:uppercase;letter-spacing:1px;color:var(--text2);text-decoration:none;transition:all 0.3s;position:relative;padding:4px 0;display:block;}
+.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--cyan);transition:width 0.3s;box-shadow:0 0 8px var(--cyan);}
+.nav-links a:hover,.nav-links a.active{color:var(--cyan);}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%;}
 .header-actions{display:flex;align-items:center;gap:10px;}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:4px;font-family:var(--mono);font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;text-decoration:none;cursor:pointer;transition:all 0.25s;border:none;}
 .btn-primary{background:var(--cyan);color:var(--bg);box-shadow:0 0 20px var(--cg);}
@@ -184,8 +186,9 @@ body.light-mode input,body.light-mode textarea,body.light-mode select{background
 .toast{position:fixed;bottom:20px;right:20px;background:var(--card);border:1px solid var(--brh);border-radius:8px;padding:12px 18px;font-size:0.84rem;color:var(--text);z-index:999999;transform:translateY(60px);opacity:0;transition:all 0.3s;pointer-events:none;max-width:290px;}
 .toast.show{transform:translateY(0);opacity:1;}
 @media(max-width:1024px){.submit-wrap{grid-template-columns:1fr;gap:32px;}.footer-grid{grid-template-columns:1fr 1fr;}}
-@media(max-width:768px){.stats-strip{flex-wrap:wrap;}.stat-item{flex:1 1 45%;}.reviews-grid{grid-template-columns:1fr;}.menu-toggle{display:flex;}.nav-links{display:none;position:fixed;inset:0;background:var(--bg);flex-direction:column;justify-content:center;align-items:center;z-index:9998;gap:22px;}.nav-links.active{display:flex;}.nav-links a{font-size:1rem;padding:10px 24px;}.header-actions .btn-primary{display:none;}.filter-strip{top:73px;}}
-@media(max-width:480px){.r2{grid-template-columns:1fr;}.footer-grid{grid-template-columns:1fr;}.footer-bottom{flex-direction:column;gap:7px;}.stat-item{flex:1 1 100%;}}
+@media(max-width:992px){.container{width:94%;}.menu-toggle{display:flex;}.nav-links{display:none;position:fixed;inset:0;background:var(--bg);flex-direction:column;justify-content:center;align-items:center;z-index:9998;gap:30px;}.nav-links.active{display:flex;}.header-actions .btn-primary{display:none;}}
+@media(max-width:768px){.container{width:95%;}.stats-strip{flex-wrap:wrap;}.stat-item{flex:1 1 45%;}.reviews-grid{grid-template-columns:1fr;}.filter-strip{top:73px;}}
+@media(max-width:480px){.container{width:96%;}.r2{grid-template-columns:1fr;}.footer-grid{grid-template-columns:1fr;}.footer-bottom{flex-direction:column;gap:7px;}.stat-item{flex:1 1 100%;}}
 </style>
 </head>
 <body>
@@ -210,8 +213,7 @@ body.light-mode input,body.light-mode textarea,body.light-mode select{background
 <header class="header">
   <div class="container nav-wrapper">
     <a href="index.html" class="logo">
-      <img src="zion.jpg" alt="Zion Netcom Solutions">
-      <div><div class="logo-text">ZION<span>NETCOM</span></div><div class="logo-sub">Solutions Limited</div></div>
+      <img src="zion.jpg" alt="Zion Netcom Solutions" style="height: 48px; width: auto; display: block;">
     </a>
     <nav>
       <ul class="nav-links" id="navLinks">
@@ -227,7 +229,7 @@ body.light-mode input,body.light-mode textarea,body.light-mode select{background
       </ul>
     </nav>
     <div class="header-actions">
-      <a href="contact.html" class="btn btn-primary btn-sm">Get Quote</a>
+      <a href="contact.html" class="btn btn-primary">Get Quote</a>
       <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars" id="menuIcon"></i></button>
     </div>
   </div>
