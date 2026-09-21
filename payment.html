@@ -1405,6 +1405,8 @@ if (window.supabase) {
 }
 
 async function logPaymentToSupabase({ name, email, phone, purpose, refNote, amountNaira, reference }) {
+    // Visitor tracking: link this visitor to the customer who just paid
+    if (window.ZNTrack) ZNTrack.identify({ name: name, email: email, phone: phone, source: 'payment' });
     if (!supabaseClient) {
         console.warn('Supabase is not configured yet — this payment was not logged to the dashboard. See setup notes.');
         return;
@@ -1582,5 +1584,6 @@ payForm.addEventListener('submit', function (e) {
     handler.openIframe();
 });
 </script>
+<script src="zn-core.js" defer></script>
 </body>
 </html>

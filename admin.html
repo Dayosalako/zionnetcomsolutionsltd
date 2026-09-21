@@ -315,6 +315,7 @@ select option{background:var(--card);}
       <button class="tab-btn" data-tab="store"><i class="fas fa-store"></i> Store</button>
       <button class="tab-btn" data-tab="reviews"><i class="fas fa-star"></i> Reviews</button>
       <button class="tab-btn" data-tab="blog"><i class="fas fa-pen-nib"></i> Blog</button>
+      <button class="tab-btn" data-tab="visitors"><i class="fas fa-chart-column"></i> Visitors</button>
       <button class="tab-btn" data-tab="overview"><i class="fas fa-tachometer-alt"></i> Overview</button>
     </div>
 
@@ -682,6 +683,8 @@ select option{background:var(--card);}
     </div>
 
     <!-- OVERVIEW -->
+    <div class="tab-panel" id="tab-visitors"><div id="zv-root"></div></div>
+
     <div class="tab-panel" id="tab-overview">
       <div class="g3" style="margin-bottom:18px;">
         <div class="stat-sm"><div class="sv" id="ov-cl">0</div><div class="sl">Clients Saved</div></div>
@@ -849,6 +852,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     if (name === 'store') initStore();
     if (name === 'reviews') initReviews();
     if (name === 'blog') initBlog();
+    if (name === 'visitors' && window.ZVisitors) ZVisitors.init();
   });
 });
 
@@ -1990,6 +1994,7 @@ async function deleteRv(id){ if(!confirm('Permanently delete this review? This c
 // ═══ INIT ═══
 checkSession();
 </script>
+<script src="admin-visitors.js"></script>
 </body>
 </html>
 
