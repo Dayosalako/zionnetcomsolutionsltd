@@ -722,6 +722,41 @@
         }
         .modal-field input:focus, .modal-field select:focus, .modal-field textarea:focus { border-color: var(--cyan); }
         .modal-field textarea { min-height: 260px; resize: vertical; font-size: 0.88rem; line-height: 1.7; }
+
+        /* COVER IMAGE UPLOADER */
+        .cover-upload { position: relative; }
+        .cover-drop {
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+            border: 1.5px dashed var(--border-subtle); border-radius: 10px; padding: 28px 16px;
+            cursor: pointer; text-align: center; transition: border-color 0.2s, background 0.2s;
+            background: var(--bg-elevated);
+        }
+        .cover-drop:hover, .cover-drop.dragover { border-color: var(--cyan); background: rgba(56,182,255,0.05); }
+        .cover-drop i { font-size: 1.6rem; color: var(--cyan-dim); }
+        .cover-drop span { font-size: 0.85rem; color: var(--text-secondary); }
+        .cover-drop small { font-size: 0.7rem; color: var(--text-muted); max-width: 320px; }
+        .cover-preview { position: relative; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-subtle); margin-bottom: 10px; }
+        .cover-preview img { display: block; width: 100%; height: 190px; object-fit: cover; }
+        .cover-remove {
+            position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%;
+            background: rgba(7,11,20,0.75); color: #fff; border: 1px solid rgba(255,255,255,0.25);
+            cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.85rem;
+            backdrop-filter: blur(4px); transition: background 0.2s;
+        }
+        .cover-remove:hover { background: #FF6B6B; border-color: #FF6B6B; }
+        .cover-uploading { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--cyan); padding: 14px; justify-content: center; }
+
+        /* INLINE IMAGE BUTTON + HINTS */
+        .btn-insert-img {
+            font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.5px;
+            background: transparent; border: 1px solid var(--border-subtle); color: var(--cyan);
+            padding: 7px 12px; border-radius: 6px; cursor: pointer; white-space: nowrap; transition: all 0.2s;
+        }
+        .btn-insert-img:hover { border-color: var(--cyan); background: rgba(56,182,255,0.08); }
+        .btn-insert-img:disabled { opacity: 0.5; cursor: default; }
+        .content-hint { display: block; font-size: 0.72rem; color: var(--text-muted); margin-top: 8px; line-height: 1.6; }
+        .content-hint code { font-family: var(--font-mono); background: var(--bg-elevated); padding: 1px 5px; border-radius: 4px; }
+
         .modal-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 8px; }
         .modal-save { font-family: var(--font-mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; padding: 12px 24px; background: var(--cyan); color: var(--bg-primary); border: none; cursor: pointer; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; transition: all 0.25s; }
         .modal-save:hover { box-shadow: 0 0 24px var(--cyan-glow); }
@@ -795,6 +830,7 @@
                     <span class="section-label">Content Management</span>
                     <h1>Blog Dashboard</h1>
                 </div>
+                <button class="btn btn-primary" onclick="openNew()" style="align-self:center;"><i class="fas fa-plus"></i> New Post</button>
             </div>
 
             <!-- STATS -->
@@ -851,10 +887,27 @@
 <div class="modal-overlay" id="edit-modal">
     <div class="modal-card">
         <div class="modal-header">
-            <h3>Edit Post</h3>
+            <h3 id="modal-title">Edit Post</h3>
             <button class="modal-close" onclick="closeModal()"><i class="fas fa-xmark"></i></button>
         </div>
         <input type="hidden" id="edit-id">
+        <div class="modal-field">
+            <label>Cover Image</label>
+            <div class="cover-upload" id="cover-upload">
+                <div class="cover-preview" id="cover-preview" style="display:none;">
+                    <img id="cover-preview-img" src="" alt="">
+                    <button type="button" class="cover-remove" id="cover-remove" title="Remove cover image"><i class="fas fa-xmark"></i></button>
+                </div>
+                <label class="cover-drop" id="cover-drop">
+                    <i class="fas fa-image"></i>
+                    <span>Click to upload a cover photo</span>
+                    <small>PNG, JPEG, WebP or GIF · up to 8 MB · shown on the blog list and at the top of the post</small>
+                    <input type="file" id="cover-file" accept="image/png,image/jpeg,image/webp,image/gif" hidden>
+                </label>
+                <div class="cover-uploading" id="cover-uploading" style="display:none;"><i class="fas fa-spinner fa-spin"></i> Uploading…</div>
+            </div>
+            <input type="hidden" id="edit-cover-url">
+        </div>
         <div class="modal-field">
             <label>Title</label>
             <input type="text" id="edit-title">
@@ -877,19 +930,26 @@
             </select>
         </div>
         <div class="modal-field">
-            <label>Cover Emoji</label>
+            <label>Cover Emoji <small style="color:var(--text-muted);font-weight:400;">(shown if there's no cover photo)</small></label>
             <input type="text" id="edit-emoji" style="width:80px;">
         </div>
         <div class="modal-field">
-            <label>Content (plain paragraphs, double line break between sections)</label>
+            <label style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+                <span>Content (plain paragraphs, double line break between sections)</span>
+                <button type="button" class="btn-insert-img" id="insert-img-btn"><i class="fas fa-image"></i> Insert image</button>
+            </label>
             <textarea id="edit-content"></textarea>
+            <input type="file" id="inline-file" accept="image/png,image/jpeg,image/webp,image/gif" hidden>
+            <small class="content-hint" id="inline-uploading" style="display:none;"><i class="fas fa-spinner fa-spin"></i> Uploading image…</small>
+            <small class="content-hint">Tip: place the cursor where you want a photo, then click "Insert image". Add a short caption between the square brackets, e.g. <code>![Fibre splicing at our Kaduna site](...)</code>.</small>
         </div>
         <div class="modal-actions">
             <button class="modal-cancel" onclick="closeModal()">Cancel</button>
-            <button class="modal-save" onclick="savePost()"><i class="fas fa-floppy-disk"></i> Save Changes</button>
+            <button class="modal-save" id="save-btn" onclick="savePost()"><i class="fas fa-floppy-disk"></i> <span id="save-btn-label">Save Changes</span></button>
         </div>
     </div>
 </div>
+
 
 <!-- TOAST -->
 <div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toast-msg"></span></div>
@@ -902,6 +962,159 @@ const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 let currentFilter = 'all';
 let allPosts = [];
+
+// ===== IMAGES (cover photo + inline photos, stored in Supabase Storage) =====
+const IMG_BUCKET = 'blog-images';
+
+function slugifyFilename(name) {
+    return (name || 'image').toLowerCase().replace(/\.[a-z0-9]+$/i, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40) || 'image';
+}
+function extFor(mime) {
+    return { 'image/png': 'png', 'image/jpeg': 'jpg', 'image/webp': 'webp', 'image/gif': 'gif' }[mime] || 'jpg';
+}
+
+// Shrinks large photos in the browser before upload (keeps the site fast and storage usage low).
+// GIFs are left untouched so animation isn't lost. Small images are left untouched too.
+function resizeImage(file, maxDim) {
+    return new Promise((resolve, reject) => {
+        if (file.type === 'image/gif') return resolve(file);
+        const img = new Image();
+        const url = URL.createObjectURL(file);
+        img.onload = () => {
+            URL.revokeObjectURL(url);
+            const { width, height } = img;
+            if (width <= maxDim && height <= maxDim) return resolve(file);
+            const scale = maxDim / Math.max(width, height);
+            const w = Math.max(1, Math.round(width * scale)), h = Math.max(1, Math.round(height * scale));
+            const canvas = document.createElement('canvas'); canvas.width = w; canvas.height = h;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, w, h);
+            const outType = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
+            canvas.toBlob(blob => {
+                if (!blob) return reject(new Error('Could not process that image.'));
+                // A resize occasionally comes out larger than the original (flat-color PNGs, mostly) — never make it worse.
+                resolve(blob.size < file.size ? blob : file);
+            }, outType, 0.82);
+        };
+        img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('Could not read that image file.')); };
+        img.src = url;
+    });
+}
+
+async function uploadImage(file, folder, maxDim) {
+    if (!file) return null;
+    if (!/^image\/(png|jpeg|webp|gif)$/.test(file.type)) throw new Error('Please choose a PNG, JPEG, WebP or GIF image.');
+    if (file.size > 8 * 1024 * 1024) throw new Error("That image is larger than 8 MB — please choose a smaller one.");
+    const processed = await resizeImage(file, maxDim);
+    const mime = processed.type || file.type;
+    const path = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}-${slugifyFilename(file.name)}.${extFor(mime)}`;
+    const { error } = await db.storage.from(IMG_BUCKET).upload(path, processed, { cacheControl: '31536000', upsert: false, contentType: mime });
+    if (error) {
+        if (/bucket.*not.*found/i.test(error.message || '')) {
+            throw new Error('Image storage isn\'t set up yet. Open Supabase → SQL Editor, run database/blog-images-storage-setup.sql, then try again.');
+        }
+        throw new Error(error.message || 'Upload failed.');
+    }
+    const { data } = db.storage.from(IMG_BUCKET).getPublicUrl(path);
+    return { url: data.publicUrl, path };
+}
+
+function storagePathFromUrl(url) {
+    const marker = `/storage/v1/object/public/${IMG_BUCKET}/`;
+    const i = (url || '').indexOf(marker);
+    return i === -1 ? null : url.slice(i + marker.length);
+}
+async function deleteImage(url) {
+    const path = storagePathFromUrl(url);
+    if (!path) return;
+    try { await db.storage.from(IMG_BUCKET).remove([path]); } catch (e) { /* best-effort cleanup only */ }
+}
+
+// ---- cover photo UI ----
+const coverFileInput = document.getElementById('cover-file');
+const coverDrop = document.getElementById('cover-drop');
+const coverPreview = document.getElementById('cover-preview');
+const coverPreviewImg = document.getElementById('cover-preview-img');
+const coverUploading = document.getElementById('cover-uploading');
+const coverUrlInput = document.getElementById('edit-cover-url');
+const saveBtn = document.getElementById('save-btn');
+
+function showCoverPreview(url) {
+    coverPreviewImg.src = url;
+    coverPreview.style.display = '';
+    coverDrop.style.display = 'none';
+}
+function hideCoverPreview() {
+    coverPreview.style.display = 'none';
+    coverDrop.style.display = '';
+    coverPreviewImg.src = '';
+}
+
+async function handleCoverFile(file) {
+    if (!file) return;
+    coverDrop.style.display = 'none'; coverPreview.style.display = 'none'; coverUploading.style.display = 'flex';
+    saveBtn.disabled = true;
+    const oldUrl = coverUrlInput.value;
+    try {
+        const { url } = await uploadImage(file, 'covers', 1600);
+        coverUrlInput.value = url;
+        showCoverPreview(url);
+        if (oldUrl) deleteImage(oldUrl);   // replace: quietly clean up the photo it's replacing
+    } catch (e) {
+        showToast(e.message, true);
+        if (coverUrlInput.value) showCoverPreview(coverUrlInput.value); else hideCoverPreview();
+    } finally {
+        coverUploading.style.display = 'none'; saveBtn.disabled = false; coverFileInput.value = '';
+    }
+}
+coverFileInput.addEventListener('change', () => handleCoverFile(coverFileInput.files[0]));
+['dragover', 'dragleave', 'drop'].forEach(evt => coverDrop.addEventListener(evt, e => {
+    e.preventDefault();
+    coverDrop.classList.toggle('dragover', evt === 'dragover');
+    if (evt === 'drop' && e.dataTransfer.files[0]) handleCoverFile(e.dataTransfer.files[0]);
+}));
+document.getElementById('cover-remove').addEventListener('click', () => {
+    const url = coverUrlInput.value;
+    coverUrlInput.value = '';
+    hideCoverPreview();
+    if (url) deleteImage(url);
+});
+
+// ---- inline photo (inside the post body) UI ----
+const insertImgBtn = document.getElementById('insert-img-btn');
+const inlineFileInput = document.getElementById('inline-file');
+const inlineUploading = document.getElementById('inline-uploading');
+const contentArea = document.getElementById('edit-content');
+let savedCursorPos = null;
+
+insertImgBtn.addEventListener('click', () => {
+    savedCursorPos = contentArea.selectionStart != null ? contentArea.selectionStart : contentArea.value.length;
+    inlineFileInput.click();
+});
+inlineFileInput.addEventListener('change', async () => {
+    const file = inlineFileInput.files[0];
+    if (!file) return;
+    insertImgBtn.disabled = true; inlineUploading.style.display = 'inline-flex'; saveBtn.disabled = true;
+    try {
+        const { url } = await uploadImage(file, 'inline', 1400);
+        const pos = savedCursorPos != null ? savedCursorPos : contentArea.value.length;
+        const before = contentArea.value.slice(0, pos);
+        const after = contentArea.value.slice(pos);
+        const breakBefore = before && !before.endsWith('\n\n') ? (before.endsWith('\n') ? '\n' : '\n\n') : '';
+        const breakAfter = after && !after.startsWith('\n\n') ? (after.startsWith('\n') ? '\n' : '\n\n') : '';
+        const insertion = breakBefore + '![](' + url + ')' + breakAfter;
+        contentArea.value = before + insertion + after;
+        const caret = before.length + breakBefore.length + 2;   // lands between the [ ] so a caption can be typed right away
+        contentArea.focus();
+        contentArea.setSelectionRange(caret, caret);
+    } catch (e) {
+        showToast(e.message, true);
+    } finally {
+        insertImgBtn.disabled = false; inlineUploading.style.display = 'none'; saveBtn.disabled = false; inlineFileInput.value = '';
+    }
+});
+
 
 // ===== AUTH =====
 async function checkSession() {
@@ -1042,9 +1255,24 @@ async function deletePost(id) {
 }
 
 // ===== EDIT MODAL =====
+function resetModalFields() {
+    document.getElementById('edit-id').value = '';
+    document.getElementById('edit-title').value = '';
+    document.getElementById('edit-slug').value = '';
+    document.getElementById('edit-excerpt').value = '';
+    document.getElementById('edit-topic').value = 'Tech & ICT News in Nigeria';
+    document.getElementById('edit-emoji').value = '🖥️';
+    document.getElementById('edit-content').value = '';
+    document.getElementById('edit-cover-url').value = '';
+    hideCoverPreview();
+}
+
 function openEdit(id) {
     const post = allPosts.find(p => p.id === id);
     if (!post) return;
+    resetModalFields();
+    document.getElementById('modal-title').textContent = 'Edit Post';
+    document.getElementById('save-btn-label').textContent = 'Save Changes';
     document.getElementById('edit-id').value = post.id;
     document.getElementById('edit-title').value = post.title;
     document.getElementById('edit-slug').value = post.slug;
@@ -1052,8 +1280,19 @@ function openEdit(id) {
     document.getElementById('edit-topic').value = post.topic || '';
     document.getElementById('edit-emoji').value = post.cover_emoji || '🖥️';
     document.getElementById('edit-content').value = post.content;
+    document.getElementById('edit-cover-url').value = post.cover_image_url || '';
+    if (post.cover_image_url) showCoverPreview(post.cover_image_url); else hideCoverPreview();
     document.getElementById('edit-modal').classList.add('active');
     document.body.style.overflow = 'hidden';
+}
+
+function openNew() {
+    resetModalFields();
+    document.getElementById('modal-title').textContent = 'New Post';
+    document.getElementById('save-btn-label').textContent = 'Create Draft';
+    document.getElementById('edit-modal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('edit-title').focus();
 }
 
 function closeModal() {
@@ -1063,20 +1302,36 @@ function closeModal() {
 
 async function savePost() {
     const id = document.getElementById('edit-id').value;
+    const isNew = !id;
     const updates = {
         title: document.getElementById('edit-title').value.trim(),
-        slug: document.getElementById('edit-slug').value.trim(),
+        slug: document.getElementById('edit-slug').value.trim().toLowerCase(),
         excerpt: document.getElementById('edit-excerpt').value.trim(),
         topic: document.getElementById('edit-topic').value,
-        cover_emoji: document.getElementById('edit-emoji').value.trim(),
+        cover_emoji: document.getElementById('edit-emoji').value.trim() || '🖥️',
+        cover_image_url: document.getElementById('edit-cover-url').value.trim() || null,
         content: document.getElementById('edit-content').value.trim(),
     };
     if (!updates.title || !updates.slug || !updates.content) {
         showToast('Title, slug, and content are required.', true); return;
     }
-    const { error } = await db.from('blog_posts').update(updates).eq('id', id);
-    if (!error) { showToast('Changes saved!'); closeModal(); loadAllPosts(); }
-    else showToast('Error saving: ' + error.message, true);
+    if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(updates.slug)) {
+        showToast('Slug can only contain lowercase letters, numbers and hyphens (e.g. my-post-title).', true); return;
+    }
+    const saveBtn = document.getElementById('save-btn');
+    saveBtn.disabled = true;
+    const { error } = isNew
+        ? await db.from('blog_posts').insert({ ...updates, status: 'draft' })
+        : await db.from('blog_posts').update(updates).eq('id', id);
+    saveBtn.disabled = false;
+    if (!error) {
+        showToast(isNew ? 'Draft created! Find it under Drafts to review and publish.' : 'Changes saved!');
+        closeModal(); loadAllPosts();
+    } else if (/duplicate key|unique constraint/i.test(error.message || '')) {
+        showToast('That slug is already used by another post — please choose a different one.', true);
+    } else {
+        showToast('Error saving: ' + error.message, true);
+    }
 }
 
 // Close modal on overlay click

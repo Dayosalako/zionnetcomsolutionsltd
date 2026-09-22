@@ -635,6 +635,26 @@
             display: block;
             margin-bottom: 28px;
         }
+        .post-hero .post-cover-img {
+            display: block;
+            width: 100%;
+            max-width: 900px;
+            height: min(420px, 46vw);
+            object-fit: cover;
+            border-radius: 14px;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.35), 0 0 40px var(--cyan-glow);
+            margin: 0 auto 32px;
+        }
+        .post-content figure.post-img { margin: 2em 0; }
+        .post-content figure.post-img img {
+            display: block; width: 100%; max-height: 560px; object-fit: cover;
+            border-radius: 10px; border: 1px solid var(--border-subtle);
+        }
+        .post-content figure.post-img figcaption {
+            font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-muted);
+            text-align: center; margin-top: 10px; line-height: 1.5;
+        }
         .post-hero .post-topic-tag {
             display: inline-flex; align-items: center; gap: 8px;
             font-family: var(--font-mono); font-size: 0.72rem;
@@ -919,15 +939,24 @@ function readingTime(text) {
     return Math.max(1, Math.round(words / 200)) + ' min read';
 }
 
+function escHtml(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
 function contentToHtml(text) {
-    // Split on double newlines for paragraphs; handle basic markdown-like headings
+    // Split on double newlines for paragraphs; handle basic markdown-like headings and images
     return text.split(/\n\n+/).map(block => {
         block = block.trim();
         if (!block) return '';
-        if (block.startsWith('## ')) return `<h2>${block.slice(3)}</h2>`;
-        if (block.startsWith('# ')) return `<h2>${block.slice(2)}</h2>`;
-        if (block.startsWith('### ')) return `<h3>${block.slice(4)}</h3>`;
-        return `<p>${block.replace(/\n/g, '<br>')}</p>`;
+        if (block.startsWith('### ')) return `<h3>${escHtml(block.slice(4))}</h3>`;
+        if (block.startsWith('## ')) return `<h2>${escHtml(block.slice(3))}</h2>`;
+        if (block.startsWith('# ')) return `<h2>${escHtml(block.slice(2))}</h2>`;
+        const img = block.match(/^!\[([^\]]*)\]\((https?:\/\/[^\s)]+)\)$/);
+        if (img) {
+            const [, alt, url] = img;
+            return `<figure class="post-img"><img src="${escHtml(url)}" alt="${escHtml(alt)}" loading="lazy">${alt ? `<figcaption>${escHtml(alt)}</figcaption>` : ''}</figure>`;
+        }
+        return `<p>${escHtml(block).replace(/\n/g, '<br>')}</p>`;
     }).join('\n');
 }
 
@@ -969,11 +998,14 @@ async function loadPost() {
     document.title = `${post.title} | Zion Netcom Blog`;
 
     // Render hero
+    const coverOk = post.cover_image_url && /^https?:\/\//.test(post.cover_image_url);
     document.getElementById('post-hero').innerHTML = `
         <div class="container">
-            <span class="post-emoji">${post.cover_emoji || '🖥️'}</span>
-            <span class="post-topic-tag"><i class="fas ${topicIcon(post.topic)}"></i>${post.topic || 'Technology'}</span>
-            <h1>${post.title}</h1>
+            ${coverOk
+                ? `<img class="post-cover-img" src="${escHtml(post.cover_image_url)}" alt="">`
+                : `<span class="post-emoji">${post.cover_emoji || '🖥️'}</span>`}
+            <span class="post-topic-tag"><i class="fas ${topicIcon(post.topic)}"></i>${escHtml(post.topic || 'Technology')}</span>
+            <h1>${escHtml(post.title)}</h1>
             <div class="post-meta">
                 <span><i class="fas fa-calendar-days"></i>${formatDate(post.published_at)}</span>
                 <span><i class="fas fa-clock"></i>${readingTime(post.content)}</span>
@@ -1009,7 +1041,7 @@ async function loadPost() {
         if (related && related.length > 0) {
             document.getElementById('related-posts-card').style.display = '';
             document.getElementById('related-posts-list').innerHTML = related.map(r =>
-                `<a class="related-post-link" href="post.html?slug=${encodeURIComponent(r.slug)}">${r.title}</a>`
+                `<a class="related-post-link" href="post.html?slug=${encodeURIComponent(r.slug)}">${escHtml(r.title)}</a>`
             ).join('');
         }
     }
