@@ -238,6 +238,14 @@ select option{background:var(--card);}
 .ra-stars .s-empty  { color: var(--el); }
 
 </style>
+    <!-- Installable app (Zion Admin) -->
+    <link rel="manifest" href="admin.webmanifest">
+    <meta name="theme-color" content="#070B14">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Zion Admin">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="icons/admin-apple-touch-icon.png">
 </head>
 <body>
 
@@ -1995,6 +2003,7 @@ async function deleteRv(id){ if(!confirm('Permanently delete this review? This c
 checkSession();
 </script>
 <script src="admin-visitors.js"></script>
+<script src="zn-app.js" defer></script>
 </body>
 </html>
 

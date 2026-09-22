@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#070B14">
+<title>You're offline | Zion Netcom</title>
+<style>
+  :root{color-scheme:dark}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:#070B14;color:#E8F4F8;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;align-items:center;justify-content:center;padding:24px;
+       background-image:linear-gradient(rgba(56,182,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(56,182,255,.06) 1px,transparent 1px);background-size:40px 40px}
+  .box{max-width:420px;width:100%;text-align:center;background:#111827;border:1px solid rgba(56,182,255,.18);border-radius:14px;padding:36px 28px;box-shadow:0 0 60px rgba(56,182,255,.08)}
+  img{width:84px;height:84px;border-radius:20px;margin-bottom:22px}
+  h1{font-size:1.45rem;margin-bottom:10px}
+  p{color:#8BA3B8;line-height:1.7;font-size:.95rem;margin-bottom:22px}
+  .row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+  a,button{font:inherit;font-weight:600;font-size:.88rem;padding:12px 22px;border-radius:8px;cursor:pointer;text-decoration:none;border:1px solid #38B6FF;transition:transform .15s}
+  button{background:#38B6FF;color:#070B14}
+  a{background:transparent;color:#38B6FF}
+  button:active,a:active{transform:scale(.97)}
+  small{display:block;margin-top:20px;color:#4A6070;font-size:.76rem}
+</style>
+</head>
+<body>
+  <main class="box">
+    <img src="icons/icon-192.png" alt="Zion Netcom">
+    <h1>You're offline</h1>
+    <p>We can't reach the internet right now. Pages you've already opened still work. Check your connection and try again.</p>
+    <div class="row">
+      <button onclick="location.reload()">Try again</button>
+      <a href="tel:+2347067580599">Call us</a>
+    </div>
+    <small>Zion Netcom Solutions Limited &middot; Kaduna</small>
+  </main>
+  <script>window.addEventListener('online', function () { location.reload(); });</script>
+</body>
+</html>

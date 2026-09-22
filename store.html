@@ -228,6 +228,14 @@ body.light .qv-box,body.light .qv-thumbs{background:var(--card);}
 .lb-arrow.next{right:20px;}
 @media(max-width:600px){.lb-arrow{width:36px;height:36px;}}
 </style>
+    <!-- Installable app (Zion Netcom) -->
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#070B14">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Zion Netcom">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 </head>
 <body>
 
@@ -775,5 +783,6 @@ document.addEventListener('keydown', function(e) {
 loadProducts();
 </script>
 <script src="zn-core.js" defer></script>
+<script src="zn-app.js" defer></script>
 </body>
 </html>

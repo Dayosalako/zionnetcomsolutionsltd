@@ -1,0 +1,25 @@
+{
+  "id": "/",
+  "name": "Zion Netcom Solutions",
+  "short_name": "Zion Netcom",
+  "description": "Fiber, networks, IoT and web solutions in Kaduna. Services, store, payments and support in one app.",
+  "start_url": "/index.html?utm_source=app",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#070B14",
+  "theme_color": "#070B14",
+  "lang": "en-NG",
+  "dir": "ltr",
+  "categories": ["business", "utilities"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Make Payment", "short_name": "Pay", "url": "/payment.html", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Contact Us", "short_name": "Contact", "url": "/contact.html", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Our Solutions", "short_name": "Solutions", "url": "/services.html", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Store", "short_name": "Store", "url": "/store.html", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}

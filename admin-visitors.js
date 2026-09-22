@@ -603,4 +603,11 @@
   }
 
   window.ZVisitors = { init: init, _state: st, _compute: compute, _render: render };
+
+  // Home-screen shortcuts of the installed Admin app open e.g. /admin.html#visitors — jump to that tab
+  try {
+    var h = (location.hash || '').replace('#', '');
+    var tb = h && document.querySelector('.tab-btn[data-tab="' + h.replace(/[^a-z-]/gi, '') + '"]');
+    if (tb) tb.click();
+  } catch (e) {}
 })();
